@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 4 & Angular 7
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+Renew Support: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<!-- begin::Head -->
+<head>
+    <meta charset="utf-8"/>
+    <title>GRisk</title>
+    <meta name="description" content="GRisk Login">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!--begin::Fonts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+    <script>
+        WebFont.load({
+            google: {
+                "families": ["Poppins:300,400,500,600,700", "Roboto:300,400,500,600,700"]
+            },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!--end::Fonts -->
+
+    <!--begin::Page Custom Styles(used by this page) -->
+    <link th:href="@{/login/css/login-4.css}" rel="stylesheet" type="text/css"/>
+
+    <!--end::Page Custom Styles -->
+
+    <!--begin::Global Theme Styles(used by all pages) -->
+    <link th:href="@{/login/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
+
+    <!--end::Global Theme Styles -->
+
+    <!--end::Layout Skins -->
+    <link rel="shortcut icon" th:href="@{/favicon.ico}">
+</head>
+
+<!-- end::Head -->
+
+<!-- begin::Body -->
+<body class="kt-quick-panel--right kt-demo-panel--right kt-offcanvas-panel--right kt-header--fixed kt-header-mobile--fixed kt-subheader--fixed kt-subheader--enabled kt-subheader--solid kt-aside--enabled kt-aside--fixed kt-page--loading">
+
+<!-- begin:: Page -->
+<div class="kt-grid kt-grid--ver kt-grid--root">
+    <div class="kt-grid kt-grid--hor kt-grid--root  kt-login kt-login--v4 kt-login--signin" id="kt_login">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
+             th:style="'background:url(' + @{/images/bg-2.jpg} + ');'">
+            <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
+                <div class="kt-login__container">
+                    <div class="kt-login__logo" style="margin: 0 auto 6rem auto">
+                        <a href="#">
+                            <img alt="" th:src="@{/images/grisk-reverse.png}" style=" width: 10rem;
+                            background-size: cover;">
+                        </a>
+                    </div>
+                    <div class="kt-login__signin">
+                        <div class="">
+                            <h1 class="" style="text-align: center;font-size: 5rem;font-weight: 500;color: #7c0acd;">Código 500</h1>
+                        </div>
+                    </div>
+                    <div class="kt-login__signin">
+                        <div class="kt-login__head">
+                            <h3 class="kt-login__title">Lo sentimos, ha ocurrido un problema interno inesperado.</h3>
+                        </div>
+                    </div>
+                    <div class="kt-form" style="margin: 6rem auto 0 auto">
+                        <div class="kt-login__actions">
+                            <button id="kt_redirect_login"
+                                    class="btn btn-brand btn-pill kt-login__btn-primary">Ir al login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end:: Page -->
+</body>
+
+<!-- end::Body -->
+</html>

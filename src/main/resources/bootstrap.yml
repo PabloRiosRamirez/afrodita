@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: afrodita
+  cloud:
+    config:
+      uri:  http://localhost:8888
+      label:  development
+      profile:  development
+server:
+  port: 80

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="es">
+<!-- begin::Head -->
+<head>
+<th:block th:include="commons/general.html :: headfiles"></th:block>
+</head>
+<!-- end::Head -->
+
+<!-- begin::Body -->
+<body
+	class="m--skin- m-content--skin-light m-header--fixed m-header--fixed-mobile m-aside-left--offcanvas-default m-aside-left--enabled m-aside-left--fixed m-aside-left--skin-light m-aside--offcanvas-default">
+
+	<!-- begin:: Page -->
+	<div class="m-grid m-grid--hor m-grid--root m-page">
+
+		<!-- BEGIN: Header -->
+		<header th:insert="commons/general.html :: head"></header>
+		<!-- END: Header -->
+		<!-- begin::Body -->
+		<div
+			class="m-grid__item m-grid__item--fluid m-grid m-grid--hor-desktop m-grid--desktop m-body">
+			<div
+				class="m-grid__item m-grid__item--fluid m-grid m-grid--ver-desktop m-grid--desktop m-container m-container--responsive m-container--xxl m-container--full-height">
+				<div class="m-grid__item m-grid__item--fluid m-wrapper">
+
+					<!-- BEGIN: Subheader -->
+					<!--<div class="m-subheader ">
+						<div class="d-flex align-items-center">
+							<div class="mr-auto">
+								<h3 class="m-subheader__title m-subheader__title&#45;&#45;separator">Dashboard</h3>
+								<ul class="m-subheader__breadcrumbs m-nav m-nav&#45;&#45;inline">
+									<li class="m-nav__item m-nav__item&#45;&#45;home"><a href="#"
+										class="m-nav__link m-nav__link&#45;&#45;icon"> <i
+											class="m-nav__link-icon la la-home"></i>
+									</a></li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item"><a href="" class="m-nav__link">
+											<span class="m-nav__link-text">Dashboard</span>
+									</a></li>
+									<li class="m-nav__separator">-</li>
+									<li class="m-nav__item"><a href="" class="m-nav__link">
+											<span class="m-nav__link-text">Generate Reports</span>
+									</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>-->
+
+					<!-- END: Subheader -->
+
+					<div class="m-content">
+					<label th:text="${session.custom}"></label>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- end:: Body -->
+
+		<!-- begin::Footer -->
+		<footer th:insert="commons/general.html :: footer"></footer>
+		<!-- end::Footer -->
+	</div>
+
+	<!-- end:: Page -->
+
+	<div th:insert="commons/general.html :: scrolltop"></div>
+
+	<th:block th:include="commons/general.html :: jsfiles"></th:block>
+</body>
+
+<!-- end::Body -->
+</html>
