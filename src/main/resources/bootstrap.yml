@@ -3,8 +3,6 @@ spring:
     name: afrodita
   cloud:
     config:
-      uri:  http://localhost:8888
-      label:  development
-      profile:  development
-server:
-  port: 80
+      uri:  SPRING_CLOUD_CONFIG_URI
+      label:  SPRING_CLOUD_CONFIG_LABEL
+      profile:  SPRING_CLOUD_CONFIG_PROFILE
