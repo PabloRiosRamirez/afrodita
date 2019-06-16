@@ -9,13 +9,12 @@ logging:
         web: trace
 eureka:
   instance:
-    hostname: www.grisk.online
+    hostname: afrodita-grisk.herokuapp.com
     nonSecurePort: 80
-    home-page-url: http://www.grisk.online
+    appname: afrodita
   client:
     serviceUrl:
       defaultZone: http://zeus.grisk.online/eureka/
-    allow-redirects: true
 management:
   health:
     ldap:
