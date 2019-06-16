@@ -243,4 +243,22 @@ public class User implements Serializable {
         this.organization = organization;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", organization=" + organization +
+                ", pass='" + pass + '\'' +
+                ", tokenRestart='" + tokenRestart + '\'' +
+                ", tokenConfirm='" + tokenConfirm + '\'' +
+                ", enabled=" + enabled +
+                ", nonLocked=" + nonLocked +
+                ", attempt=" + attempt +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                ", role=" + role +
+                '}';
+    }
 }

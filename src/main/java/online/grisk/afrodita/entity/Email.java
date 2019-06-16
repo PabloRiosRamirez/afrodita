@@ -65,4 +65,14 @@ public class Email implements Serializable {
     public void setHtml(String html) {
         this.html = html;
     }
+
+    @Override
+    public String toString() {
+        return "Email{" +
+                "address='" + address + '\'' +
+                ", subject='" + subject + '\'' +
+                ", text='" + text + '\'' +
+                ", html='" + html + '\'' +
+                '}';
+    }
 }

@@ -55,4 +55,14 @@ public class UserModel {
     public void setEnterprise(OrganizationModel organization) {
         this.organization = organization;
     }
+
+    @Override
+    public String toString() {
+        return "UserModel{" +
+                "username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", pass='" + pass + '\'' +
+                ", organization=" + organization +
+                '}';
+    }
 }
