@@ -68,6 +68,8 @@ public class CreatedUserAdminByLogin implements Estrategy {
 
                 ResponseRestAPI responseEmailAPI = restTemplate.postForObject("http://hermes/v1/rest/mail/send", email, ResponseRestAPI.class);
 
+                logger.info("********** SEND RESPONSE EMAIL API: " +responseEmailAPI.toString()+" *************************");
+
                 if (responseEmailAPI.getStatus() == HttpStatus.OK) {
                     OrganizationModel presentedOrganization = presentedUser.getOrganization();
                     Organization existedOrganization = organizationService.findByRut(presentedOrganization.getRut());

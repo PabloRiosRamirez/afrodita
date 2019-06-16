@@ -2,6 +2,7 @@ package online.grisk.afrodita;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.MessageSource;
@@ -14,6 +15,7 @@ import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.time.Duration;
 import java.util.UUID;
 
 @EnableEurekaClient
@@ -22,8 +24,12 @@ public class AfroditaApplication {
 
     @LoadBalanced
     @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder)
+    {
+        return restTemplateBuilder
+                .setConnectTimeout(Duration.ofHours(1))
+           .setReadTimeout(Duration.ofHours(1))
+           .build();
     }
 
     @Bean
