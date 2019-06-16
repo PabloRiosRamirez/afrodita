@@ -7,3 +7,16 @@ logging:
     org:
       springframework:
         web: trace
+eureka:
+  instance:
+    hostname: www.grisk.online
+    nonSecurePort: 80
+    home-page-url: http://www.grisk.online
+  client:
+    serviceUrl:
+      defaultZone: http://zeus.grisk.online/eureka/
+    allow-redirects: true
+management:
+  health:
+    ldap:
+      enabled: false
