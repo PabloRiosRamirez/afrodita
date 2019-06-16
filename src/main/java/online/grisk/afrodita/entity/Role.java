@@ -27,7 +27,6 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(
         name = "grisk_role",
-        catalog = "grisk",
         schema = "public",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"code"})

@@ -26,7 +26,7 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
-@Table(name = "grisk_module", catalog = "grisk", schema = "public")
+@Table(name = "grisk_module", schema = "public")
 public class Module implements Serializable {
 
     private static final long serialVersionUID = 1L;

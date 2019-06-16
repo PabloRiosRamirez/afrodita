@@ -21,7 +21,7 @@ import javax.validation.constraints.Size;
  */
 
 @Entity
-@Table(name = "grisk_endpoint", catalog = "grisk", schema = "public")
+@Table(name = "grisk_endpoint", schema = "public")
 public class Endpoint implements Serializable {
 
     private static final long serialVersionUID = 1L;
