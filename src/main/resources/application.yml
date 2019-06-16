@@ -7,15 +7,3 @@ logging:
     org:
       springframework:
         web: trace
-eureka:
-  instance:
-    hostname: afrodita-grisk.herokuapp.com
-    nonSecurePort: 80
-    appname: afrodita
-  client:
-    serviceUrl:
-      defaultZone: http://zeus.grisk.online/eureka/
-management:
-  health:
-    ldap:
-      enabled: false
