@@ -153,7 +153,11 @@ var KTLoginGeneral = function () {
                 data: JSON.stringify(usuario),
                 dataType: 'json',
                 cache: false,
-                timeout: 600000,
+                timeout: 60000000,
+                beforeSend: function (jqXHR, setting) {
+                    console.log(jqXHR);
+                    console.log(setting);
+                },
                 success: function (data, textStatus, jqXHR) {
                     btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
                     form.clearForm();
@@ -218,7 +222,11 @@ var KTLoginGeneral = function () {
                 data: $("#kt-login__forgot-email").val(),
                 dataType: 'json',
                 cache: false,
-                timeout: 600000,
+                timeout: 600000000,
+                beforeSend: function (jqXHR, setting) {
+                    console.log(jqXHR);
+                    console.log(setting);
+                },
                 success: function (data, textStatus, jqXHR) {
                     btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
                     form.clearForm();
