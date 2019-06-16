@@ -7,4 +7,3 @@ logging:
     org:
       springframework:
         web: trace
-      hibernate: trace
