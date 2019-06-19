@@ -222,61 +222,21 @@ var KTLoginGeneral = function () {
                 data: $("#kt-login__forgot-email").val(),
                 dataType: 'json',
                 cache: false,
-                timeout: 600000000,
-                beforeSend: function (jqXHR, setting) {
-                    console.log(jqXHR);
-                    console.log(setting);
+                timeout: 60000,
+                complete: function(data) {
+                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
+                    form.clearForm();
+                    form.validate().resetForm();
+                    displaySignInForm();
+                    var signInForm = login.find('.kt-login__signin form');
+                    signInForm.clearForm();
+                    signInForm.validate().resetForm();
                 },
                 success: function (data, textStatus, jqXHR) {
-                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-                    form.clearForm();
-                    form.validate().resetForm();
-
-                    displaySignInForm();
-                    var signInForm = login.find('.kt-login__signin form');
-                    signInForm.clearForm();
-                    signInForm.validate().resetForm();
-
-                    showErrorMsg(signInForm, 'success', 'Genial! Las instrucciones de recuperación de contraseña han sido enviado a tu correo.');
-                    console.log(data);
-                    console.log(textStatus);
-                    console.log(jqXHR);
+                    showErrorMsg(login.find('.kt-login__signin form'), 'success', 'Genial! Las instrucciones de recuperación de contraseña han sido enviado a tu correo.');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
-                    form.clearForm();
-                    form.validate().resetForm();
-
-                    // display signup form
-                    displaySignInForm();
-                    var signInForm = login.find('.kt-login__signin form');
-                    signInForm.clearForm();
-                    signInForm.validate().resetForm();
-
-                    showErrorMsg(signInForm, 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente mas tarde. Si el problema persiste comuníquese con el administrador del sistema.');
-                    console.log(errorThrown);
-                    console.log(textStatus);
-                    console.log(jqXHR);
-                }
-            });
-
-            form.ajaxSubmit({
-                url: '/v1/rest/user/reset-pass-by-login',
-                success: function (response, status, xhr, $form) {
-                    // similate 2s delay
-                    setTimeout(function () {
-                        btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false); // remove
-                        form.clearForm(); // clear form
-                        form.validate().resetForm(); // reset validation states
-
-                        // display signup form
-                        displaySignInForm();
-                        var signInForm = login.find('.kt-login__signin form');
-                        signInForm.clearForm();
-                        signInForm.validate().resetForm();
-
-                        showErrorMsg(signInForm, 'success', 'Genial! Las instrucciones de recuperación de contraseña han sido enviado a tu correo.');
-                    }, 2000);
+                    showErrorMsg(login.find('.kt-login__signin form'), 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente más tarde. Si el problema persiste comuníquese con el administrador del sistema.');
                 }
             });
         });

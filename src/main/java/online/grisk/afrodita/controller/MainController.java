@@ -38,22 +38,32 @@ public class MainController {
             model.addAttribute("title", "Login");
             online.grisk.afrodita.entity.User userByToken = userService.findByTokenConfirm(presentedToken);
             if (userByToken == null) {
-                return "redirect:/login?confirm=tokenfailed";
+                model.addAttribute("errors", "confirm_by_email_token_failed");
+                return "login";
             }
             userByToken.setTokenConfirm(null);
             userByToken.setEnabled(true);
             userByToken.setAttempt((short) 0);
             online.grisk.afrodita.entity.User user = userService.save(userByToken);
-            return "redirect:/login?confirm=success";
+            model.addAttribute("proccess", "confirm_by_email_success");
+            return "login";
         } catch (Exception e) {
-            return "redirect:/login?confirm=failed";
+            model.addAttribute("errors", "confirm_by_email_token_failed");
+            return "login";
         }
     }
 
     @RequestMapping(value = "/login/reset/{token}", method = GET)
     public String resetPassByLogin(@NotBlank @PathVariable("token") String token, Model model) {
-        model.addAttribute("title", "Login");
-        return "redirect:/login?reset=success";
+        online.grisk.afrodita.entity.User userByToken = userService.findByTokenRestart(token);
+        if (userByToken == null) {
+            model.addAttribute("errors", "confirm_by_email_token_failed");
+            return "login";
+        }
+        model.addAttribute("proccess", "restart_by_email");
+        model.addAttribute("forgotemail", userByToken.getEmail());
+        model.addAttribute("forgottoken", token);
+        return "login";
     }
 
     @RequestMapping(value = {"/", "/dashboard"}, method = GET)

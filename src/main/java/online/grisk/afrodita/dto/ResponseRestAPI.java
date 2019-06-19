@@ -62,6 +62,15 @@ public class ResponseRestAPI {
 		this.date = date;
 	}
 
+
+    public Object getResponse() {
+        return response;
+    }
+
+    public void setResponse(Object response) {
+        this.response = response;
+    }
+
     @Override
     public String toString() {
         return "ResponseRestAPI{" +
