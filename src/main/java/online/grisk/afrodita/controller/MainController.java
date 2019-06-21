@@ -4,6 +4,7 @@ import online.grisk.afrodita.controller.utils.ControllerUtils;
 import online.grisk.afrodita.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,9 @@ import javax.validation.constraints.NotBlank;
 import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 import java.security.MessageDigest;
 import java.security.Principal;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -70,11 +74,9 @@ public class MainController {
     public String dashboardPage(HttpSession session, Model model, Principal principal) {
         try {
             model.addAttribute("title", "Dashboard");
-
             User user = ControllerUtils.getUserFromPrincipal(principal);
-            session.setAttribute("user", userService.findByUsername(user.getUsername()));
-
-            model.addAttribute("userInfo", ControllerUtils.toString(user));
+            session.setAttribute("username", user.getUsername().toUpperCase());
+            session.setAttribute("role", userService.findByUsername(user.getUsername()).getRole().getName());
         } catch (NullPointerException e) {
             System.out.println("The necessary permissions for this module have not been assigned");
         }
