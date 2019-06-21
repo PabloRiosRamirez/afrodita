@@ -109,16 +109,16 @@ License: You must have a valid license purchased only from themeforest(the above
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
              th:style="'background:url(' + @{/images/bg-2.jpg} + ');'">
             <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
-                <div th:if="${proccess == null}"  class="kt-login__container">
+                <div th:if="${proccess == null}" class="kt-login__container">
                     <div class="kt-login__logo">
                         <a href="#">
                             <img alt="" th:src="@{/images/grisk-reverse.png}">
                         </a>
                     </div>
                     <div class="kt-login__signin">
-                        <!--<div class="kt-login__head">
+                        <div class="kt-login__head">
                             <h3 class="kt-login__title">Bienvenido</h3>
-                        </div>-->
+                        </div>
                         <form id="login_signin" class="kt-form" th:action="@{/check_login}" method="POST">
                             <div class="input-group">
                                 <input class="form-control" type="text" placeholder="Usuario o correo electrónico"
@@ -131,7 +131,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div class="row kt-login__extra">
                                 <div class="col">
                                     <label class="kt-checkbox">
-                                        <input type="checkbox" name="remember"> Recuérdame
+                                        <input type="checkbox" name="remember-me"> Recuérdame
                                         <span></span>
                                     </label>
                                 </div>
@@ -255,28 +255,32 @@ License: You must have a valid license purchased only from themeforest(the above
                             <img alt="" th:src="@{/images/grisk-reverse.png}">
                         </a>
                     </div>
-                    <div  class="kt-login__postforgot">
+                    <div class="kt-login__postforgot">
                         <div class="kt-login__head">
                             <h3 class="kt-login__title">Restablece tu contraseña</h3>
-                            <div class="kt-login__desc">Ingresa la nueva contraseña:</div>
+                            <div class="kt-login__desc">Ingresa la nueva contraseña para la cuenta de <label
+                                    th:text="${forgotemail}" style="font-weight: 600;color: #d2d2d2;"></label>:
+                            </div>
                         </div>
                         <form class="kt-form" action="">
-                            <div class="input-group col-lg-6">
-                                <input class="form-control" type="password" placeholder="Email" th:value="${forgotemail}"
+                            <div class="input-group">
+                                <input class="form-control" hidden type="text" placeholder="Email"
+                                       th:value="${forgotemail}"
                                        name="postforgotemail" id="kt-login__postforgot-email"
                                        autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
                             </div>
-                            <div class="input-group col-lg-6">
-                                <input class="form-control" type="password" placeholder="Token" th:value="${forgottoken}"
+                            <div class="input-group">
+                                <input class="form-control" hidden type="text" placeholder="Token"
+                                       th:value="${forgottoken}"
                                        name="rpostforgottoken" autocomplete="off" id="kt-login__postforgot-token"
                                        style="margin-left: 10px;margin-right: 10px;">
                             </div>
-                            <div class="input-group col-lg-6">
+                            <div class="input-group">
                                 <input class="form-control" type="password" placeholder="Nueva contraseña"
                                        name="postforgotpassword" id="kt-login__postforgot-password"
                                        autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
                             </div>
-                            <div class="input-group col-lg-6">
+                            <div class="input-group">
                                 <input class="form-control" type="password" placeholder="Confirmar contraseña"
                                        name="rpostforgotpassword" autocomplete="off" id="kt-login__postforgot-rpassword"
                                        style="margin-left: 10px;margin-right: 10px;">
@@ -287,6 +291,15 @@ License: You must have a valid license purchased only from themeforest(the above
                                 </button>
                             </div>
                         </form>
+                        <div class="kt-form">
+                            <div class="kt-login__actions">
+                                <a th:href="@{/login}">
+                                    <button id="kt_login_postforgot_redirect" hidden
+                                            class="btn btn-brand btn-pill kt-login__btn-primary">Ir a login
+                                    </button>
+                                </a>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
@@ -426,26 +439,25 @@ License: You must have a valid license purchased only from themeforest(the above
 </script>
 <script th:if="${proccess != null and proccess == 'restart_by_email'}" th:inline="javascript">
     $('#kt_login_postforgot_submit').click(function (e) {
+        var login = $('#kt_login');
         e.preventDefault();
 
         var btn = $(this);
         var form = $(this).closest('form');
 
+        var postforgotrequest = {};
+        postforgotrequest["email"] = $("#kt-login__postforgot-email").val();
+        postforgotrequest["token"] = $("#kt-login__postforgot-token").val();
+        postforgotrequest["pass"] = $("#kt-login__postforgot-password").val();
+
         form.validate({
             rules: {
-                postforgotemail: {
-                    email:true,
-                    required: true
-                },
-                postforgottoken: {
-                    required: true
-                },
                 postforgotpassword: {
                     required: true
                 },
                 rpostforgotpassword: {
                     required: true,
-                    equalTo: "#kt-login__postforgot-rpassword"
+                    equalTo: "#kt-login__postforgot-password"
                 }
             }
         });
@@ -459,39 +471,35 @@ License: You must have a valid license purchased only from themeforest(the above
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: '/v1/rest/user/reset-pass-by-login',
-            data: $("#kt-login__postforgot-rpassword").val(),
+            url: '/v1/rest/user/post-reset-pass-by-login',
+            data: JSON.stringify(postforgotrequest),
             dataType: 'json',
             cache: false,
             timeout: 60000,
-            complete: function(data) {
+            complete: function (data) {
                 btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
                 form.clearForm();
                 form.validate().resetForm();
-                displaySignInForm();
-                var signInForm = login.find('.kt-login__signin form');
-                signInForm.clearForm();
-                signInForm.validate().resetForm();
             },
             success: function (data, textStatus, jqXHR) {
-                showErrorMsg(login.find('.kt-login__signin form'), 'success', 'Genial! Las instrucciones de recuperación de contraseña han sido enviado a tu correo.');
+                btn.attr('hidden', true);
+                $('#kt_login_postforgot_redirect').attr('hidden', false);
+                showErrorMsg(form, 'success', 'Genial! Se ha restablecido correctamente su contraseña, por favor ingrese al sistema con sus nuevas credenciales');
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                showErrorMsg(login.find('.kt-login__signin form'), 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente más tarde. Si el problema persiste comuníquese con el administrador del sistema.');
+                showErrorMsg(form, 'danger', 'Ha ocurrido un problema al realizar el restablecimiento de contraseña, por favor intente nuevamente más tarde.');
             }
         });
     });
-
-    showErrorMsg($('#kt_login').find('.kt-login__signin form'), 'danger', 'El token ya ha sido utilizado o es invalido, por favor realizar la petición de restablecer la contraseña nuevamente.');
 </script>
-<!--<script th:if="${proccess != null and proccess == 'logout'}" th:inline="javascript">
+<script th:if="${param.logout}" th:inline="javascript">
     var messageClosedSession = 'Usted ha cerrado sesión.';
     var login = $('#kt_login');
     var signInForm = login.find('.kt-login__signin form');
     signInForm.clearForm();
     signInForm.validate().resetForm();
     showErrorMsg(signInForm, 'info', messageClosedSession);
-</script>-->
+</script>
 
 <!--end::Page Scripts -->
 </body>

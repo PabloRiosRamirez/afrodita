@@ -2,7 +2,9 @@ package online.grisk.afrodita.activator;
 
 import online.grisk.afrodita.dto.ResponseRestAPI;
 import online.grisk.afrodita.estrategy.impl.CreatedUserAdminByLogin;
+import online.grisk.afrodita.estrategy.impl.PostResetPassByLogin;
 import online.grisk.afrodita.estrategy.impl.ResetPassByLogin;
+import online.grisk.afrodita.model.ResetPassModel;
 import online.grisk.afrodita.model.UserModel;
 import online.grisk.afrodita.processor.Processor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,5 +57,13 @@ public class UserRestController {
             return new ResponseEntity<ResponseRestAPI>(HttpStatus.BAD_REQUEST);
         }
         return userProcessor.run(email, context.getBean(ResetPassByLogin.class));
+    }
+
+    @PostMapping(value = "/v1/rest/user/post-reset-pass-by-login")
+    public ResponseEntity<ResponseRestAPI> postResetPassByLogin(@Valid @RequestBody ResetPassModel request, Errors errors) {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<ResponseRestAPI>(HttpStatus.BAD_REQUEST);
+        }
+        return userProcessor.run(request, context.getBean(PostResetPassByLogin.class));
     }
 }

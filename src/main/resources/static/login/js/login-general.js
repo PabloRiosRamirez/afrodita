@@ -153,11 +153,7 @@ var KTLoginGeneral = function () {
                 data: JSON.stringify(usuario),
                 dataType: 'json',
                 cache: false,
-                timeout: 60000000,
-                beforeSend: function (jqXHR, setting) {
-                    console.log(jqXHR);
-                    console.log(setting);
-                },
+                timeout: 60000,
                 success: function (data, textStatus, jqXHR) {
                     btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
                     form.clearForm();
@@ -169,9 +165,6 @@ var KTLoginGeneral = function () {
                     signInForm.validate().resetForm();
 
                     showErrorMsg(signInForm, 'success', 'Muchas gracias! Las instrucciones para completar tu registro han sido enviado a tu correo.');
-                    console.log(data);
-                    console.log(textStatus);
-                    console.log(jqXHR);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
@@ -185,9 +178,6 @@ var KTLoginGeneral = function () {
                     signInForm.validate().resetForm();
 
                     showErrorMsg(signInForm, 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente mas tarde. Si el problema persiste comuníquese con el administrador del sistema.');
-                    console.log(errorThrown);
-                    console.log(textStatus);
-                    console.log(jqXHR);
                 }
             });
         });
@@ -223,7 +213,7 @@ var KTLoginGeneral = function () {
                 dataType: 'json',
                 cache: false,
                 timeout: 60000,
-                complete: function(data) {
+                complete: function (data) {
                     btn.removeClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', false);
                     form.clearForm();
                     form.validate().resetForm();

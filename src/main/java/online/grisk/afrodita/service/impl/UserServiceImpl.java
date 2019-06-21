@@ -19,6 +19,9 @@ public class UserServiceImpl implements UserService {
 	public User findByEmail(String email) {
 		return userRepository.findByEmail(email);
 	}
+	public User findByEmailAndTokenRestart(String email, String tokenRestart){
+		return userRepository.findByEmailAndTokenRestart(email,tokenRestart);
+	}
 	public User save(User user) {
 		return userRepository.save(user);
 	}
