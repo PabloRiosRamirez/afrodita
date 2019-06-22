@@ -3036,7 +3036,7 @@ var EventDef = /** @class */ (function () {
     };
     EventDef.prototype.hasBgRendering = function () {
         var rendering = this.getRendering();
-        return rendering === 'inverse-background' || rendering === 'background';
+        return rendering === 'inverse-background' || rendering === 'static.images.login.background';
     };
     EventDef.prototype.getRendering = function () {
         if (this.rendering != null) {

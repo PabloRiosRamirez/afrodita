@@ -888,7 +888,7 @@
                 touchArea: "touch-area",
                 horizontal: "horizontal",
                 vertical: "vertical",
-                background: "background",
+                background: "static.images.login.background",
                 connect: "connect",
                 connects: "connects",
                 ltr: "ltr",

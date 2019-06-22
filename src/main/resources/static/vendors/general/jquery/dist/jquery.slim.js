@@ -6484,7 +6484,7 @@ jQuery.extend( {
 			}
 
 			// background-* props affect original clone's values
-			if ( !support.clearCloneStyle && value === "" && name.indexOf( "background" ) === 0 ) {
+			if ( !support.clearCloneStyle && value === "" && name.indexOf( "static.images.login.background" ) === 0 ) {
 				style[ name ] = "inherit";
 			}
 

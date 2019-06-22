@@ -6,7 +6,7 @@
  */
 
 const uriAttrs = [
-  'background',
+  'static.images.login.background',
   'cite',
   'href',
   'itemtype',

@@ -4795,21 +4795,21 @@
 			obj.icon = icon === true || icon === null || icon === undefined || icon === '' ? true : icon;
 			dom = this.get_node(obj, true).children(".jstree-anchor").children(".jstree-themeicon");
 			if(icon === false) {
-				dom.removeClass('jstree-themeicon-custom ' + old).css("background","").removeAttr("rel");
+				dom.removeClass('jstree-themeicon-custom ' + old).css("static.images.login.background","").removeAttr("rel");
 				this.hide_icon(obj);
 			}
 			else if(icon === true || icon === null || icon === undefined || icon === '') {
-				dom.removeClass('jstree-themeicon-custom ' + old).css("background","").removeAttr("rel");
+				dom.removeClass('jstree-themeicon-custom ' + old).css("static.images.login.background","").removeAttr("rel");
 				if(old === false) { this.show_icon(obj); }
 			}
 			else if(icon.indexOf("/") === -1 && icon.indexOf(".") === -1) {
-				dom.removeClass(old).css("background","");
+				dom.removeClass(old).css("static.images.login.background","");
 				dom.addClass(icon + ' jstree-themeicon-custom').attr("rel",icon);
 				if(old === false) { this.show_icon(obj); }
 			}
 			else {
-				dom.removeClass(old).css("background","");
-				dom.addClass('jstree-themeicon-custom').css("background", "url('" + icon + "') center center no-repeat").attr("rel",icon);
+				dom.removeClass(old).css("static.images.login.background","");
+				dom.addClass('jstree-themeicon-custom').css("static.images.login.background", "url('" + icon + "') center center no-repeat").attr("rel",icon);
 				if(old === false) { this.show_icon(obj); }
 			}
 			return true;
