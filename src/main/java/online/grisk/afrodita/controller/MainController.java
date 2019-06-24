@@ -4,23 +4,15 @@ import online.grisk.afrodita.controller.utils.ControllerUtils;
 import online.grisk.afrodita.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
-import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
-import java.security.MessageDigest;
 import java.security.Principal;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
@@ -34,6 +26,13 @@ public class MainController {
     public String loginPage(Model model) {
         model.addAttribute("title", "Login");
         return "login";
+    }
+
+    @RequestMapping(value = "/account", method = GET)
+    public String accountPage(Model model) {
+        model.addAttribute("title", "Información de cuenta");
+        model.addAttribute("description", "Información de cuenta");
+        return "account";
     }
 
     @RequestMapping(value = "/login/confirm/{token}", method = GET)
@@ -70,10 +69,10 @@ public class MainController {
         return "login";
     }
 
-    @RequestMapping(value = {"/", "/dashboard"}, method = GET)
+    @RequestMapping(value = {"/"}, method = GET)
     public String dashboardPage(HttpSession session, Model model, Principal principal) {
         try {
-            model.addAttribute("title", "Dashboard");
+            model.addAttribute("title", "Home");
             User user = ControllerUtils.getUserFromPrincipal(principal);
             session.setAttribute("username", user.getUsername().toUpperCase());
             session.setAttribute("role", userService.findByUsername(user.getUsername()).getRole().getName());
