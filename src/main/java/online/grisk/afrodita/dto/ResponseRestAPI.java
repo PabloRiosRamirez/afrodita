@@ -1,9 +1,7 @@
 package online.grisk.afrodita.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
 import online.grisk.afrodita.utils.Constant;
-
 import org.springframework.http.HttpStatus;
 
 import java.util.Date;

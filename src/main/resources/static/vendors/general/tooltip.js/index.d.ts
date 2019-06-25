@@ -1,4 +1,4 @@
-import { Boundary, Placement, PopperOptions } from 'popper.js';
+import {Boundary, Placement, PopperOptions} from 'popper.js';
 
 export type TitleFunction = () => string;
 
