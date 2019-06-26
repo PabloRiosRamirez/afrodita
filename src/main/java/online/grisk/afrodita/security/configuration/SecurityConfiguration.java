@@ -49,11 +49,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
-        http.authorizeRequests().antMatchers("/login").permitAll();
+        http.authorizeRequests().antMatchers("/login", "/images/**", "/css/**", "/js/**", "/vendors/**", "/v1/rest/**").permitAll();
         http.authorizeRequests().antMatchers("/", "/logout", "/account").authenticated();
         http.authorizeRequests().antMatchers("/register-users", "/edit-users", "/data-integration", "/tree-business", "/risk-ratios", "/risk-score").access("hasAnyRole('ROLE_ADMIN')");
         http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error-403");
-        http.authorizeRequests().antMatchers("/*").authenticated();
+        http.authorizeRequests().antMatchers("/**").authenticated();
         http.authorizeRequests()
                 .and()
                 .formLogin()// Submit URL of login page.
