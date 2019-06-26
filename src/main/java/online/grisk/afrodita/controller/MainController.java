@@ -21,7 +21,7 @@ public class MainController {
 
 
     @RequestMapping(value = "/account", method = GET)
-    public String accountPage(Model model) {
+    public String accountPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Información de cuenta");
         model.addAttribute("description", "Información de cuenta");
         return "account";
@@ -29,14 +29,8 @@ public class MainController {
 
     @RequestMapping(value = "/", method = GET)
     public String dashboardPage(HttpSession session, Model model, Principal principal) {
-        try {
-            model.addAttribute("title", "Home");
-            User user = ControllerUtils.getUserFromPrincipal(principal);
-            session.setAttribute("username", user.getUsername().toUpperCase());
-            session.setAttribute("role", userService.findByUsername(user.getUsername()).getRole().getName());
-        } catch (NullPointerException e) {
-            System.out.println("The necessary permissions for this module have not been assigned");
-        }
+        model.addAttribute("title", "Home");
+        model.addAttribute("description", "Página principal de GRisk");
         return "dashboard";
     }
 

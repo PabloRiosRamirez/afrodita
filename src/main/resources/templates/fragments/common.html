@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="google-site-verification" content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08"/>
@@ -26,9 +26,9 @@
                 <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                          th:text="${session.role}"
+                          th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ?'Administrador':'Básico'"
                           style="margin-left: 15px;"
-                          th:styleappend="${session.role != null and session.role == 'Administrador'}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
+                          th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
                 </div>
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
@@ -39,12 +39,12 @@
                             <!--                                             th:src="@{/images/user.jpg}"/>-->
                             <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                             <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                                  th:text="${session.role != null and session.role == 'Administrador'}?'A':'B'"
+                                  th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"
                                   style="font-size: 1.3rem;"
-                                  th:styleappend="${session.role != null and session.role == 'Administrador'}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
+                                  th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
                         </div>
                         <div class="kt-user-card__name">
-                            <label th:text="${session.username}"></label>
+                            <label th:text="${#strings.toUpperCase(#authentication.name)}"></label>
                         </div>
                     </div>
 
@@ -264,14 +264,14 @@
                                 <span class="kt-header__topbar-welcome  kt-visible-tablet  kt-visible-desktop">Hola,
                                 </span>
                         <span class="kt-header__topbar-username kt-visible-tablet  kt-visible-desktop"
-                              th:text="${session.username}"></span>
+                              th:text="${#strings.toUpperCase(#authentication.name)}"></span>
                         <!--                                <img alt="Avatar" th:src="@{/images/user-predeterminate.jpg}"/>-->
 
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                         <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder"
-                              th:text="${session.role}"
+                              th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'Administrador':'Básico'"
                               style="margin-left: 15px;"
-                              th:styleappend="${session.role != null and session.role == 'Administrador'}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
+                              th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
                     </div>
                     <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
@@ -282,12 +282,12 @@
                                 <!--                                             th:src="@{/images/user.jpg}"/>-->
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                                      th:text="${session.role != null and session.role == 'Administrador'}?'A':'B'"
+                                      th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"
                                       style="font-size: 1.3rem;"
-                                      th:styleappend="${session.role != null and session.role == 'Administrador'}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
+                                      th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
                             </div>
                             <div class="kt-user-card__name">
-                                <label th:text="${session.username}"></label>
+                                <label th:text="${#strings.toUpperCase(#authentication.name)}"></label>
                             </div>
                         </div>
 
