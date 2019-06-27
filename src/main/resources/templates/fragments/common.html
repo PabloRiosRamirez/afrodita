@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
     <meta name="google-site-verification" content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08"/>
@@ -10,6 +10,20 @@
     <link th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
+    <style>
+        @media (min-width: 752px){
+            #kt_footer {
+                width: 100%;
+                bottom: 0;
+                background-color: white;
+                position: fixed;
+            }
+
+            #li_data-integration {
+                width: 141px;
+            }
+        }
+    </style>
 </head>
 <body>
 <div th:fragment="header">
@@ -97,7 +111,7 @@
             <!-- end:: Brand -->
             <!-- begin: Header Menu -->
             <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn">
-                <i class="la la-close"></i>
+                <i class="flaticon2-close-cross"></i>
             </button>
             <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid"
                  id="kt_header_menu_wrapper">
@@ -156,7 +170,7 @@
                         </li>
                         <li th:classappend="${module == 'data_integration' ? 'kt-menu__'+'item--here' : ''}"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            data-ktmenu-submenu-toggle="click" aria-haspopup="true" style="width: 141px;">
+                            data-ktmenu-submenu-toggle="click" aria-haspopup="true" id="li_data-integration">
                             <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
                                 <span class="kt-menu__link-text">Data Integration</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
