@@ -5,6 +5,16 @@
 
 <head>
     <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+    <style>
+        @media (min-width: 752px), (min-height: 400px) {
+            #kt_footer {
+                width: 100%;
+                bottom: 0;
+                background-color: white;
+                position: fixed;
+            }
+        }
+    </style>
 </head>
 
 <body class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
@@ -38,7 +48,7 @@
                             <!--Begin::Dashboard 1-->
                             <!--Begin::Section-->
                             <div class="row">
-                                <div class="col-xl-4">
+                                <div class="col-xl-12">
                                     <!--begin:: Widgets/Activity-->
                                     <div class="kt-portlet kt-portlet--fit kt-portlet--head-lg kt-portlet--head-overlay kt-portlet--skin-solid kt-portlet--height-fluid">
                                         <div class="kt-portlet__head kt-portlet__head--noborder kt-portlet__space-x">
