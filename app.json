@@ -1,0 +1,8 @@
+{
+  "name": "Afrodita UI",
+  "description": "Esta servicio es un proyecto tesis.",
+  "website": "http://www.grisk.online",
+  "repository": "https://github.com/PabloRiosRamirez/afrodita",
+  "image": "heroku/java",
+  "addons": [ "heroku-postgresql" ]
+}
