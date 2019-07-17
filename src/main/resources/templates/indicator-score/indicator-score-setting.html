@@ -4,6 +4,7 @@
 <head>
     <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
     <link th:href="@{/css/wizard/wizard.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/vendors/general/sweetalert2/dist/sweetalert2.min.css}" type="text/css"/>
     <style type="text/css">
         .outer {
             width: 600px;
@@ -127,6 +128,17 @@
                                                     </div>
                                                     <div class="kt-form__section kt-form__section--first">
                                                         <div class="kt-wizard-v3__form">
+                                                            <div class="row">
+                                                                <div class="col-xl-6">
+                                                                    <div class="form-group">
+                                                                        <label>Titulo a mostrar en el gráfico de Risk
+                                                                            Score:</label>
+                                                                        <input type="text" class="form-control"
+                                                                               name="valorMinScore"
+                                                                               placeholder="Titulo del gráfico">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                             <div class="row">
                                                                 <div class="col-xl-6">
                                                                     <div class="form-group">
@@ -255,17 +267,6 @@
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <div class="row">
-                                                                <div class="col-xl-6">
-                                                                    <div class="form-group">
-                                                                        <label>Ingrese titulo del gráfico a
-                                                                            mostrar:</label>
-                                                                        <input type="text" class="form-control"
-                                                                               name="valorMinScore"
-                                                                               placeholder="Titulo del gráfico">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
                                                             <div class="form-group">
                                                                 <label>Límite inferior</label>
                                                                 <input type="text" class="form-control"
@@ -360,6 +361,14 @@
                                                     </div>
                                                     <div class="kt-form__section kt-form__section--first">
                                                         <div class="kt-wizard-v3__review">
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title">
+                                                                    Titulo a mostrar en el gráfico de Risk Score
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <label>Puntaje de afiliación</label>
+                                                                </div>
+                                                            </div>
                                                             <div class="kt-wizard-v3__review-item">
                                                                 <div class="kt-wizard-v3__review-title">
                                                                     Variable con el valor para el indicador
