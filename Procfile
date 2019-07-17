@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/afrodita-exec.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar target/afrodita.jar
