@@ -14,15 +14,15 @@ public class IndicatorScoreController {
 
     @RequestMapping(value = "/indicators/score", method = GET)
     public String indicatorScorePage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Score Risk");
-        model.addAttribute("description", "Score Risk");
+        model.addAttribute("title", "Risk Score");
+        model.addAttribute("description", "Risk Score");
         return "indicator-score/indicator-score";
     }
 
     @RequestMapping(value = "/indicators/score/setting", method = GET)
     public String indicatorScoreSttingPage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Score Risk");
-        model.addAttribute("description", "Configuración de Score Risk");
+        model.addAttribute("title", "Risk Score");
+        model.addAttribute("description", "Configuración de Risk Score");
         return "indicator-score/indicator-score-setting";
     }
 

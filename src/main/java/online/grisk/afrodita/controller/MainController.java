@@ -19,11 +19,4 @@ public class MainController {
         return "account";
     }
 
-    @RequestMapping(value = "/", method = GET)
-    public String dashboardPage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Home");
-        model.addAttribute("description", "Página principal de GRisk");
-        return "dashboard";
-    }
-
 }

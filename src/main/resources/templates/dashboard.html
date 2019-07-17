@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+>
 
 <head>
     <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
@@ -40,10 +40,11 @@
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">Notificaciones
-                                                    <small>Se mostrarán todas las notificaciones</small>
+                                                <h3 class="kt-portlet__head-title">Análisis
+                                                    <small>Realiza un análisis de riesgo</small>
                                                 </h3>
                                             </div>
+
                                         </div>
                                         <form class="kt-form kt-form--label-right">
                                             <div class="kt-portlet__body">
@@ -51,42 +52,82 @@
                                                     <div class="kt-section__body">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <div  class="col-12 alert alert-outline-success" role="alert">
-                                                                    <strong style="margin-right: 8px;">Genial!</strong>Actualmente esta activa una configuración de Data Integration a través de Bureau.
-                                                                </div>
-                                                                <div class="col-12 alert alert-outline-warning" role="alert">
-                                                                    <strong style="margin-right: 8px;">Cuidado!</strong>Actualmente no está configurado el indicador Ratios Risk.
-                                                                </div>
-                                                                <div class="col-12 alert alert-outline-warning" role="alert">
-                                                                    <strong style="margin-right: 8px;">Cuidado!</strong>Actualmente no está configurado el indicador Business Tree.
+                                                                <div class="col-12 alert alert-outline-danger"
+                                                                     role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Problemas!</strong>No
+                                                                        podrás realizar análisis de riesgo mientras el
+                                                                        <strong>Data Integration y todos los
+                                                                            indicadores</strong> sean configurados.
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group row">
-
-                                                            <!--<label class="col-xl-3 col-lg-3 col-form-label">Usuario</label>
-                                                            <div class="col-lg-9 col-xl-6">
-                                                                <div class="kt-spinner kt-spinner&#45;&#45;sm kt-spinner&#45;&#45;success kt-spinner&#45;&#45;right kt-spinner&#45;&#45;input">
-                                                                    <input class="form-control" type="text"
-                                                                           value="Nombre de usuario">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="col-12">
+                                                                    <h3 class="kt-portlet__head-title">
+                                                                        <small>Detalles:</small>
+                                                                    </h3>
                                                                 </div>
-                                                            </div>-->
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="col-12 alert alert-success" role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Genial!</strong>Actualmente
+                                                                        esta activa una configuración de <strong>Data
+                                                                        Integration a
+                                                                        través de Bureau</strong>.
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 alert alert-warning" role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Risk Score</strong>. Por favor dirigase a
+                                                                        Indicadores > Risk Score >
+                                                                        <strong>
+                                                                            <a th:href="@{/indicators/score/setting}"
+                                                                               style="color: #ffffff;">Configuración</a>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 alert alert-warning" role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Ratios Risk</strong>. Por favor dirigase a
+                                                                        Indicadores > Risk Ratios >
+                                                                        <strong>
+                                                                            <a th:href="@{/indicators/ratios/setting}"
+                                                                               style="color: #ffffff;">Configuración</a>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                                <div class="col-12 alert alert-warning" role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>Actualmente
+                                                                        no está configurado el <strong>indicador
+                                                                        Business
+                                                                        Tree</strong>. Por favor dirigase a Indicadores
+                                                                        > Business Tree >
+                                                                        <strong>
+                                                                            <a th:href="@{/indicators/tree/setting}"
+                                                                               style="color: #ffffff;">Configuración</a>
+                                                                        </strong>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--<div class="kt-portlet__foot">
+                                            <!--
+                                            <div class="kt-portlet__foot">
                                                 <div class="kt-form__actions">
-                                                    <div class="row">
-                                                        <div class="col-lg-12">
-                                                            <button type="primary" class="btn btn-success">Guardar
-                                                            </button>&nbsp;
-                                                            <button type="reset" class="btn btn-secondary">Cancelar
-                                                            </button>
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                            </div>-->
+                                            </div>
+                                            -->
                                         </form>
                                     </div>
                                 </div>

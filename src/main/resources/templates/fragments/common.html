@@ -113,7 +113,7 @@
                         <li th:classappend="${module == 'analisis' ? 'kt-menu__'+'item--here' : ''}"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
                             aria-haspopup="false">
-                            <a th:href="@{/analysis}" class="kt-menu__link">
+                            <a th:href="@{/}" class="kt-menu__link">
                                 <span class="kt-menu__link-text">Análisis</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                             </a>
@@ -229,13 +229,13 @@
                                                 <li class="kt-menu__item " aria-haspopup="true">
                                                     <a th:href="@{/indicators/score}" class="kt-menu__link ">
                                                         <i class="kt-menu__link-icon flaticon-dashboard"></i>
-                                                        <span class="kt-menu__link-text">Score Risk</span>
+                                                        <span class="kt-menu__link-text">Risk Score</span>
                                                     </a>
                                                 </li>
                                                 <li class="kt-menu__item " aria-haspopup="true">
                                                     <a th:href="@{/indicators/ratios}" class="kt-menu__link ">
                                                         <i class="kt-menu__link-icon flaticon2-graph-1"></i>
-                                                        <span class="kt-menu__link-text">Ratios Risk</span>
+                                                        <span class="kt-menu__link-text">Risk Ratios</span>
                                                     </a>
                                                 </li>
                                                 <li class="kt-menu__item " aria-haspopup="true">

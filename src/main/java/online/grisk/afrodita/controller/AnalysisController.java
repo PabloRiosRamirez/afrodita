@@ -10,10 +10,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class AnalysisController {
 
-    @RequestMapping(value = "/analysis", method = GET)
+    @RequestMapping(value = "/", method = GET)
     public String analysisPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Análisis");
         model.addAttribute("description", "Análisis de riesgo");
-        return "analysis";
+        model.addAttribute("module", "analisis");
+        return "dashboard";
     }
 }
