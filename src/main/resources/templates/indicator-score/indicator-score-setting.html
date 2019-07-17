@@ -529,9 +529,9 @@
     var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
         yAxis: {
             min: 0,
-            max: 200,
+            max: 100,
             title: {
-                text: 'Speed'
+                text: 'Score'
             }
         },
 
@@ -540,7 +540,7 @@
         },
 
         series: [{
-            name: 'Speed',
+            name: 'Score',
             data: [80],
             dataLabels: {
                 format: '<div style="text-align:center"><span style="font-size:25px;color:' +
@@ -548,7 +548,7 @@
                     '<span style="font-size:12px;color:silver">km/h</span></div>'
             },
             tooltip: {
-                valueSuffix: ' km/h'
+                valueSuffix: ''
             }
         }]
 
