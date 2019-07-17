@@ -566,13 +566,17 @@
             inc = Math.round((Math.random() - 0.5) * 100);
             newVal = point.y + inc;
 
-            if (newVal < 0 || newVal > 200) {
+            if (newVal < 0 || newVal > 100) {
                 newVal = point.y - inc;
             }
 
             point.update(newVal);
         }
     }, 2000);
+
+</script>
+
+<script>
 
 </script>
 </body>
