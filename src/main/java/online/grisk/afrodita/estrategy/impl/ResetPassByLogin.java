@@ -61,8 +61,6 @@ public class ResetPassByLogin implements Estrategy {
             logger.error("********** SEND RESPONSE EMAIL API: " +responseEmailAPI.toString()+" *************************");
 
             if (responseEmailAPI.getStatus() == HttpStatus.OK) {
-
-
                 byEmail.setTokenRestart(tokenForRestart);
                 User user = userService.save(byEmail);
                 return new ResponseEntity<ResponseRestAPI>(new ResponseRestAPI(uuid, HttpStatus.OK,

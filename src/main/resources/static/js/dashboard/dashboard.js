@@ -1915,7 +1915,7 @@ var KTDashboard = function() {
 
             
             // demo loading
-            var loading = new KTDialog({'type': 'loader', 'placement': 'top center', 'message': 'Loading ...'});
+            var loading = new KTDialog({'type': 'loader', 'placement': 'top center', 'message': 'Cargando ...'});
             loading.show();
 
             setTimeout(function() {

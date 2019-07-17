@@ -12,12 +12,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @Controller
 public class IndicatorsController {
 
-    @RequestMapping(value = "/indicators/score", method = GET)
-    public String indicatorsScorePage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Score Risk");
-        model.addAttribute("description", "Configuración de Score Risk");
-        return "indicators/indicators-score";
-    }
     @RequestMapping(value = "/indicators/ratios", method = GET)
     public String indicatorsRatiosPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Ratios Risk");
