@@ -1,5 +1,9 @@
 package online.grisk.afrodita;
 
+import online.grisk.afrodita.domain.entity.Role;
+import online.grisk.afrodita.integration.service.RoleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -7,6 +11,7 @@ import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.client.RestTemplate;
 
@@ -18,16 +23,19 @@ import java.util.UUID;
 
 @EnableEurekaClient
 @SpringBootApplication
+@ImportResource("classpath:integration.cfg.xml")
 public class AfroditaApplication {
+
+    @Autowired
+    RoleService roleService;
 
     @LoadBalanced
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder)
-    {
+    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
         return restTemplateBuilder
                 .setConnectTimeout(Duration.ofHours(1))
-           .setReadTimeout(Duration.ofHours(1))
-           .build();
+                .setReadTimeout(Duration.ofHours(1))
+                .build();
     }
 
     @Bean
@@ -49,6 +57,11 @@ public class AfroditaApplication {
         } catch (NoSuchAlgorithmException e) {
             return getUUID().toString();
         }
+    }
+
+    @Bean
+    public Role roleAdmin() {
+        return roleService.findByCode("ADMIN");
     }
 
     @Bean

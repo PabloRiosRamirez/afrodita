@@ -1,7 +1,7 @@
 package online.grisk.afrodita.security.service.details.impl;
 
-import online.grisk.afrodita.entity.Role;
-import online.grisk.afrodita.repository.UserRepository;
+import online.grisk.afrodita.domain.entity.Role;
+import online.grisk.afrodita.persistence.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,7 +25,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> grantList = new ArrayList<>();
-        online.grisk.afrodita.entity.User user = userRepository.findByUsername(username);
+        online.grisk.afrodita.domain.entity.User user = userRepository.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException(SpringSecurityMessageSource.getAccessor()
                     .getMessage("AbstractUserDetailsAuthenticationProvider.UserUnknown", new Object[]{username}, "{0} no está registrado"));

@@ -1,6 +1,6 @@
 package online.grisk.afrodita.security.configuration;
 
-import online.grisk.afrodita.repository.ModuleRepository;
+import online.grisk.afrodita.persistence.repository.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
