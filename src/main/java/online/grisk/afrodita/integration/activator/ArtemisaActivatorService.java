@@ -7,7 +7,6 @@ import online.grisk.afrodita.domain.model.OrganizationModel;
 import online.grisk.afrodita.domain.model.ParentResponseModel;
 import online.grisk.afrodita.domain.model.ResetPassModel;
 import online.grisk.afrodita.domain.model.UserModel;
-import online.grisk.afrodita.integration.activator.utils.ActivatorUtils;
 import online.grisk.afrodita.integration.service.OrganizationService;
 import online.grisk.afrodita.integration.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,7 +26,7 @@ import java.util.Map;
 import java.util.UUID;
 
 @Component
-public class HermesActivatorService {
+public class ArtemisaActivatorService {
 
     @Autowired
     UUID uuid;
@@ -46,11 +46,11 @@ public class HermesActivatorService {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${HERMES_USER}")
-    private String hermesUser;
+    @Value("${ARTEMISA_USER}")
+    private String artemisaUser;
 
-    @Value("${HERMES_PASS}")
-    private String hermesPassword;
+    @Value("${ARTEMISA_PASS}")
+    private String artemisaPassword;
 
     public Message<ParentResponseModel> registerUser(Object object) {
         Message messageError = ParentResponseModel.toMessage(uuid,
@@ -58,7 +58,7 @@ public class HermesActivatorService {
         try {
             UserModel presentedUser = (UserModel) object;
             if (userService.findByUsernameOrEmail(presentedUser.getUsername(), presentedUser.getEmail()) == null) {
-                if (restTemplate.exchange("http://hermes/v1/rest/mail/send", HttpMethod.POST, createRequestHermes(presentedUser.getEmail(), "registerUser"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
+                if (restTemplate.exchange("http://artemisa/v1/rest/mail/send", HttpMethod.POST, createRequestHermes(presentedUser.getEmail(), "registerUser"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
                     OrganizationModel presentedOrganization = presentedUser.getOrganization();
                     Organization existedOrganization = organizationService.findByRut(presentedOrganization.getRut());
                     if (existedOrganization == null) {
@@ -66,8 +66,8 @@ public class HermesActivatorService {
                                 .save(new Organization(presentedOrganization.getRut(), presentedOrganization.getName()));
                     }
                     User user = userService
-                            .save(new User(presentedUser.getUsername(), presentedUser.getEmail(), ActivatorUtils.encryte(presentedUser.getPass()), null, token,
-                                    false, true, (short) 0, new Date(), new Date(), existedOrganization, roleAdmin));
+                            .save(new User(presentedUser.getUsername(), presentedUser.getEmail(), existedOrganization, encryte(presentedUser.getPass()), null, token,
+                                    false, true, new Date(), new Date(), roleAdmin));
                     if (user != null) {
                         return ParentResponseModel.toMessage(uuid, HttpStatus.CREATED,
                                 "Se ha enviado correctamente el correo para restablecer contraseña de cuenta.", null, new Date());
@@ -92,7 +92,7 @@ public class HermesActivatorService {
                 return ParentResponseModel.toMessage(uuid,
                         HttpStatus.NOT_FOUND, "No esta registrado usuarios con este correo electrónico.", new Date(), null);
             }
-            if (restTemplate.postForEntity("http://hermes/v1/rest/mail/send", createRequestHermes(object.toString(), "resetPassword"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
+            if (restTemplate.postForEntity("http://artemisa/v1/rest/mail/send", createRequestHermes(object.toString(), "resetPassword"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
                 byEmail.setTokenRestart(token);
                 User user = userService.save(byEmail);
                 return ParentResponseModel.toMessage(uuid, HttpStatus.OK,
@@ -115,10 +115,9 @@ public class HermesActivatorService {
                 return ParentResponseModel.toMessage(uuid,
                         HttpStatus.NOT_FOUND, "No esta registrado usuarios con este correo electrónico.", null, new Date());
             }
-            byEmailAndTokenRestart.setPass(request.getPass());
+            byEmailAndTokenRestart.setPass(encryte(request.getPass()));
             byEmailAndTokenRestart.setTokenRestart(null);
             byEmailAndTokenRestart.setEnabled(true);
-            byEmailAndTokenRestart.setAttempt((short) 0);
             online.grisk.afrodita.domain.entity.User user = userService.save(byEmailAndTokenRestart);
             return ParentResponseModel.toMessage(uuid, HttpStatus.OK,
                     "Se ha restablecido correctamente la contraseña de su cuenta.", null, new Date());
@@ -133,7 +132,12 @@ public class HermesActivatorService {
         request.put("step", step);
         request.put("token", token);
         HttpHeaders headers = new HttpHeaders();
-        headers.setBasicAuth(hermesUser, hermesPassword);
+        headers.setBasicAuth(artemisaUser, artemisaPassword);
         return new HttpEntity(request, headers);
+    }
+
+    public static String encryte(String key) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        return encoder.encode(key);
     }
 }

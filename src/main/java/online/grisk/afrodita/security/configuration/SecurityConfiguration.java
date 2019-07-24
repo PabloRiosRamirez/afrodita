@@ -1,6 +1,5 @@
 package online.grisk.afrodita.security.configuration;
 
-import online.grisk.afrodita.persistence.repository.ModuleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -22,9 +21,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     @Qualifier("customUserDetailsService")
     UserDetailsService userDetailsService;
-
-    @Autowired
-    ModuleRepository moduleRepository;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

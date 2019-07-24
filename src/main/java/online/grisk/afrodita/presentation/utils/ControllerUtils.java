@@ -1,9 +1,8 @@
-package online.grisk.afrodita.presentation.controller.utils;
+package online.grisk.afrodita.presentation.utils;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.security.Principal;
 import java.util.Collection;

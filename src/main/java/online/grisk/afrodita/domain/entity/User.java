@@ -2,6 +2,9 @@ package online.grisk.afrodita.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -15,13 +18,14 @@ import java.util.Date;
  * @email pa.riosramirez@gmail.com
  */
 
+@Data
+@AllArgsConstructor
 @Entity
 @Table(
-        name = "grisk_user",
+        name = "user",
         schema = "public",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"username"}),
-                @UniqueConstraint(columnNames = {"username", "email", "token_restart", "token_confirm"})
+                @UniqueConstraint(columnNames = {"username", "email"})
         })
 public class User implements Serializable {
 
@@ -35,15 +39,15 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "username", nullable = false, length = 2147483647)
+    @Size(min = 1, max = 50)
+    @Column(name = "username", nullable = false)
     private String username;
 
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Correo electrónico no válido")
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "email", nullable = false, length = 2147483647)
+    @Size(min = 1, max = 50)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @JoinColumn(name = "organization", referencedColumnName = "id_organization", nullable = false)
@@ -52,8 +56,8 @@ public class User implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "pass", nullable = false, length = 2147483647)
+    @Size(min = 1, max = 100)
+    @Column(name = "pass", nullable = false)
     private String pass;
 
     @Column(name = "token_restart")
@@ -72,11 +76,6 @@ public class User implements Serializable {
     @Column(name = "non_locked", nullable = false)
     private boolean nonLocked;
 
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "attempt", nullable = false)
-    private short attempt;
-
     @Column(name = "create_at")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING)
@@ -94,159 +93,17 @@ public class User implements Serializable {
     @ManyToOne(optional = false)
     private Role role;
 
-    public User() {
-    }
-
-    public User(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public User(@NotNull @Size(min = 1, max = 2147483647) String username,
-                @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Correo electrónico no válido") @NotNull @Size(min = 1, max = 2147483647) String email,
-                @NotNull @Size(min = 1, max = 2147483647) String pass,
-                String tokenRestart,
-                String tokenConfirm,
-                @NotNull boolean enabled,
-                @NotNull boolean nonLocked,
-                @NotNull short attempt,
-                Date createAt,
-                @NotNull Date updateAt,
-                Organization organization,
-                Role role) {
+    public User(@NotNull @Size(min = 1, max = 50) String username, @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "Correo electrónico no válido") @NotNull @Size(min = 1, max = 50) String email, Organization organization, @NotNull @Size(min = 1, max = 100) String pass, String tokenRestart, String tokenConfirm, @NotNull boolean enabled, @NotNull boolean nonLocked, Date createAt, @NotNull Date updateAt, Role role) {
         this.username = username;
         this.email = email;
+        this.organization = organization;
         this.pass = pass;
         this.tokenRestart = tokenRestart;
         this.tokenConfirm = tokenConfirm;
         this.enabled = enabled;
         this.nonLocked = nonLocked;
-        this.attempt = attempt;
         this.createAt = createAt;
         this.updateAt = updateAt;
-        this.organization = organization;
         this.role = role;
-    }
-
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public void setPass(String pass) {
-        this.pass = pass;
-    }
-
-    public String getTokenRestart() {
-        return tokenRestart;
-    }
-
-    public void setTokenRestart(String tokenRestart) {
-        this.tokenRestart = tokenRestart;
-    }
-
-    public String getTokenConfirm() {
-        return tokenConfirm;
-    }
-
-    public void setTokenConfirm(String tokenConfirm) {
-        this.tokenConfirm = tokenConfirm;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public boolean isNonLocked() {
-        return nonLocked;
-    }
-
-    public void setNonLocked(boolean nonLocked) {
-        this.nonLocked = nonLocked;
-    }
-
-    public short getAttempt() {
-        return attempt;
-    }
-
-    public void setAttempt(short attempt) {
-        this.attempt = attempt;
-    }
-
-    public Date getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(Date createAt) {
-        this.createAt = createAt;
-    }
-
-    public Date getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(Date updateAt) {
-        this.updateAt = updateAt;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
-
-    public Organization getOrganization() {
-        return organization;
-    }
-
-    public void setOrganization(Organization organization) {
-        this.organization = organization;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "idUser=" + idUser +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", organization=" + organization +
-                ", pass='" + pass + '\'' +
-                ", tokenRestart='" + tokenRestart + '\'' +
-                ", tokenConfirm='" + tokenConfirm + '\'' +
-                ", enabled=" + enabled +
-                ", nonLocked=" + nonLocked +
-                ", attempt=" + attempt +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                ", role=" + role +
-                '}';
     }
 }

@@ -1,5 +1,7 @@
 package online.grisk.afrodita.domain.entity;
 
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,9 +13,11 @@ import java.util.Collection;
  * @email pa.riosramirez@gmail.com
  */
 
+@Data
+@AllArgsConstructor
 @Entity
 @Table(
-        name = "grisk_organization",
+        name = "organization",
         schema = "public",
         uniqueConstraints = {
                 @UniqueConstraint(columnNames = {"rut"})
@@ -30,66 +34,21 @@ public class Organization implements Serializable {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "name", nullable = false, length = 2147483647)
+    @Size(min = 1, max = 100)
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
-    @Column(name = "rut", nullable = false, length = 2147483647)
+    @Size(min = 1, max = 25)
+    @Column(name = "rut", nullable = false)
     private String rut;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
     private Collection<User> users;
 
-    public Organization() {
-    }
-
-    public Organization(Long idOrganization) {
-        this.idOrganization = idOrganization;
-    }
-
-    public Organization(@NotNull @Size(min = 1, max = 2147483647) String name, @NotNull @Size(min = 1, max = 2147483647) String rut) {
+    public Organization(@NotNull @Size(min = 1, max = 100) String name, @NotNull @Size(min = 1, max = 25) String rut) {
         this.name = name;
         this.rut = rut;
-    }
-
-    public Organization(@NotNull @Size(min = 1, max = 2147483647) String name, @NotNull @Size(min = 1, max = 2147483647) String rut, Collection<User> users) {
-        this.name = name;
-        this.rut = rut;
-        this.users = users;
-    }
-
-    public Long getIdOrganization() {
-        return idOrganization;
-    }
-
-    public void setIdOrganization(Long idOrganization) {
-        this.idOrganization = idOrganization;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getRut() {
-        return rut;
-    }
-
-    public void setRut(String rut) {
-        this.rut = rut;
-    }
-
-    public Collection<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Collection<User> users) {
-        this.users = users;
     }
 }

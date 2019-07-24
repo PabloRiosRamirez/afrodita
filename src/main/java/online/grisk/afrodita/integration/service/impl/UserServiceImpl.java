@@ -1,7 +1,7 @@
 package online.grisk.afrodita.integration.service.impl;
 
 import online.grisk.afrodita.domain.entity.User;
-import online.grisk.afrodita.persistence.repository.UserRepository;
+import online.grisk.afrodita.persistence.UserRepository;
 import online.grisk.afrodita.integration.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

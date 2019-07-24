@@ -1,7 +1,7 @@
 package online.grisk.afrodita.security.service.details.impl;
 
 import online.grisk.afrodita.domain.entity.Role;
-import online.grisk.afrodita.persistence.repository.UserRepository;
+import online.grisk.afrodita.persistence.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -34,6 +34,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (role != null) {
             grantList.add(new SimpleGrantedAuthority("ROLE_" + role.getCode().toUpperCase()));
         }
-        return new User(user.getUsername(), user.getPass(), user.isEnabled(), user.getAttempt() <= 3, true, user.isNonLocked(), grantList);
+        return new User(user.getUsername(), user.getPass(), user.isEnabled(), true, true, user.isNonLocked(), grantList);
     }
 }

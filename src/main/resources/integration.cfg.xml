@@ -23,8 +23,8 @@
     <int:channel id="channelResetPassword" />
     <int:channel id="channelPostResetPassword" />
 
-    <int:service-activator input-channel="channelRegisterUser" ref="hermesActivatorService" method="registerUser"/>
-    <int:service-activator input-channel="channelResetPassword" ref="hermesActivatorService" method="resetPassword"/>
-    <int:service-activator input-channel="channelPostResetPassword" ref="hermesActivatorService" method="postResetPassword"/>
+    <int:service-activator input-channel="channelRegisterUser" ref="artemisaActivatorService" method="registerUser"/>
+    <int:service-activator input-channel="channelResetPassword" ref="artemisaActivatorService" method="resetPassword"/>
+    <int:service-activator input-channel="channelPostResetPassword" ref="artemisaActivatorService" method="postResetPassword"/>
 
 </beans>

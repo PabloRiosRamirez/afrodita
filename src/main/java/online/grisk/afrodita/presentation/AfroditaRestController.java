@@ -1,4 +1,4 @@
-package online.grisk.afrodita.presentation.restcontroller;
+package online.grisk.afrodita.presentation;
 
 import online.grisk.afrodita.domain.model.ParentResponseModel;
 import online.grisk.afrodita.domain.model.ResetPassModel;
@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-public class UserRestController {
+public class AfroditaRestController {
 
     @Autowired
     GatewayService gatewayService;
