@@ -28,8 +28,7 @@ import java.util.UUID;
 @Component
 public class ArtemisaActivatorService {
 
-    @Autowired
-    UUID uuid;
+
 
     @Autowired
     UserService userService;
@@ -58,7 +57,7 @@ public class ArtemisaActivatorService {
         try {
             UserModel presentedUser = (UserModel) object;
             if (userService.findByUsernameOrEmail(presentedUser.getUsername(), presentedUser.getEmail()) == null) {
-                if (restTemplate.exchange("http://artemisa/v1/rest/mail/send", HttpMethod.POST, createRequestHermes(presentedUser.getEmail(), "registerUser"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
+                if (restTemplate.exchange("http://artemisa/v1/rest/hermes", HttpMethod.POST, createRequestHermes(presentedUser.getEmail(), "registerUser"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
                     OrganizationModel presentedOrganization = presentedUser.getOrganization();
                     Organization existedOrganization = organizationService.findByRut(presentedOrganization.getRut());
                     if (existedOrganization == null) {
@@ -92,7 +91,7 @@ public class ArtemisaActivatorService {
                 return ParentResponseModel.toMessage(uuid,
                         HttpStatus.NOT_FOUND, "No esta registrado usuarios con este correo electrónico.", new Date(), null);
             }
-            if (restTemplate.postForEntity("http://artemisa/v1/rest/mail/send", createRequestHermes(object.toString(), "resetPassword"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
+            if (restTemplate.postForEntity("http://artemisa/v1/rest/hermes", createRequestHermes(object.toString(), "resetPassword"), ParentResponseModel.class).getStatusCode() == HttpStatus.OK) {
                 byEmail.setTokenRestart(token);
                 User user = userService.save(byEmail);
                 return ParentResponseModel.toMessage(uuid, HttpStatus.OK,
