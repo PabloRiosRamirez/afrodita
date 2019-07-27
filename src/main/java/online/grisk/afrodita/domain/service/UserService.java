@@ -1,4 +1,4 @@
-package online.grisk.afrodita.integration.service;
+package online.grisk.afrodita.domain.service;
 
 import online.grisk.afrodita.domain.entity.User;
 

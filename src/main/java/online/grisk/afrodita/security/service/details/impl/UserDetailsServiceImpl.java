@@ -1,7 +1,7 @@
 package online.grisk.afrodita.security.service.details.impl;
 
 import online.grisk.afrodita.domain.entity.Role;
-import online.grisk.afrodita.persistence.UserRepository;
+import online.grisk.afrodita.persistence.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

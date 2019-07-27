@@ -1,9 +1,8 @@
-package online.grisk.afrodita.domain.model;
+package online.grisk.afrodita.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.support.MessageBuilder;

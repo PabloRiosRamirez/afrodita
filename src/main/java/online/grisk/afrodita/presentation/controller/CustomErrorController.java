@@ -1,4 +1,4 @@
-package online.grisk.afrodita.presentation;
+package online.grisk.afrodita.presentation.controller;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;

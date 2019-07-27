@@ -1,6 +1,6 @@
-package online.grisk.afrodita.presentation;
+package online.grisk.afrodita.presentation.controller;
 
-import online.grisk.afrodita.integration.service.UserService;
+import online.grisk.afrodita.domain.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

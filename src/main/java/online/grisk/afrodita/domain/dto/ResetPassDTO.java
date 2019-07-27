@@ -1,16 +1,17 @@
-package online.grisk.afrodita.domain.model;
+package online.grisk.afrodita.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.Basic;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.HashMap;
+import java.util.Map;
 
 @Data
 @AllArgsConstructor
-public class ResetPassModel {
+public class ResetPassDTO {
 
     @Basic(optional = false)
     @NotNull
@@ -26,4 +27,12 @@ public class ResetPassModel {
     @NotNull
     @Size(min = 1, max = 2147483647)
     private String pass;
+
+    public Map toMap(){
+        Map<String, Object> objectMap  = new HashMap<>();
+        objectMap.put("email", email);
+        objectMap.put("token", token);
+        objectMap.put("pass", pass);
+        return objectMap;
+    }
 }

@@ -139,6 +139,13 @@
             <scope>provided</scope>
         </dependency>
         <!-- End Lombok -->
+        <!-- Begin Document API -->
+        <dependency>
+            <groupId>io.swagger</groupId>
+            <artifactId>swagger-annotations</artifactId>
+            <version>1.5.20</version>
+        </dependency>
+        <!-- End Document API -->
     </dependencies>
 
     <build>
@@ -147,9 +154,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <configuration>
-                    <classifier>exec</classifier>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>

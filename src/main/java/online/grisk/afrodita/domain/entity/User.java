@@ -19,6 +19,7 @@ import java.util.Date;
  */
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(

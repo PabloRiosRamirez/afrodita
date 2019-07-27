@@ -12,19 +12,19 @@
 
     <int:recipient-list-router input-channel="channelDefault">
         <int:recipient channel="channelRegisterUser"
-                       selector-expression="headers.step.equals('registerUser')" />
+                       selector-expression="headers.action.equals('sendEmailRegisterUser')" />
         <int:recipient channel="channelResetPassword"
-                       selector-expression="headers.step.equals('resetPassword')" />
+                       selector-expression="headers.action.equals('sendEmailResetPassword')" />
         <int:recipient channel="channelPostResetPassword"
-                       selector-expression="headers.step.equals('postResetPassword')" />
+                       selector-expression="headers.action.equals('postResetPassword')" />
     </int:recipient-list-router>
 
     <int:channel id="channelRegisterUser" />
     <int:channel id="channelResetPassword" />
     <int:channel id="channelPostResetPassword" />
 
-    <int:service-activator input-channel="channelRegisterUser" ref="artemisaActivatorService" method="registerUser"/>
-    <int:service-activator input-channel="channelResetPassword" ref="artemisaActivatorService" method="resetPassword"/>
-    <int:service-activator input-channel="channelPostResetPassword" ref="artemisaActivatorService" method="postResetPassword"/>
+    <int:service-activator input-channel="channelRegisterUser" ref="artemisaActivatorService" method="invokeEmailRegisterByLogin"/>
+    <int:service-activator input-channel="channelResetPassword" ref="artemisaActivatorService" method="invokeEmailResetPassByLogin"/>
+    <int:service-activator input-channel="channelPostResetPassword" ref="artemisaActivatorService" method="invokePostResetPassByLogin"/>
 
 </beans>

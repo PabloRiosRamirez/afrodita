@@ -1,4 +1,4 @@
-package online.grisk.afrodita.persistence;
+package online.grisk.afrodita.persistence.repository;
 
 import online.grisk.afrodita.domain.entity.User;
 import org.springframework.data.repository.PagingAndSortingRepository;

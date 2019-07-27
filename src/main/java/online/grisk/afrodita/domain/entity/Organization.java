@@ -14,6 +14,7 @@ import java.util.Collection;
  */
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(

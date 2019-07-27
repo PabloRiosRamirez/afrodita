@@ -1,7 +1,6 @@
 package online.grisk.afrodita.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,6 +16,7 @@ import java.util.Collection;
  * @email pa.riosramirez@gmail.com
  */
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(
@@ -50,4 +50,9 @@ public class Role implements Serializable {
     @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private Collection<User> users;
+
+    public Role(@NotNull @Size(min = 1, max = 50) String name, @NotNull @Size(min = 1, max = 25) String code) {
+        this.name = name;
+        this.code = code;
+    }
 }
