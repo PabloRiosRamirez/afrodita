@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+    <link th:href="@{/css/wizard/wizard.css}" rel="stylesheet" type="text/css"/>
+    <!--    <link th:href="@{/vendors/general/sweetalert2/dist/sweetalert2.min.css}" type="text/css"/>-->
+
+    <style>
+        @media (max-width: 749px) {
+            .btn-deleted-repeater {
+                width: 100% !important;
+                margin-bottom: 40px !important;
+            }
+        }
+
+        @media (min-width: 750px) and (max-width: 1024px) {
+            .btn-deleted-repeater {
+                height: 280px !important;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .btn-deleted-repeater {
+                height: 130px !important;
+            }
+        }
+    </style>
+</head>
+
+<body class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
+
+<div th:replace="fragments/common :: header"></div>
+
+<div class="kt-grid kt-grid--hor kt-grid--root">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-grid--stretch">
+                <div class="kt-container kt-body  kt-grid kt-grid--ver" id="kt_body">
+                    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+                        <!-- begin:: Subheader -->
+                        <div class="kt-subheader   kt-grid__item" id="kt_subheader" style="padding: 10px 0 !important;">
+                            <div class="kt-subheader__main">
+                                <span class="kt-subheader__separator kt-hidden"></span>
+                                <div class="kt-subheader__breadcrumbs">
+                                    <a th:href="@{/}" class="kt-subheader__breadcrumbs-home"><i
+                                            class="flaticon2-shelter"></i></a>
+                                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                                    <!--<a href="" class="kt-subheader__breadcrumbs-link">
+                                        Cuenta </a>-->
+
+                                    <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Data Integration</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end:: Subheader -->
+
+                        <!--Begin::  Content-->
+                        <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
+                             style="margin-bottom: 50px;">
+                            <input id="organization" th:value="${id_organization}">
+                            <div class="row" id="first_dataintegration">
+                                <div class="col-lg-12">
+                                    <!--begin::Portlet-->
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">
+                                                    Data Integration
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <!--begin::Form-->
+                                        <form class="kt-form">
+                                            <div class="kt-portlet__body">
+                                                <div class="form-group form-group-marginless">
+                                                    <label>Seleccione la forma de inyección de información:</label>
+                                                    <div class="row">
+                                                        <div class="col-lg-6">
+                                                            <label class="kt-option">
+                                                                <span class="kt-option__control">
+                                                                    <span class="kt-radio kt-radio--bold kt-radio--brand kt-radio--check-bold">
+                                                                        <input type="radio"
+                                                                               name="option_type_dataintegration"
+                                                                               value="0" checked="checked">
+                                                                        <span></span>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="kt-option__label">
+                                                                    <span class="kt-option__head">
+                                                                        <span class="kt-option__title">Data Integration Excel</span>
+                                                                    </span>
+                                                                    <span class="kt-option__body">Al momento de realizar el análisis de riesgo financiero deberá ingresar un archivo excel con información necesaria.</span>
+                                                                </span>
+                                                                <span class="kt-option__control" style="width: 50px;">
+                                                                    <i class="flaticon2-sheet"
+                                                                       style="font-size: 35px;padding: 15px;"></i>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <label class="kt-option">
+                                                                <span class="kt-option__control">
+                                                                    <span class="kt-radio kt-radio--bold kt-radio--brand kt-radio--check-bold">
+                                                                        <input type="radio"
+                                                                               name="option_type_dataintegration"
+                                                                               value="1">
+                                                                        <span></span>
+                                                                    </span>
+                                                                </span>
+                                                                <span class="kt-option__label">
+                                                                    <span class="kt-option__head">
+                                                                        <span class="kt-option__title">Data Integration Bureau</span>
+                                                                    </span>
+                                                                    <span class="kt-option__body">Al momento de realizar el análisis de riesgo financiero se consumirá el servicio bureau para inyectar la información necesaria para este proceso.</span>
+                                                                </span>
+                                                                <span class="kt-option__control" style="width: 50px;">
+                                                                    <i class="flaticon2-rocket-1"
+                                                                       style="font-size: 35px;padding: 15px;"></i>
+                                                                </span>
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-portlet__foot">
+                                                <div class="kt-form__actions">
+                                                    <button id="btn-type-dataintegration" type="reset"
+                                                            class="btn btn-info" onclick="selectDataIntegration()">
+                                                        Siguiente
+                                                    </button>
+                                                    <button type="reset" class="btn btn-secondary">Atrás</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Portlet-->
+                                </div>
+                            </div>
+                            <div class="row" id="row_wizard_excel" hidden="true">
+                                <div class="kt-portlet">
+                                    <div class="kt-portlet__body kt-portlet__body--fit">
+                                        <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="wizard_excel"
+                                             data-ktwizard-state="first">
+                                            <div id="conf_dataintegration_excel">
+                                                <div class="kt-grid__item">
+
+                                                    <!--begin: Form Wizard Nav -->
+                                                    <div class="kt-wizard-v3__nav">
+                                                        <div class="kt-wizard-v3__nav-items">
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="current"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>1</span> Archivo de plantilla
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="pending"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>2</span> Variables para indicadores
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="pending"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>3</span> Resumen y guardar
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end: Form Wizard Nav -->
+                                                </div>
+                                                <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+
+                                                    <!--begin: Form Wizard Form-->
+                                                    <form class="kt-form" id="kt_form" novalidate="novalidate">
+
+                                                        <!--begin: Form Wizard Step 1-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content"
+                                                             data-ktwizard-state="current">
+                                                            <div class="kt-heading kt-heading--md">Por favor ingrese
+                                                                archivo
+                                                                a subir al momento del análisis:
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__form">
+                                                                    <div class="row">
+                                                                        <div class="col-xl-12">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-md-12 col-lg-6 col-form-label">Sube
+                                                                                    un archivo de ejemplo del archivo
+                                                                                    excel:</label>
+                                                                                <div class="custom-file col-md-12 col-lg-6">
+                                                                                    <input type="file"
+                                                                                           class="custom-file-input"
+                                                                                           name="file_dataintegration"
+                                                                                           id="file_dataintegration">
+                                                                                    <label class="custom-file-label">Ningún
+                                                                                        archivo seleccionado</label>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 1-->
+
+                                                        <!--begin: Form Wizard Step 2-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content">
+                                                            <div class="kt-heading kt-heading--md">Ingrese los detalles
+                                                                de
+                                                                las variables a ocupar en los indicadores Risk Score,
+                                                                Risk
+                                                                Ratios y Business Tree
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__form">
+                                                                    <div id="kt_repeater_1">
+                                                                        <div class="form-group form-group-last row">
+                                                                            <div data-repeater-list=""
+                                                                                 class="col-lg-12">
+                                                                                <div data-repeater-item
+                                                                                     class="form-group row align-items-center">
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Nombre de la
+                                                                                                    variable</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nombre a mostrar"
+                                                                                                       name="name_variable">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Tipo de
+                                                                                                    variable:</label>
+                                                                                                <select name="type_variable"
+                                                                                                        class="form-control custom-select form-control">
+                                                                                                    <option value="">
+                                                                                                        Seleccione
+                                                                                                        un opción
+                                                                                                    </option>
+                                                                                                    <option value="NE">
+                                                                                                        Número
+                                                                                                        entero
+                                                                                                    </option>
+                                                                                                    <option value="ND">
+                                                                                                        Número
+                                                                                                        decimal
+                                                                                                    </option>
+                                                                                                    <option value="PA">
+                                                                                                        Palabra
+                                                                                                    </option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Coordenadas
+                                                                                                    para extraer
+                                                                                                    valor</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Coordenadas de la celda"
+                                                                                                       name="coordenate_variable">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Valor por
+                                                                                                    defecto para la
+                                                                                                    variable</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Valor por defecto"
+                                                                                                       name="default_variable">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <a href="javascript:;"
+                                                                                           data-repeater-delete=""
+                                                                                           class="btn btn-danger btn-icon btn-deleted-repeater">
+                                                                                            <i class="flaticon2-trash"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="form-group form-group-last row">
+                                                                            <div class="col-lg-12">
+                                                                                <a href="javascript:;"
+                                                                                   data-repeater-create=""
+                                                                                   class="btn btn-bold btn-sm btn-label-brand col-12">
+                                                                                    <i class="flaticon2-add-1"></i>
+                                                                                    Agregar
+                                                                                    nueva variable
+                                                                                </a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 2-->
+
+                                                        <!--begin: Form Wizard Step 3-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content">
+                                                            <div class="kt-heading kt-heading--md">Resumen de los
+                                                                detalles y
+                                                                guardar
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__review">
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            Archivo a subir al momento del análisis
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <label>C:/document/archivo-test.xls</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            Detalles de las variables configuradas
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <div class="form-group row">
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Nombre:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Variable
+                                                                                    1</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Tipo:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Número
+                                                                                    entero</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Coordenas:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>A24;Z89</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Valor
+                                                                                    por defecto:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>100000</strong>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Nombre:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Variable
+                                                                                    1</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Tipo:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Número
+                                                                                    entero</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Coordenas:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>A24;Z89</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Valor
+                                                                                    por defecto:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>100000</strong>
+                                                                                </label>
+                                                                            </div>
+                                                                            <div class="form-group row">
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Nombre:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Variable
+                                                                                    1</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Tipo:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>Número
+                                                                                    entero</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Coordenas:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>A24;Z89</strong>
+                                                                                </label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label">Valor
+                                                                                    por defecto:</label>
+                                                                                <label class="col-xl-3 col-lg-3 col-form-label"><strong>100000</strong>
+                                                                                </label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 3-->
+
+                                                        <!--begin: Form Actions -->
+                                                        <div class="kt-form__actions">
+                                                            <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-prev">
+                                                                Atrás
+                                                            </div>
+                                                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-submit">
+                                                                Guardar
+                                                            </div>
+                                                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-next">
+                                                                Siguiente
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Actions -->
+                                                    </form>
+
+                                                    <!--end: Form Wizard Form-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="row_wizard_bureau" hidden="true">
+                                <div class="kt-portlet">
+                                    <div class="kt-portlet__body kt-portlet__body--fit">
+                                        <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" id="wizard_bureau"
+                                             data-ktwizard-state="first">
+                                            <div id="conf_dataintegration_bureau">
+                                                <div class="kt-grid__item">
+
+                                                    <!--begin: Form Wizard Nav -->
+                                                    <div class="kt-wizard-v3__nav">
+                                                        <div class="kt-wizard-v3__nav-items">
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="current"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>1</span> Configuración servicio bureau
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="pending"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>2</span> Variables para indicadores
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                            <span class="kt-wizard-v3__nav-item" href="#"
+                                                                  data-ktwizard-type="step"
+                                                                  data-ktwizard-state="pending"
+                                                                  style="flex: 0 0 33.3%;">
+                                                                <div class="kt-wizard-v3__nav-body">
+                                                                    <div class="kt-wizard-v3__nav-label">
+                                                                        <span>3</span> Resumen y guardar
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__nav-bar"></div>
+                                                                </div>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <!--end: Form Wizard Nav -->
+                                                </div>
+                                                <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
+
+                                                    <!--begin: Form Wizard Form-->
+                                                    <form class="kt-form" id="kt_form_1" novalidate="novalidate">
+
+                                                        <!--begin: Form Wizard Step 1-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content"
+                                                             data-ktwizard-state="current">
+                                                            <div class="kt-heading kt-heading--md">Por favor ingrese los
+                                                                datos necesarios:
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__form">
+                                                                    <div class="row">
+                                                                        <div class="form-group col-12">
+                                                                            <label>URL del servicio bureau</label>
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   placeholder="URL del servicio a consumir">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12 col-lg-6">
+                                                                            <label>Usuario bureau</label>
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   placeholder="Usuario para servicio bureu">
+                                                                        </div>
+                                                                        <div class="form-group col-md-12 col-lg-6">
+                                                                            <label>Contraseña bureau</label>
+                                                                            <input type="text"
+                                                                                   class="form-control"
+                                                                                   placeholder="Contraseña para servicio bureu">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 1-->
+
+                                                        <!--begin: Form Wizard Step 2-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content">
+                                                            <div class="kt-heading kt-heading--md">Listado de variables
+                                                                de servicio bureau:
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__form">
+                                                                    <div class="row">
+                                                                        <div class="form-group">
+                                                                            <label>Seleccione las variables a ocupar en
+                                                                                los indicadores Risk Score, Risk Ratios
+                                                                                y Business Tree</label>
+                                                                            <div class="kt-checkbox-list"
+                                                                                 style="margin-top: 10px;margin-left: 20px;">
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                                                                    <input type="checkbox"> Tiene
+                                                                                    Boletín Concursal
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                                                                    <input type="checkbox"> Tiene
+                                                                                    registro DICOM
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                                                                    <input type="checkbox"> Puntaje de
+                                                                                    score últimos 12 meses
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                                                                    <input type="checkbox"> Puntaje de
+                                                                                    score últimos 24 meses
+                                                                                    <span></span>
+                                                                                </label>
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
+                                                                                    <input type="checkbox"> Puntaje de
+                                                                                    score últimos 36 meses
+                                                                                    <span></span>
+                                                                                </label>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 2-->
+
+                                                        <!--begin: Form Wizard Step 3-->
+                                                        <div class="kt-wizard-v3__content"
+                                                             data-ktwizard-type="step-content">
+                                                            <div class="kt-heading kt-heading--md">Resumen de los
+                                                                detalles y
+                                                                guardar
+                                                            </div>
+                                                            <div class="kt-form__section kt-form__section--first">
+                                                                <div class="kt-wizard-v3__review">
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            <label>URL del servicio bureau</label>
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <label>http://hefesto-qa.herokuapp.com/api/report</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            <label>Nombre de usuario para servicio
+                                                                                bureau</label>
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <label>AASWKW878A6D</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            <label>Contraseña para servicio
+                                                                                bureau</label>
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <strong>AASsadKW87er8A6eD34adas233</strong>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="kt-wizard-v3__review-item">
+                                                                        <div class="kt-wizard-v3__review-title">
+                                                                            Detalles de las variables seleccionadas
+                                                                        </div>
+                                                                        <div class="kt-wizard-v3__review-content">
+                                                                            <div class="form-group row">
+                                                                                <div class="col-12">
+                                                                                    <label>Variables
+                                                                                        del bureau:</label>
+                                                                                </div>
+                                                                                <div class="col-12">
+                                                                                    <ul style="margin-left: 20px;">
+                                                                                        <li><strong>IdBan 1</strong>
+                                                                                        </li>
+                                                                                        <li><strong>IdBan_23</strong>
+                                                                                        </li>
+                                                                                        <li><strong>IdAvaluFISC</strong>
+                                                                                        </li>
+                                                                                        <li><strong>SCORDicom</strong>
+                                                                                        </li>
+                                                                                        <li><strong>ConcBole_12</strong>
+                                                                                        </li>
+                                                                                        <li><strong>ConcBole_24</strong>
+                                                                                        </li>
+                                                                                    </ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Wizard Step 3-->
+
+                                                        <!--begin: Form Actions -->
+                                                        <div class="kt-form__actions">
+                                                            <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-prev">
+                                                                Atrás
+                                                            </div>
+                                                            <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-submit">
+                                                                Guardar
+                                                            </div>
+                                                            <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                                 data-ktwizard-type="action-next">
+                                                                Siguiente
+                                                            </div>
+                                                        </div>
+
+                                                        <!--end: Form Actions -->
+                                                    </form>
+
+                                                    <!--end: Form Wizard Form-->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--End::  Content-->
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/common :: footer"></div>
+
+<!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+<script th:src="@{/js/data_integration/data_integration.js}" type="text/javascript"></script>
+<script th:src="@{/js/form-repeater/form-repeater.js}" type="text/javascript"></script>
+
+</body>
+</html>

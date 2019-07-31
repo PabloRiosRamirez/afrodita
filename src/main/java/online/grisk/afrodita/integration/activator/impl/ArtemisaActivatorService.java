@@ -2,6 +2,7 @@ package online.grisk.afrodita.integration.activator.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.entity.ServiceActivator;
@@ -9,14 +10,16 @@ import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.ArtemisaService;
 import online.grisk.afrodita.integration.activator.BasicRestServiceActivator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -81,6 +84,19 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         }
     }
 
+    //    Action for 'registerDataIntegrationExcel'
+    public Map<String, Object> invokeRegisterDataIntegrationExcel(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
+        ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator((Map<String, Object>) payload.get("request"), createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
+        return addServiceResponseToResponseMap(payload, responseEntity.getBody().get("current_response"), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
+    }
+
+    //    Action for 'registerDataIntegrationExcel'
+    public Map<String, Object> invokeUpdateDataIntegrationExcel(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
+        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO((Map<String, Object>) payload.get("request"));
+        ResponseEntity<JsonNode> responseEntity = consumerDataIntegrationRestServiceActivator("/v1/rest/data-integration/" + fileDataIntegrationDTO.getId_organization(), payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
+        return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
+    }
+
 
     private Map buildRequestHermesByArtemisa(String address, String token) {
         Map<String, Object> request = new HashMap<>();
@@ -101,8 +117,33 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         return headers;
     }
 
+    private ResponseEntity<JsonNode> consumerRestServiceActivator(@NotBlank String path, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
+        HttpEntity<Object> httpEntity = this.buildHttpEntity(payload, headers, serviceActivatorArtemisa);
+        return this.executeRequest(path, serviceActivatorArtemisa, httpEntity);
+    }
+
     private ResponseEntity<JsonNode> consumerRestServiceActivator(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
         HttpEntity<Object> httpEntity = this.buildHttpEntity(payload, headers, serviceActivatorArtemisa);
         return this.executeRequest(serviceActivatorArtemisa, httpEntity);
+    }
+
+    private ResponseEntity<JsonNode> consumerDataIntegrationRestServiceActivator(@NotBlank String path, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
+
+        HttpEntity<Object> httpEntity = this.buildHttpEntityMultipart(payload, headers, serviceActivatorArtemisa);
+        return this.executeRequest(path, serviceActivatorArtemisa, httpEntity);
+    }
+
+    private HttpEntity<Object> buildHttpEntityMultipart(Map<String, Object> payload, Map<String, Object> headers, ServiceActivator serviceActivator) throws IOException {
+        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO((Map<String, Object>) payload.get("request"));
+        ContentDisposition contentDisposition = ContentDisposition.builder("form-data").name("file").filename(fileDataIntegrationDTO.getFile().getOriginalFilename()).build();
+
+        HttpHeaders httpHeaders = this.createHttpHeaders(headers, serviceActivator);
+        httpHeaders.setContentDisposition(contentDisposition);
+        httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+
+        HttpEntity<byte[]> fileEntity = new HttpEntity(fileDataIntegrationDTO.getFile().getBytes(), httpHeaders);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", fileDataIntegrationDTO.getFile().getResource());
+        return new HttpEntity<>(body, httpHeaders);
     }
 }

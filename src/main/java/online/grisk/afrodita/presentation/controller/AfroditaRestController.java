@@ -1,5 +1,7 @@
 package online.grisk.afrodita.presentation.controller;
 
+import online.grisk.afrodita.domain.dto.DataIntegrationDTO;
+import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.integration.gateway.GatewayService;
@@ -13,10 +15,8 @@ import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
@@ -51,6 +51,22 @@ public class AfroditaRestController {
         }
         this.verifyParameters(resetPassDTO.toMap());
         return invokeServiceActivator(resetPassDTO.toMap(), new HashMap(), "postResetPassword");
+    }
+
+    @PostMapping(value = "/v1/rest/data-integration")
+    public HttpEntity<?> registerDataIntegrationExcel(@Valid @RequestBody DataIntegrationDTO dataIntegrationDTO, Errors errors) {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.verifyParameters(dataIntegrationDTO.toMap());
+        return invokeServiceActivator(dataIntegrationDTO.toMap(), new HashMap(), "registerDataIntegrationExcel");
+    }
+
+    @PostMapping(value = "/v1/rest/data-integration/{id_dataintegration}")
+    public HttpEntity<?> updateDataIntegrationExcel(@RequestParam("file") MultipartFile file, @PathVariable Long id_dataintegration) {
+        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(id_dataintegration, file);
+        this.verifyParameters(fileDataIntegrationDTO.toMap());
+        return invokeServiceActivator(fileDataIntegrationDTO.toMap(), new HashMap(), "updateDataIntegrationExcel");
     }
 
     private void verifyParameters(Map payload) {

@@ -24,14 +24,15 @@ public class BasicRestServiceActivator {
         return new HttpEntity<>(payload, httpHeaders);
     }
 
-    private HttpHeaders createHttpHeaders(Map<String, Object> mapHeaders, ServiceActivator serviceActivator) {
+    protected HttpHeaders createHttpHeaders(Map<String, Object> mapHeaders, ServiceActivator serviceActivator) {
         HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("Content-Type", "application/json");
         mapHeaders.forEach((k, v) -> {
             if (v instanceof String) {
                 httpHeaders.add(k.toLowerCase(), v.toString());
-                httpHeaders.setBasicAuth(serviceActivator.getServiceUsername(), serviceActivator.getServicePassword());
             }
         });
+        httpHeaders.setBasicAuth(serviceActivator.getServiceUsername(), serviceActivator.getServicePassword());
         return httpHeaders;
     }
 
@@ -49,10 +50,30 @@ public class BasicRestServiceActivator {
         return response;
     }
 
+    protected ResponseEntity<JsonNode> executeRequest(String path, ServiceActivator serviceActivator, HttpEntity<Object> httpEntity) throws Exception {
+        ResponseEntity response;
+        try {
+            response = this.restTemplate.exchange("http://" + serviceActivator.getServiceId() + path, HttpMethod.POST, httpEntity, JsonNode.class);
+        } catch (RestClientResponseException e) {
+            throw new Exception(this.buildErrorMessage(serviceActivator.getServiceId(), e));
+        } catch (IllegalStateException e) {
+            throw new IllegalStateException("No instances available for " + serviceActivator.getServiceId());
+        } catch (Exception e) {
+            throw new Exception();
+        }
+        return response;
+    }
 
-    private String buildErrorMessage(String nameServiceActivator, RestClientResponseException e) throws Exception {
-        JsonNode jsonNode = this.objectMapper.readTree(e.getResponseBodyAsString());
-        return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, jsonNode.get("message").asText(), e.getRawStatusCode()) : String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, e.getMessage(), e.getRawStatusCode());
+
+    private String buildErrorMessage(String nameServiceActivator, Exception exc) throws Exception {
+        JsonNode jsonNode = this.objectMapper.readTree(exc.getMessage());
+        if (exc instanceof RestClientResponseException) {
+            RestClientResponseException e = (RestClientResponseException) exc;
+            jsonNode = this.objectMapper.readTree(e.getResponseBodyAsString());
+            return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, jsonNode.get("message").asText(), e.getRawStatusCode()) : String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, e.getMessage(), e.getRawStatusCode());
+        }
+        return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, jsonNode.get("message").asText()) : String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, exc.getMessage());
+
     }
 
     protected Map<String, Object> addServiceResponseToResponseMap(Map<String, Object> payload, Object response, HttpStatus status, String serviceId) {

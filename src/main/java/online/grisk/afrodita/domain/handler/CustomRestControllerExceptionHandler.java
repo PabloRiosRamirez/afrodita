@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @ControllerAdvice(annotations = RestController.class)
 @Order(1)
-public class RestControllerExceptionHandler {
+public class CustomRestControllerExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleUnexpectedException(Exception e) {

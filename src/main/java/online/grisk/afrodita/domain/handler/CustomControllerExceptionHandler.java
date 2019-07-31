@@ -1,6 +1,7 @@
-package online.grisk.afrodita.presentation.controller;
+package online.grisk.afrodita.domain.handler;
 
 import org.springframework.boot.web.servlet.error.ErrorController;
+import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +10,8 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class CustomErrorController implements ErrorController {
+@Order(2)
+public class CustomControllerExceptionHandler implements ErrorController {
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {

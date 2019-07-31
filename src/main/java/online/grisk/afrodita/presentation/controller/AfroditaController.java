@@ -6,9 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
+
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
@@ -60,49 +62,74 @@ public class AfroditaController {
     public String analysisPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Análisis");
         model.addAttribute("description", "Análisis de riesgo");
-        model.addAttribute("module", "analisis");
+        model.addAttribute("module", "analysis");
         return "dashboard";
     }
 
-    @RequestMapping(value = "/data-integration/excel", method = GET)
-    public String dataIntegrationExcel(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Data Integration Excel");
-        model.addAttribute("description", "Configuración de Data Integration en modo Excel");
-        return "data-integration/data_integration-excel";
+    @RequestMapping(value = "/data-integration", method = GET)
+    public String dataIntegration(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Data Integration");
+        model.addAttribute("description", "Data Integration");
+        model.addAttribute("module", "data-integration");
+        return "data_integration/data_integration";
     }
 
-    @RequestMapping(value = "/data-integration/bureau", method = GET)
-    public String dataIntegrationBureau(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Data Integration Bureau");
-        model.addAttribute("description", "Configuración de Data Integration en modo Bureau");
-        return "data-integration/data_integration-bureau";
+    @RequestMapping(value = "/data-integration/setting", method = GET)
+    public String dataIntegrationSetting(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Data Integration");
+        model.addAttribute("description", "Configuración de Data Integration");
+        model.addAttribute("module", "data-integration");
+        model.addAttribute("id_organization", userService.findByUsername(principal.getName()).getOrganization().getIdOrganization());
+        return "data_integration/data_integration-setting";
     }
 
-    @RequestMapping(value = "/indicators/ratios", method = GET)
-    public String indicatorsRatiosPage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Risk Ratios");
-        model.addAttribute("description", "Configuración de Risk Ratios");
-        return "indicators/indicators-ratios";
-    }
-    @RequestMapping(value = "/indicators/tree", method = GET)
-    public String indicatorsTreePage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Business Tree");
-        model.addAttribute("description", "Configuración de Business Tree");
-        return "indicators/indicators-tree";
-    }
 
     @RequestMapping(value = "/indicators/score", method = GET)
-    public String indicatorScorePage(HttpSession session, Model model, Principal principal) {
+    public String indicatorScore(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
+        model.addAttribute("module", "indicators");
         return "indicator-score/indicator-score";
     }
 
     @RequestMapping(value = "/indicators/score/setting", method = GET)
-    public String indicatorScoreSttingPage(HttpSession session, Model model, Principal principal) {
+    public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Risk Score");
-        model.addAttribute("description", "Configuración de Risk Score");
+        model.addAttribute("description", "Risk Score");
+        model.addAttribute("module", "indicators");
         return "indicator-score/indicator-score-setting";
+    }
+
+    @RequestMapping(value = "/indicators/ratios", method = GET)
+    public String indicatorsRatios(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Risk Ratios");
+        model.addAttribute("description", "Configuración de Risk Ratios");
+        model.addAttribute("module", "indicators");
+        return "indicators-ratios/indicators-ratios";
+    }
+
+    @RequestMapping(value = "/indicators/ratios/setting", method = GET)
+    public String indicatorsRatiosSetting(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Risk Ratios");
+        model.addAttribute("description", "Configuración de Risk Ratios");
+        model.addAttribute("module", "indicators");
+        return "indicators-ratios/indicators-ratios-setting";
+    }
+
+    @RequestMapping(value = "/indicators/tree", method = GET)
+    public String indicatorsTree(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Business Tree");
+        model.addAttribute("description", "Configuración de Business Tree");
+        model.addAttribute("module", "indicators");
+        return "indicators/indicators-tree";
+    }
+
+    @RequestMapping(value = "/indicators/tree/setting", method = GET)
+    public String indicatorsTreeSetting(HttpSession session, Model model, Principal principal) {
+        model.addAttribute("title", "Business Tree");
+        model.addAttribute("description", "Configuración de Business Tree");
+        model.addAttribute("module", "indicators");
+        return "indicators/indicators-tree-setting";
     }
 
     @RequestMapping(value = "/account", method = GET)
@@ -116,6 +143,7 @@ public class AfroditaController {
     public String createUserPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
+        model.addAttribute("module", "user");
         return "users/create-user";
     }
 
@@ -123,6 +151,7 @@ public class AfroditaController {
     public String editUserPage(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
+        model.addAttribute("module", "user");
         return "users/edit-user";
     }
 

@@ -24,7 +24,7 @@ var KTWizard3 = function () {
 
 		// Change event
 		wizard.on('change', function(wizard) {
-			KTUtil.scrollTop();	
+			KTUtil.scrollTop();
 		});
 	}
 
