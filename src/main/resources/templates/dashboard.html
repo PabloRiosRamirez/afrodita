@@ -17,7 +17,6 @@
             <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-grid--stretch">
                 <div class="kt-container kt-body  kt-grid kt-grid--ver" id="kt_body">
                     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
-
                         <!-- begin:: Subheader -->
                         <div class="kt-subheader   kt-grid__item" id="kt_subheader" style="padding: 10px 0 !important;">
                             <div class="kt-subheader__main">
@@ -30,8 +29,6 @@
                             </div>
                         </div>
                         <!-- end:: Subheader -->
-
-
                         <!--Begin::  Content-->
                         <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
                              style="margin-bottom: 50px;">
@@ -41,105 +38,205 @@
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-label">
                                                 <h3 class="kt-portlet__head-title">Análisis
-                                                    <small>Realiza un análisis de riesgo</small>
+                                                    <small th:if="${dataintegration != null and dataintegration.bureau == false}">Actualmente
+                                                        esta activa una configuración de <strong>Data
+                                                            Integration a
+                                                            través de Excel</strong>.
+                                                    </small>
+                                                    <small th:if="${dataintegration != null and dataintegration.bureau == true}">Actualmente
+                                                        esta activa una configuración de <strong>Data
+                                                            Integration a
+                                                            través de Bureau</strong>.
+                                                    </small>
                                                 </h3>
                                             </div>
-
                                         </div>
-                                        <form class="kt-form kt-form--label-right">
+                                        <form class="kt-form" th:if="${dataintegration != null and dataintegration.bureau == false}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
                                                         <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="col-12 alert alert-outline-danger"
-                                                                     role="alert">
-                                                                    <label>
-                                                                        <strong style="margin-right: 8px;">Problemas!</strong>No
-                                                                        podrás realizar análisis de riesgo mientras el
-                                                                        <strong>Data Integration y todos los
-                                                                            indicadores</strong> sean configurados.
-                                                                    </label>
-                                                                </div>
+                                                            <div class="col-12" style="margin-bottom: 50px;margin-top: 50px;">
+                                                                <h2 class="text-center">Análisis de riesgo
+                                                                    financiero</h2>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="col-12">
-                                                                    <h3 class="kt-portlet__head-title">
-                                                                        <small>Detalles:</small>
-                                                                    </h3>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="col-12 alert alert-success" role="alert">
-                                                                    <label>
-                                                                        <strong style="margin-right: 8px;">Genial!</strong>Actualmente
-                                                                        esta activa una configuración de <strong>Data
-                                                                        Integration a
-                                                                        través de Bureau</strong>.
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-12 alert alert-warning" role="alert">
-                                                                    <label>
-                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
-                                                                        Actualmente no está configurado el <strong>indicador
-                                                                        Risk Score</strong>. Por favor dirigase a
-                                                                        Indicadores > Risk Score >
-                                                                        <strong>
-                                                                            <a th:href="@{/indicators/score/setting}"
-                                                                               style="color: #ffffff;">Nueva configuración</a>
-                                                                        </strong>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-12 alert alert-warning" role="alert">
-                                                                    <label>
-                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
-                                                                        Actualmente no está configurado el <strong>indicador
-                                                                        Risk Ratios</strong>. Por favor dirigase a
-                                                                        Indicadores > Risk Ratios >
-                                                                        <strong>
-                                                                            <a th:href="@{/indicators/ratios/setting}"
-                                                                               style="color: #ffffff;">Nueva configuración</a>
-                                                                        </strong>
-                                                                    </label>
-                                                                </div>
-                                                                <div class="col-12 alert alert-warning" role="alert">
-                                                                    <label>
-                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>Actualmente
-                                                                        no está configurado el <strong>indicador
-                                                                        Business
-                                                                        Tree</strong>. Por favor dirigase a Indicadores
-                                                                        > Business Tree >
-                                                                        <strong>
-                                                                            <a th:href="@{/indicators/tree/setting}"
-                                                                               style="color: #ffffff;">Nueva configuración</a>
-                                                                        </strong>
-                                                                    </label>
+                                                        <div class="row" >
+                                                            <div class="col-md-0 col-lg-3"></div>
+                                                            <div class="col-md-12 col-lg-6">
+                                                                <div class="form-group row">
+                                                                    <div class="col-12" style="margin-bottom: 10px;">
+                                                                        <label class="text-center">Ingresa
+                                                                            el archivo con la información necesaria para
+                                                                            realizar el análisis:</label>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="custom-file">
+                                                                            <input type="file"
+                                                                                   class="custom-file-input"
+                                                                                   name="file_dataintegration"
+                                                                                   id="file_dataintegration">
+                                                                            <label class="custom-file-label">Ningún
+                                                                                archivo seleccionado</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12" style="margin-top: 5px;">
+                                                                        <a th:href="@{/}"
+                                                                           class="text-info text-sm float-right">
+                                                                            ¿Desea descargar el archivo de plantilla?
+                                                                        </a>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!--
                                             <div class="kt-portlet__foot">
-                                                <div class="kt-form__actions">
+                                                <div class="kt-form__actions kt-form__actions--center">
+                                                    <button type="reset" class="btn btn-success">Realizar análisis de
+                                                        riesgo
+                                                    </button>
                                                 </div>
                                             </div>
-                                            -->
+                                        </form>
+                                        <form class="kt-form" th:if="${dataintegration != null and dataintegration.bureau == true}">
+                                            <div class="kt-portlet__body">
+                                                <div class="kt-section kt-section--first">
+                                                    <div class="kt-section__body">
+                                                        <div class="row">
+                                                            <div class="col-12" style="margin-bottom: 30px;">
+                                                                <h2 class="text-center">Análisis de riesgo
+                                                                    financiero</h2>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row" >
+                                                            <div class="col-md-0 col-lg-3"></div>
+                                                            <div class="col-md-12 col-lg-6">
+                                                                <div class="form-group row">
+                                                                    <div class="col-12" style="margin-bottom: 10px;">
+                                                                        <label class="text-center">Ingresa
+                                                                            el archivo con la información necesaria para
+                                                                            realizar el análisis:</label>
+                                                                    </div>
+                                                                    <div class="col-12">
+                                                                        <div class="custom-file">
+                                                                            <input type="file"
+                                                                                   class="custom-file-input"
+                                                                                   name="file_dataintegration"
+                                                                                   id="file_dataintegration">
+                                                                            <label class="custom-file-label">Ningún
+                                                                                archivo seleccionado</label>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-12" style="margin-top: 5px;">
+                                                                        <a th:href="@{/}"
+                                                                           class="text-info text-sm float-right">
+                                                                            ¿Desea descargar el archivo de plantilla?
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="kt-portlet__foot">
+                                                <div class="kt-form__actions kt-form__actions--center">
+                                                    <button type="reset" class="btn btn-success">Realizar análisis de
+                                                        riesgo
+                                                    </button>
+                                                </div>
+                                            </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="row" th:if="${dataintegration == null}">
+                                        <div class="col-12">
+                                            <div class="col-12 alert alert-outline-danger"
+                                                 role="alert">
+                                                <label>
+                                                    <strong style="margin-right: 8px;">Problemas!</strong>No
+                                                    podrás realizar análisis de riesgo mientras el
+                                                    <strong>Data Integration y todos los
+                                                        indicadores</strong> sean configurados.
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="col-12">
+                                                <h3 class="kt-portlet__head-title">
+                                                    <small>Detalles:</small>
+                                                </h3>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="col-12 alert alert-success" role="alert">
+                                                <label>
+                                                    <strong style="margin-right: 8px;">Genial!</strong>Actualmente
+                                                    esta activa una configuración de <strong>Data
+                                                    Integration a
+                                                    través de Bureau</strong>.
+                                                </label>
+                                            </div>
+                                            <div class="col-12 alert alert-warning" role="alert">
+                                                <label>
+                                                    <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                    Actualmente no está configurado el <strong>indicador
+                                                    Risk Score</strong>. Por favor dirigase a
+                                                    Indicadores > Risk Score >
+                                                    <strong>
+                                                        <a th:href="@{/indicators/score/setting}"
+                                                           style="color: #ffffff;">Nueva
+                                                            configuración</a>
+                                                    </strong>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 alert alert-warning" role="alert">
+                                                <label>
+                                                    <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                    Actualmente no está configurado el <strong>indicador
+                                                    Risk Ratios</strong>. Por favor dirigase a
+                                                    Indicadores > Risk Ratios >
+                                                    <strong>
+                                                        <a th:href="@{/indicators/ratios/setting}"
+                                                           style="color: #ffffff;">Nueva
+                                                            configuración</a>
+                                                    </strong>
+                                                </label>
+                                            </div>
+                                            <div class="col-12 alert alert-warning" role="alert">
+                                                <label>
+                                                    <strong style="margin-right: 8px;">Cuidado!</strong>Actualmente
+                                                    no está configurado el <strong>indicador
+                                                    Business
+                                                    Tree</strong>. Por favor dirigase a Indicadores
+                                                    > Business Tree >
+                                                    <strong>
+                                                        <a th:href="@{/indicators/tree/setting}"
+                                                           style="color: #ffffff;">Nueva
+                                                            configuración</a>
+                                                    </strong>
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <!--
+                                        <div class="kt-portlet__foot">
+                                            <div class="kt-form__actions">
+                                            </div>
+                                        </div>
+                                        -->
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End::  Content-->
                         </div>
-                        <!--End::  Content-->
-
                     </div>
                 </div>
             </div>
-
-
         </div>
     </div>
 </div>
@@ -147,6 +244,5 @@
 <div th:replace="fragments/common :: footer"></div>
 
 <!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
-
 </body>
 </html>

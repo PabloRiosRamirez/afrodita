@@ -45,7 +45,6 @@
                         <!--Begin::  Content-->
                         <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
                              style="margin-bottom: 50px;">
-
                             <div class="row" id="first_dataintegration">
                                 <div class="col-lg-12">
                                     <!--begin::Portlet-->
@@ -54,6 +53,16 @@
                                             <div class="kt-portlet__head-label">
                                                 <h3 class="kt-portlet__head-title">
                                                     Data Integration
+                                                    <small th:if="${dataintegration != null and dataintegration.bureau == false}">
+                                                        Configuración de Data
+                                                        Integration a
+                                                        través de <strong>Excel</strong>.
+                                                    </small>
+                                                    <small th:if="${dataintegration != null and dataintegration.bureau == true}">
+                                                        Configuración de Data
+                                                        Integration a
+                                                        través de <strong>Bureau</strong>.
+                                                    </small>
                                                 </h3>
                                             </div>
                                             <div class="kt-portlet__head-toolbar">
@@ -73,11 +82,49 @@
                                         <div class="kt-portlet__body">
                                             <div class="kt-wizard-v3__content"
                                                  data-ktwizard-type="step-content">
-                                                <div class="kt-heading kt-heading--md">Resumen de los
-                                                    detalles y
-                                                    guardar
+                                                <div class="kt-heading kt-heading--md" style="margin-top: 0px;">
+                                                    Detalles de la configuración
+                                                    activa
                                                 </div>
-                                                <div class="row">
+                                                <div th:if="${dataintegration != null and !dataintegration.bureau}"
+                                                     class="row">
+                                                    <div class="form-group col-12">
+                                                        <div class="col-12" style="margin-bottom: 15px;">
+                                                            <strong>
+                                                                Archivo a subir al momento del análisis:
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <label th:text="${dataintegration.analyticsFileName}"></label>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group col-12">
+                                                        <div class="col-12" style="margin-bottom: 15px;">
+                                                            <strong>
+                                                                Detalles de las variables configuradas:
+                                                            </strong>
+                                                        </div>
+                                                        <div th:each="variable : ${dataintegration.variableCollection}">
+                                                            <div class="form-group row col-12">
+                                                                <label class="col-3 col-form-label">Nombre:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label">Tipo:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.typeVariable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label">Coordenadas:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.coordinate}"></strong></label>
+                                                                <label class="col-3 col-form-label">Valor por
+                                                                    defecto:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.defaultValue}"></strong></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div th:if="${dataintegration != null and dataintegration.bureau}"
+                                                     class="row">
                                                     <div class="form-group col-12">
                                                         <div class="col-12" style="margin-bottom: 5px;">
                                                             <strong>
@@ -98,14 +145,33 @@
 
                                                             <div class="form-group row col-12">
                                                                 <label class="col-3 col-form-label">Nombre:</label>
-                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.name}"></strong></label>
                                                                 <label class="col-3 col-form-label">Tipo:</label>
-                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.typeVariable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.typeVariable.name}"></strong></label>
                                                                 <label class="col-3 col-form-label">Coordenadas:</label>
-                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.coordinate}"></strong></label>
-                                                                <label class="col-3 col-form-label">Valor por defecto:</label>
-                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.defaultValue}"></strong></label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.coordinate}"></strong></label>
+                                                                <label class="col-3 col-form-label">Valor por
+                                                                    defecto:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong
+                                                                        th:text="${variable.defaultValue}"></strong></label>
                                                             </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div th:if="${dataintegration == null}" class="row">
+                                                    <div class="form-group col-12">
+                                                        <div class="col-12 alert alert-outline-danger"
+                                                             role="alert">
+                                                            <label>
+                                                                <strong style="margin-right: 8px;">Problemas!</strong>No
+                                                                tienes niguna configuración de <strong>Data
+                                                                Integration</strong> activa, no podrás realizar análisis
+                                                                de riesgo mientras no tengas configurado tanto Data
+                                                                Integration como todos los indicadores..
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>

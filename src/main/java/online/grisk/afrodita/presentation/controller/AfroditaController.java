@@ -65,10 +65,16 @@ public class AfroditaController {
     }
 
     @RequestMapping(value = "/", method = GET)
-    public String analysisPage(HttpSession session, Model model, Principal principal) {
+    public String analysisPage(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Análisis");
         model.addAttribute("description", "Análisis de riesgo");
         model.addAttribute("module", "analysis");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
+        Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200") && getDataIntegration.get("current_response") != null) {
+            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+        }
         return "dashboard";
     }
 
