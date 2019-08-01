@@ -5,6 +5,15 @@
     <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
 </head>
 
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    var var_temp = /*[[${dataintegration}]]*/ 'DataIntegration';
+
+    /*]]>*/
+</script>
+
 <body class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
 
 <div th:replace="fragments/common :: header"></div>
@@ -76,7 +85,7 @@
                                                             </strong>
                                                         </div>
                                                         <div class="col-12">
-                                                            <label>C:/document/archivo-test.xls</label>
+                                                            <label th:text="${dataintegration.analyticsFileName}"></label>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-12">
@@ -85,15 +94,18 @@
                                                                 Detalles de las variables configuradas
                                                             </strong>
                                                         </div>
-                                                        <div class="form-group row col-12">
-                                                            <label class="col-3 col-form-label">Nombre:</label>
-                                                            <label class="col-3 col-form-label text-info"><strong>Variable 1</strong></label>
-                                                            <label class="col-3 col-form-label">Tipo:</label>
-                                                            <label class="col-3 col-form-label text-info"><strong>Número entero</strong></label>
-                                                            <label class="col-3 col-form-label">Coordenas:</label>
-                                                            <label class="col-3 col-form-label text-info"><strong>A24;Z89</strong></label>
-                                                            <label class="col-3 col-form-label">Valor por defecto:</label>
-                                                            <label class="col-3 col-form-label text-info"><strong>100000</strong>                                                            </label>
+                                                        <div th:each="variable : ${dataintegration.variableCollection}">
+
+                                                            <div class="form-group row col-12">
+                                                                <label class="col-3 col-form-label">Nombre:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label">Tipo:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.typeVariable.name}"></strong></label>
+                                                                <label class="col-3 col-form-label">Coordenadas:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.coordinate}"></strong></label>
+                                                                <label class="col-3 col-form-label">Valor por defecto:</label>
+                                                                <label class="col-3 col-form-label text-info"><strong th:text="${variable.defaultValue}"></strong></label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

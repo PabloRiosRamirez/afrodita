@@ -50,10 +50,10 @@ public class BasicRestServiceActivator {
         return response;
     }
 
-    protected ResponseEntity<JsonNode> executeRequest(String path, ServiceActivator serviceActivator, HttpEntity<Object> httpEntity) throws Exception {
+    protected ResponseEntity<Map> executeRequest(String path, HttpMethod method, ServiceActivator serviceActivator, HttpEntity<Object> httpEntity) throws Exception {
         ResponseEntity response;
         try {
-            response = this.restTemplate.exchange("http://" + serviceActivator.getServiceId() + path, HttpMethod.POST, httpEntity, JsonNode.class);
+            response = this.restTemplate.exchange("http://" + serviceActivator.getServiceId() + path, method, httpEntity, Map.class);
         } catch (RestClientResponseException e) {
             throw new Exception(this.buildErrorMessage(serviceActivator.getServiceId(), e));
         } catch (IllegalStateException e) {

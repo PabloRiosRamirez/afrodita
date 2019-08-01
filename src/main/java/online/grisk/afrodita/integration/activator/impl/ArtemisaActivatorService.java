@@ -90,11 +90,17 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         return addServiceResponseToResponseMap(payload, responseEntity.getBody().get("current_response"), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
     }
 
-    //    Action for 'registerDataIntegrationExcel'
+    //    Action for 'updateDataIntegrationExcel'
     public Map<String, Object> invokeUpdateDataIntegrationExcel(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
         FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO((Map<String, Object>) payload.get("request"));
-        ResponseEntity<JsonNode> responseEntity = consumerDataIntegrationRestServiceActivator("/v1/rest/data-integration/" + fileDataIntegrationDTO.getId_organization(), payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
+        ResponseEntity<JsonNode> responseEntity = consumerDataIntegrationRestServiceActivator("/api/artemisa/data-integration/" + fileDataIntegrationDTO.getId_organization(), HttpMethod.PUT, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
         return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
+    }
+
+    //    Action for 'getDataIntegrationExcel'
+    public Map<String, Object> invokeGetDataIntegration(@NotNull Long id_organization) throws Exception {
+        ResponseEntity<Map> responseEntity = consumerRestServiceActivator("/api/artemisa/data-integration/organization/" + id_organization, HttpMethod.GET, new HashMap<>(), new HashMap<>(), serviceActivatorArtemisa);
+        return addServiceResponseToResponseMap(new HashMap<>(), responseEntity.getBody(), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
     }
 
 
@@ -117,9 +123,9 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         return headers;
     }
 
-    private ResponseEntity<JsonNode> consumerRestServiceActivator(@NotBlank String path, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
+    private ResponseEntity<Map> consumerRestServiceActivator(@NotBlank String path, @NotNull HttpMethod method, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
         HttpEntity<Object> httpEntity = this.buildHttpEntity(payload, headers, serviceActivatorArtemisa);
-        return this.executeRequest(path, serviceActivatorArtemisa, httpEntity);
+        return this.executeRequest(path, method, serviceActivatorArtemisa, httpEntity);
     }
 
     private ResponseEntity<JsonNode> consumerRestServiceActivator(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
@@ -127,10 +133,9 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         return this.executeRequest(serviceActivatorArtemisa, httpEntity);
     }
 
-    private ResponseEntity<JsonNode> consumerDataIntegrationRestServiceActivator(@NotBlank String path, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
-
+    private ResponseEntity<Map> consumerDataIntegrationRestServiceActivator(@NotBlank String path, @NotNull HttpMethod method, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull ServiceActivator serviceActivatorArtemisa) throws Exception {
         HttpEntity<Object> httpEntity = this.buildHttpEntityMultipart(payload, headers, serviceActivatorArtemisa);
-        return this.executeRequest(path, serviceActivatorArtemisa, httpEntity);
+        return this.executeRequest(path, method, serviceActivatorArtemisa, httpEntity);
     }
 
     private HttpEntity<Object> buildHttpEntityMultipart(Map<String, Object> payload, Map<String, Object> headers, ServiceActivator serviceActivator) throws IOException {
@@ -140,8 +145,6 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         HttpHeaders httpHeaders = this.createHttpHeaders(headers, serviceActivator);
         httpHeaders.setContentDisposition(contentDisposition);
         httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
-
-        HttpEntity<byte[]> fileEntity = new HttpEntity(fileDataIntegrationDTO.getFile().getBytes(), httpHeaders);
         MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
         body.add("file", fileDataIntegrationDTO.getFile().getResource());
         return new HttpEntity<>(body, httpHeaders);
