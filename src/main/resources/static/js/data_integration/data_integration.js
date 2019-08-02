@@ -53,8 +53,39 @@ var KTWizard3 = function () {
             rules: {
                 //= Step 1
                 file_dataintegration: {
+                    required: true,
+                    extension: "xls|xlsx"
+                },
+
+                //= Step 2
+                '[0][name_variable]': {
                     required: true
-                }
+                },
+                '[0][type_variable]': {
+                    required: true
+                },
+                '[0][coordenate_variable]': {
+                    required: true
+                },
+                '[0][default_variable]': {
+                    required: true,
+                    digits: validateInputVariable(0, "NE"),
+                    number: validateInputVariable(0, "ND")
+                },
+
+                '[1][name_variable]': {
+                    required: true
+                },
+                '[1][type_variable]': {
+                    required: true
+                },
+                '[1][coordenate_variable]': {
+                    required: true
+                },
+                '[1][default_variable]': {
+                    required: true
+                },
+
             },
 
             // Display error
@@ -63,7 +94,7 @@ var KTWizard3 = function () {
 
                 swal.fire({
                     "title": "",
-                    "text": "There are some errors in your submission. Please correct them.",
+                    "text": "Hay algunos errores por favor corríjalos.",
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary"
                 });
@@ -176,6 +207,12 @@ var KTWizard3 = function () {
 jQuery(document).ready(function () {
     KTWizard3.init();
     KTWizard3.init2();
+
+    $('.custom-select').on('change', function (e) {
+        KTWizard3.init();
+        KTWizard3.init2();
+        $($($(this).parent().parent()[0]).children()[3]).children('input').removeClass('is-invalid').val('');
+    });
 });
 
 function selectDataIntegration() {
@@ -189,4 +226,8 @@ function selectDataIntegration() {
         $('#row_wizard_bureau').removeAttr('hidden');
     }
 };
+
+function validateInputVariable(i, value) {
+    return $('[name="[' + i + '][type_variable]"]').val() == value;
+}
 

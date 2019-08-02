@@ -1,6 +1,8 @@
 package online.grisk.afrodita.presentation.controller;
 
 import online.grisk.afrodita.domain.entity.Role;
+import online.grisk.afrodita.domain.entity.TypeVariable;
+import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.ArtemisaActivatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -24,6 +27,12 @@ public class AfroditaController {
 
     @Autowired
     ArtemisaActivatorService artemisaActivatorService;
+
+    @Autowired
+    List<TypeVariable> getTypesVariables;
+
+    @Autowired
+    List<Variable> getVariablesBureau;
 
     @RequestMapping(value = "/login", method = GET)
     public String loginPage(Model model) {
@@ -72,7 +81,7 @@ public class AfroditaController {
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
         model.addAttribute("id_organization", idOrganization);
         Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200") && getDataIntegration.get("current_response") != null) {
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
         return "dashboard";
@@ -86,10 +95,9 @@ public class AfroditaController {
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
         model.addAttribute("id_organization", idOrganization);
         Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200") && getDataIntegration.get("current_response") != null) {
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
-        model.addAttribute("role", new Role("role1", "nameeee"));
         return "data_integration/data_integration";
     }
 
@@ -102,9 +110,11 @@ public class AfroditaController {
         model.addAttribute("id_organization", idOrganization);
         Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
         getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200") && getDataIntegration.get("current_response") != null) {
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
+        model.addAttribute("variables", getVariablesBureau);
+        model.addAttribute("types_variables", getTypesVariables);
         return "data_integration/data_integration-setting";
     }
 

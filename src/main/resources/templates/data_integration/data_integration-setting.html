@@ -250,27 +250,16 @@
                                                                                                 <input type="text"
                                                                                                        class="form-control"
                                                                                                        placeholder="Nombre a mostrar"
-                                                                                                       name="name_variable">
+                                                                                                       name="[0][name_variable]">
                                                                                             </div>
                                                                                             <div class="form-group col-md-12 col-lg-6">
                                                                                                 <label>Tipo de
                                                                                                     variable:</label>
-                                                                                                <select name="type_variable"
+                                                                                                <select name="[0][type_variable]"
                                                                                                         class="form-control custom-select form-control">
-                                                                                                    <option value="">
-                                                                                                        Seleccione
-                                                                                                        un opción
-                                                                                                    </option>
-                                                                                                    <option value="NE">
-                                                                                                        Número
-                                                                                                        entero
-                                                                                                    </option>
-                                                                                                    <option value="ND">
-                                                                                                        Número
-                                                                                                        decimal
-                                                                                                    </option>
-                                                                                                    <option value="PA">
-                                                                                                        Palabra
+                                                                                                    <option th:each="type : ${types_variables}"
+                                                                                                            th:value="${type.code}"
+                                                                                                            th:text="${type.name}">
                                                                                                     </option>
                                                                                                 </select>
                                                                                             </div>
@@ -281,7 +270,7 @@
                                                                                                 <input type="text"
                                                                                                        class="form-control"
                                                                                                        placeholder="Coordenadas de la celda"
-                                                                                                       name="coordenate_variable">
+                                                                                                       name="[0][coordenate_variable]">
                                                                                             </div>
                                                                                             <div class="form-group col-md-12 col-lg-6">
                                                                                                 <label>Valor por
@@ -290,14 +279,65 @@
                                                                                                 <input type="text"
                                                                                                        class="form-control"
                                                                                                        placeholder="Valor por defecto"
-                                                                                                       name="default_variable">
+                                                                                                       name="[0][default_variable]">
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                     <div class="col-md-2">
                                                                                         <a href="javascript:;"
                                                                                            data-repeater-delete=""
-                                                                                           class="btn btn-danger btn-icon btn-deleted-repeater">
+                                                                                           class="btn btn-danger btn-icon btn-deleted-repeater" hidden>
+                                                                                            <i class="flaticon2-trash"></i>
+                                                                                        </a>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div data-repeater-item
+                                                                                     class="form-group row align-items-center">
+                                                                                    <div class="col-md-10">
+                                                                                        <div class="row">
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Nombre de la
+                                                                                                    variable</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Nombre a mostrar"
+                                                                                                       name="[1][name_variable]">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Tipo de
+                                                                                                    variable:</label>
+                                                                                                <select name="[1][type_variable]"
+                                                                                                        class="form-control custom-select form-control">
+                                                                                                    <option th:each="type : ${types_variables}"
+                                                                                                            th:value="${type.code}"
+                                                                                                            th:text="${type.name}">
+                                                                                                    </option>
+                                                                                                </select>
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Coordenadas
+                                                                                                    para extraer
+                                                                                                    valor</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Coordenadas de la celda"
+                                                                                                       name="[1][coordenate_variable]">
+                                                                                            </div>
+                                                                                            <div class="form-group col-md-12 col-lg-6">
+                                                                                                <label>Valor por
+                                                                                                    defecto para la
+                                                                                                    variable</label>
+                                                                                                <input type="text"
+                                                                                                       class="form-control"
+                                                                                                       placeholder="Valor por defecto"
+                                                                                                       name="[1][default_variable]">
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-2">
+                                                                                        <a href="javascript:;"
+                                                                                           data-repeater-delete=""
+                                                                                           class="btn btn-danger btn-icon btn-deleted-repeater" hidden>
                                                                                             <i class="flaticon2-trash"></i>
                                                                                         </a>
                                                                                     </div>
@@ -486,18 +526,12 @@
                                                         <div class="kt-wizard-v3__content"
                                                              data-ktwizard-type="step-content"
                                                              data-ktwizard-state="current">
-                                                            <div class="kt-heading kt-heading--md">Por favor ingrese los
-                                                                datos necesarios:
+                                                            <div class="kt-heading kt-heading--md">Por favor ingrese las
+                                                                credenciales necesarios para el servicio bureau:
                                                             </div>
                                                             <div class="kt-form__section kt-form__section--first">
                                                                 <div class="kt-wizard-v3__form">
                                                                     <div class="row">
-                                                                        <div class="form-group col-12">
-                                                                            <label>URL del servicio bureau</label>
-                                                                            <input type="text"
-                                                                                   class="form-control"
-                                                                                   placeholder="URL del servicio a consumir">
-                                                                        </div>
                                                                         <div class="form-group col-md-12 col-lg-6">
                                                                             <label>Usuario bureau</label>
                                                                             <input type="text"
@@ -506,7 +540,7 @@
                                                                         </div>
                                                                         <div class="form-group col-md-12 col-lg-6">
                                                                             <label>Contraseña bureau</label>
-                                                                            <input type="text"
+                                                                            <input type="password"
                                                                                    class="form-control"
                                                                                    placeholder="Contraseña para servicio bureu">
                                                                         </div>
@@ -531,33 +565,12 @@
                                                                                 los indicadores Risk Score, Risk Ratios
                                                                                 y Business Tree</label>
                                                                             <div class="kt-checkbox-list"
-                                                                                 style="margin-top: 10px;margin-left: 20px;">
-                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-                                                                                    <input type="checkbox"> Tiene
-                                                                                    Boletín Concursal
-                                                                                    <span></span>
-                                                                                </label>
-                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-                                                                                    <input type="checkbox"> Tiene
-                                                                                    registro DICOM
-                                                                                    <span></span>
-                                                                                </label>
-                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-                                                                                    <input type="checkbox"> Puntaje de
-                                                                                    score últimos 12 meses
-                                                                                    <span></span>
-                                                                                </label>
-                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-                                                                                    <input type="checkbox"> Puntaje de
-                                                                                    score últimos 24 meses
-                                                                                    <span></span>
-                                                                                </label>
-                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand">
-                                                                                    <input type="checkbox"> Puntaje de
-                                                                                    score últimos 36 meses
-                                                                                    <span></span>
-                                                                                </label>
-
+                                                                                 style="margin-top: 10px;margin-left: 20px;"
+                                                                                 th:each="variable : ${variables}">
+                                                                                <label class="kt-checkbox kt-checkbox--bold kt-checkbox--brand"><input
+                                                                                        type="checkbox"
+                                                                                        th:value="${variable.code}"
+                                                                                        th:text="${variable.name}"><span></span></label>
                                                                             </div>
                                                                         </div>
                                                                     </div>
@@ -578,19 +591,11 @@
                                                                 <div class="kt-wizard-v3__review">
                                                                     <div class="kt-wizard-v3__review-item">
                                                                         <div class="kt-wizard-v3__review-title">
-                                                                            <label>URL del servicio bureau</label>
-                                                                        </div>
-                                                                        <div class="kt-wizard-v3__review-content">
-                                                                            <label>http://hefesto-qa.herokuapp.com/api/report</label>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-item">
-                                                                        <div class="kt-wizard-v3__review-title">
                                                                             <label>Nombre de usuario para servicio
                                                                                 bureau</label>
                                                                         </div>
                                                                         <div class="kt-wizard-v3__review-content">
-                                                                            <label>AASWKW878A6D</label>
+                                                                            <label id="resumen_password">AASWKW878A6D</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-wizard-v3__review-item">
@@ -599,7 +604,8 @@
                                                                                 bureau</label>
                                                                         </div>
                                                                         <div class="kt-wizard-v3__review-content">
-                                                                            <strong>AASsadKW87er8A6eD34adas233</strong>
+                                                                            <strong id="resumen_password_hide">************************</strong>
+                                                                            <strong id="resumen_password_show" hidden>AASsadKW87er8A6eD34adas233</strong>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-wizard-v3__review-item">

@@ -66,14 +66,18 @@ public class BasicRestServiceActivator {
 
 
     private String buildErrorMessage(String nameServiceActivator, Exception exc) throws Exception {
-        JsonNode jsonNode = this.objectMapper.readTree(exc.getMessage());
-        if (exc instanceof RestClientResponseException) {
-            RestClientResponseException e = (RestClientResponseException) exc;
-            jsonNode = this.objectMapper.readTree(e.getResponseBodyAsString());
-            return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, jsonNode.get("message").asText(), e.getRawStatusCode()) : String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, e.getMessage(), e.getRawStatusCode());
-        }
-        return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, jsonNode.get("message").asText()) : String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, exc.getMessage());
+        try {
+            JsonNode jsonNode = this.objectMapper.readTree(exc.getMessage());
+            if (exc instanceof RestClientResponseException) {
+                RestClientResponseException e = (RestClientResponseException) exc;
+                jsonNode = this.objectMapper.readTree(e.getResponseBodyAsString());
+                return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, jsonNode.get("message").asText(), e.getRawStatusCode()) : String.format("An error ocurred executing %s service activator: %S (STATUS: %d)", nameServiceActivator, e.getMessage(), e.getRawStatusCode());
+            }
+            return jsonNode.get("message") != null ? String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, jsonNode.get("message").asText()) : String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, exc.getMessage());
 
+        }catch (Exception e){
+            return String.format("An error ocurred executing %s service activator: %S", nameServiceActivator, exc.getMessage());
+        }
     }
 
     protected Map<String, Object> addServiceResponseToResponseMap(Map<String, Object> payload, Object response, HttpStatus status, String serviceId) {

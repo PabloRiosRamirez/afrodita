@@ -41,6 +41,10 @@
 		return this.optional( element ) || valueStripped.match( regex ).length >= params[ 0 ] && valueStripped.match( regex ).length <= params[ 1 ];
 	}, $.validator.format( "Please enter between {0} and {1} words." ) );
 
+	$.validator.addMethod("alphanumOrSpace", function(value, element) {
+		return /^ a-zA-Z0-9áéíóúüñÁÉÍÓÚñÑ]+$/.test(value);
+	}, $.validator.format( "A positive or negative non-decimal number please." ) );
+
 }() );
 
 /**

@@ -4,11 +4,12 @@ import online.grisk.afrodita.domain.dto.DataIntegrationDTO;
 import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
+import online.grisk.afrodita.integration.activator.impl.ArtemisaActivatorService;
 import online.grisk.afrodita.integration.gateway.GatewayService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.*;
 import org.springframework.messaging.Message;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -28,6 +29,10 @@ public class AfroditaRestController {
 
     @Autowired
     GatewayService gateway;
+
+
+    @Autowired
+    ArtemisaActivatorService artemisaActivatorService;
 
     @PostMapping(value = "/v1/rest/user/created-admin-by-login")
     public HttpEntity<?> createdUserAdminByLogin(@Valid @RequestBody UserDTO userDTO, Errors errors) {
@@ -67,6 +72,19 @@ public class AfroditaRestController {
         FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(id_dataintegration, file);
         this.verifyParameters(fileDataIntegrationDTO.toMap());
         return invokeServiceActivator(fileDataIntegrationDTO.toMap(), new HashMap(), "updateDataIntegrationExcel");
+    }
+
+
+    @GetMapping("/v1/rest/data-integration/organization/{id_organization}/file")
+    public ResponseEntity<Resource> getDataIntegrationByFile(@PathVariable long idOrganization) throws Exception {
+        Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200") && getDataIntegration.get("current_response") != null) {
+            return ResponseEntity.ok().contentType(MediaType.APPLICATION_OCTET_STREAM)
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + ((Map<String, Object>) getDataIntegration.get("current_response")).get("analyticsFileName").toString() + "\"")
+                    .body(new ByteArrayResource((byte[]) ((Map<String, Object>) getDataIntegration.get("current_response")).get("analyticsFile")));
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     private void verifyParameters(Map payload) {
