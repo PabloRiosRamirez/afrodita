@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 @NoArgsConstructor
 @AllArgsConstructor
 public class VariableDTO {
+
+    Long idVariable;
     String name;
     String code;
     String type;

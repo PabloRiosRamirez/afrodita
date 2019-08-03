@@ -26,6 +26,10 @@
 			channel="channelUpdateDataIntegrationExcel"
 			selector-expression="headers.action.equals('updateDataIntegrationExcel')" />
 
+		<int:recipient
+				channel="channelRegisterDataIntegrationBureau"
+				selector-expression="headers.action.equals('registerDataIntegrationBureau')" />
+
 		<int:recipient channel="channelAnalysisByExcel"
 			selector-expression="headers.action.equals('analysisByExcel')" />
 	</int:recipient-list-router>
@@ -35,6 +39,7 @@
 	<int:channel id="channelPostResetPassword" />
 	<int:channel id="channelRegisterDataIntegrationExcel" />
 	<int:channel id="channelUpdateDataIntegrationExcel" />
+	<int:channel id="channelUpdateDataIntegrationBureau" />
 	<int:channel id="channelAnalysisByExcel" />
 
 	<int:service-activator
@@ -49,11 +54,15 @@
 	<int:service-activator
 		input-channel="channelRegisterDataIntegrationExcel"
 		ref="artemisaActivatorService"
-		method="invokeRegisterDataIntegrationExcel" />
+		method="invokeRegisterDataIntegration" />
 	<int:service-activator
 		input-channel="channelUpdateDataIntegrationExcel"
 		ref="artemisaActivatorService"
 		method="invokeUpdateDataIntegrationExcel" />
+	<int:service-activator
+			input-channel="channelRegisterDataIntegrationBureau"
+			ref="artemisaActivatorService"
+			method="invokeRegisterDataIntegration" />
 	<int:service-activator
 		input-channel="channelAnalysisByExcel"
 		ref="artemisaActivatorService"

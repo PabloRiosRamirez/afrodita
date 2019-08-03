@@ -58,8 +58,17 @@ public class AfroditaRestController {
         return invokeServiceActivator(resetPassDTO.toMap(), new HashMap(), "postResetPassword");
     }
 
-    @PostMapping(value = "/v1/rest/data-integration")
+    @PostMapping(value = "/v1/rest/data-integration/excel")
     public HttpEntity<?> registerDataIntegrationExcel(@Valid @RequestBody DataIntegrationDTO dataIntegrationDTO, Errors errors) {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.verifyParameters(dataIntegrationDTO.toMap());
+        return invokeServiceActivator(dataIntegrationDTO.toMap(), new HashMap(), "registerDataIntegrationExcel");
+    }
+
+    @PostMapping(value = "/v1/rest/data-integration/bureau")
+    public HttpEntity<?> registerDataIntegrationBureau(@Valid @RequestBody DataIntegrationDTO dataIntegrationDTO, Errors errors) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }

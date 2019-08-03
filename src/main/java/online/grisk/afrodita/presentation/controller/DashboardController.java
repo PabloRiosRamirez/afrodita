@@ -39,7 +39,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @Controller
-public class DashboardController extends {
+public class DashboardController {
 
 	@Autowired
 	UserService userService;
@@ -51,7 +51,7 @@ public class DashboardController extends {
 	ArtemisaActivatorService artemisaActivatorService;
 
 	@RequestMapping(value = "/analysis/{idOrganization}/file", method = POST)
-	public HttpEntity analysisByFileExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idOrganization,
+	public String analysisByFileExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idOrganization,
 			Model model, Principal principal) {
 		try {
 			model.addAttribute("title", "Dashboard");
@@ -61,10 +61,10 @@ public class DashboardController extends {
 			model.addAttribute("errors", "analisysError500ByExcel");
 		}
 		
-		FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(id_dataintegration, file);
+		FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(idOrganization, file);
         this.verifyParameters(fileDataIntegrationDTO.toMap());
-        return invokeServiceActivator(fileDataIntegrationDTO.toMap(), new HashMap(), "updateDataIntegrationExcel");
-		
+		HttpEntity<?> updateDataIntegrationExcel = invokeServiceActivator(fileDataIntegrationDTO.toMap(), new HashMap(), "updateDataIntegrationExcel");
+
 		return "dashboard/dashboard-excel";
 	}
 	

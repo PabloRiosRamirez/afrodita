@@ -50,7 +50,7 @@ public class BasicRestServiceActivator {
         return response;
     }
 
-    protected ResponseEntity<Map> executeRequest(String path, HttpMethod method, ServiceActivator serviceActivator, HttpEntity<Object> httpEntity) throws Exception {
+    protected ResponseEntity<Map<String, Object>> executeRequest(String path, HttpMethod method, ServiceActivator serviceActivator, HttpEntity<Object> httpEntity) throws Exception {
         ResponseEntity response;
         try {
             response = this.restTemplate.exchange("http://" + serviceActivator.getServiceId() + path, method, httpEntity, Map.class);
