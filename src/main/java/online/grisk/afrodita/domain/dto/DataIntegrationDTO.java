@@ -14,7 +14,7 @@ import java.util.Map;
 public class DataIntegrationDTO {
 
     Long organization;
-    List<VariableBureauDTO> variables;
+    List<VariableDTO> variables;
 
     public Map<String, Object> toMap() {
         Map<String, Object> objectMap = new HashMap<>();

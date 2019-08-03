@@ -5,10 +5,9 @@ var KTWizard3 = function () {
     var formEl;
     var validator;
     var wizard;
-    var wizard2;
 
     // Private functions
-    var initWizard = function () {
+    var initWizardExcel = function () {
         // Initialize form wizard
         wizard = new KTWizard('wizard_excel', {
             startStep: 1,
@@ -21,30 +20,31 @@ var KTWizard3 = function () {
             }
         })
 
+        // Change event
+        wizard.on('change', function (wizard) {
+            KTUtil.scrollTop();
+        });
+    }
+    var initWizardBureau = function () {
         // Initialize form wizard
-        wizard2 = new KTWizard('wizard_bureau', {
+        wizard = new KTWizard('wizard_bureau', {
             startStep: 1,
         });
 
-        // Change event
-        wizard2.on('change', function (wizard) {
-            KTUtil.scrollTop();
-        });
-
         // Validation before going to next page
-        wizard2.on('beforeNext', function (wizardObj) {
+        wizard.on('beforeNext', function (wizardObj) {
             if (validator.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
         })
 
         // Change event
-        wizard2.on('change', function (wizard) {
+        wizard.on('change', function (wizard) {
             KTUtil.scrollTop();
         });
     }
 
-    var initValidation = function () {
+    var initValidationExcel = function () {
         validator = formEl.validate({
             // Validate only visible fields
             ignore: ":hidden",
@@ -92,6 +92,40 @@ var KTWizard3 = function () {
             invalidHandler: function (event, validator) {
                 KTUtil.scrollTop();
 
+                swal.fire({
+                    "title": "",
+                    "text": "Hay algunos errores por favor corríjalos.",
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+            },
+
+            // Submit valid form
+            submitHandler: function (form) {
+
+            }
+        });
+    }
+
+    var initValidationBureau = function () {
+        validator = formEl.validate({
+            // Validate only visible fields
+            ignore: ":hidden",
+
+            // Validation rules
+            rules: {
+                //= Step 1
+                bureau_user: {
+                    required: true
+                },
+                bureau_pass: {
+                    required: true
+                }
+            },
+
+            // Display error
+            invalidHandler: function (event, validator) {
+                KTUtil.scrollTop();
                 swal.fire({
                     "title": "",
                     "text": "Hay algunos errores por favor corríjalos.",
@@ -182,24 +216,73 @@ var KTWizard3 = function () {
         );
     }
 
+    var initSubmitBureau = function () {
+        var btn = formEl.find('[data-ktwizard-type="action-submit"]');
+
+        btn.on('click', function (e) {
+                if (validator.form()) {
+                    KTApp.progress(btn);
+                    //KTApp.block(formEl);
+
+                    var dataIntegration = {};
+                    dataIntegration["organization"] = $('#organization').val();
+                    var list_variable = [];
+                    var length = $('input[type="checkbox"]:checked').length
+                    for (var i = 0; i < length; i++) {
+                        var variable = {};
+                        variable["idVariable"] = $('input[type="checkbox"]:checked')[i].value;
+                        list_variable.push(variable);
+                    }
+                    dataIntegration["variables"] = list_variable;
+
+                    $.ajax({
+                        type: "POST",
+                        contentType: "application/json",
+                        url: "/v1/rest/data-integration",
+                        data: JSON.stringify(dataIntegration),
+                        dataType: 'json',
+                        cache: false,
+                        timeout: 60000,
+                        success: function (data, textStatus, jqXHR) {
+                            swal.fire({
+                                "title": "",
+                                "text": "La configuración de Data Integration ha sido guardado correctamente!",
+                                "type": "success",
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            KTApp.unprogress(btn);
+                            swal.fire({
+                                "title": "",
+                                "text": "Ha ocurrido un error inesperado, por favor intente nuevamente!",
+                                "type": "error",
+                                "confirmButtonClass": "btn btn-secondary"
+                            });
+
+                        }
+                    });
+                }
+            }
+        );
+    }
+
     return {
         // public functions
         init: function () {
             wizardEl = KTUtil.get('wizard_excel');
-            formEl = $('#kt_form');
-
-            initWizard();
-            initValidation();
+            formEl = $('#kt_form_excel');
+            initWizardExcel();
+            initValidationExcel();
             initSubmitExcel();
         },
         // public functions
         init2: function () {
             wizardEl = KTUtil.get('wizard_bureau');
-            formEl = $('#kt_form_1');
-
-            initWizard();
-            // initValidation();
-            // initSubmit();
+            formEl = $('#kt_form_bureau');
+            initWizardBureau();
+            initValidationBureau();
+            initSubmitBureau();
         }
     };
 }();

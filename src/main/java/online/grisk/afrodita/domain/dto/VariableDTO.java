@@ -8,8 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class VariableBureauDTO {
+public class VariableDTO {
     String name;
+    String code;
     String type;
     String coordenate;
     String valueDefault;
