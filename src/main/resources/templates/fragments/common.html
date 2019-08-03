@@ -10,6 +10,9 @@
     <link th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" rel="stylesheet" type="text/css"/>
     <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
+    <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
+	<link th:href="@{/css/jquery.flowchart.css}" rel="stylesheet" type="text/css">
     <style>
         @media (min-width: 752px) {
             #kt_footer {
@@ -23,6 +26,11 @@
                 width: 141px;
             }
         }
+		.container { margin:150px auto;}
+		.demo {
+		  height: 300px;
+		  margin-bottom: 10px;
+		} 
     </style>
 </head>
 <body>
@@ -359,6 +367,8 @@
     </script>
 
     <!-- end::Global Config -->
+    
+    
 
     <!--begin:: Global Mandatory Vendors -->
     <script th:src="@{/vendors/general/jquery/dist/jquery.js}" type="text/javascript"></script>
@@ -454,6 +464,110 @@
 
     <!--begin::Page Scripts(used by this page) -->
     <!--    <script th:src="@{/js/dashboard/analysis-excel.js}" type="text/javascript"></script>-->
+
+<script th:src="@{/js/jquery-1.12.2.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery-ui.min.js}" type="text/javascript"></script>
+	<script th:src="@{/js/jquery.flowchart.js}" type="text/javascript"></script>
+	
+<script type="text/javascript">
+  $(document).ready(function() {
+    var data = {
+      operators: {
+        operator1: {
+          top: 20,
+          left: 20,
+          properties: {
+            title: 'Operator 1',
+            inputs: {},
+            outputs: {
+              output_1: {
+                label: 'Output 1',
+              }
+            }
+          }
+        },
+        operator2: {
+          top: 80,
+          left: 300,
+          properties: {
+            title: 'Operator 2',
+            inputs: {
+              input_1: {
+                label: 'Input 1',
+              },
+              input_2: {
+                label: 'Input 2',
+              },
+            },
+            outputs: {}
+          }
+        },
+      }
+    };
+
+    // Apply the plugin on a standard, empty div...
+    $('#example').flowchart({
+      data: data
+    });
+  });
+  var operatorI = 0;
+    $('#create_operator').click(function() {
+      var operatorId = 'created_operator_' + operatorI;
+      var operatorData = {
+        top: 60,
+        left: 500,
+        properties: {
+          title: 'Operator ' + (operatorI + 3),
+          inputs: {
+            input_1: {
+              label: 'Input 1',
+            }
+          },
+          outputs: {
+            output_1: {
+              label: 'Output 1',
+            }
+          }
+        }
+      };
+
+      operatorI++;
+
+      $('#example').flowchart('createOperator', operatorId, operatorData);
+    });
+
+    $('#delete_selected_button').click(function() {
+      $('#example').flowchart('deleteSelected');
+    });
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 
     <!--end::Page Scripts -->
 </div>
