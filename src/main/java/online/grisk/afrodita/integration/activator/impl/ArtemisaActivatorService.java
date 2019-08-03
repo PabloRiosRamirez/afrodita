@@ -96,6 +96,13 @@ public class ArtemisaActivatorService extends BasicRestServiceActivator {
         ResponseEntity<JsonNode> responseEntity = consumerDataIntegrationRestServiceActivator("/api/artemisa/data-integration/" + fileDataIntegrationDTO.getId_organization(), HttpMethod.PUT, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
         return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
     }
+    
+	//  Action for 'invokeAnalysisByExcel'
+	  public Map<String, Object> invokeAnalysisByExcel(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
+	      FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO((Map<String, Object>) payload.get("request"));
+	      ResponseEntity<JsonNode> responseEntity = consumerDataIntegrationRestServiceActivator("/v1/analysisFiles/organization/" + fileDataIntegrationDTO.getId_organization(), HttpMethod.POST, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), serviceActivatorArtemisa);
+	      return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), serviceActivatorArtemisa.getServiceId());
+	  }
 
     //    Action for 'getDataIntegrationExcel'
     public Map<String, Object> invokeGetDataIntegration(@NotNull Long id_organization) throws Exception {

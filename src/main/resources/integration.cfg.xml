@@ -1,43 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:int="http://www.springframework.org/schema/integration"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <int:gateway id="gateway" default-request-channel="channelDefault"
-                 service-interface="online.grisk.afrodita.integration.gateway.GatewayService"/>
+	<int:gateway id="gateway"
+		default-request-channel="channelDefault"
+		service-interface="online.grisk.afrodita.integration.gateway.GatewayService" />
 
-    <int:channel id="channelDefault"/>
+	<int:channel id="channelDefault" />
 
-    <int:recipient-list-router input-channel="channelDefault">
-        <int:recipient channel="channelRegisterUser"
-                       selector-expression="headers.action.equals('sendEmailRegisterUser')"/>
-        <int:recipient channel="channelResetPassword"
-                       selector-expression="headers.action.equals('sendEmailResetPassword')"/>
-        <int:recipient channel="channelPostResetPassword"
-                       selector-expression="headers.action.equals('postResetPassword')"/>
-        <int:recipient channel="channelRegisterDataIntegrationExcel"
-                       selector-expression="headers.action.equals('registerDataIntegrationExcel')"/>
-        <int:recipient channel="channelUpdateDataIntegrationExcel"
-                       selector-expression="headers.action.equals('updateDataIntegrationExcel')"/>
-    </int:recipient-list-router>
+	<int:recipient-list-router
+		input-channel="channelDefault">
+		<int:recipient channel="channelRegisterUser"
+			selector-expression="headers.action.equals('sendEmailRegisterUser')" />
+		<int:recipient channel="channelResetPassword"
+			selector-expression="headers.action.equals('sendEmailResetPassword')" />
+		<int:recipient channel="channelPostResetPassword"
+			selector-expression="headers.action.equals('postResetPassword')" />
+		<int:recipient
+			channel="channelRegisterDataIntegrationExcel"
+			selector-expression="headers.action.equals('registerDataIntegrationExcel')" />
+		<int:recipient
+			channel="channelUpdateDataIntegrationExcel"
+			selector-expression="headers.action.equals('updateDataIntegrationExcel')" />
 
-    <int:channel id="channelRegisterUser"/>
-    <int:channel id="channelResetPassword"/>
-    <int:channel id="channelPostResetPassword"/>
-    <int:channel id="channelRegisterDataIntegrationExcel"/>
-    <int:channel id="channelUpdateDataIntegrationExcel"/>
+		<int:recipient channel="channelAnalysisByExcel"
+			selector-expression="headers.action.equals('analysisByExcel')" />
+	</int:recipient-list-router>
 
-    <int:service-activator input-channel="channelRegisterUser" ref="artemisaActivatorService"
-                           method="invokeEmailRegisterByLogin"/>
-    <int:service-activator input-channel="channelResetPassword" ref="artemisaActivatorService"
-                           method="invokeEmailResetPassByLogin"/>
-    <int:service-activator input-channel="channelPostResetPassword" ref="artemisaActivatorService"
-                           method="invokePostResetPassByLogin"/>
-    <int:service-activator input-channel="channelRegisterDataIntegrationExcel" ref="artemisaActivatorService"
-                           method="invokeRegisterDataIntegrationExcel"/>
-    <int:service-activator input-channel="channelUpdateDataIntegrationExcel" ref="artemisaActivatorService"
-                           method="invokeUpdateDataIntegrationExcel"/>
+	<int:channel id="channelRegisterUser" />
+	<int:channel id="channelResetPassword" />
+	<int:channel id="channelPostResetPassword" />
+	<int:channel id="channelRegisterDataIntegrationExcel" />
+	<int:channel id="channelUpdateDataIntegrationExcel" />
+	<int:channel id="channelAnalysisByExcel" />
+
+	<int:service-activator
+		input-channel="channelRegisterUser" ref="artemisaActivatorService"
+		method="invokeEmailRegisterByLogin" />
+	<int:service-activator
+		input-channel="channelResetPassword" ref="artemisaActivatorService"
+		method="invokeEmailResetPassByLogin" />
+	<int:service-activator
+		input-channel="channelPostResetPassword"
+		ref="artemisaActivatorService" method="invokePostResetPassByLogin" />
+	<int:service-activator
+		input-channel="channelRegisterDataIntegrationExcel"
+		ref="artemisaActivatorService"
+		method="invokeRegisterDataIntegrationExcel" />
+	<int:service-activator
+		input-channel="channelUpdateDataIntegrationExcel"
+		ref="artemisaActivatorService"
+		method="invokeUpdateDataIntegrationExcel" />
+	<int:service-activator
+		input-channel="channelAnalysisByExcel"
+		ref="artemisaActivatorService"
+		method="invokeAnalysisByExcel" />
 
 </beans>
