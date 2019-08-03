@@ -84,7 +84,7 @@ public class AfroditaController {
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
-        return "dashboard";
+        return "analysis";
     }
 
     @RequestMapping(value = "/data-integration", method = GET)
