@@ -1,6 +1,15 @@
 spring:
   application:
     name: afrodita
+#  datasource:
+#    hikari:
+#      maximum-pool-size: 2
+#      minimum-idle: 1
+#    tomcat:
+#      initial-size: 2
+#      max-active: 2
+#    dbcp2:
+#      max-idle: 2
   cloud:
     config:
       uri:  ${SPRING_CLOUD_CONFIG_URI}
