@@ -31,8 +31,8 @@ public class DashboardActivatorService extends BasicRestServiceActivator {
     }
     //    Action for 'analysisByBureau'
     public Map<String, Object> invokeAnalysisByBureau(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
-        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(payload);
-        ResponseEntity<Map<String, Object>> responseEntity = consumerMultipartRestServiceActivator("/api/artemisa/analysis/" + fileDataIntegrationDTO.getId_organization() + "/excel", HttpMethod.POST, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
+//        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(payload);
+        ResponseEntity<Map<String, Object>> responseEntity = consumerRestServiceActivator("/api/artemisa/analysis/" + payload.get("organization").toString() + "/bureau", HttpMethod.POST, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
         return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
     }
 

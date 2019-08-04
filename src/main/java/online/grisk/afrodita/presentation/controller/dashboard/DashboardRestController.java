@@ -21,8 +21,8 @@ import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@Controller
-public class DashboardController {
+@RestController
+public class DashboardRestController {
 
     @Autowired
     UserService userService;
@@ -54,7 +54,7 @@ public class DashboardController {
     }
 
     @RequestMapping(value = "/analysis/{idOrganization}/bureau", method = POST)
-    public String analysisByBureau(Map payload, Model model, Principal principal) throws Exception {
+    public String analysisByBureau(@PathVariable Long idOrganization, @RequestBody Map payload, Model model, Principal principal) throws Exception {
         try {
             model.addAttribute("title", "Dashboard");
             model.addAttribute("description", "Resultado de análisis");
@@ -62,8 +62,9 @@ public class DashboardController {
         } catch (Exception e) {
             model.addAttribute("errors", "analisysError500ByExcel");
         }
-//        this.verifyParameters(payload);
-//        Map response = dashboardActivatorService.invokeAnalysisByBureau(payload, headers);
+        payload.put("organization", idOrganization);
+        this.verifyParameters(payload);
+        Map response = dashboardActivatorService.invokeAnalysisByBureau(payload, new HashMap<>());
         return "dashboard/dashboard-bureau";
     }
 

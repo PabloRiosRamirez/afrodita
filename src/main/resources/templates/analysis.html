@@ -43,8 +43,8 @@
                                             </div>
                                         </div>
                                         <input id="organization" type="text" hidden th:value="${id_organization}">
-                                        <form class="kt-form" >
-<!--                                              th:if="${dataintegration != null and dataintegration.bureau == false}">-->
+                                        <form class="kt-form"
+                                              th:if="${dataintegration != null and dataintegration.bureau == false}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -95,8 +95,8 @@
                                                 </div>
                                             </div>
                                         </form>
-                                        <form class="kt-form" >
-<!--                                              th:if="${dataintegration != null and dataintegration.bureau == true}">-->
+                                        <form class="kt-form"
+                                              th:if="${dataintegration != null and dataintegration.bureau == true}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -116,7 +116,7 @@
                                                                 <div class="col-12">
                                                                     <input class="form-control"
                                                                            placeholder="Rut del consultado"
-                                                                           type="text">
+                                                                           type="text" id="bureau_rut">
                                                                 </div>
                                                             </div>
                                                         </div>
