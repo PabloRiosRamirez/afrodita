@@ -9,13 +9,18 @@ export default class LinkPopover {
     this.ui = $.summernote.ui;
     this.options = context.options;
     this.events = {
-      'summernote.keyup summernote.mouseup summernote.change summernote.scroll': () => {
-        this.update();
-      },
-      'summernote.disable summernote.dialog.shown': () => {
-        this.hide();
-      }
-    };
+      'summernote.keyup summernote.mouseup summernote.change summernote.scroll': () = > {
+      this.update();
+  },
+    'summernote.disable summernote.dialog.shown'
+  :
+    () =
+  >
+    {
+      this.hide();
+    }
+  }
+    ;
   }
 
   shouldInitialize() {
@@ -25,11 +30,12 @@ export default class LinkPopover {
   initialize() {
     this.$popover = this.ui.popover({
       className: 'note-link-popover',
-      callback: ($node) => {
-        const $content = $node.find('.popover-content,.note-popover-content');
-        $content.prepend('<span><a target="_blank"></a>&nbsp;</span>');
-      }
-    }).render().appendTo(this.options.container);
+      callback: ($node) = > {
+      const $content = $node.find('.popover-content,.note-popover-content');
+    $content.prepend('<span><a target="_blank"></a>&nbsp;</span>');
+  }
+  }).
+    render().appendTo(this.options.container);
     const $content = this.$popover.find('.popover-content,.note-popover-content');
 
     this.context.invoke('buttons.build', $content, this.options.popover.link);

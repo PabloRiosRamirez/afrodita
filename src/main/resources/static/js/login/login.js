@@ -149,7 +149,7 @@ var KTLoginGeneral = function () {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/v1/rest/user/created-admin-by-login",
+                url: "/v1/rest/user/register-by-login",
                 data: JSON.stringify(usuario),
                 dataType: 'json',
                 cache: false,
@@ -214,7 +214,7 @@ var KTLoginGeneral = function () {
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: '/v1/rest/user/reset-pass-by-login',
+                url: '/v1/rest/user/reset-by-login',
                 data: $("#kt-login__forgot-email").val(),
                 dataType: 'json',
                 cache: false,

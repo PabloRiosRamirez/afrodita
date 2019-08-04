@@ -18,12 +18,12 @@ class ClipboardAction {
      * @param {Object} options
      */
     resolveOptions(options = {}) {
-        this.action    = options.action;
+        this.action = options.action;
         this.container = options.container;
-        this.emitter   = options.emitter;
-        this.target    = options.target;
-        this.text      = options.text;
-        this.trigger   = options.trigger;
+        this.emitter = options.emitter;
+        this.target = options.target;
+        this.text = options.text;
+        this.trigger = options.trigger;
 
         this.selectedText = '';
     }
@@ -35,8 +35,7 @@ class ClipboardAction {
     initSelection() {
         if (this.text) {
             this.selectFake();
-        }
-        else if (this.target) {
+        } else if (this.target) {
             this.selectTarget();
         }
     }
@@ -50,7 +49,9 @@ class ClipboardAction {
 
         this.removeFake();
 
-        this.fakeHandlerCallback = () => this.removeFake();
+        this.fakeHandlerCallback = () =
+    >
+        this.removeFake();
         this.fakeHandler = this.container.addEventListener('click', this.fakeHandlerCallback) || true;
 
         this.fakeElem = document.createElement('textarea');
@@ -62,7 +63,7 @@ class ClipboardAction {
         this.fakeElem.style.margin = '0';
         // Move element out of screen horizontally
         this.fakeElem.style.position = 'absolute';
-        this.fakeElem.style[ isRTL ? 'right' : 'left' ] = '-9999px';
+        this.fakeElem.style[isRTL ? 'right' : 'left'] = '-9999px';
         // Move element to the same position vertically
         let yPosition = window.pageYOffset || document.documentElement.scrollTop;
         this.fakeElem.style.top = `${yPosition}px`;
@@ -109,8 +110,7 @@ class ClipboardAction {
 
         try {
             succeeded = document.execCommand(this.action);
-        }
-        catch (err) {
+        } catch (err) {
             succeeded = false;
         }
 
@@ -178,8 +178,7 @@ class ClipboardAction {
                 }
 
                 this._target = target;
-            }
-            else {
+            } else {
                 throw new Error('Invalid "target" value, use a valid Element');
             }
         }

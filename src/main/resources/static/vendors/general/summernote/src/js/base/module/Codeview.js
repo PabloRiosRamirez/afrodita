@@ -4,7 +4,7 @@ import dom from '../core/dom';
 let CodeMirror;
 if (env.hasCodeMirror) {
   if (env.isSupportAmd) {
-    require(['codemirror'], function(cm) {
+    require(['codemirror'], function (cm) {
       CodeMirror = cm;
     });
   } else {
@@ -69,22 +69,25 @@ export default class CodeView {
       if (this.options.codemirror.tern) {
         const server = new CodeMirror.TernServer(this.options.codemirror.tern);
         cmEditor.ternServer = server;
-        cmEditor.on('cursorActivity', (cm) => {
+        cmEditor.on('cursorActivity', (cm) = > {
           server.updateArgHints(cm);
-        });
+      })
+        ;
       }
 
-      cmEditor.on('blur', (event) => {
+      cmEditor.on('blur', (event) = > {
         this.context.triggerEvent('blur.codeview', cmEditor.getValue(), event);
-      });
+    })
+      ;
 
       // CodeMirror hasn't Padding.
       cmEditor.setSize(null, this.$editable.outerHeight());
       this.$codable.data('cmEditor', cmEditor);
     } else {
-      this.$codable.on('blur', (event) => {
+      this.$codable.on('blur', (event) = > {
         this.context.triggerEvent('blur.codeview', this.$codable.val(), event);
-      });
+    })
+      ;
     }
   }
 

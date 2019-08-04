@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>function-text</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
 </head>
 <body>
-    <!-- 1. Define some markup -->
-    <button class="btn">Copy</button>
+<!-- 1. Define some markup -->
+<button class="btn">Copy</button>
 
-    <!-- 2. Include library -->
-    <script src="../dist/clipboard.min.js"></script>
+<!-- 2. Include library -->
+<script src="../dist/clipboard.min.js"></script>
 
-    <!-- 3. Instantiate clipboard -->
-    <script>
+<!-- 3. Instantiate clipboard -->
+<script>
     var clipboard = new ClipboardJS('.btn', {
-        text: function() {
+        text: function () {
             return 'to be or not to be';
         }
     });
 
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function (e) {
         console.log(e);
     });
 
-    clipboard.on('error', function(e) {
+    clipboard.on('error', function (e) {
         console.log(e);
     });
-    </script>
+</script>
 </body>
 </html>

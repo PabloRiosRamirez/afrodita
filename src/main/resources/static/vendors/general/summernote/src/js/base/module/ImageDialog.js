@@ -19,7 +19,7 @@ export default class ImageDialog {
     if (this.options.maximumImageFileSize) {
       const unit = Math.floor(Math.log(this.options.maximumImageFileSize) / Math.log(1024));
       const readableSize = (this.options.maximumImageFileSize / Math.pow(1024, unit)).toFixed(2) * 1 +
-                         ' ' + ' KMGTP'[unit] + 'B';
+        ' ' + ' KMGTP'[unit] + 'B';
       imageLimitation = `<small>${this.lang.image.maximumFileSize + ' : ' + readableSize}</small>`;
     }
 
@@ -53,40 +53,45 @@ export default class ImageDialog {
   }
 
   bindEnterKey($input, $btn) {
-    $input.on('keypress', (event) => {
-      if (event.keyCode === key.code.ENTER) {
-        event.preventDefault();
-        $btn.trigger('click');
-      }
-    });
+    $input.on('keypress', (event) = > {
+      if(event.keyCode === key.code.ENTER
+  )
+    {
+      event.preventDefault();
+      $btn.trigger('click');
+    }
+  })
+    ;
   }
 
   show() {
     this.context.invoke('editor.saveRange');
-    this.showImageDialog().then((data) => {
+    this.showImageDialog().then((data) = > {
       // [workaround] hide dialog before restore range for IE range focus
       this.ui.hideDialog(this.$dialog);
-      this.context.invoke('editor.restoreRange');
+    this.context.invoke('editor.restoreRange');
 
-      if (typeof data === 'string') { // image url
-        // If onImageLinkInsert set,
-        if (this.options.callbacks.onImageLinkInsert) {
-          this.context.triggerEvent('image.link.insert', data);
-        } else {
-          this.context.invoke('editor.insertImage', data);
-        }
-      } else { // array of files
-        // If onImageUpload set,
-        if (this.options.callbacks.onImageUpload) {
-          this.context.triggerEvent('image.upload', data);
-        } else {
-          // else insert Image as dataURL
-          this.context.invoke('editor.insertImagesAsDataURL', data);
-        }
+    if (typeof data === 'string') { // image url
+      // If onImageLinkInsert set,
+      if (this.options.callbacks.onImageLinkInsert) {
+        this.context.triggerEvent('image.link.insert', data);
+      } else {
+        this.context.invoke('editor.insertImage', data);
       }
-    }).fail(() => {
+    } else { // array of files
+      // If onImageUpload set,
+      if (this.options.callbacks.onImageUpload) {
+        this.context.triggerEvent('image.upload', data);
+      } else {
+        // else insert Image as dataURL
+        this.context.invoke('editor.insertImagesAsDataURL', data);
+      }
+    }
+  }).
+    fail(() = > {
       this.context.invoke('editor.restoreRange');
-    });
+  })
+    ;
   }
 
   /**
@@ -96,47 +101,55 @@ export default class ImageDialog {
    * @return {Promise}
    */
   showImageDialog() {
-    return $.Deferred((deferred) => {
+    return $.Deferred((deferred) = > {
       const $imageInput = this.$dialog.find('.note-image-input');
-      const $imageUrl = this.$dialog.find('.note-image-url');
-      const $imageBtn = this.$dialog.find('.note-image-btn');
+    const $imageUrl = this.$dialog.find('.note-image-url');
+    const $imageBtn = this.$dialog.find('.note-image-btn');
 
-      this.ui.onDialogShown(this.$dialog, () => {
-        this.context.triggerEvent('dialog.shown');
+    this.ui.onDialogShown(this.$dialog, () = > {
+      this.context.triggerEvent('dialog.shown');
 
-        // Cloning imageInput to clear element.
-        $imageInput.replaceWith($imageInput.clone().on('change', (event) => {
-          deferred.resolve(event.target.files || event.target.value);
-        }).val(''));
+    // Cloning imageInput to clear element.
+    $imageInput.replaceWith($imageInput.clone().on('change', (event) = > {
+      deferred.resolve(event.target.files || event.target.value);
+  }).
+    val('')
+  )
+    ;
 
-        $imageBtn.click((event) => {
-          event.preventDefault();
+    $imageBtn.click((event) = > {
+      event.preventDefault();
 
-          deferred.resolve($imageUrl.val());
-        });
+    deferred.resolve($imageUrl.val());
+  })
+    ;
 
-        $imageUrl.on('keyup paste', () => {
-          const url = $imageUrl.val();
-          this.ui.toggleBtn($imageBtn, url);
-        }).val('');
+    $imageUrl.on('keyup paste', () = > {
+      const url = $imageUrl.val();
+    this.ui.toggleBtn($imageBtn, url);
+  }).
+    val('');
 
-        if (!env.isSupportTouch) {
-          $imageUrl.trigger('focus');
-        }
-        this.bindEnterKey($imageUrl, $imageBtn);
-      });
+    if (!env.isSupportTouch) {
+      $imageUrl.trigger('focus');
+    }
+    this.bindEnterKey($imageUrl, $imageBtn);
+  })
+    ;
 
-      this.ui.onDialogHidden(this.$dialog, () => {
-        $imageInput.off('change');
-        $imageUrl.off('keyup paste keypress');
-        $imageBtn.off('click');
+    this.ui.onDialogHidden(this.$dialog, () = > {
+      $imageInput.off('change');
+    $imageUrl.off('keyup paste keypress');
+    $imageBtn.off('click');
 
-        if (deferred.state() === 'pending') {
-          deferred.reject();
-        }
-      });
+    if (deferred.state() === 'pending') {
+      deferred.reject();
+    }
+  })
+    ;
 
-      this.ui.showDialog(this.$dialog);
-    });
+    this.ui.showDialog(this.$dialog);
+  })
+    ;
   }
 }

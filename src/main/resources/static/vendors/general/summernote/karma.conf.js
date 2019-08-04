@@ -4,8 +4,8 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     files: [
-      { pattern: 'src/js/**/*.js' },
-      { pattern: 'test/**/*.spec.js' }
+      {pattern: 'src/js/**/*.js'},
+      {pattern: 'test/**/*.spec.js'}
     ],
     // Chrome, ChromeCanary, Firefox, Opera, Safari, PhantomJS, IE
     browsers: ['ChromeHeadless'],

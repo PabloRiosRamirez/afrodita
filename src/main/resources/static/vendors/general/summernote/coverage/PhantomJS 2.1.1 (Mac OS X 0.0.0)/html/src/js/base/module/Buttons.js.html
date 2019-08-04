@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/Buttons.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/Buttons.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line high'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -1852,17 +1852,17 @@ export default class Buttons {
     this.options = context.options;
     this.lang = this.options.langInfo;
     this.invertedKeyMap = func.invertObject(
-      this.options.keyMap[env.isMac ? 'mac' : <span class="branch-1 cbranch-no" title="branch not covered" >'pc']</span>
+      this.options.keyMap[env.isMac ? 'mac' : <span class="branch-1 cbranch-no" title="branch not covered">'pc']</span>
     );
   }
 &nbsp;
   representShortcut(editorMethod) {
     let shortcut = this.invertedKeyMap[editorMethod];
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.options.shortcuts || !shortcut) {
-<span class="cstat-no" title="statement not covered" >      return '';</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (!this.options.shortcuts || !shortcut) {
+<span class="cstat-no" title="statement not covered">      return '';</span>
     }
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (env.isMac) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (env.isMac) {
       shortcut = shortcut.replace('CMD', '⌘').replace('SHIFT', '⇧');
     }
 &nbsp;
@@ -1875,8 +1875,9 @@ export default class Buttons {
   }
 &nbsp;
   button(o) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!this.options.tooltip &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >o.tooltip)</span> {
-<span class="cstat-no" title="statement not covered" >      delete o.tooltip;</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (!this.options.tooltip &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">o.tooltip)</span> {
+<span class="cstat-no" title="statement not covered">      delete o.tooltip;</span>
     }
     o.container = this.options.container;
     return this.ui.button(o);
@@ -1897,7 +1898,7 @@ export default class Buttons {
   isFontInstalled(name) {
     if (!this.fontInstalledMap.hasOwnProperty(name)) {
       this.fontInstalledMap[name] = env.isFontInstalled(name) ||
-<span class="branch-1 cbranch-no" title="branch not covered" >        lists.contains(this.options.fontNamesIgnoreCheck, name);</span>
+<span class="branch-1 cbranch-no" title="branch not covered">        lists.contains(this.options.fontNamesIgnoreCheck, name);</span>
     }
 &nbsp;
     return this.fontInstalledMap[name];
@@ -1920,17 +1921,17 @@ export default class Buttons {
           tooltip: tooltip,
           click: (e) =&gt; {
             const $button = $(e.currentTarget);
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (backColor &amp;&amp; foreColor) {
+            <span class="missing-if-branch" title="else path not taken">E</span>if (backColor &amp;&amp; foreColor) {
               this.context.invoke('editor.color', {
                 backColor: $button.attr('data-backColor'),
                 foreColor: $button.attr('data-foreColor')
               });
-            } else <span class="cstat-no" title="statement not covered" >if (backColor) {</span>
-<span class="cstat-no" title="statement not covered" >              this.context.invoke('editor.color', {</span>
+            } else <span class="cstat-no" title="statement not covered">if (backColor) {</span>
+<span class="cstat-no" title="statement not covered">              this.context.invoke('editor.color', {</span>
                 backColor: $button.attr('data-backColor')
               });
-            } else <span class="cstat-no" title="statement not covered" >if (foreColor) {</span>
-<span class="cstat-no" title="statement not covered" >              this.context.invoke('editor.color', {</span>
+            } else <span class="cstat-no" title="statement not covered">if (foreColor) {</span>
+<span class="cstat-no" title="statement not covered">              this.context.invoke('editor.color', {</span>
                 foreColor: $button.attr('data-foreColor')
               });
             }
@@ -2016,14 +2017,14 @@ export default class Buttons {
               }).render());
             });
             $dropdown.find('input[type=color]').each((idx, item) =&gt; {
-              $(item).change(<span class="fstat-no" title="function not covered" >function() {</span>
-<span class="cstat-no" title="statement not covered" >                const $chip = $dropdown.find('#' + $(this).data('event')).find('.note-color-btn').first();</span>
-<span class="cstat-no" title="statement not covered" >                const color = this.value.toUpperCase();</span>
-<span class="cstat-no" title="statement not covered" >                $chip.css('background-color', color)</span>
+              $(item).change(<span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">                const $chip = $dropdown.find('#' + $(this).data('event')).find('.note-color-btn').first();</span>
+<span class="cstat-no" title="statement not covered">                const color = this.value.toUpperCase();</span>
+<span class="cstat-no" title="statement not covered">                $chip.css('background-color', color)</span>
                   .attr('aria-label', color)
                   .attr('data-value', color)
                   .attr('data-original-title', color);
-<span class="cstat-no" title="statement not covered" >                $chip.click();</span>
+<span class="cstat-no" title="statement not covered">                $chip.click();</span>
               });
             });
           },
@@ -2035,22 +2036,22 @@ export default class Buttons {
             const eventName = $button.data('event');
             let value = $button.attr('data-value');
 &nbsp;
-            <span class="missing-if-branch" title="if path not taken" >I</span>if (eventName === 'openPalette') {
-<span class="cstat-no" title="statement not covered" >              const $picker = $parent.find('#' + value);</span>
-<span class="cstat-no" title="statement not covered" >              const $palette = $($parent.find('#' + $picker.data('event')).find('.note-color-row')[0]);</span>
+            <span class="missing-if-branch" title="if path not taken">I</span>if (eventName === 'openPalette') {
+<span class="cstat-no" title="statement not covered">              const $picker = $parent.find('#' + value);</span>
+<span class="cstat-no" title="statement not covered">              const $palette = $($parent.find('#' + $picker.data('event')).find('.note-color-row')[0]);</span>
 &nbsp;
               // Shift palette chips
-<span class="cstat-no" title="statement not covered" >              const $chip = $palette.find('.note-color-btn').last().detach();</span>
+<span class="cstat-no" title="statement not covered">              const $chip = $palette.find('.note-color-btn').last().detach();</span>
 &nbsp;
               // Set chip attributes
-<span class="cstat-no" title="statement not covered" >              const color = $picker.val();</span>
-<span class="cstat-no" title="statement not covered" >              $chip.css('background-color', color)</span>
+<span class="cstat-no" title="statement not covered">              const color = $picker.val();</span>
+<span class="cstat-no" title="statement not covered">              $chip.css('background-color', color)</span>
                 .attr('aria-label', color)
                 .attr('data-value', color)
                 .attr('data-original-title', color);
-<span class="cstat-no" title="statement not covered" >              $palette.prepend($chip);</span>
-<span class="cstat-no" title="statement not covered" >              $picker.click();</span>
-            } else <span class="missing-if-branch" title="else path not taken" >E</span>if (lists.contains(['backColor', 'foreColor'], eventName)) {
+<span class="cstat-no" title="statement not covered">              $palette.prepend($chip);</span>
+<span class="cstat-no" title="statement not covered">              $picker.click();</span>
+            } else <span class="missing-if-branch" title="else path not taken">E</span>if (lists.contains(['backColor', 'foreColor'], eventName)) {
               const key = eventName === 'backColor' ? 'background-color' : 'color';
               const $color = $button.closest('.note-color').find('.note-recent-color');
               const $currentButton = $button.closest('.note-color').find('.note-current-color-button');
@@ -2083,14 +2084,15 @@ export default class Buttons {
           items: this.options.styleTags,
           title: this.lang.style.style,
           template: (item) =&gt; {
-            <span class="missing-if-branch" title="else path not taken" >E</span>if (typeof item === 'string') {
-              item = { tag: item, title: (this.lang.style.hasOwnProperty(item) ? this.lang.style[item] : <span class="branch-1 cbranch-no" title="branch not covered" >item)</span> };
+            <span class="missing-if-branch" title="else path not taken">E</span>if (typeof item === 'string') {
+              item = { tag: item, title: (this.lang.style.hasOwnProperty(item) ? this.lang.style[item] : <span
+    class="branch-1 cbranch-no" title="branch not covered">item)</span> };
             }
 &nbsp;
             const tag = item.tag;
             const title = item.title;
-            const style = item.style ? <span class="branch-0 cbranch-no" title="branch not covered" >' style="' + item.style + '" ' </span>: '';
-            const className = item.className ? <span class="branch-0 cbranch-no" title="branch not covered" >' class="' + item.className + '"' </span>: '';
+            const style = item.style ? <span class="branch-0 cbranch-no" title="branch not covered">' style="' + item.style + '" ' </span>: '';
+            const className = item.className ? <span class="branch-0 cbranch-no" title="branch not covered">' class="' + item.className + '"' </span>: '';
 &nbsp;
             return '&lt;' + tag + style + className + '&gt;' + title + '&lt;/' + tag + '&gt;';
           },
@@ -2102,8 +2104,8 @@ export default class Buttons {
     for (let styleIdx = 0, styleLen = this.options.styleTags.length; styleIdx &lt; styleLen; styleIdx++) {
       const item = this.options.styleTags[styleIdx];
 &nbsp;
-      this.context.memo('button.style.' + item, <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        return this.button({</span>
+      this.context.memo('button.style.' + item, <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">        return this.button({</span>
           className: 'note-btn-style-' + item,
           contents: '&lt;div data-value="' + item + '"&gt;' + item.toUpperCase() + '&lt;/div&gt;',
           tooltip: this.lang.style[item],
@@ -2325,8 +2327,8 @@ export default class Buttons {
       ]).render();
     });
 &nbsp;
-    this.context.memo('button.height', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return this.ui.buttonGroup([</span>
+    this.context.memo('button.height', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      return this.ui.buttonGroup([</span>
         this.button({
           className: 'dropdown-toggle',
           contents: this.ui.dropdownButtonContents(this.ui.icon(this.options.icons.textHeight), this.options),
@@ -2403,8 +2405,8 @@ export default class Buttons {
       }).render();
     });
 &nbsp;
-    this.context.memo('button.hr', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return this.button({</span>
+    this.context.memo('button.hr', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      return this.button({</span>
         contents: this.ui.icon(this.options.icons.minus),
         tooltip: this.lang.hr.insert + this.representShortcut('insertHorizontalRule'),
         click: this.context.createInvokeHandler('editor.insertHorizontalRule')
@@ -2429,16 +2431,16 @@ export default class Buttons {
       }).render();
     });
 &nbsp;
-    this.context.memo('button.redo', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return this.button({</span>
+    this.context.memo('button.redo', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      return this.button({</span>
         contents: this.ui.icon(this.options.icons.redo),
         tooltip: this.lang.history.redo + this.representShortcut('redo'),
         click: this.context.createInvokeHandler('editor.redo')
       }).render();
     });
 &nbsp;
-    this.context.memo('button.undo', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      return this.button({</span>
+    this.context.memo('button.undo', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      return this.button({</span>
         contents: this.ui.icon(this.options.icons.undo),
         tooltip: this.lang.history.undo + this.representShortcut('undo'),
         click: this.context.createInvokeHandler('editor.undo')
@@ -2606,8 +2608,10 @@ export default class Buttons {
   build($container, groups) {
     for (let groupIdx = 0, groupLen = groups.length; groupIdx &lt; groupLen; groupIdx++) {
       const group = groups[groupIdx];
-      const groupName = $.isArray(group) ? group[0] : <span class="branch-1 cbranch-no" title="branch not covered" >group;</span>
-      const buttons = $.isArray(group) ? ((group.length === 1) ? <span class="branch-0 cbranch-no" title="branch not covered" >[group[0]] </span>: group[1]) : <span class="branch-1 cbranch-no" title="branch not covered" >[group];</span>
+      const groupName = $.isArray(group) ? group[0] : <span class="branch-1 cbranch-no" title="branch not covered">group;</span>
+      const buttons = $.isArray(group) ? ((group.length === 1) ? <span class="branch-0 cbranch-no"
+                                                                       title="branch not covered">[group[0]] </span>: group[1]) : <span
+    class="branch-1 cbranch-no" title="branch not covered">[group];</span>
 &nbsp;
       const $group = this.ui.buttonGroup({
         className: 'note-' + groupName
@@ -2615,8 +2619,9 @@ export default class Buttons {
 &nbsp;
       for (let idx = 0, len = buttons.length; idx &lt; len; idx++) {
         const btn = this.context.memo('button.' + buttons[idx]);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (btn) {
-          $group.append(typeof btn === 'function' ? btn(this.context) : <span class="branch-1 cbranch-no" title="branch not covered" >btn)</span>;
+        <span class="missing-if-branch" title="else path not taken">E</span>if (btn) {
+          $group.append(typeof btn === 'function' ? btn(this.context) : <span class="branch-1 cbranch-no"
+                                                                              title="branch not covered">btn)</span>;
         }
       }
       $group.appendTo($container);
@@ -2681,10 +2686,11 @@ export default class Buttons {
 &nbsp;
     if (styleInfo['line-height']) {
       const lineHeight = styleInfo['line-height'];
-      $cont.find('.dropdown-line-height li a').each(<span class="fstat-no" title="function not covered" >(idx, item)</span> =&gt; {
+      $cont.find('.dropdown-line-height li a').each(<span class="fstat-no"
+                                                          title="function not covered">(idx, item)</span> =&gt; {
         // always compare with string to avoid creating another func.
-<span class="cstat-no" title="statement not covered" >        const isChecked = ($(item).data('value') + '') === (lineHeight + '');</span>
-<span class="cstat-no" title="statement not covered" >        this.className = isChecked ? 'checked' : '';</span>
+<span class="cstat-no" title="statement not covered">        const isChecked = ($(item).data('value') + '') === (lineHeight + '');</span>
+<span class="cstat-no" title="statement not covered">        this.className = isChecked ? 'checked' : '';</span>
       });
     }
   }
@@ -2695,51 +2701,51 @@ export default class Buttons {
     });
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  tableMoveHandler(event)</span> {
-<span class="cstat-no" title="statement not covered" >    const PX_PER_EM = 18;</span>
-<span class="cstat-no" title="statement not covered" >    const $picker = $(event.target.parentNode); </span>// target is mousecatcher
-<span class="cstat-no" title="statement not covered" >    const $dimensionDisplay = $picker.next();</span>
-<span class="cstat-no" title="statement not covered" >    const $catcher = $picker.find('.note-dimension-picker-mousecatcher');</span>
-<span class="cstat-no" title="statement not covered" >    const $highlighted = $picker.find('.note-dimension-picker-highlighted');</span>
-<span class="cstat-no" title="statement not covered" >    const $unhighlighted = $picker.find('.note-dimension-picker-unhighlighted');</span>
+<span class="fstat-no" title="function not covered">  tableMoveHandler(event)</span> {
+<span class="cstat-no" title="statement not covered">    const PX_PER_EM = 18;</span>
+<span class="cstat-no" title="statement not covered">    const $picker = $(event.target.parentNode); </span>// target is mousecatcher
+<span class="cstat-no" title="statement not covered">    const $dimensionDisplay = $picker.next();</span>
+<span class="cstat-no" title="statement not covered">    const $catcher = $picker.find('.note-dimension-picker-mousecatcher');</span>
+<span class="cstat-no" title="statement not covered">    const $highlighted = $picker.find('.note-dimension-picker-highlighted');</span>
+<span class="cstat-no" title="statement not covered">    const $unhighlighted = $picker.find('.note-dimension-picker-unhighlighted');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    let posOffset;</span>
+<span class="cstat-no" title="statement not covered">    let posOffset;</span>
     // HTML5 with jQuery - e.offsetX is undefined in Firefox
-<span class="cstat-no" title="statement not covered" >    if (event.offsetX === undefined) {</span>
-<span class="cstat-no" title="statement not covered" >      const posCatcher = $(event.target).offset();</span>
-<span class="cstat-no" title="statement not covered" >      posOffset = {</span>
+<span class="cstat-no" title="statement not covered">    if (event.offsetX === undefined) {</span>
+<span class="cstat-no" title="statement not covered">      const posCatcher = $(event.target).offset();</span>
+<span class="cstat-no" title="statement not covered">      posOffset = {</span>
         x: event.pageX - posCatcher.left,
         y: event.pageY - posCatcher.top
       };
     } else {
-<span class="cstat-no" title="statement not covered" >      posOffset = {</span>
+<span class="cstat-no" title="statement not covered">      posOffset = {</span>
         x: event.offsetX,
         y: event.offsetY
       };
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const dim = {</span>
+<span class="cstat-no" title="statement not covered">    const dim = {</span>
       c: Math.ceil(posOffset.x / PX_PER_EM) || 1,
       r: Math.ceil(posOffset.y / PX_PER_EM) || 1
     };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    $highlighted.css({ width: dim.c + 'em', height: dim.r + 'em' });</span>
-<span class="cstat-no" title="statement not covered" >    $catcher.data('value', dim.c + 'x' + dim.r);</span>
+<span class="cstat-no" title="statement not covered">    $highlighted.css({ width: dim.c + 'em', height: dim.r + 'em' });</span>
+<span class="cstat-no" title="statement not covered">    $catcher.data('value', dim.c + 'x' + dim.r);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (dim.c &gt; 3 &amp;&amp; dim.c &lt; this.options.insertTableMaxSize.col) {</span>
-<span class="cstat-no" title="statement not covered" >      $unhighlighted.css({ width: dim.c + 1 + 'em' });</span>
+<span class="cstat-no" title="statement not covered">    if (dim.c &gt; 3 &amp;&amp; dim.c &lt; this.options.insertTableMaxSize.col) {</span>
+<span class="cstat-no" title="statement not covered">      $unhighlighted.css({ width: dim.c + 1 + 'em' });</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (dim.r &gt; 3 &amp;&amp; dim.r &lt; this.options.insertTableMaxSize.row) {</span>
-<span class="cstat-no" title="statement not covered" >      $unhighlighted.css({ height: dim.r + 1 + 'em' });</span>
+<span class="cstat-no" title="statement not covered">    if (dim.r &gt; 3 &amp;&amp; dim.r &lt; this.options.insertTableMaxSize.row) {</span>
+<span class="cstat-no" title="statement not covered">      $unhighlighted.css({ height: dim.r + 1 + 'em' });</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    $dimensionDisplay.html(dim.c + ' x ' + dim.r);</span>
+<span class="cstat-no" title="statement not covered">    $dimensionDisplay.html(dim.c + ' x ' + dim.r);</span>
   }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -2748,11 +2754,11 @@ export default class Buttons {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

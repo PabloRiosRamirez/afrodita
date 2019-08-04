@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/VideoDialog.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/VideoDialog.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line medium'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -489,7 +489,7 @@ export default class VideoDialog {
   }
 &nbsp;
   initialize() {
-    const $container = this.options.dialogsInBody ? <span class="branch-0 cbranch-no" title="branch not covered" >this.$body </span>: this.$editor;
+    const $container = this.options.dialogsInBody ? <span class="branch-0 cbranch-no" title="branch not covered">this.$body </span>: this.$editor;
 &nbsp;
     const body = [
       '&lt;div class="form-group note-form-group row-fluid"&gt;',
@@ -513,11 +513,12 @@ export default class VideoDialog {
     this.$dialog.remove();
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  bindEnterKey($input, $btn)</span> {
-<span class="cstat-no" title="statement not covered" >    $input.on('keypress', <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      if (event.keyCode === key.code.ENTER) {</span>
-<span class="cstat-no" title="statement not covered" >        event.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >        $btn.trigger('click');</span>
+<span class="fstat-no" title="function not covered">  bindEnterKey($input, $btn)</span> {
+<span class="cstat-no" title="statement not covered">    $input.on('keypress', <span class="fstat-no"
+                                                                                     title="function not covered">(event)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      if (event.keyCode === key.code.ENTER) {</span>
+<span class="cstat-no" title="statement not covered">        event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">        $btn.trigger('click');</span>
       }
     });
   }
@@ -564,9 +565,10 @@ export default class VideoDialog {
       var start = 0;
       if (typeof ytMatch[2] !== 'undefined') {
         const ytMatchForStart = ytMatch[2].match(ytRegExpForStart);
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (ytMatchForStart) {
+        <span class="missing-if-branch" title="else path not taken">E</span>if (ytMatchForStart) {
           for (var n = [3600, 60, 1], i = 0, r = n.length; i &lt; r; i++) {
-            start += (typeof ytMatchForStart[i + 1] !== 'undefined' ? n[i] * parseInt(ytMatchForStart[i + 1], 10) : <span class="branch-1 cbranch-no" title="branch not covered" >0)</span>;
+            start += (typeof ytMatchForStart[i + 1] !== 'undefined' ? n[i] * parseInt(ytMatchForStart[i + 1], 10) : <span
+    class="branch-1 cbranch-no" title="branch not covered">0)</span>;
           }
         }
       }
@@ -581,24 +583,28 @@ export default class VideoDialog {
         .attr('width', '612').attr('height', '710')
         .attr('scrolling', 'no')
         .attr('allowtransparency', 'true');
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (vMatch &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >vMatch[0].length)</span> {
-<span class="cstat-no" title="statement not covered" >      $video = $('&lt;iframe&gt;')</span>
+    } else <span class="missing-if-branch" title="if path not taken">I</span>if (vMatch &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">vMatch[0].length)</span> {
+<span class="cstat-no" title="statement not covered">      $video = $('&lt;iframe&gt;')</span>
         .attr('frameborder', 0)
         .attr('src', vMatch[0] + '/embed/simple')
         .attr('width', '600').attr('height', '600')
         .attr('class', 'vine-embed');
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (vimMatch &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >vimMatch[3].length)</span> {
-<span class="cstat-no" title="statement not covered" >      $video = $('&lt;iframe webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;')</span>
+    } else <span class="missing-if-branch" title="if path not taken">I</span>if (vimMatch &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">vimMatch[3].length)</span> {
+<span class="cstat-no" title="statement not covered">      $video = $('&lt;iframe webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;')</span>
         .attr('frameborder', 0)
         .attr('src', '//player.vimeo.com/video/' + vimMatch[3])
         .attr('width', '640').attr('height', '360');
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (dmMatch &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >dmMatch[2].length)</span> {
-<span class="cstat-no" title="statement not covered" >      $video = $('&lt;iframe&gt;')</span>
+    } else <span class="missing-if-branch" title="if path not taken">I</span>if (dmMatch &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">dmMatch[2].length)</span> {
+<span class="cstat-no" title="statement not covered">      $video = $('&lt;iframe&gt;')</span>
         .attr('frameborder', 0)
         .attr('src', '//www.dailymotion.com/embed/video/' + dmMatch[2])
         .attr('width', '640').attr('height', '360');
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (youkuMatch &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >youkuMatch[1].length)</span> {
-<span class="cstat-no" title="statement not covered" >      $video = $('&lt;iframe webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;')</span>
+    } else <span class="missing-if-branch" title="if path not taken">I</span>if (youkuMatch &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">youkuMatch[1].length)</span> {
+<span class="cstat-no" title="statement not covered">      $video = $('&lt;iframe webkitallowfullscreen mozallowfullscreen allowfullscreen&gt;')</span>
         .attr('frameborder', 0)
         .attr('height', '498')
         .attr('width', '510')
@@ -610,8 +616,8 @@ export default class VideoDialog {
         .attr('height', '310')
         .attr('width', '500')
         .attr('src', 'http://v.qq.com/iframe/player.html?vid=' + vid + '&amp;amp;auto=0');
-    } else <span class="missing-if-branch" title="if path not taken" >I</span>if (mp4Match || oggMatch || webmMatch) {
-<span class="cstat-no" title="statement not covered" >      $video = $('&lt;video controls&gt;')</span>
+    } else <span class="missing-if-branch" title="if path not taken">I</span>if (mp4Match || oggMatch || webmMatch) {
+<span class="cstat-no" title="statement not covered">      $video = $('&lt;video controls&gt;')</span>
         .attr('src', url)
         .attr('width', '640').attr('height', '360');
     } else {
@@ -624,23 +630,25 @@ export default class VideoDialog {
     return $video[0];
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  show() {</span>
-<span class="cstat-no" title="statement not covered" >    const text = this.context.invoke('editor.getSelectedText');</span>
-<span class="cstat-no" title="statement not covered" >    this.context.invoke('editor.saveRange');</span>
-<span class="cstat-no" title="statement not covered" >    this.showVideoDialog(text).then(<span class="fstat-no" title="function not covered" >(url)</span> =&gt; {</span>
+<span class="fstat-no" title="function not covered">  show() {</span>
+<span class="cstat-no"
+      title="statement not covered">    const text = this.context.invoke('editor.getSelectedText');</span>
+<span class="cstat-no" title="statement not covered">    this.context.invoke('editor.saveRange');</span>
+<span class="cstat-no" title="statement not covered">    this.showVideoDialog(text).then(<span class="fstat-no"
+                                                                                               title="function not covered">(url)</span> =&gt; {</span>
       // [workaround] hide dialog before restore range for IE range focus
-<span class="cstat-no" title="statement not covered" >      this.ui.hideDialog(this.$dialog);</span>
-<span class="cstat-no" title="statement not covered" >      this.context.invoke('editor.restoreRange');</span>
+<span class="cstat-no" title="statement not covered">      this.ui.hideDialog(this.$dialog);</span>
+<span class="cstat-no" title="statement not covered">      this.context.invoke('editor.restoreRange');</span>
 &nbsp;
       // build node
-<span class="cstat-no" title="statement not covered" >      const $node = this.createVideoNode(url);</span>
+<span class="cstat-no" title="statement not covered">      const $node = this.createVideoNode(url);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if ($node) {</span>
+<span class="cstat-no" title="statement not covered">      if ($node) {</span>
         // insert video node
-<span class="cstat-no" title="statement not covered" >        this.context.invoke('editor.insertNode', $node);</span>
+<span class="cstat-no" title="statement not covered">        this.context.invoke('editor.insertNode', $node);</span>
       }
-    }).fail(<span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.context.invoke('editor.restoreRange');</span>
+    }).fail(<span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      this.context.invoke('editor.restoreRange');</span>
     });
   }
 &nbsp;
@@ -650,47 +658,54 @@ export default class VideoDialog {
    * @param {jQuery} $dialog
    * @return {Promise}
    */
-<span class="fstat-no" title="function not covered" >  showVideoDialog(text)</span> {
-<span class="cstat-no" title="statement not covered" >    return $.Deferred(<span class="fstat-no" title="function not covered" >(deferred)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      const $videoUrl = this.$dialog.find('.note-video-url');</span>
-<span class="cstat-no" title="statement not covered" >      const $videoBtn = this.$dialog.find('.note-video-btn');</span>
+<span class="fstat-no" title="function not covered">  showVideoDialog(text)</span> {
+<span class="cstat-no" title="statement not covered">    return $.Deferred(<span class="fstat-no"
+                                                                                 title="function not covered">(deferred)</span> =&gt; {</span>
+<span class="cstat-no"
+      title="statement not covered">      const $videoUrl = this.$dialog.find('.note-video-url');</span>
+<span class="cstat-no"
+      title="statement not covered">      const $videoBtn = this.$dialog.find('.note-video-btn');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.ui.onDialogShown(this.$dialog, <span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >        this.context.triggerEvent('dialog.shown');</span>
+<span class="cstat-no" title="statement not covered">      this.ui.onDialogShown(this.$dialog, <span class="fstat-no"
+                                                                                                     title="function not covered">() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered">        this.context.triggerEvent('dialog.shown');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        $videoUrl.val(text).on('input', <span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >          this.ui.toggleBtn($videoBtn, $videoUrl.val());</span>
+<span class="cstat-no" title="statement not covered">        $videoUrl.val(text).on('input', <span class="fstat-no"
+                                                                                                   title="function not covered">() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered">          this.ui.toggleBtn($videoBtn, $videoUrl.val());</span>
         });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!env.isSupportTouch) {</span>
-<span class="cstat-no" title="statement not covered" >          $videoUrl.trigger('focus');</span>
+<span class="cstat-no" title="statement not covered">        if (!env.isSupportTouch) {</span>
+<span class="cstat-no" title="statement not covered">          $videoUrl.trigger('focus');</span>
         }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        $videoBtn.click(<span class="fstat-no" title="function not covered" >(event)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">        $videoBtn.click(<span class="fstat-no"
+                                                                                   title="function not covered">(event)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">          event.preventDefault();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          deferred.resolve($videoUrl.val());</span>
+<span class="cstat-no" title="statement not covered">          deferred.resolve($videoUrl.val());</span>
         });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        this.bindEnterKey($videoUrl, $videoBtn);</span>
+<span class="cstat-no" title="statement not covered">        this.bindEnterKey($videoUrl, $videoBtn);</span>
       });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.ui.onDialogHidden(this.$dialog, <span class="fstat-no" title="function not covered" >() =&gt; {</span></span>
-<span class="cstat-no" title="statement not covered" >        $videoUrl.off('input');</span>
-<span class="cstat-no" title="statement not covered" >        $videoBtn.off('click');</span>
+<span class="cstat-no" title="statement not covered">      this.ui.onDialogHidden(this.$dialog, <span class="fstat-no"
+                                                                                                      title="function not covered">() =&gt; {</span></span>
+<span class="cstat-no" title="statement not covered">        $videoUrl.off('input');</span>
+<span class="cstat-no" title="statement not covered">        $videoBtn.off('click');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (deferred.state() === 'pending') {</span>
-<span class="cstat-no" title="statement not covered" >          deferred.reject();</span>
+<span class="cstat-no" title="statement not covered">        if (deferred.state() === 'pending') {</span>
+<span class="cstat-no" title="statement not covered">          deferred.reject();</span>
         }
       });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.ui.showDialog(this.$dialog);</span>
+<span class="cstat-no" title="statement not covered">      this.ui.showDialog(this.$dialog);</span>
     });
   }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -699,11 +714,11 @@ export default class VideoDialog {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

@@ -27,8 +27,8 @@ var inArray = function (array, value) {
 };
 
 var foreach = function (collection, callback) {
-    for(var i in collection) {
-        if(collection.hasOwnProperty(i)) {
+    for (var i in collection) {
+        if (collection.hasOwnProperty(i)) {
             callback(collection[i], i, collection);
         }
     }
@@ -85,18 +85,17 @@ var pluck = function (arrayOfObjects, key) {
 var filter = function (collection, callback) {
     var filtered;
 
-    if(isArray(collection)) {
+    if (isArray(collection)) {
         filtered = [];
         foreach(collection, function (val, key, coll) {
-            if(callback(val, key, coll)) {
+            if (callback(val, key, coll)) {
                 filtered.push(val);
             }
         });
-    }
-    else {
+    } else {
         filtered = {};
         foreach(collection, function (val, key, coll) {
-            if(callback(val, key, coll)) {
+            if (callback(val, key, coll)) {
                 filtered[key] = val;
             }
         });
@@ -117,7 +116,7 @@ var throttle = function (minimumInterval, callback) {
     var timeout = null;
     return function () {
         var that = this, args = arguments;
-        if(timeout === null) {
+        if (timeout === null) {
             timeout = setTimeout(function () {
                 timeout = null;
             }, minimumInterval);
@@ -145,7 +144,7 @@ var mixinPubSub = function (object) {
     object.unsubscribe = function (callback) {
         foreach(topics, function (subscribers) {
             var index = indexOf(subscribers, callback);
-            if(index !== -1) {
+            if (index !== -1) {
                 subscribers.splice(index, 1);
             }
         });

@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 export default class Placeholder {
   constructor(context) {
     this.context = context;
@@ -6,13 +7,18 @@ export default class Placeholder {
     this.$editingArea = context.layoutInfo.editingArea;
     this.options = context.options;
     this.events = {
-      'summernote.init summernote.change': () => {
-        this.update();
-      },
-      'summernote.codeview.toggled': () => {
-        this.update();
-      }
-    };
+      'summernote.init summernote.change': () = > {
+      this.update();
+  },
+    'summernote.codeview.toggled'
+  :
+    () =
+  >
+    {
+      this.update();
+    }
+  }
+    ;
   }
 
   shouldInitialize() {
@@ -21,9 +27,10 @@ export default class Placeholder {
 
   initialize() {
     this.$placeholder = $('<div class="note-placeholder">');
-    this.$placeholder.on('click', () => {
+    this.$placeholder.on('click', () = > {
       this.context.invoke('focus');
-    }).html(this.options.placeholder).prependTo(this.$editingArea);
+  }).
+    html(this.options.placeholder).prependTo(this.$editingArea);
 
     this.update();
   }

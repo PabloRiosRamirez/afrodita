@@ -1,6 +1,5 @@
 package online.grisk.afrodita.domain.entity;
 
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,8 +9,7 @@ import java.util.Map;
 
 @Data
 @AllArgsConstructor
-@ApiModel(value = "BasicRestServiceActivator", description = "Service Activator Representation")
-public class ServiceActivator {
+public class Microservice {
 
     @ApiModelProperty("Service Id")
     private String serviceId;
@@ -32,7 +30,7 @@ public class ServiceActivator {
     private Map<String, Object> serviceHeaders;
 
 
-    public String getUri(){
+    public String getUri() {
         return String.format("http://%s%s", this.serviceId, this.servicePath);
     }
 }

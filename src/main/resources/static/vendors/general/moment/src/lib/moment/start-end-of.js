@@ -1,5 +1,5 @@
-import { normalizeUnits } from '../units/aliases';
-import { hooks } from '../utils/hooks';
+import {normalizeUnits} from '../units/aliases';
+import {hooks} from '../utils/hooks';
 
 var MS_PER_SECOND = 1000;
 var MS_PER_MINUTE = 60 * MS_PER_SECOND;
@@ -31,7 +31,7 @@ function utcStartOfDate(y, m, d) {
     }
 }
 
-export function startOf (units) {
+export function startOf(units) {
     var time;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {
@@ -79,7 +79,7 @@ export function startOf (units) {
     return this;
 }
 
-export function endOf (units) {
+export function endOf(units) {
     var time;
     units = normalizeUnits(units);
     if (units === undefined || units === 'millisecond' || !this.isValid()) {

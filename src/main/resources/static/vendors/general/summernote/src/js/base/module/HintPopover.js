@@ -19,18 +19,31 @@ export default class HintPopover {
     this.hints = $.isArray(this.hint) ? this.hint : [this.hint];
 
     this.events = {
-      'summernote.keyup': (we, e) => {
-        if (!e.isDefaultPrevented()) {
-          this.handleKeyup(e);
-        }
-      },
-      'summernote.keydown': (we, e) => {
-        this.handleKeydown(e);
-      },
-      'summernote.disable summernote.dialog.shown': () => {
-        this.hide();
-      }
-    };
+      'summernote.keyup': (we, e) = > {
+      if(
+    !e.isDefaultPrevented()
+  )
+    {
+      this.handleKeyup(e);
+    }
+  },
+    'summernote.keydown'
+  :
+    (we, e) =
+  >
+    {
+      this.handleKeydown(e);
+    }
+  ,
+    'summernote.disable summernote.dialog.shown'
+  :
+    () =
+  >
+    {
+      this.hide();
+    }
+  }
+    ;
   }
 
   shouldInitialize() {
@@ -47,11 +60,12 @@ export default class HintPopover {
 
     this.$popover.hide();
     this.$content = this.$popover.find('.popover-content,.note-popover-content');
-    this.$content.on('click', '.note-hint-item', (e) => {
+    this.$content.on('click', '.note-hint-item', (e) = > {
       this.$content.find('.active').removeClass('active');
-      $(e.currentTarget).addClass('active');
-      this.replace();
-    });
+    $(e.currentTarget).addClass('active');
+    this.replace();
+  })
+    ;
   }
 
   destroy() {
@@ -127,15 +141,16 @@ export default class HintPopover {
 
   createItemTemplates(hintIdx, items) {
     const hint = this.hints[hintIdx];
-    return items.map((item, idx) => {
+    return items.map((item, idx) = > {
       const $item = $('<div class="note-hint-item"/>');
-      $item.append(hint.template ? hint.template(item) : item + '');
-      $item.data({
-        'index': hintIdx,
-        'item': item
-      });
-      return $item;
+    $item.append(hint.template ? hint.template(item) : item + '');
+    $item.data({
+      'index': hintIdx,
+      'item': item
     });
+    return $item;
+  })
+    ;
   }
 
   handleKeydown(e) {
@@ -167,13 +182,14 @@ export default class HintPopover {
 
   createGroup(idx, keyword) {
     const $group = $('<div class="note-hint-group note-hint-group-' + idx + '"/>');
-    this.searchKeyword(idx, keyword, (items) => {
+    this.searchKeyword(idx, keyword, (items) = > {
       items = items || [];
-      if (items.length) {
-        $group.html(this.createItemTemplates(idx, items));
-        this.show();
-      }
-    });
+    if (items.length) {
+      $group.html(this.createItemTemplates(idx, items));
+      this.show();
+    }
+  })
+    ;
 
     return $group;
   }
@@ -189,11 +205,14 @@ export default class HintPopover {
         if (bnd) {
           this.$popover.hide();
           this.lastWordRange = wordRange;
-          this.hints.forEach((hint, idx) => {
-            if (hint.match.test(keyword)) {
-              this.createGroup(idx, keyword).appendTo(this.$content);
-            }
-          });
+          this.hints.forEach((hint, idx) = > {
+            if(hint.match.test(keyword)
+        )
+          {
+            this.createGroup(idx, keyword).appendTo(this.$content);
+          }
+        })
+          ;
           // select first .note-hint-item
           this.$content.find('.note-hint-item:first').addClass('active');
 

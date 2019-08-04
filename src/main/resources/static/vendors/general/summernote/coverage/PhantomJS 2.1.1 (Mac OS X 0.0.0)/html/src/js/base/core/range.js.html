@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/core/range.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/core/range.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line medium'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -1654,54 +1654,58 @@ import dom from './dom';
  *
  * @see http://msdn.microsoft.com/en-us/library/ie/ms535872(v=vs.85).aspx
  */
-<span class="fstat-no" title="function not covered" >function textRangeToPoint(textRange, isStart)</span> {
-<span class="cstat-no" title="statement not covered" >  let container = textRange.parentElement();</span>
-<span class="cstat-no" title="statement not covered" >  let offset;</span>
+<span class="fstat-no" title="function not covered">function textRangeToPoint(textRange, isStart)</span> {
+<span class="cstat-no" title="statement not covered">  let container = textRange.parentElement();</span>
+<span class="cstat-no" title="statement not covered">  let offset;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const tester = document.body.createTextRange();</span>
-<span class="cstat-no" title="statement not covered" >  let prevContainer;</span>
-<span class="cstat-no" title="statement not covered" >  const childNodes = lists.from(container.childNodes);</span>
-<span class="cstat-no" title="statement not covered" >  for (offset = 0; offset &lt; childNodes.length; offset++) {</span>
-<span class="cstat-no" title="statement not covered" >    if (dom.isText(childNodes[offset])) {</span>
-<span class="cstat-no" title="statement not covered" >      continue;</span>
+<span class="cstat-no" title="statement not covered">  const tester = document.body.createTextRange();</span>
+<span class="cstat-no" title="statement not covered">  let prevContainer;</span>
+<span class="cstat-no" title="statement not covered">  const childNodes = lists.from(container.childNodes);</span>
+<span class="cstat-no"
+      title="statement not covered">  for (offset = 0; offset &lt; childNodes.length; offset++) {</span>
+<span class="cstat-no" title="statement not covered">    if (dom.isText(childNodes[offset])) {</span>
+<span class="cstat-no" title="statement not covered">      continue;</span>
     }
-<span class="cstat-no" title="statement not covered" >    tester.moveToElementText(childNodes[offset]);</span>
-<span class="cstat-no" title="statement not covered" >    if (tester.compareEndPoints('StartToStart', textRange) &gt;= 0) {</span>
-<span class="cstat-no" title="statement not covered" >      break;</span>
+<span class="cstat-no" title="statement not covered">    tester.moveToElementText(childNodes[offset]);</span>
+<span class="cstat-no" title="statement not covered">    if (tester.compareEndPoints('StartToStart', textRange) &gt;= 0) {</span>
+<span class="cstat-no" title="statement not covered">      break;</span>
     }
-<span class="cstat-no" title="statement not covered" >    prevContainer = childNodes[offset];</span>
+<span class="cstat-no" title="statement not covered">    prevContainer = childNodes[offset];</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  if (offset !== 0 &amp;&amp; dom.isText(childNodes[offset - 1])) {</span>
-<span class="cstat-no" title="statement not covered" >    const textRangeStart = document.body.createTextRange();</span>
-<span class="cstat-no" title="statement not covered" >    let curTextNode = null;</span>
-<span class="cstat-no" title="statement not covered" >    textRangeStart.moveToElementText(prevContainer || container);</span>
-<span class="cstat-no" title="statement not covered" >    textRangeStart.collapse(!prevContainer);</span>
-<span class="cstat-no" title="statement not covered" >    curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;</span>
+<span class="cstat-no"
+      title="statement not covered">  if (offset !== 0 &amp;&amp; dom.isText(childNodes[offset - 1])) {</span>
+<span class="cstat-no" title="statement not covered">    const textRangeStart = document.body.createTextRange();</span>
+<span class="cstat-no" title="statement not covered">    let curTextNode = null;</span>
+<span class="cstat-no"
+      title="statement not covered">    textRangeStart.moveToElementText(prevContainer || container);</span>
+<span class="cstat-no" title="statement not covered">    textRangeStart.collapse(!prevContainer);</span>
+<span class="cstat-no" title="statement not covered">    curTextNode = prevContainer ? prevContainer.nextSibling : container.firstChild;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const pointTester = textRange.duplicate();</span>
-<span class="cstat-no" title="statement not covered" >    pointTester.setEndPoint('StartToStart', textRangeStart);</span>
-<span class="cstat-no" title="statement not covered" >    let textCount = pointTester.text.replace(/[\r\n]/g, '').length;</span>
+<span class="cstat-no" title="statement not covered">    const pointTester = textRange.duplicate();</span>
+<span class="cstat-no" title="statement not covered">    pointTester.setEndPoint('StartToStart', textRangeStart);</span>
+<span class="cstat-no"
+      title="statement not covered">    let textCount = pointTester.text.replace(/[\r\n]/g, '').length;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    while (textCount &gt; curTextNode.nodeValue.length &amp;&amp; curTextNode.nextSibling) {</span>
-<span class="cstat-no" title="statement not covered" >      textCount -= curTextNode.nodeValue.length;</span>
-<span class="cstat-no" title="statement not covered" >      curTextNode = curTextNode.nextSibling;</span>
+<span class="cstat-no" title="statement not covered">    while (textCount &gt; curTextNode.nodeValue.length &amp;&amp; curTextNode.nextSibling) {</span>
+<span class="cstat-no" title="statement not covered">      textCount -= curTextNode.nodeValue.length;</span>
+<span class="cstat-no" title="statement not covered">      curTextNode = curTextNode.nextSibling;</span>
     }
 &nbsp;
     // [workaround] enforce IE to re-reference curTextNode, hack
-<span class="cstat-no" title="statement not covered" >    const dummy = curTextNode.nodeValue; </span>// eslint-disable-line
+<span class="cstat-no" title="statement not covered">    const dummy = curTextNode.nodeValue; </span>// eslint-disable-line
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (isStart &amp;&amp; curTextNode.nextSibling &amp;&amp; dom.isText(curTextNode.nextSibling) &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered">    if (isStart &amp;&amp; curTextNode.nextSibling &amp;&amp; dom.isText(curTextNode.nextSibling) &amp;&amp;</span>
       textCount === curTextNode.nodeValue.length) {
-<span class="cstat-no" title="statement not covered" >      textCount -= curTextNode.nodeValue.length;</span>
-<span class="cstat-no" title="statement not covered" >      curTextNode = curTextNode.nextSibling;</span>
+<span class="cstat-no" title="statement not covered">      textCount -= curTextNode.nodeValue.length;</span>
+<span class="cstat-no" title="statement not covered">      curTextNode = curTextNode.nextSibling;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    container = curTextNode;</span>
-<span class="cstat-no" title="statement not covered" >    offset = textCount;</span>
+<span class="cstat-no" title="statement not covered">    container = curTextNode;</span>
+<span class="cstat-no" title="statement not covered">    offset = textCount;</span>
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return {</span>
+<span class="cstat-no" title="statement not covered">  return {</span>
     cont: container,
     offset: offset
   };
@@ -1712,40 +1716,41 @@ import dom from './dom';
  * @param {BoundaryPoint} point
  * @return {TextRange}
  */
-<span class="fstat-no" title="function not covered" >function pointToTextRange(point)</span> {
-<span class="cstat-no" title="statement not covered" >  const textRangeInfo = <span class="fstat-no" title="function not covered" >function(container, offset)</span> {</span>
-<span class="cstat-no" title="statement not covered" >    let node, isCollapseToStart;</span>
+<span class="fstat-no" title="function not covered">function pointToTextRange(point)</span> {
+<span class="cstat-no" title="statement not covered">  const textRangeInfo = <span class="fstat-no"
+                                                                                   title="function not covered">function(container, offset)</span> {</span>
+<span class="cstat-no" title="statement not covered">    let node, isCollapseToStart;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (dom.isText(container)) {</span>
-<span class="cstat-no" title="statement not covered" >      const prevTextNodes = dom.listPrev(container, func.not(dom.isText));</span>
-<span class="cstat-no" title="statement not covered" >      const prevContainer = lists.last(prevTextNodes).previousSibling;</span>
-<span class="cstat-no" title="statement not covered" >      node = prevContainer || container.parentNode;</span>
-<span class="cstat-no" title="statement not covered" >      offset += lists.sum(lists.tail(prevTextNodes), dom.nodeLength);</span>
-<span class="cstat-no" title="statement not covered" >      isCollapseToStart = !prevContainer;</span>
+<span class="cstat-no" title="statement not covered">    if (dom.isText(container)) {</span>
+<span class="cstat-no" title="statement not covered">      const prevTextNodes = dom.listPrev(container, func.not(dom.isText));</span>
+<span class="cstat-no" title="statement not covered">      const prevContainer = lists.last(prevTextNodes).previousSibling;</span>
+<span class="cstat-no" title="statement not covered">      node = prevContainer || container.parentNode;</span>
+<span class="cstat-no" title="statement not covered">      offset += lists.sum(lists.tail(prevTextNodes), dom.nodeLength);</span>
+<span class="cstat-no" title="statement not covered">      isCollapseToStart = !prevContainer;</span>
     } else {
-<span class="cstat-no" title="statement not covered" >      node = container.childNodes[offset] || container;</span>
-<span class="cstat-no" title="statement not covered" >      if (dom.isText(node)) {</span>
-<span class="cstat-no" title="statement not covered" >        return textRangeInfo(node, 0);</span>
+<span class="cstat-no" title="statement not covered">      node = container.childNodes[offset] || container;</span>
+<span class="cstat-no" title="statement not covered">      if (dom.isText(node)) {</span>
+<span class="cstat-no" title="statement not covered">        return textRangeInfo(node, 0);</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      offset = 0;</span>
-<span class="cstat-no" title="statement not covered" >      isCollapseToStart = false;</span>
+<span class="cstat-no" title="statement not covered">      offset = 0;</span>
+<span class="cstat-no" title="statement not covered">      isCollapseToStart = false;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return {</span>
+<span class="cstat-no" title="statement not covered">    return {</span>
       node: node,
       collapseToStart: isCollapseToStart,
       offset: offset
     };
   };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  const textRange = document.body.createTextRange();</span>
-<span class="cstat-no" title="statement not covered" >  const info = textRangeInfo(point.node, point.offset);</span>
+<span class="cstat-no" title="statement not covered">  const textRange = document.body.createTextRange();</span>
+<span class="cstat-no" title="statement not covered">  const info = textRangeInfo(point.node, point.offset);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  textRange.moveToElementText(info.node);</span>
-<span class="cstat-no" title="statement not covered" >  textRange.collapse(info.collapseToStart);</span>
-<span class="cstat-no" title="statement not covered" >  textRange.moveStart('character', info.offset);</span>
-<span class="cstat-no" title="statement not covered" >  return textRange;</span>
+<span class="cstat-no" title="statement not covered">  textRange.moveToElementText(info.node);</span>
+<span class="cstat-no" title="statement not covered">  textRange.collapse(info.collapseToStart);</span>
+<span class="cstat-no" title="statement not covered">  textRange.moveStart('character', info.offset);</span>
+<span class="cstat-no" title="statement not covered">  return textRange;</span>
 }
 &nbsp;
 /**
@@ -1778,24 +1783,24 @@ class WrappedRange {
 &nbsp;
   // nativeRange: get nativeRange from sc, so, ec, eo
   nativeRange() {
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (env.isW3CRangeSupport) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (env.isW3CRangeSupport) {
       const w3cRange = document.createRange();
       w3cRange.setStart(this.sc, this.so);
       w3cRange.setEnd(this.ec, this.eo);
 &nbsp;
       return w3cRange;
     } else {
-<span class="cstat-no" title="statement not covered" >      const textRange = pointToTextRange({</span>
+<span class="cstat-no" title="statement not covered">      const textRange = pointToTextRange({</span>
         node: this.sc,
         offset: this.so
       });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      textRange.setEndPoint('EndToEnd', pointToTextRange({</span>
+<span class="cstat-no" title="statement not covered">      textRange.setEndPoint('EndToEnd', pointToTextRange({</span>
         node: this.ec,
         offset: this.eo
       }));
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      return textRange;</span>
+<span class="cstat-no" title="statement not covered">      return textRange;</span>
     }
   }
 &nbsp;
@@ -1827,14 +1832,14 @@ class WrappedRange {
    */
   select() {
     const nativeRng = this.nativeRange();
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (env.isW3CRangeSupport) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (env.isW3CRangeSupport) {
       const selection = document.getSelection();
       if (selection.rangeCount &gt; 0) {
         selection.removeAllRanges();
       }
       selection.addRange(nativeRng);
     } else {
-<span class="cstat-no" title="statement not covered" >      nativeRng.select();</span>
+<span class="cstat-no" title="statement not covered">      nativeRng.select();</span>
     }
 &nbsp;
     return this;
@@ -1847,8 +1852,8 @@ class WrappedRange {
    */
   scrollIntoView(container) {
     const height = $(container).height();
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (container.scrollTop + height &lt; this.sc.offsetTop) {
-<span class="cstat-no" title="statement not covered" >      container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (container.scrollTop + height &lt; this.sc.offsetTop) {
+<span class="cstat-no" title="statement not covered">      container.scrollTop += Math.abs(container.scrollTop + height - this.sc.offsetTop);</span>
     }
 &nbsp;
     return this;
@@ -1885,7 +1890,7 @@ class WrappedRange {
 &nbsp;
       const nextPoint = isLeftToRight ? dom.nextPointUntil(dom.nextPoint(point), dom.isVisiblePoint)
         : dom.prevPointUntil(dom.prevPoint(point), dom.isVisiblePoint);
-      return nextPoint || <span class="branch-1 cbranch-no" title="branch not covered" >point;</span>
+      return nextPoint || <span class="branch-1 cbranch-no" title="branch not covered">point;</span>
     };
 &nbsp;
     const endPoint = getVisiblePoint(this.getEndPoint(), false);
@@ -1966,18 +1971,20 @@ class WrappedRange {
     const startAncestor = dom.ancestor(this.sc, pred);
     const endAncestor = dom.ancestor(this.ec, pred);
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (!startAncestor &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >!endAncestor)</span> {
-<span class="cstat-no" title="statement not covered" >      return new WrappedRange(this.sc, this.so, this.ec, this.eo);</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (!startAncestor &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">!endAncestor)</span> {
+<span class="cstat-no"
+      title="statement not covered">      return new WrappedRange(this.sc, this.so, this.ec, this.eo);</span>
     }
 &nbsp;
     const boundaryPoints = this.getPoints();
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (startAncestor) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (startAncestor) {
       boundaryPoints.sc = startAncestor;
       boundaryPoints.so = 0;
     }
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (endAncestor) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (endAncestor) {
       boundaryPoints.ec = endAncestor;
       boundaryPoints.eo = dom.nodeLength(endAncestor);
     }
@@ -2087,13 +2094,13 @@ class WrappedRange {
    * @param {Function} pred
    * @return {Boolean}
    */
-<span class="fstat-no" title="function not covered" >  isLeftEdgeOf(pred)</span> {
-<span class="cstat-no" title="statement not covered" >    if (!dom.isLeftEdgePoint(this.getStartPoint())) {</span>
-<span class="cstat-no" title="statement not covered" >      return false;</span>
+<span class="fstat-no" title="function not covered">  isLeftEdgeOf(pred)</span> {
+<span class="cstat-no" title="statement not covered">    if (!dom.isLeftEdgePoint(this.getStartPoint())) {</span>
+<span class="cstat-no" title="statement not covered">      return false;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const node = dom.ancestor(this.sc, pred);</span>
-<span class="cstat-no" title="statement not covered" >    return node &amp;&amp; dom.isLeftEdgeOf(this.sc, node);</span>
+<span class="cstat-no" title="statement not covered">    const node = dom.ancestor(this.sc, pred);</span>
+<span class="cstat-no" title="statement not covered">    return node &amp;&amp; dom.isLeftEdgeOf(this.sc, node);</span>
   }
 &nbsp;
   /**
@@ -2130,10 +2137,11 @@ class WrappedRange {
       const ancestors = dom.listAncestor(rng.sc, func.not(dom.isInline));
       topAncestor = lists.last(ancestors);
       if (!dom.isInline(topAncestor)) {
-        topAncestor = ancestors[ancestors.length - 2] || <span class="branch-1 cbranch-no" title="branch not covered" >rng.sc.childNodes[rng.so];</span>
+        topAncestor = ancestors[ancestors.length - 2] || <span class="branch-1 cbranch-no" title="branch not covered">rng.sc.childNodes[rng.so];</span>
       }
     } else {
-      topAncestor = rng.sc.childNodes[rng.so &gt; 0 ? rng.so - 1 : <span class="branch-1 cbranch-no" title="branch not covered" >0]</span>;
+      topAncestor = rng.sc.childNodes[rng.so &gt; 0 ? rng.so - 1 : <span class="branch-1 cbranch-no"
+                                                                         title="branch not covered">0]</span>;
     }
 &nbsp;
     // siblings not in paragraph
@@ -2176,13 +2184,13 @@ class WrappedRange {
     let childNodes = lists.from(contentsContainer.childNodes);
     const rng = this.wrapBodyInlineWithPara().deleteContents();
 &nbsp;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (rng.so &gt; 0) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (rng.so &gt; 0) {
       childNodes = childNodes.reverse();
     }
     childNodes = childNodes.map(function(childNode) {
       return rng.insertNode(childNode);
     });
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (rng.so &gt; 0) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (rng.so &gt; 0) {
       childNodes = childNodes.reverse();
     }
     return childNodes;
@@ -2195,7 +2203,7 @@ class WrappedRange {
    */
   toString() {
     const nativeRng = this.nativeRange();
-    return env.isW3CRangeSupport ? nativeRng.toString() : <span class="branch-1 cbranch-no" title="branch not covered" >nativeRng.text;</span>
+    return env.isW3CRangeSupport ? nativeRng.toString() : <span class="branch-1 cbranch-no" title="branch not covered">nativeRng.text;</span>
   }
 &nbsp;
   /**
@@ -2215,9 +2223,10 @@ class WrappedRange {
       return !dom.isCharPoint(point);
     });
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (findAfter) {
-<span class="cstat-no" title="statement not covered" >      endPoint = dom.nextPointUntil(endPoint, <span class="fstat-no" title="function not covered" >function(point)</span> {</span>
-<span class="cstat-no" title="statement not covered" >        return !dom.isCharPoint(point);</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (findAfter) {
+<span class="cstat-no" title="statement not covered">      endPoint = dom.nextPointUntil(endPoint, <span
+  class="fstat-no" title="function not covered">function(point)</span> {</span>
+<span class="cstat-no" title="statement not covered">        return !dom.isCharPoint(point);</span>
       });
     }
 &nbsp;
@@ -2269,9 +2278,9 @@ class WrappedRange {
    * getClientRects
    * @return {Rect[]}
    */
-<span class="fstat-no" title="function not covered" >  getClientRects() {</span>
-<span class="cstat-no" title="statement not covered" >    const nativeRng = this.nativeRange();</span>
-<span class="cstat-no" title="statement not covered" >    return nativeRng.getClientRects();</span>
+<span class="fstat-no" title="function not covered">  getClientRects() {</span>
+<span class="cstat-no" title="statement not covered">    const nativeRng = this.nativeRange();</span>
+<span class="cstat-no" title="statement not covered">    return nativeRng.getClientRects();</span>
   }
 }
 &nbsp;
@@ -2311,7 +2320,7 @@ export default {
 &nbsp;
   createFromSelection: function() {
     let sc, so, ec, eo;
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (env.isW3CRangeSupport) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (env.isW3CRangeSupport) {
       const selection = document.getSelection();
       if (!selection || selection.rangeCount === 0) {
         return null;
@@ -2327,26 +2336,27 @@ export default {
       ec = nativeRng.endContainer;
       eo = nativeRng.endOffset;
     } else { // IE8: TextRange
-<span class="cstat-no" title="statement not covered" >      const textRange = document.selection.createRange();</span>
-<span class="cstat-no" title="statement not covered" >      const textRangeEnd = textRange.duplicate();</span>
-<span class="cstat-no" title="statement not covered" >      textRangeEnd.collapse(false);</span>
-<span class="cstat-no" title="statement not covered" >      const textRangeStart = textRange;</span>
-<span class="cstat-no" title="statement not covered" >      textRangeStart.collapse(true);</span>
+<span class="cstat-no" title="statement not covered">      const textRange = document.selection.createRange();</span>
+<span class="cstat-no" title="statement not covered">      const textRangeEnd = textRange.duplicate();</span>
+<span class="cstat-no" title="statement not covered">      textRangeEnd.collapse(false);</span>
+<span class="cstat-no" title="statement not covered">      const textRangeStart = textRange;</span>
+<span class="cstat-no" title="statement not covered">      textRangeStart.collapse(true);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      let startPoint = textRangeToPoint(textRangeStart, true);</span>
-<span class="cstat-no" title="statement not covered" >      let endPoint = textRangeToPoint(textRangeEnd, false);</span>
+<span class="cstat-no"
+      title="statement not covered">      let startPoint = textRangeToPoint(textRangeStart, true);</span>
+<span class="cstat-no" title="statement not covered">      let endPoint = textRangeToPoint(textRangeEnd, false);</span>
 &nbsp;
       // same visible point case: range was collapsed.
-<span class="cstat-no" title="statement not covered" >      if (dom.isText(startPoint.node) &amp;&amp; dom.isLeftEdgePoint(startPoint) &amp;&amp;</span>
+<span class="cstat-no" title="statement not covered">      if (dom.isText(startPoint.node) &amp;&amp; dom.isLeftEdgePoint(startPoint) &amp;&amp;</span>
           dom.isTextNode(endPoint.node) &amp;&amp; dom.isRightEdgePoint(endPoint) &amp;&amp;
           endPoint.node.nextSibling === startPoint.node) {
-<span class="cstat-no" title="statement not covered" >        startPoint = endPoint;</span>
+<span class="cstat-no" title="statement not covered">        startPoint = endPoint;</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      sc = startPoint.cont;</span>
-<span class="cstat-no" title="statement not covered" >      so = startPoint.offset;</span>
-<span class="cstat-no" title="statement not covered" >      ec = endPoint.cont;</span>
-<span class="cstat-no" title="statement not covered" >      eo = endPoint.offset;</span>
+<span class="cstat-no" title="statement not covered">      sc = startPoint.cont;</span>
+<span class="cstat-no" title="statement not covered">      so = startPoint.offset;</span>
+<span class="cstat-no" title="statement not covered">      ec = endPoint.cont;</span>
+<span class="cstat-no" title="statement not covered">      eo = endPoint.offset;</span>
     }
 &nbsp;
     return new WrappedRange(sc, so, ec, eo);
@@ -2371,9 +2381,9 @@ export default {
       so = dom.listPrev(sc).length - 1;
       sc = sc.parentNode;
     }
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (dom.isBR(ec)) {
-<span class="cstat-no" title="statement not covered" >      eo = dom.listPrev(ec).length - 1;</span>
-<span class="cstat-no" title="statement not covered" >      ec = ec.parentNode;</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (dom.isBR(ec)) {
+<span class="cstat-no" title="statement not covered">      eo = dom.listPrev(ec).length - 1;</span>
+<span class="cstat-no" title="statement not covered">      ec = ec.parentNode;</span>
     } else if (dom.isVoid(ec)) {
       eo = dom.listPrev(ec).length;
       ec = ec.parentNode;
@@ -2439,7 +2449,7 @@ export default {
 };
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -2448,11 +2458,11 @@ export default {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

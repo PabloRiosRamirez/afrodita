@@ -8,10 +8,11 @@ class DropdownUI {
   }
 
   setEvent() {
-    this.$button.on('click', (e) => {
+    this.$button.on('click', (e) = > {
       this.toggle();
-      e.stopImmediatePropagation();
-    });
+    e.stopImmediatePropagation();
+  })
+    ;
   }
 
   clear() {
@@ -55,13 +56,13 @@ class DropdownUI {
   }
 }
 
-$(document).on('click', function(e) {
+$(document).on('click', function (e) {
   if (!$(e.target).closest('.note-btn-group').length) {
     $('.note-btn-group.open').removeClass('open');
   }
 });
 
-$(document).on('click.note-dropdown-menu', function(e) {
+$(document).on('click.note-dropdown-menu', function (e) {
   $(e.target).closest('.note-dropdown-menu').parent().removeClass('open');
 });
 

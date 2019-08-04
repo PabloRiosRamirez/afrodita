@@ -2,7 +2,7 @@
  * Russian translation for bootstrap-markdown
  * by Oleg Vivtash <o@vivtash.net>
  */
-;(function($){
+;(function ($) {
   $.fn.markdown.messages['ru'] = {
     'Bold': "Жирный",
     'strong text': "выделенный текст",

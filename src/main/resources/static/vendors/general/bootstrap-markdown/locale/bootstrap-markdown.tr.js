@@ -20,12 +20,12 @@
     'Insert Image Hyperlink': "Resim linkini ekleyin",
     'enter image title here': "resim başlığını buraya ekleyin",
     'list text here': "liste yazısı",
-    'Save' : "Kaydet",
-    'Ordered List' : "Numaralı Liste",
-    'Unordered List' : "Madde imli liste",
-    'Quote' : "Alıntı",
-    'quote here' : "alıntıyı buraya ekleyin",
-    'Code' : "Kod",
-    'code text here' : "kodu buraya ekleyin"
+    'Save': "Kaydet",
+    'Ordered List': "Numaralı Liste",
+    'Unordered List': "Madde imli liste",
+    'Quote': "Alıntı",
+    'quote here': "alıntıyı buraya ekleyin",
+    'Code': "Kod",
+    'code text here': "kodu buraya ekleyin"
   };
 }(jQuery));

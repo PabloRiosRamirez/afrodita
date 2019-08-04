@@ -9,7 +9,7 @@ import java.util.Collection;
 
 public class ControllerUtils {
 
-    public static User getUserFromPrincipal(Principal principal) throws NullPointerException{
+    public static User getUserFromPrincipal(Principal principal) throws NullPointerException {
         final User user = (User) ((Authentication) principal).getPrincipal();
         return user;
     }
@@ -22,11 +22,11 @@ public class ControllerUtils {
         if (authorities != null && !authorities.isEmpty()) {
             sb.append(" (");
             boolean first = true;
-            for (GrantedAuthority g : authorities){
-                if(first){
+            for (GrantedAuthority g : authorities) {
+                if (first) {
                     sb.append(g.getAuthority());
-                    first=false;
-                }else{
+                    first = false;
+                } else {
                     sb.append(", ").append(g.getAuthority());
                 }
             }
@@ -34,7 +34,6 @@ public class ControllerUtils {
         }
         return sb.toString();
     }
-
 
 
 }

@@ -22,7 +22,7 @@ public class ParentResponseModel {
     @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Date date;
 
-    public static Message<ParentResponseModel> toMessage(UUID uuid, HttpStatus status, String message, Object response, Date date){
+    public static Message<ParentResponseModel> toMessage(UUID uuid, HttpStatus status, String message, Object response, Date date) {
         return MessageBuilder.withPayload(new ParentResponseModel(uuid, status, message, response, date)).build();
     }
 }

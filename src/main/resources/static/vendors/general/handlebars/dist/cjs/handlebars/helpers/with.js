@@ -5,28 +5,28 @@ exports.__esModule = true;
 var _utils = require('../utils');
 
 exports['default'] = function (instance) {
-  instance.registerHelper('with', function (context, options) {
-    if (_utils.isFunction(context)) {
-      context = context.call(this);
-    }
+    instance.registerHelper('with', function (context, options) {
+        if (_utils.isFunction(context)) {
+            context = context.call(this);
+        }
 
-    var fn = options.fn;
+        var fn = options.fn;
 
-    if (!_utils.isEmpty(context)) {
-      var data = options.data;
-      if (options.data && options.ids) {
-        data = _utils.createFrame(options.data);
-        data.contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]);
-      }
+        if (!_utils.isEmpty(context)) {
+            var data = options.data;
+            if (options.data && options.ids) {
+                data = _utils.createFrame(options.data);
+                data.contextPath = _utils.appendContextPath(options.data.contextPath, options.ids[0]);
+            }
 
-      return fn(context, {
-        data: data,
-        blockParams: _utils.blockParams([context], [data && data.contextPath])
-      });
-    } else {
-      return options.inverse(this);
-    }
-  });
+            return fn(context, {
+                data: data,
+                blockParams: _utils.blockParams([context], [data && data.contextPath])
+            });
+        } else {
+            return options.inverse(this);
+        }
+    });
 };
 
 module.exports = exports['default'];

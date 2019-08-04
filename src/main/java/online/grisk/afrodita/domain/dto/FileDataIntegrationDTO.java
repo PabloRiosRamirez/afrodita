@@ -15,15 +15,15 @@ public class FileDataIntegrationDTO {
     Long id_organization;
     MultipartFile file;
 
+    public FileDataIntegrationDTO(Map<String, Object> objectMap) {
+        this.id_organization = (Long) objectMap.get("organization");
+        this.file = (MultipartFile) objectMap.get("file");
+    }
+
     public Map<String, Object> toMap() {
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("organization", id_organization);
         objectMap.put("file", file);
         return objectMap;
-    }
-
-    public FileDataIntegrationDTO(Map<String, Object> objectMap) {
-        this.id_organization = (Long) objectMap.get("organization");
-        this.file = (MultipartFile) objectMap.get("file");
     }
 }

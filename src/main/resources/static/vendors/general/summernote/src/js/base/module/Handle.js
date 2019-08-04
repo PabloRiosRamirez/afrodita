@@ -10,21 +10,38 @@ export default class Handle {
     this.lang = this.options.langInfo;
 
     this.events = {
-      'summernote.mousedown': (we, e) => {
-        if (this.update(e.target)) {
-          e.preventDefault();
-        }
-      },
-      'summernote.keyup summernote.scroll summernote.change summernote.dialog.shown': () => {
-        this.update();
-      },
-      'summernote.disable': () => {
-        this.hide();
-      },
-      'summernote.codeview.toggled': () => {
-        this.update();
-      }
-    };
+      'summernote.mousedown': (we, e) = > {
+      if(this.update(e.target)
+  )
+    {
+      e.preventDefault();
+    }
+  },
+    'summernote.keyup summernote.scroll summernote.change summernote.dialog.shown'
+  :
+    () =
+  >
+    {
+      this.update();
+    }
+  ,
+    'summernote.disable'
+  :
+    () =
+  >
+    {
+      this.hide();
+    }
+  ,
+    'summernote.codeview.toggled'
+  :
+    () =
+  >
+    {
+      this.update();
+    }
+  }
+    ;
   }
 
   initialize() {
@@ -43,43 +60,51 @@ export default class Handle {
       '</div>'
     ].join('')).prependTo(this.$editingArea);
 
-    this.$handle.on('mousedown', (event) => {
-      if (dom.isControlSizing(event.target)) {
-        event.preventDefault();
-        event.stopPropagation();
+    this.$handle.on('mousedown', (event) = > {
+      if(dom.isControlSizing(event.target)
+  )
+    {
+      event.preventDefault();
+      event.stopPropagation();
 
-        const $target = this.$handle.find('.note-control-selection').data('target');
-        const posStart = $target.offset();
-        const scrollTop = this.$document.scrollTop();
+      const $target = this.$handle.find('.note-control-selection').data('target');
+      const posStart = $target.offset();
+      const scrollTop = this.$document.scrollTop();
 
-        const onMouseMove = (event) => {
-          this.context.invoke('editor.resizeTo', {
-            x: event.clientX - posStart.left,
-            y: event.clientY - (posStart.top - scrollTop)
-          }, $target, !event.shiftKey);
+      const onMouseMove = (event) =
+    >
+      {
+        this.context.invoke('editor.resizeTo', {
+          x: event.clientX - posStart.left,
+          y: event.clientY - (posStart.top - scrollTop)
+        }, $target, !event.shiftKey);
 
-          this.update($target[0]);
-        };
-
-        this.$document
-          .on('mousemove', onMouseMove)
-          .one('mouseup', (e) => {
-            e.preventDefault();
-            this.$document.off('mousemove', onMouseMove);
-            this.context.invoke('editor.afterCommand');
-          });
-
-        if (!$target.data('ratio')) { // original ratio.
-          $target.data('ratio', $target.height() / $target.width());
-        }
+        this.update($target[0]);
       }
-    });
+      ;
+
+      this.$document
+        .on('mousemove', onMouseMove)
+        .one('mouseup', (e) = > {
+        e.preventDefault();
+      this.$document.off('mousemove', onMouseMove);
+      this.context.invoke('editor.afterCommand');
+    })
+      ;
+
+      if (!$target.data('ratio')) { // original ratio.
+        $target.data('ratio', $target.height() / $target.width());
+      }
+    }
+  })
+    ;
 
     // Listen for scrolling on the handle overlay.
-    this.$handle.on('wheel', (e) => {
+    this.$handle.on('wheel', (e) = > {
       e.preventDefault();
-      this.update();
-    });
+    this.update();
+  })
+    ;
   }
 
   destroy() {

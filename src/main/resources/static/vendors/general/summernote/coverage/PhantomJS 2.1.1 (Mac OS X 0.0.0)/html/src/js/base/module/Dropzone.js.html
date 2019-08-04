@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/Dropzone.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/Dropzone.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line low'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -296,14 +296,15 @@ export default class Dropzone {
    * attach Drag and Drop Events
    */
   initialize() {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.options.disableDragAndDrop) {
+    <span class="missing-if-branch" title="if path not taken">I</span>if (this.options.disableDragAndDrop) {
       // prevent default drop event
-<span class="cstat-no" title="statement not covered" >      this.documentEventHandlers.onDrop = <span class="fstat-no" title="function not covered" >(e)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">      this.documentEventHandlers.onDrop = <span class="fstat-no"
+                                                                                                     title="function not covered">(e)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">        e.preventDefault();</span>
       };
       // do not consider outside of dropzone
-<span class="cstat-no" title="statement not covered" >      this.$eventListener = this.$dropzone;</span>
-<span class="cstat-no" title="statement not covered" >      this.$eventListener.on('drop', this.documentEventHandlers.onDrop);</span>
+<span class="cstat-no" title="statement not covered">      this.$eventListener = this.$dropzone;</span>
+<span class="cstat-no" title="statement not covered">      this.$eventListener.on('drop', this.documentEventHandlers.onDrop);</span>
     } else {
       this.attachDragAndDropEvent();
     }
@@ -316,28 +317,29 @@ export default class Dropzone {
     let collection = $();
     const $dropzoneMessage = this.$dropzone.find('.note-dropzone-message');
 &nbsp;
-    this.documentEventHandlers.onDragenter = <span class="fstat-no" title="function not covered" >(e)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      const isCodeview = this.context.invoke('codeview.isActivated');</span>
-<span class="cstat-no" title="statement not covered" >      const hasEditorSize = this.$editor.width() &gt; 0 &amp;&amp; this.$editor.height() &gt; 0;</span>
-<span class="cstat-no" title="statement not covered" >      if (!isCodeview &amp;&amp; !collection.length &amp;&amp; hasEditorSize) {</span>
-<span class="cstat-no" title="statement not covered" >        this.$editor.addClass('dragover');</span>
-<span class="cstat-no" title="statement not covered" >        this.$dropzone.width(this.$editor.width());</span>
-<span class="cstat-no" title="statement not covered" >        this.$dropzone.height(this.$editor.height());</span>
-<span class="cstat-no" title="statement not covered" >        $dropzoneMessage.text(this.lang.image.dragImageHere);</span>
+    this.documentEventHandlers.onDragenter = <span class="fstat-no" title="function not covered">(e)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">      const isCodeview = this.context.invoke('codeview.isActivated');</span>
+<span class="cstat-no" title="statement not covered">      const hasEditorSize = this.$editor.width() &gt; 0 &amp;&amp; this.$editor.height() &gt; 0;</span>
+<span class="cstat-no" title="statement not covered">      if (!isCodeview &amp;&amp; !collection.length &amp;&amp; hasEditorSize) {</span>
+<span class="cstat-no" title="statement not covered">        this.$editor.addClass('dragover');</span>
+<span class="cstat-no" title="statement not covered">        this.$dropzone.width(this.$editor.width());</span>
+<span class="cstat-no" title="statement not covered">        this.$dropzone.height(this.$editor.height());</span>
+<span class="cstat-no"
+      title="statement not covered">        $dropzoneMessage.text(this.lang.image.dragImageHere);</span>
       }
-<span class="cstat-no" title="statement not covered" >      collection = collection.add(e.target);</span>
+<span class="cstat-no" title="statement not covered">      collection = collection.add(e.target);</span>
     };
 &nbsp;
-    this.documentEventHandlers.onDragleave = <span class="fstat-no" title="function not covered" >(e)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      collection = collection.not(e.target);</span>
-<span class="cstat-no" title="statement not covered" >      if (!collection.length) {</span>
-<span class="cstat-no" title="statement not covered" >        this.$editor.removeClass('dragover');</span>
+    this.documentEventHandlers.onDragleave = <span class="fstat-no" title="function not covered">(e)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">      collection = collection.not(e.target);</span>
+<span class="cstat-no" title="statement not covered">      if (!collection.length) {</span>
+<span class="cstat-no" title="statement not covered">        this.$editor.removeClass('dragover');</span>
       }
     };
 &nbsp;
-    this.documentEventHandlers.onDrop = <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      collection = $();</span>
-<span class="cstat-no" title="statement not covered" >      this.$editor.removeClass('dragover');</span>
+    this.documentEventHandlers.onDrop = <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      collection = $();</span>
+<span class="cstat-no" title="statement not covered">      this.$editor.removeClass('dragover');</span>
     };
 &nbsp;
     // show dropzone on dragenter when dragging a object to document
@@ -347,33 +349,37 @@ export default class Dropzone {
       .on('drop', this.documentEventHandlers.onDrop);
 &nbsp;
     // change dropzone's message on hover.
-    this.$dropzone.on('dragenter', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.$dropzone.addClass('hover');</span>
-<span class="cstat-no" title="statement not covered" >      $dropzoneMessage.text(this.lang.image.dropImage);</span>
-    }).on('dragleave', <span class="fstat-no" title="function not covered" >() =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      this.$dropzone.removeClass('hover');</span>
-<span class="cstat-no" title="statement not covered" >      $dropzoneMessage.text(this.lang.image.dragImageHere);</span>
+    this.$dropzone.on('dragenter', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      this.$dropzone.addClass('hover');</span>
+<span class="cstat-no" title="statement not covered">      $dropzoneMessage.text(this.lang.image.dropImage);</span>
+    }).on('dragleave', <span class="fstat-no" title="function not covered">() =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      this.$dropzone.removeClass('hover');</span>
+<span class="cstat-no" title="statement not covered">      $dropzoneMessage.text(this.lang.image.dragImageHere);</span>
     });
 &nbsp;
     // attach dropImage
-    this.$dropzone.on('drop', <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      const dataTransfer = event.originalEvent.dataTransfer;</span>
+    this.$dropzone.on('drop', <span class="fstat-no" title="function not covered">(event)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">      const dataTransfer = event.originalEvent.dataTransfer;</span>
 &nbsp;
       // stop the browser from opening the dropped content
-<span class="cstat-no" title="statement not covered" >      event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">      event.preventDefault();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      if (dataTransfer &amp;&amp; dataTransfer.files &amp;&amp; dataTransfer.files.length) {</span>
-<span class="cstat-no" title="statement not covered" >        this.$editable.focus();</span>
-<span class="cstat-no" title="statement not covered" >        this.context.invoke('editor.insertImagesOrCallback', dataTransfer.files);</span>
+<span class="cstat-no" title="statement not covered">      if (dataTransfer &amp;&amp; dataTransfer.files &amp;&amp; dataTransfer.files.length) {</span>
+<span class="cstat-no" title="statement not covered">        this.$editable.focus();</span>
+<span class="cstat-no" title="statement not covered">        this.context.invoke('editor.insertImagesOrCallback', dataTransfer.files);</span>
       } else {
-<span class="cstat-no" title="statement not covered" >        $.each(dataTransfer.types, <span class="fstat-no" title="function not covered" >(idx, type)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          const content = dataTransfer.getData(type);</span>
+<span class="cstat-no" title="statement not covered">        $.each(dataTransfer.types, <span class="fstat-no"
+                                                                                              title="function not covered">(idx, type)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">          const content = dataTransfer.getData(type);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          if (type.toLowerCase().indexOf('text') &gt; -1) {</span>
-<span class="cstat-no" title="statement not covered" >            this.context.invoke('editor.pasteHTML', content);</span>
+<span class="cstat-no" title="statement not covered">          if (type.toLowerCase().indexOf('text') &gt; -1) {</span>
+<span class="cstat-no"
+      title="statement not covered">            this.context.invoke('editor.pasteHTML', content);</span>
           } else {
-<span class="cstat-no" title="statement not covered" >            $(content).each(<span class="fstat-no" title="function not covered" >(idx, item)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >              this.context.invoke('editor.insertNode', item);</span>
+<span class="cstat-no" title="statement not covered">            $(content).each(<span class="fstat-no"
+                                                                                       title="function not covered">(idx, item)</span> =&gt; {</span>
+<span class="cstat-no"
+      title="statement not covered">              this.context.invoke('editor.insertNode', item);</span>
             });
           }
         });
@@ -390,7 +396,7 @@ export default class Dropzone {
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -399,11 +405,11 @@ export default class Dropzone {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

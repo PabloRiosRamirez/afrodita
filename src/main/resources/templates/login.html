@@ -6,31 +6,31 @@
 <head>
 
     <meta charset="utf-8"/>
-    <meta name="google-site-verification" content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08"/>
+    <meta content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08" name="google-site-verification"/>
     <title>GRisk | Login</title>
-    <meta name="description" content="GRisk Login">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="GRisk Login" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
     <!--begin::Page Custom Styles(used by this page) -->
-    <link th:href="@{/css/login/login.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/vendors/custom/vendors/flaticon/flaticon.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/login/login.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendors/custom/vendors/flaticon/flaticon.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" type="text/css"/>
     <!--end::Page Custom Styles -->
 
     <!--begin:: Global Mandatory Vendors -->
-    <link th:href="@{/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendors/general/perfect-scrollbar/css/perfect-scrollbar.css}" type="text/css"/>
 
     <!--end:: Global Mandatory Vendors -->
 
     <!--begin:: Global Optional Vendors -->
-    <link th:href="@{/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css}" rel="stylesheet"
+    <link rel="stylesheet" th:href="@{/vendors/general/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.css}"
           type="text/css"/>
-    <link th:href="@{/vendors/general/animate.css/animate.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendors/general/animate.css/animate.css}" type="text/css"/>
 
     <!--end:: Global Optional Vendors -->
 
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.bundle.css}" type="text/css"/>
 
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
     <style>
@@ -51,7 +51,7 @@
         <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor"
              th:style="'background:url(' + @{/images/login/background.webp} + '); background-color: #261a3c;'">
             <div class="kt-grid__item kt-grid__item--fluid kt-login__wrapper">
-                <div th:if="${proccess == null}" class="kt-login__container">
+                <div class="kt-login__container" th:if="${proccess == null}">
                     <div class="kt-login__logo">
                         <a th:href="@{/login}">
                             <img alt="" th:src="@{/images/grisk-reverse.png}">
@@ -61,14 +61,14 @@
                         <div class="kt-login__head">
                             <h3 class="kt-login__title">Bienvenido</h3>
                         </div>
-                        <form id="login_signin" class="kt-form" th:action="@{/check_login}" method="POST">
+                        <form class="kt-form" id="login_signin" method="POST" th:action="@{/check_login}">
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Usuario o correo electrónico"
-                                       name="username"
-                                       autocomplete="off">
+                                <input autocomplete="off" class="form-control" name="username"
+                                       placeholder="Usuario o correo electrónico"
+                                       type="text">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="Contraseña" name="password">
+                                <input class="form-control" name="password" placeholder="Contraseña" type="password">
                             </div>
                             <div class="row kt-login__extra">
                                 <div class="col">
@@ -78,13 +78,13 @@
                                     </label>-->
                                 </div>
                                 <div class="col kt-align-right">
-                                    <a href="javascript:;" id="kt_login_forgot" class="kt-login__link">¿Has olvidado tu
+                                    <a class="kt-login__link" href="javascript:;" id="kt_login_forgot">¿Has olvidado tu
                                         contraseña?</a>
                                 </div>
                             </div>
                             <div class="kt-login__actions">
-                                <button id="kt_login_signin_submit"
-                                        class="btn btn-brand btn-pill kt-login__btn-primary">Ingresar
+                                <button class="btn btn-brand btn-pill kt-login__btn-primary"
+                                        id="kt_login_signin_submit">Ingresar
                                 </button>
                             </div>
                         </form>
@@ -96,52 +96,52 @@
                             </div>
                         </div>
                         <div class="kt-login__head">
-                            <form class="kt-form" action="">
+                            <form action="" class="kt-form">
                                 <div class="row">
                                     <div class="kt-login__desc col-lg-12">
                                         <i class="la la-user" style="font-size: 24px; margin-right: 8px;"></i>Cuenta de
                                         administrador
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="text" placeholder="Usuario"
-                                               id="kt-login__signup-username" name="username"
-                                               autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-username"
+                                               name="username" placeholder="Usuario"
+                                               style="margin-left: 10px;margin-right: 10px;" type="text">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="text" placeholder="Correo electrónico"
-                                               id="kt-login__signup-email" name="email"
-                                               autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-email"
+                                               name="email" placeholder="Correo electrónico"
+                                               style="margin-left: 10px;margin-right: 10px;" type="text">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="password" placeholder="Contraseña"
-                                               name="password" id="kt-login__signup-password"
-                                               autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-password"
+                                               name="password" placeholder="Contraseña"
+                                               style="margin-left: 10px;margin-right: 10px;" type="password">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="password" placeholder="Confirma contraseña"
-                                               name="rpassword" autocomplete="off" id="kt-login__signup-rpassword"
-                                               style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-rpassword"
+                                               name="rpassword" placeholder="Confirma contraseña" style="margin-left: 10px;margin-right: 10px;"
+                                               type="password">
                                     </div>
                                     <div class="kt-login__desc col-lg-12" style="margin-top: 30px">
                                         <i class="la la-building-o" style="font-size: 24px;margin-right: 8px;"></i>Empresa
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="text" placeholder="Rut comercial"
-                                               id="kt-login__signup-rut_organization" name="rut_organization"
-                                               autocomplete="off"
-                                               style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-rut_organization"
+                                               name="rut_organization" placeholder="Rut comercial"
+                                               style="margin-left: 10px;margin-right: 10px;"
+                                               type="text">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input class="form-control" type="text" placeholder="Nombre de tu empresa"
-                                               id="kt-login__signup-name_organization" name="name_organization"
-                                               autocomplete="off"
-                                               style="margin-left: 10px;margin-right: 10px;">
+                                        <input autocomplete="off" class="form-control" id="kt-login__signup-name_organization"
+                                               name="name_organization" placeholder="Nombre de tu empresa"
+                                               style="margin-left: 10px;margin-right: 10px;"
+                                               type="text">
                                     </div>
                                     <div class="row kt-login__extra col-lg-12" style="margin-top: 30px">
                                         <div class="col kt-align-left">
                                             <label class="kt-checkbox">
-                                                <input type="checkbox" name="agree">Estoy de acuerdo con los
-                                                <a href="#" class="kt-link kt-login__link kt-font-bold">términos y
+                                                <input name="agree" type="checkbox">Estoy de acuerdo con los
+                                                <a class="kt-link kt-login__link kt-font-bold" href="#">términos y
                                                     condiciones</a>.
                                                 <span></span>
                                             </label>
@@ -150,11 +150,11 @@
                                     </div>
                                 </div>
                                 <div class="kt-login__actions">
-                                    <button id="kt_login_signup_submit"
-                                            class="btn btn-brand btn-pill kt-login__btn-primary">Registrarse
+                                    <button class="btn btn-brand btn-pill kt-login__btn-primary"
+                                            id="kt_login_signup_submit">Registrarse
                                     </button>&nbsp;&nbsp;
-                                    <button id="kt_login_signup_cancel"
-                                            class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancelar
+                                    <button class="btn btn-secondary btn-pill kt-login__btn-secondary"
+                                            id="kt_login_signup_cancel">Cancelar
                                     </button>
                                 </div>
                             </form>
@@ -166,18 +166,18 @@
                             <div class="kt-login__desc">Ingresa tu correo electrónico para restablecer su contraseña:
                             </div>
                         </div>
-                        <form class="kt-form" action="">
+                        <form action="" class="kt-form">
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Correo electrónico" name="email"
-                                       id="kt-login__forgot-email"
-                                       autocomplete="off">
+                                <input autocomplete="off" class="form-control" id="kt-login__forgot-email" name="email"
+                                       placeholder="Correo electrónico"
+                                       type="text">
                             </div>
                             <div class="kt-login__actions">
-                                <button id="kt_login_forgot_submit"
-                                        class="btn btn-brand btn-pill kt-login__btn-primary">Restablecer
+                                <button class="btn btn-brand btn-pill kt-login__btn-primary"
+                                        id="kt_login_forgot_submit">Restablecer
                                 </button>&nbsp;&nbsp;
-                                <button id="kt_login_forgot_cancel"
-                                        class="btn btn-secondary btn-pill kt-login__btn-secondary">Cancelar
+                                <button class="btn btn-secondary btn-pill kt-login__btn-secondary"
+                                        id="kt_login_forgot_cancel">Cancelar
                                 </button>
                             </div>
                         </form>
@@ -187,11 +187,11 @@
 									¿No tienes una cuenta?
 								</span>
                         &nbsp;&nbsp;
-                        <a href="javascript:;" id="kt_login_signup" class="kt-login__account-link">Regístrate!</a>
+                        <a class="kt-login__account-link" href="javascript:;" id="kt_login_signup">Regístrate!</a>
                     </div>
                 </div>
 
-                <div th:if="${proccess != null and proccess == 'restart_by_email'}" class="kt-login__container">
+                <div class="kt-login__container" th:if="${proccess != null and proccess == 'restart_by_email'}">
                     <div class="kt-login__logo">
                         <a href="#">
                             <img alt="" th:src="@{/images/grisk-reverse.png}">
@@ -201,43 +201,43 @@
                         <div class="kt-login__head">
                             <h3 class="kt-login__title">Restablece tu contraseña</h3>
                             <div class="kt-login__desc">Ingresa la nueva contraseña para la cuenta de <label
-                                    th:text="${forgotemail}" style="font-weight: 600;color: #d2d2d2;"></label>:
+                                    style="font-weight: 600;color: #d2d2d2;" th:text="${forgotemail}"></label>:
                             </div>
                         </div>
-                        <form class="kt-form" action="">
+                        <form action="" class="kt-form">
                             <div class="input-group">
-                                <input class="form-control" hidden type="text" placeholder="Email"
-                                       th:value="${forgotemail}"
-                                       name="postforgotemail" id="kt-login__postforgot-email"
-                                       autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
+                                <input autocomplete="off" class="form-control" hidden id="kt-login__postforgot-email"
+                                       name="postforgotemail"
+                                       placeholder="Email" style="margin-left: 10px;margin-right: 10px;"
+                                       th:value="${forgotemail}" type="text">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" hidden type="text" placeholder="Token"
-                                       th:value="${forgottoken}"
-                                       name="rpostforgottoken" autocomplete="off" id="kt-login__postforgot-token"
-                                       style="margin-left: 10px;margin-right: 10px;">
+                                <input autocomplete="off" class="form-control" hidden id="kt-login__postforgot-token"
+                                       name="rpostforgottoken"
+                                       placeholder="Token" style="margin-left: 10px;margin-right: 10px;" th:value="${forgottoken}"
+                                       type="text">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="Nueva contraseña"
-                                       name="postforgotpassword" id="kt-login__postforgot-password"
-                                       autocomplete="off" style="margin-left: 10px;margin-right: 10px;">
+                                <input autocomplete="off" class="form-control" id="kt-login__postforgot-password"
+                                       name="postforgotpassword" placeholder="Nueva contraseña"
+                                       style="margin-left: 10px;margin-right: 10px;" type="password">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="Confirmar contraseña"
-                                       name="rpostforgotpassword" autocomplete="off" id="kt-login__postforgot-rpassword"
-                                       style="margin-left: 10px;margin-right: 10px;">
+                                <input autocomplete="off" class="form-control" id="kt-login__postforgot-rpassword"
+                                       name="rpostforgotpassword" placeholder="Confirmar contraseña" style="margin-left: 10px;margin-right: 10px;"
+                                       type="password">
                             </div>
                             <div class="kt-login__actions">
-                                <button id="kt_login_postforgot_submit"
-                                        class="btn btn-brand btn-pill kt-login__btn-primary">Restablecer
+                                <button class="btn btn-brand btn-pill kt-login__btn-primary"
+                                        id="kt_login_postforgot_submit">Restablecer
                                 </button>
                             </div>
                         </form>
                         <div class="kt-form">
                             <div class="kt-login__actions">
                                 <a th:href="@{/login}">
-                                    <button id="kt_login_postforgot_redirect" hidden
-                                            class="btn btn-brand btn-pill kt-login__btn-primary">Ir a login
+                                    <button class="btn btn-brand btn-pill kt-login__btn-primary" hidden
+                                            id="kt_login_postforgot_redirect">Ir a login
                                     </button>
                                 </a>
                             </div>
@@ -360,7 +360,7 @@
         $.ajax({
             type: "POST",
             contentType: "application/json",
-            url: '/v1/rest/user/post-reset-pass-by-login',
+            url: '/v1/rest/user/post-reset-by-login',
             data: JSON.stringify(postforgotrequest),
             dataType: 'json',
             cache: false,

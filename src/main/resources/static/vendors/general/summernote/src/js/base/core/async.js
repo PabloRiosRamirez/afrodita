@@ -9,17 +9,21 @@ import $ from 'jquery';
  * @return {Promise} - then: dataUrl
  */
 export function readFileAsDataURL(file) {
-  return $.Deferred((deferred) => {
+  return $.Deferred((deferred) = > {
     $.extend(new FileReader(), {
-      onload: (e) => {
-        const dataURL = e.target.result;
-        deferred.resolve(dataURL);
-      },
-      onerror: (err) => {
-        deferred.reject(err);
-      }
-    }).readAsDataURL(file);
-  }).promise();
+      onload: (e) = > {
+      const dataURL = e.target.result;
+  deferred.resolve(dataURL);
+},
+  onerror: (err) =
+>
+  {
+    deferred.reject(err);
+  }
+}).
+  readAsDataURL(file);
+}).
+  promise();
 }
 
 /**
@@ -31,17 +35,20 @@ export function readFileAsDataURL(file) {
  * @return {Promise} - then: $image
  */
 export function createImage(url) {
-  return $.Deferred((deferred) => {
+  return $.Deferred((deferred) = > {
     const $img = $('<img>');
 
-    $img.one('load', () => {
-      $img.off('error abort');
-      deferred.resolve($img);
-    }).one('error abort', () => {
-      $img.off('load').detach();
-      deferred.reject($img);
-    }).css({
-      display: 'none'
-    }).appendTo(document.body).attr('src', url);
-  }).promise();
+  $img.one('load', () = > {
+    $img.off('error abort');
+  deferred.resolve($img);
+}).
+  one('error abort', () = > {
+    $img.off('load').detach();
+  deferred.reject($img);
+}).
+  css({
+    display: 'none'
+  }).appendTo(document.body).attr('src', url);
+}).
+  promise();
 }

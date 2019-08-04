@@ -4,5 +4,7 @@
   "website": "http://www.grisk.online",
   "repository": "https://github.com/PabloRiosRamirez/afrodita",
   "image": "heroku/java",
-  "addons": [ "heroku-postgresql" ]
+  "addons": [
+    "heroku-postgresql"
+  ]
 }

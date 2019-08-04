@@ -2,6 +2,7 @@ package online.grisk.afrodita.security.service.details.impl;
 
 import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.persistence.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityMessageSource;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,8 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 @Service("customUserDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {

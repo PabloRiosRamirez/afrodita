@@ -28,14 +28,13 @@
 		define(['jquery'], factory);
 	} else if (typeof module === 'object' && module.exports) {
 		// Node/CommonJS
-		module.exports = function( root, jQuery ) {
+		module.exports = function (root, jQuery) {
 			if (typeof jQuery === 'undefined') {
 				// require('jQuery') returns a factory that requires window to build a jQuery instance, we normalize how we use modules
 				// that require this pattern but the window provided is a noop if it's defined (how jquery works)
 				if (typeof window !== 'undefined') {
 					jQuery = require('jquery');
-				}
-				else {
+				} else {
 					jQuery = require('jquery')(root);
 				}
 			}
@@ -48,7 +47,7 @@
 	}
 
 }(function ($) {
-/* eslint-enable */
+	/* eslint-enable */
 	'use strict';
 
 	/*
@@ -104,7 +103,7 @@
 	// an expected string. This accounts for the case where a form
 	// contains inputs with names like "action" or "method"; in those
 	// cases "prop" returns the element
-	$.fn.attr2 = function() {
+	$.fn.attr2 = function () {
 		if (!hasProp) {
 			return this.attr.apply(this, arguments);
 		}
@@ -122,12 +121,12 @@
 	 * ajaxSubmit() provides a mechanism for immediately submitting
 	 * an HTML form using AJAX.
 	 *
-	 * @param	{object|string}	options		jquery.form.js parameters or custom url for submission
-	 * @param	{object}		data		extraData
-	 * @param	{string}		dataType	ajax dataType
-	 * @param	{function}		onSuccess	ajax success callback function
+	 * @param    {object|string}    options        jquery.form.js parameters or custom url for submission
+	 * @param    {object}        data        extraData
+	 * @param    {string}        dataType    ajax dataType
+	 * @param    {function}        onSuccess    ajax success callback function
 	 */
-	$.fn.ajaxSubmit = function(options, data, dataType, onSuccess) {
+	$.fn.ajaxSubmit = function (options, data, dataType, onSuccess) {
 		// fast fail if nothing selected (http://dev.jquery.com/ticket/2752)
 		if (!this.length) {
 			log('ajaxSubmit: skipping submit process - no element selected');
@@ -143,9 +142,9 @@
 
 		} else if (typeof options === 'string' || (options === false && arguments.length > 0)) {
 			options = {
-				'url'      : options,
-				'data'     : data,
-				'dataType' : dataType
+				'url': options,
+				'data': data,
+				'dataType': dataType
 			};
 
 			if (typeof onSuccess === 'function') {
@@ -167,10 +166,10 @@
 		}
 
 		options = $.extend(true, {
-			url       : url,
-			success   : $.ajaxSettings.success,
-			type      : method || $.ajaxSettings.type,
-			iframeSrc : /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank'		// eslint-disable-line no-script-url
+			url: url,
+			success: $.ajaxSettings.success,
+			type: method || $.ajaxSettings.type,
+			iframeSrc: /^https/i.test(window.location.href || '') ? 'javascript:false' : 'about:blank'		// eslint-disable-line no-script-url
 		}, options);
 
 		// hook for manipulating the form data before it is extracted;
@@ -239,26 +238,27 @@
 		var callbacks = [];
 
 		if (options.resetForm) {
-			callbacks.push(function() {
+			callbacks.push(function () {
 				$form.resetForm();
 			});
 		}
 
 		if (options.clearForm) {
-			callbacks.push(function() {
+			callbacks.push(function () {
 				$form.clearForm(options.includeHidden);
 			});
 		}
 
 		// perform a load on the target only if dataType is not provided
 		if (!options.dataType && options.target) {
-			var oldSuccess = options.success || function(){};
+			var oldSuccess = options.success || function () {
+			};
 
-			callbacks.push(function(data, textStatus, jqXHR) {
+			callbacks.push(function (data, textStatus, jqXHR) {
 				var successArguments = arguments,
 					fn = options.replaceTarget ? 'replaceWith' : 'html';
 
-				$(options.target)[fn](data).each(function(){
+				$(options.target)[fn](data).each(function () {
 					oldSuccess.apply(this, successArguments);
 				});
 			});
@@ -271,7 +271,7 @@
 			}
 		}
 
-		options.success = function(data, status, xhr) { // jQuery 1.4+ passes xhr as 3rd arg
+		options.success = function (data, status, xhr) { // jQuery 1.4+ passes xhr as 3rd arg
 			var context = options.context || this;		// jQuery 1.4+ supports scope context
 
 			for (var i = 0, max = callbacks.length; i < max; i++) {
@@ -282,7 +282,7 @@
 		if (options.error) {
 			var oldError = options.error;
 
-			options.error = function(xhr, status, error) {
+			options.error = function (xhr, status, error) {
 				var context = options.context || this;
 
 				oldError.apply(context, [xhr, status, error, $form]);
@@ -292,7 +292,7 @@
 		if (options.complete) {
 			var oldComplete = options.complete;
 
-			options.complete = function(xhr, status) {
+			options.complete = function (xhr, status) {
 				var context = options.context || this;
 
 				oldComplete.apply(context, [xhr, status, $form]);
@@ -303,7 +303,7 @@
 
 		// [value] (issue #113), also see comment:
 		// https://github.com/malsup/form/commit/588306aedba1de01388032d5f42a60159eea9228#commitcomment-2180219
-		var fileInputs = $('input[type=file]:enabled', this).filter(function() {
+		var fileInputs = $('input[type=file]:enabled', this).filter(function () {
 			return $(this).val() !== '';
 		});
 		var hasFileInputs = fileInputs.length > 0;
@@ -322,7 +322,7 @@
 			// hack to fix Safari hang (thanks to Tim Molendijk for this)
 			// see: http://groups.google.com/group/jquery-dev/browse_thread/thread/36395b7ab510dd5d
 			if (options.closeKeepAlive) {
-				$.get(options.closeKeepAlive, function() {
+				$.get(options.closeKeepAlive, function () {
 					jqxhr = fileUploadIframe(a);
 				});
 
@@ -388,19 +388,19 @@
 			options.data = null;
 
 			var s = $.extend(true, {}, $.ajaxSettings, options, {
-				contentType : false,
-				processData : false,
-				cache       : false,
-				type        : method || 'POST'
+				contentType: false,
+				processData: false,
+				cache: false,
+				type: method || 'POST'
 			});
 
 			if (options.uploadProgress) {
 				// workaround because jqXHR does not expose upload property
-				s.xhr = function() {
+				s.xhr = function () {
 					var xhr = $.ajaxSettings.xhr();
 
 					if (xhr.upload) {
-						xhr.upload.addEventListener('progress', function(event) {
+						xhr.upload.addEventListener('progress', function (event) {
 							var percent = 0;
 							var position = event.loaded || event.position;			/* event.position is deprecated */
 							var total = event.total;
@@ -421,7 +421,7 @@
 
 			var beforeSend = s.beforeSend;
 
-			s.beforeSend = function(xhr, o) {
+			s.beforeSend = function (xhr, o) {
 				// Send FormData() provided by user
 				if (options.formData) {
 					o.data = options.formData;
@@ -443,7 +443,7 @@
 			var deferred = $.Deferred();
 
 			// #341
-			deferred.abort = function(status) {
+			deferred.abort = function (status) {
 				xhr.abort(status);
 			};
 
@@ -482,15 +482,18 @@
 
 
 			xhr = { // mock object
-				aborted               : 0,
-				responseText          : null,
-				responseXML           : null,
-				status                : 0,
-				statusText            : 'n/a',
-				getAllResponseHeaders : function() {},
-				getResponseHeader     : function() {},
-				setRequestHeader      : function() {},
-				abort                 : function(status) {
+				aborted: 0,
+				responseText: null,
+				responseXML: null,
+				status: 0,
+				statusText: 'n/a',
+				getAllResponseHeaders: function () {
+				},
+				getResponseHeader: function () {
+				},
+				setRequestHeader: function () {
+				},
+				abort: function (status) {
 					var e = (status === 'timeout' ? 'timeout' : 'aborted');
 
 					log('aborting upload... ' + e);
@@ -500,7 +503,8 @@
 						if (io.contentWindow.document.execCommand) {
 							io.contentWindow.document.execCommand('Stop');
 						}
-					} catch (ignore) {}
+					} catch (ignore) {
+					}
 
 					$io.attr('src', s.iframeSrc); // abort op in progress
 					xhr.error = e;
@@ -623,15 +627,16 @@
 				// ie borks in some cases when setting encoding
 				if (!s.skipEncodingOverride && (!method || /post/i.test(method))) {
 					$form.attr({
-						encoding : 'multipart/form-data',
-						enctype  : 'multipart/form-data'
+						encoding: 'multipart/form-data',
+						enctype: 'multipart/form-data'
 					});
 				}
 
 				// support timout
 				if (s.timeout) {
-					timeoutHandle = setTimeout(function() {
-						timedOut = true; cb(CLIENT_TIMEOUT_ABORT);
+					timeoutHandle = setTimeout(function () {
+						timedOut = true;
+						cb(CLIENT_TIMEOUT_ABORT);
 					}, s.timeout);
 				}
 
@@ -665,12 +670,12 @@
 								// if using the $.param format that allows for multiple values with the same name
 								if ($.isPlainObject(s.extraData[n]) && s.extraData[n].hasOwnProperty('name') && s.extraData[n].hasOwnProperty('value')) {
 									extraInputs.push(
-									$('<input type="hidden" name="' + s.extraData[n].name + '">', ownerDocument).val(s.extraData[n].value)
-										.appendTo(form)[0]);
+										$('<input type="hidden" name="' + s.extraData[n].name + '">', ownerDocument).val(s.extraData[n].value)
+											.appendTo(form)[0]);
 								} else {
 									extraInputs.push(
-									$('<input type="hidden" name="' + n + '">', ownerDocument).val(s.extraData[n])
-										.appendTo(form)[0]);
+										$('<input type="hidden" name="' + n + '">', ownerDocument).val(s.extraData[n])
+											.appendTo(form)[0]);
 								}
 							}
 						}
@@ -789,7 +794,7 @@
 					if (isXml) {
 						s.dataType = 'xml';
 					}
-					xhr.getResponseHeader = function(header){
+					xhr.getResponseHeader = function (header) {
 						var headers = {'content-type': s.dataType};
 
 						return headers[header.toLowerCase()];
@@ -895,7 +900,7 @@
 				}
 
 				// clean up
-				setTimeout(function() {
+				setTimeout(function () {
 					if (!s.iframeTarget) {
 						$io.remove();
 					} else { // adding else to clean up existing iframe response.
@@ -905,7 +910,7 @@
 				}, 100);
 			}
 
-			var toXml = $.parseXML || function(s, doc) { // use parseXML if available (jQuery 1.5+)
+			var toXml = $.parseXML || function (s, doc) { // use parseXML if available (jQuery 1.5+)
 				if (window.ActiveXObject) {
 					doc = new ActiveXObject('Microsoft.XMLDOM');
 					doc.async = 'false';
@@ -917,12 +922,12 @@
 
 				return (doc && doc.documentElement && doc.documentElement.nodeName !== 'parsererror') ? doc : null;
 			};
-			var parseJSON = $.parseJSON || function(s) {
+			var parseJSON = $.parseJSON || function (s) {
 				/* jslint evil:true */
 				return window['eval']('(' + s + ')');			// eslint-disable-line dot-notation
 			};
 
-			var httpData = function(xhr, type, s) { // mostly lifted from jq1.4.4
+			var httpData = function (xhr, type, s) { // mostly lifted from jq1.4.4
 
 				var ct = xhr.getResponseHeader('content-type') || '',
 					xml = ((type === 'xml' || !type) && ct.indexOf('xml') >= 0),
@@ -957,21 +962,21 @@
 	 * The advantages of using this method instead of ajaxSubmit() are:
 	 *
 	 * 1: This method will include coordinates for <input type="image"> elements (if the element
-	 *	is used to submit the form).
+	 *    is used to submit the form).
 	 * 2. This method will include the submit element's name/value data (for the element that was
-	 *	used to submit the form).
+	 *    used to submit the form).
 	 * 3. This method binds the submit() method to the form for you.
 	 *
 	 * The options argument for ajaxForm works exactly as it does for ajaxSubmit. ajaxForm merely
 	 * passes the options argument along after properly binding events for submit elements and
 	 * the form itself.
 	 */
-	$.fn.ajaxForm = function(options, data, dataType, onSuccess) {
+	$.fn.ajaxForm = function (options, data, dataType, onSuccess) {
 		if (typeof options === 'string' || (options === false && arguments.length > 0)) {
 			options = {
-				'url'      : options,
-				'data'     : data,
-				'dataType' : dataType
+				'url': options,
+				'data': data,
+				'dataType': dataType
 			};
 
 			if (typeof onSuccess === 'function') {
@@ -988,7 +993,7 @@
 
 			if (!$.isReady && o.s) {
 				log('DOM not ready, queuing ajaxForm');
-				$(function() {
+				$(function () {
 					$(o.s, o.c).ajaxForm(options);
 				});
 
@@ -1063,14 +1068,14 @@
 			}
 		}
 		// clear form vars
-		setTimeout(function() {
+		setTimeout(function () {
 			form.clk = form.clk_x = form.clk_y = null;
 		}, 100);
 	}
 
 
 	// ajaxFormUnbind unbinds the event handlers that were bound by ajaxForm
-	$.fn.ajaxFormUnbind = function() {
+	$.fn.ajaxFormUnbind = function () {
 		return this.off('submit.form-plugin click.form-plugin');
 	};
 
@@ -1085,7 +1090,7 @@
 	 * It is this array that is passed to pre-submit callback functions provided to the
 	 * ajaxSubmit() and ajaxForm() methods.
 	 */
-	$.fn.formToArray = function(semantic, elements, filtering) {
+	$.fn.formToArray = function (semantic, elements, filtering) {
 		var a = [];
 
 		if (this.length === 0) {
@@ -1188,7 +1193,7 @@
 	 * Serializes form data into a 'submittable' string. This method will return a string
 	 * in the format: name1=value1&amp;name2=value2
 	 */
-	$.fn.formSerialize = function(semantic) {
+	$.fn.formSerialize = function (semantic) {
 		// hand off to jQuery.param for proper encoding
 		return $.param(this.formToArray(semantic));
 	};
@@ -1197,10 +1202,10 @@
 	 * Serializes all field elements in the jQuery object into a query string.
 	 * This method will return a string in the format: name1=value1&amp;name2=value2
 	 */
-	$.fn.fieldSerialize = function(successful) {
+	$.fn.fieldSerialize = function (successful) {
 		var a = [];
 
-		this.each(function() {
+		this.each(function () {
 			var n = this.name;
 
 			if (!n) {
@@ -1226,32 +1231,32 @@
 	/**
 	 * Returns the value(s) of the element in the matched set. For example, consider the following form:
 	 *
-	 *	<form><fieldset>
-	 *		<input name="A" type="text">
-	 *		<input name="A" type="text">
-	 *		<input name="B" type="checkbox" value="B1">
-	 *		<input name="B" type="checkbox" value="B2">
-	 *		<input name="C" type="radio" value="C1">
-	 *		<input name="C" type="radio" value="C2">
-	 *	</fieldset></form>
+	 *    <form><fieldset>
+	 *        <input name="A" type="text">
+	 *        <input name="A" type="text">
+	 *        <input name="B" type="checkbox" value="B1">
+	 *        <input name="B" type="checkbox" value="B2">
+	 *        <input name="C" type="radio" value="C1">
+	 *        <input name="C" type="radio" value="C2">
+	 *    </fieldset></form>
 	 *
-	 *	var v = $('input[type=text]').fieldValue();
-	 *	// if no values are entered into the text inputs
-	 *	v === ['','']
-	 *	// if values entered into the text inputs are 'foo' and 'bar'
-	 *	v === ['foo','bar']
+	 *    var v = $('input[type=text]').fieldValue();
+	 *    // if no values are entered into the text inputs
+	 *    v === ['','']
+	 *    // if values entered into the text inputs are 'foo' and 'bar'
+	 *    v === ['foo','bar']
 	 *
-	 *	var v = $('input[type=checkbox]').fieldValue();
-	 *	// if neither checkbox is checked
-	 *	v === undefined
-	 *	// if both checkboxes are checked
-	 *	v === ['B1', 'B2']
+	 *    var v = $('input[type=checkbox]').fieldValue();
+	 *    // if neither checkbox is checked
+	 *    v === undefined
+	 *    // if both checkboxes are checked
+	 *    v === ['B1', 'B2']
 	 *
-	 *	var v = $('input[type=radio]').fieldValue();
-	 *	// if neither radio is checked
-	 *	v === undefined
-	 *	// if first radio is checked
-	 *	v === ['C1']
+	 *    var v = $('input[type=radio]').fieldValue();
+	 *    // if neither radio is checked
+	 *    v === undefined
+	 *    // if first radio is checked
+	 *    v === ['C1']
 	 *
 	 * The successful argument controls whether or not the field element must be 'successful'
 	 * (per http://www.w3.org/TR/html4/interact/forms.html#successful-controls).
@@ -1259,9 +1264,9 @@
 	 * for each element is returned.
 	 *
 	 * Note: This method *always* returns an array. If no valid value can be determined the
-	 *	array will be empty, otherwise it will contain one or more values.
+	 *    array will be empty, otherwise it will contain one or more values.
 	 */
-	$.fn.fieldValue = function(successful) {
+	$.fn.fieldValue = function (successful) {
 		for (var val = [], i = 0, max = this.length; i < max; i++) {
 			var el = this[i];
 			var v = $.fieldValue(el, successful);
@@ -1283,7 +1288,7 @@
 	/**
 	 * Returns the value of the field element.
 	 */
-	$.fieldValue = function(el, successful) {
+	$.fieldValue = function (el, successful) {
 		var n = el.name, t = el.type, tag = el.tagName.toLowerCase();
 
 		if (typeof successful === 'undefined') {
@@ -1295,7 +1300,7 @@
 			(t === 'checkbox' || t === 'radio') && !el.checked ||
 			(t === 'submit' || t === 'image') && el.form && el.form.clk !== el ||
 			tag === 'select' && el.selectedIndex === -1)) {
-		/* eslint-enable no-mixed-operators */
+			/* eslint-enable no-mixed-operators */
 			return null;
 		}
 
@@ -1342,8 +1347,8 @@
 	 *  - inputs of type submit, button, reset, and hidden will *not* be effected
 	 *  - button elements will *not* be effected
 	 */
-	$.fn.clearForm = function(includeHidden) {
-		return this.each(function() {
+	$.fn.clearForm = function (includeHidden) {
+		return this.each(function () {
 			$('input,select,textarea', this).clearFields(includeHidden);
 		});
 	};
@@ -1351,10 +1356,10 @@
 	/**
 	 * Clears the selected form elements.
 	 */
-	$.fn.clearFields = $.fn.clearInputs = function(includeHidden) {
+	$.fn.clearFields = $.fn.clearInputs = function (includeHidden) {
 		var re = /^(?:color|date|datetime|email|month|number|password|range|search|tel|text|time|url|week)$/i; // 'hidden' is not in this list
 
-		return this.each(function() {
+		return this.each(function () {
 			var t = this.type, tag = this.tagName.toLowerCase();
 
 			if (re.test(t) || tag === 'textarea') {
@@ -1397,74 +1402,74 @@
 	 * - label elements will be searched against its 'for' attribute
 	 * - all others will be searched for appropriate children to default
 	 */
-	$.fn.resetForm = function() {
-		return this.each(function() {
+	$.fn.resetForm = function () {
+		return this.each(function () {
 			var el = $(this);
 			var tag = this.tagName.toLowerCase();
 
 			switch (tag) {
-			case 'input':
-				this.checked = this.defaultChecked;
-					// fall through
+				case 'input':
+					this.checked = this.defaultChecked;
+				// fall through
 
-			case 'textarea':
-				this.value = this.defaultValue;
+				case 'textarea':
+					this.value = this.defaultValue;
 
-				return true;
+					return true;
 
-			case 'option':
-			case 'optgroup':
-				var select = el.parents('select');
+				case 'option':
+				case 'optgroup':
+					var select = el.parents('select');
 
-				if (select.length && select[0].multiple) {
-					if (tag === 'option') {
-						this.selected = this.defaultSelected;
+					if (select.length && select[0].multiple) {
+						if (tag === 'option') {
+							this.selected = this.defaultSelected;
+						} else {
+							el.find('option').resetForm();
+						}
 					} else {
-						el.find('option').resetForm();
+						select.resetForm();
 					}
-				} else {
-					select.resetForm();
-				}
 
-				return true;
+					return true;
 
-			case 'select':
-				el.find('option').each(function(i) {				// eslint-disable-line consistent-return
-					this.selected = this.defaultSelected;
-					if (this.defaultSelected && !el[0].multiple) {
-						el[0].selectedIndex = i;
+				case 'select':
+					el.find('option').each(function (i) {				// eslint-disable-line consistent-return
+						this.selected = this.defaultSelected;
+						if (this.defaultSelected && !el[0].multiple) {
+							el[0].selectedIndex = i;
 
-						return false;
+							return false;
+						}
+					});
+
+					return true;
+
+				case 'label':
+					var forEl = $(el.attr('for'));
+					var list = el.find('input,select,textarea');
+
+					if (forEl[0]) {
+						list.unshift(forEl[0]);
 					}
-				});
 
-				return true;
+					list.resetForm();
 
-			case 'label':
-				var forEl = $(el.attr('for'));
-				var list = el.find('input,select,textarea');
+					return true;
 
-				if (forEl[0]) {
-					list.unshift(forEl[0]);
-				}
-
-				list.resetForm();
-
-				return true;
-
-			case 'form':
+				case 'form':
 					// guard against an input with the name of 'reset'
 					// note that IE reports the reset function as an 'object'
-				if (typeof this.reset === 'function' || (typeof this.reset === 'object' && !this.reset.nodeType)) {
-					this.reset();
-				}
+					if (typeof this.reset === 'function' || (typeof this.reset === 'object' && !this.reset.nodeType)) {
+						this.reset();
+					}
 
-				return true;
+					return true;
 
-			default:
-				el.find('form,input,label,select,textarea').resetForm();
+				default:
+					el.find('form,input,label,select,textarea').resetForm();
 
-				return true;
+					return true;
 			}
 		});
 	};
@@ -1472,12 +1477,12 @@
 	/**
 	 * Enables or disables any matching elements.
 	 */
-	$.fn.enable = function(b) {
+	$.fn.enable = function (b) {
 		if (typeof b === 'undefined') {
 			b = true;
 		}
 
-		return this.each(function() {
+		return this.each(function () {
 			this.disabled = !b;
 		});
 	};
@@ -1486,12 +1491,12 @@
 	 * Checks/unchecks any matching checkboxes or radio buttons and
 	 * selects/deselects and matching option elements.
 	 */
-	$.fn.selected = function(select) {
+	$.fn.selected = function (select) {
 		if (typeof select === 'undefined') {
 			select = true;
 		}
 
-		return this.each(function() {
+		return this.each(function () {
 			var t = this.type;
 
 			if (t === 'checkbox' || t === 'radio') {

@@ -16,13 +16,13 @@ QUnit.test('add item', function (assert) {
 
     assert.deepEqual(
         getNamedInputValues($items.last()),
-        { 'complex-repeater[1][text-input]': '' },
+        {'complex-repeater[1][text-input]': ''},
         'added items inputs are clear'
     );
 
     assert.deepEqual(
         getNamedInputValues($items.first()),
-        { 'complex-repeater[0][text-input]': 'A' },
+        {'complex-repeater[0][text-input]': 'A'},
         'does not clear other inputs'
     );
 });

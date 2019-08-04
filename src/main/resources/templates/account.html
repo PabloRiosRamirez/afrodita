@@ -21,19 +21,21 @@
                             <div class="kt-subheader__main">
                                 <span class="kt-subheader__separator kt-hidden"></span>
                                 <div class="kt-subheader__breadcrumbs">
-                                    <a th:href="@{/}" class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+                                    <a class="kt-subheader__breadcrumbs-home" th:href="@{/}"><i
+                                            class="flaticon2-shelter"></i></a>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <!--<a href="" class="kt-subheader__breadcrumbs-link">
                                         Cuenta </a>-->
 
-                                     <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Configuración de cuenta</span>
+                                    <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Configuración de cuenta</span>
                                 </div>
                             </div>
                         </div>
                         <!-- end:: Subheader -->
 
                         <!--Begin::  Content-->
-                        <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content" style="margin-bottom: 50px;">
+                        <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
+                             style="margin-bottom: 50px;">
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="kt-portlet">
@@ -58,7 +60,7 @@
                                                             <label class="col-xl-3 col-lg-3 col-form-label">Usuario</label>
                                                             <div class="col-xl-6 col-lg-9">
                                                                 <div class="kt-spinner kt-spinner--sm kt-spinner--success kt-spinner--right kt-spinner--input">
-                                                                    <input class="form-control" type="text" >
+                                                                    <input class="form-control" type="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -72,9 +74,9 @@
                                                                         <i class="flaticon2-email"></i>
                                                                         </span>
                                                                     </div>
-                                                                    <input type="text" class="form-control"
+                                                                    <input aria-describedby="basic-addon1" class="form-control"
                                                                            placeholder="Email"
-                                                                           aria-describedby="basic-addon1">
+                                                                           type="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -84,7 +86,9 @@
                                                             <div class="col-lg-9 col-xl-6">
                                                                 <div class="kt-checkbox-single">
                                                                     <label class="kt-checkbox">
-                                                                        <input type="checkbox"> Requiere acceso al correo electrónico para restablecer la contraseña.
+                                                                        <input type="checkbox"> Requiere acceso al
+                                                                        correo electrónico para restablecer la
+                                                                        contraseña.
                                                                         <span></span>
                                                                     </label>
                                                                 </div>
@@ -96,8 +100,8 @@
                                                         <div class="form-group row kt-margin-t-10 kt-margin-b-10">
                                                             <label class="col-xl-3 col-lg-3 col-form-label"></label>
                                                             <div class="col-lg-9 col-xl-6">
-                                                                <button type="button"
-                                                                        class="btn btn-label-danger btn-bold btn-sm kt-margin-t-5 kt-margin-b-5">
+                                                                <button class="btn btn-label-danger btn-bold btn-sm kt-margin-t-5 kt-margin-b-5"
+                                                                        type="button">
                                                                     ¿Desea desactivar tu cuenta?
                                                                 </button>
                                                             </div>
@@ -111,9 +115,9 @@
                                                         <div class="col-lg-3 col-xl-3">
                                                         </div>
                                                         <div class="col-lg-9 col-xl-9">
-                                                            <button type="reset" class="btn btn-success">Cambiar
+                                                            <button class="btn btn-success" type="reset">Cambiar
                                                             </button>&nbsp;
-                                                            <button type="reset" class="btn btn-secondary">Cancelar
+                                                            <button class="btn btn-secondary" type="reset">Cancelar
                                                             </button>
                                                         </div>
                                                     </div>

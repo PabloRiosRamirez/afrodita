@@ -10,16 +10,26 @@ export default class TablePopover {
     this.ui = $.summernote.ui;
     this.options = context.options;
     this.events = {
-      'summernote.mousedown': (we, e) => {
-        this.update(e.target);
-      },
-      'summernote.keyup summernote.scroll summernote.change': () => {
-        this.update();
-      },
-      'summernote.disable': () => {
-        this.hide();
-      }
-    };
+      'summernote.mousedown': (we, e) = > {
+      this.update(e.target);
+  },
+    'summernote.keyup summernote.scroll summernote.change'
+  :
+    () =
+  >
+    {
+      this.update();
+    }
+  ,
+    'summernote.disable'
+  :
+    () =
+  >
+    {
+      this.hide();
+    }
+  }
+    ;
   }
 
   shouldInitialize() {

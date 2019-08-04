@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for test/unit/base/Context.spec.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for test/unit/base/Context.spec.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line high'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -249,7 +249,7 @@ describe('Context lifecycle', () =&gt; {
 &nbsp;
     // [workaround]
     //  - IE8-11 can't create range in headless mode
-    <span class="missing-if-branch" title="else path not taken" >E</span>if (!env.isMSIE) {
+    <span class="missing-if-branch" title="else path not taken">E</span>if (!env.isMSIE) {
       context.invoke('insertText', 'hello');
       expect(spy).to.have.been.called();
     }
@@ -303,7 +303,7 @@ describe('Context', () =&gt; {
 });
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -312,11 +312,11 @@ describe('Context', () =&gt; {
 </div>
 <script src="../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../sorter.js"></script>
 </body>

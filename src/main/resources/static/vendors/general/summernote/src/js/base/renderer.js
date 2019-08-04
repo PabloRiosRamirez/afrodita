@@ -20,9 +20,10 @@ class Renderer {
     }
 
     if (this.options && this.options.data) {
-      $.each(this.options.data, (k, v) => {
+      $.each(this.options.data, (k, v) = > {
         $node.attr('data-' + k, v);
-      });
+    })
+      ;
     }
 
     if (this.options && this.options.click) {
@@ -31,9 +32,10 @@ class Renderer {
 
     if (this.children) {
       const $container = $node.find('.note-children-container');
-      this.children.forEach((child) => {
+      this.children.forEach((child) = > {
         child.render($container.length ? $container : $node);
-      });
+    })
+      ;
     }
 
     if (this.callback) {
@@ -53,14 +55,15 @@ class Renderer {
 }
 
 export default {
-  create: (markup, callback) => {
-    return function() {
-      const options = typeof arguments[1] === 'object' ? arguments[1] : arguments[0];
-      let children = $.isArray(arguments[0]) ? arguments[0] : [];
-      if (options && options.children) {
-        children = options.children;
-      }
-      return new Renderer(markup, children, options, callback);
-    };
-  }
-};
+  create: (markup, callback) = > {
+  return function () {
+    const options = typeof arguments[1] === 'object' ? arguments[1] : arguments[0];
+    let children = $.isArray(arguments[0]) ? arguments[0] : [];
+    if (options && options.children) {
+      children = options.children;
+    }
+    return new Renderer(markup, children, options, callback);
+  };
+}
+}
+;

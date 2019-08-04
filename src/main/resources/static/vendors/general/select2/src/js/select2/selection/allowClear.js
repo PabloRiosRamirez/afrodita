@@ -1,111 +1,112 @@
 define([
-  'jquery',
-  '../keys',
-  '../utils'
+    'jquery',
+    '../keys',
+    '../utils'
 ], function ($, KEYS, Utils) {
-  function AllowClear () { }
-
-  AllowClear.prototype.bind = function (decorated, container, $container) {
-    var self = this;
-
-    decorated.call(this, container, $container);
-
-    if (this.placeholder == null) {
-      if (this.options.get('debug') && window.console && console.error) {
-        console.error(
-          'Select2: The `allowClear` option should be used in combination ' +
-          'with the `placeholder` option.'
-        );
-      }
+    function AllowClear() {
     }
 
-    this.$selection.on('mousedown', '.select2-selection__clear',
-      function (evt) {
-        self._handleClear(evt);
-    });
+    AllowClear.prototype.bind = function (decorated, container, $container) {
+        var self = this;
 
-    container.on('keypress', function (evt) {
-      self._handleKeyboardClear(evt, container);
-    });
-  };
+        decorated.call(this, container, $container);
 
-  AllowClear.prototype._handleClear = function (_, evt) {
-    // Ignore the event if it is disabled
-    if (this.options.get('disabled')) {
-      return;
-    }
+        if (this.placeholder == null) {
+            if (this.options.get('debug') && window.console && console.error) {
+                console.error(
+                    'Select2: The `allowClear` option should be used in combination ' +
+                    'with the `placeholder` option.'
+                );
+            }
+        }
 
-    var $clear = this.$selection.find('.select2-selection__clear');
+        this.$selection.on('mousedown', '.select2-selection__clear',
+            function (evt) {
+                self._handleClear(evt);
+            });
 
-    // Ignore the event if nothing has been selected
-    if ($clear.length === 0) {
-      return;
-    }
-
-    evt.stopPropagation();
-
-    var data = Utils.GetData($clear[0], 'data');
-
-    var previousVal = this.$element.val();
-    this.$element.val(this.placeholder.id);
-
-    var unselectData = {
-      data: data
+        container.on('keypress', function (evt) {
+            self._handleKeyboardClear(evt, container);
+        });
     };
-    this.trigger('clear', unselectData);
-    if (unselectData.prevented) {
-      this.$element.val(previousVal);
-      return;
-    }
 
-    for (var d = 0; d < data.length; d++) {
-      unselectData = {
-        data: data[d]
-      };
+    AllowClear.prototype._handleClear = function (_, evt) {
+        // Ignore the event if it is disabled
+        if (this.options.get('disabled')) {
+            return;
+        }
 
-      // Trigger the `unselect` event, so people can prevent it from being
-      // cleared.
-      this.trigger('unselect', unselectData);
+        var $clear = this.$selection.find('.select2-selection__clear');
 
-      // If the event was prevented, don't clear it out.
-      if (unselectData.prevented) {
-        this.$element.val(previousVal);
-        return;
-      }
-    }
+        // Ignore the event if nothing has been selected
+        if ($clear.length === 0) {
+            return;
+        }
 
-    this.$element.trigger('change');
+        evt.stopPropagation();
 
-    this.trigger('toggle', {});
-  };
+        var data = Utils.GetData($clear[0], 'data');
 
-  AllowClear.prototype._handleKeyboardClear = function (_, evt, container) {
-    if (container.isOpen()) {
-      return;
-    }
+        var previousVal = this.$element.val();
+        this.$element.val(this.placeholder.id);
 
-    if (evt.which == KEYS.DELETE || evt.which == KEYS.BACKSPACE) {
-      this._handleClear(evt);
-    }
-  };
+        var unselectData = {
+            data: data
+        };
+        this.trigger('clear', unselectData);
+        if (unselectData.prevented) {
+            this.$element.val(previousVal);
+            return;
+        }
 
-  AllowClear.prototype.update = function (decorated, data) {
-    decorated.call(this, data);
+        for (var d = 0; d < data.length; d++) {
+            unselectData = {
+                data: data[d]
+            };
 
-    if (this.$selection.find('.select2-selection__placeholder').length > 0 ||
-        data.length === 0) {
-      return;
-    }
+            // Trigger the `unselect` event, so people can prevent it from being
+            // cleared.
+            this.trigger('unselect', unselectData);
 
-    var $remove = $(
-      '<span class="select2-selection__clear">' +
-        '&times;' +
-      '</span>'
-    );
-    Utils.StoreData($remove[0], 'data', data);
+            // If the event was prevented, don't clear it out.
+            if (unselectData.prevented) {
+                this.$element.val(previousVal);
+                return;
+            }
+        }
 
-    this.$selection.find('.select2-selection__rendered').prepend($remove);
-  };
+        this.$element.trigger('change');
 
-  return AllowClear;
+        this.trigger('toggle', {});
+    };
+
+    AllowClear.prototype._handleKeyboardClear = function (_, evt, container) {
+        if (container.isOpen()) {
+            return;
+        }
+
+        if (evt.which == KEYS.DELETE || evt.which == KEYS.BACKSPACE) {
+            this._handleClear(evt);
+        }
+    };
+
+    AllowClear.prototype.update = function (decorated, data) {
+        decorated.call(this, data);
+
+        if (this.$selection.find('.select2-selection__placeholder').length > 0 ||
+            data.length === 0) {
+            return;
+        }
+
+        var $remove = $(
+            '<span class="select2-selection__clear">' +
+            '&times;' +
+            '</span>'
+        );
+        Utils.StoreData($remove[0], 'data', data);
+
+        this.$selection.find('.select2-selection__rendered').prepend($remove);
+    };
+
+    return AllowClear;
 });

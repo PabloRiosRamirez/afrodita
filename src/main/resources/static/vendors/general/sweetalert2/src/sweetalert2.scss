@@ -1,6 +1,5 @@
 // SweetAlert2
 // github.com/sweetalert2/sweetalert2
-
 @import 'variables';
 @import 'animations';
 @import 'mixins';
@@ -8,12 +7,13 @@
 
 body {
   &.swal2-shown {
-    @include not(
-      '.swal2-no-backdrop',
-      '.swal2-toast-shown'
+  @include
+    not (
+            '.swal2-no-backdrop',
+            '.swal2-toast-shown'
     ) {
-      overflow: hidden; // not overflow-y because of Sarari, #1253
-    }
+    overflow: hidden; // not overflow-y because of Sarari, #1253
+  }
   }
 
   &.swal2-height-auto {
@@ -219,27 +219,28 @@ body {
     }
   }
 
-  @include not(
-    '.swal2-top',
-    '.swal2-top-start',
-    '.swal2-top-end',
-    '.swal2-top-left',
-    '.swal2-top-right',
-    '.swal2-center-start',
-    '.swal2-center-end',
-    '.swal2-center-left',
-    '.swal2-center-right',
-    '.swal2-bottom',
-    '.swal2-bottom-start',
-    '.swal2-bottom-end',
-    '.swal2-bottom-left',
-    '.swal2-bottom-right',
-    '.swal2-grow-fullscreen'
+@include
+  not (
+          '.swal2-top',
+          '.swal2-top-start',
+          '.swal2-top-end',
+          '.swal2-top-left',
+          '.swal2-top-right',
+          '.swal2-center-start',
+          '.swal2-center-end',
+          '.swal2-center-left',
+          '.swal2-center-right',
+          '.swal2-bottom',
+          '.swal2-bottom-start',
+          '.swal2-bottom-end',
+          '.swal2-bottom-left',
+          '.swal2-bottom-right',
+          '.swal2-grow-fullscreen'
   ) {
-    & > .swal2-modal {
-      margin: auto;
-    }
+  & > .swal2-modal {
+    margin: auto;
   }
+}
 
   @include ie {
     .swal2-modal {
@@ -901,20 +902,21 @@ body {
 @media print {
   body {
     &.swal2-shown {
-      @include not(
-        '.swal2-no-backdrop',
-        '.swal2-toast-shown'
+    @include
+      not (
+              '.swal2-no-backdrop',
+              '.swal2-toast-shown'
       ) {
-        overflow-y: scroll !important;
+      overflow-y: scroll !important;
 
-        > [aria-hidden='true'] {
-          display: none;
-        }
-
-        .swal2-container {
-          position: initial !important;
-        }
+      > [aria-hidden='true'] {
+        display: none;
       }
+
+      .swal2-container {
+        position: initial !important;
+      }
+    }
     }
   }
 }

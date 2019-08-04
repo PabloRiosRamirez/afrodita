@@ -20,10 +20,9 @@ public class CustomControllerExceptionHandler implements ErrorController {
         if (status != null) {
             Integer statusCode = Integer.valueOf(status.toString());
 
-            if(statusCode == HttpStatus.NOT_FOUND.value()) {
+            if (statusCode == HttpStatus.NOT_FOUND.value()) {
                 return "errors/error-404";
-            }
-            else if(statusCode == HttpStatus.FORBIDDEN.value()) {
+            } else if (statusCode == HttpStatus.FORBIDDEN.value()) {
                 return "errors/error-403";
             }
         }

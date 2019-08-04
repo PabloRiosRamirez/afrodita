@@ -7,10 +7,11 @@ export default class AutoSync {
   constructor(context) {
     this.$note = context.layoutInfo.note;
     this.events = {
-      'summernote.change': () => {
-        this.$note.val(context.invoke('code'));
-      }
-    };
+      'summernote.change': () = > {
+      this.$note.val(context.invoke('code'));
+  }
+  }
+    ;
   }
 
   shouldInitialize() {

@@ -60,33 +60,39 @@ export default {
    * @param {Number} keyCode
    * @return {Boolean}
    */
-  isEdit: (keyCode) => {
-    return lists.contains([
-      KEY_MAP.BACKSPACE,
-      KEY_MAP.TAB,
-      KEY_MAP.ENTER,
-      KEY_MAP.SPACE,
-      KEY_MAP.DELETE
-    ], keyCode);
-  },
-  /**
-   * @method isMove
-   *
-   * @param {Number} keyCode
-   * @return {Boolean}
-   */
-  isMove: (keyCode) => {
-    return lists.contains([
-      KEY_MAP.LEFT,
-      KEY_MAP.UP,
-      KEY_MAP.RIGHT,
-      KEY_MAP.DOWN
-    ], keyCode);
-  },
-  /**
-   * @property {Object} nameFromCode
-   * @property {String} nameFromCode.8 "BACKSPACE"
-   */
-  nameFromCode: func.invertObject(KEY_MAP),
-  code: KEY_MAP
-};
+  isEdit: (keyCode) = > {
+  return lists.contains([
+    KEY_MAP.BACKSPACE,
+    KEY_MAP.TAB,
+    KEY_MAP.ENTER,
+    KEY_MAP.SPACE,
+    KEY_MAP.DELETE
+  ], keyCode);
+},
+/**
+ * @method isMove
+ *
+ * @param {Number} keyCode
+ * @return {Boolean}
+ */
+isMove: (keyCode) =
+>
+{
+  return lists.contains([
+    KEY_MAP.LEFT,
+    KEY_MAP.UP,
+    KEY_MAP.RIGHT,
+    KEY_MAP.DOWN
+  ], keyCode);
+}
+,
+/**
+ * @property {Object} nameFromCode
+ * @property {String} nameFromCode.8 "BACKSPACE"
+ */
+nameFromCode: func.invertObject(KEY_MAP),
+  code
+:
+KEY_MAP
+}
+;

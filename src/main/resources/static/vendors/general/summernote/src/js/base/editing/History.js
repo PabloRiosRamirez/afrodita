@@ -10,7 +10,7 @@ export default class History {
 
   makeSnapshot() {
     const rng = range.create(this.editable);
-    const emptyBookmark = { s: { path: [], offset: 0 }, e: { path: [], offset: 0 } };
+    const emptyBookmark = {s: {path: [], offset: 0}, e: {path: [], offset: 0}};
 
     return {
       contents: this.$editable.html(),
@@ -28,10 +28,10 @@ export default class History {
   }
 
   /**
-  * @method rewind
-  * Rewinds the history stack back to the first snapshot taken.
-  * Leaves the stack intact, so that "Redo" can still be used.
-  */
+   * @method rewind
+   * Rewinds the history stack back to the first snapshot taken.
+   * Leaves the stack intact, so that "Redo" can still be used.
+   */
   rewind() {
     // Create snap shot if not yet recorded
     if (this.$editable.html() !== this.stack[this.stackOffset].contents) {
@@ -46,9 +46,9 @@ export default class History {
   }
 
   /**
-  *  @method commit
-  *  Resets history stack, but keeps current editor's content.
-  */
+   *  @method commit
+   *  Resets history stack, but keeps current editor's content.
+   */
   commit() {
     // Clear the stack.
     this.stack = [];
@@ -61,9 +61,9 @@ export default class History {
   }
 
   /**
-  * @method reset
-  * Resets the history stack completely; reverting to an empty editor.
-  */
+   * @method reset
+   * Resets the history stack completely; reverting to an empty editor.
+   */
   reset() {
     // Clear the stack.
     this.stack = [];

@@ -1,24 +1,33 @@
-import { error } from '../utils/utils.js'
+import {error} from '../utils/utils.js'
 
-export const argsToParams = (args) => {
-  const params = {}
-  switch (typeof args[0]) {
-    case 'object':
-      Object.assign(params, args[0])
-      break
+export const argsToParams = (args) =
+>
+{
+    const params = {}
+    switch (typeof args[0]) {
+        case 'object':
+            Object.assign(params, args[0])
+            break
 
-    default:
-      ['title', 'html', 'type'].forEach((name, index) => {
-        switch (typeof args[index]) {
-          case 'string':
+        default:
+            ['title', 'html', 'type'].forEach((name, index) = > {
+                switch(typeof args[index]
+        )
+        {
+        case
+            'string'
+        :
             params[name] = args[index]
             break
-          case 'undefined':
+        case
+            'undefined'
+        :
             break
-          default:
+        default:
             error(`Unexpected type of ${name}! Expected "string", got ${typeof args[index]}`)
         }
-      })
-  }
-  return params
+    }
+)
+}
+    return params
 }

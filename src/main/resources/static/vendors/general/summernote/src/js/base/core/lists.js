@@ -83,7 +83,7 @@ function contains(array, item) {
  */
 function sum(array, fn) {
   fn = fn || func.self;
-  return array.reduce(function(memo, v) {
+  return array.reduce(function (memo, v) {
     return memo + fn(v);
   }, 0);
 }
@@ -117,9 +117,11 @@ function isEmpty(array) {
  * @param {Array[]}
  */
 function clusterBy(array, fn) {
-  if (!array.length) { return []; }
+  if (!array.length) {
+    return [];
+  }
   const aTail = tail(array);
-  return aTail.reduce(function(memo, v) {
+  return aTail.reduce(function (memo, v) {
     const aLast = last(memo);
     if (fn(last(aLast), v)) {
       aLast[aLast.length] = v;
@@ -139,7 +141,9 @@ function clusterBy(array, fn) {
 function compact(array) {
   const aResult = [];
   for (let idx = 0, len = array.length; idx < len; idx++) {
-    if (array[idx]) { aResult.push(array[idx]); }
+    if (array[idx]) {
+      aResult.push(array[idx]);
+    }
   }
   return aResult;
 }
@@ -167,7 +171,9 @@ function unique(array) {
  */
 function next(array, item) {
   const idx = indexOf(array, item);
-  if (idx === -1) { return null; }
+  if (idx === -1) {
+    return null;
+  }
 
   return array[idx + 1];
 }
@@ -178,7 +184,9 @@ function next(array, item) {
  */
 function prev(array, item) {
   const idx = indexOf(array, item);
-  if (idx === -1) { return null; }
+  if (idx === -1) {
+    return null;
+  }
 
   return array[idx - 1];
 }

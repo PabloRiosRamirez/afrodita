@@ -25,30 +25,41 @@ export default class Bullet {
   indent(editable) {
     const rng = range.create(editable).wrapBodyInlineWithPara();
 
-    const paras = rng.nodes(dom.isPara, { includeAncestor: true });
+    const paras = rng.nodes(dom.isPara, {includeAncestor: true});
     const clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
 
-    $.each(clustereds, (idx, paras) => {
+    $.each(clustereds, (idx, paras) = > {
       const head = lists.head(paras);
-      if (dom.isLi(head)) {
-        const previousList = this.findList(head.previousSibling);
-        if (previousList) {
-          paras
-            .map(para => previousList.appendChild(para));
-        } else {
-          this.wrapList(paras, head.parentNode.nodeName);
-          paras
-            .map((para) => para.parentNode)
-            .map((para) => this.appendToPrevious(para));
-        }
+    if (dom.isLi(head)) {
+      const previousList = this.findList(head.previousSibling);
+      if (previousList) {
+        paras
+          .map(para = > previousList.appendChild(para)
+      )
+        ;
       } else {
-        $.each(paras, (idx, para) => {
-          $(para).css('marginLeft', (idx, val) => {
-            return (parseInt(val, 10) || 0) + 25;
-          });
-        });
+        this.wrapList(paras, head.parentNode.nodeName);
+        paras
+          .map((para) = > para.parentNode
+      )
+      .
+        map((para) = > this.appendToPrevious(para)
+      )
+        ;
       }
-    });
+    } else {
+      $.each(paras, (idx, para) = > {
+        $(para).css('marginLeft', (idx, val) = > {
+          return(parseInt(val, 10) || 0
+    )
+      +25;
+    })
+      ;
+    })
+      ;
+    }
+  })
+    ;
 
     rng.select();
   }
@@ -59,22 +70,25 @@ export default class Bullet {
   outdent(editable) {
     const rng = range.create(editable).wrapBodyInlineWithPara();
 
-    const paras = rng.nodes(dom.isPara, { includeAncestor: true });
+    const paras = rng.nodes(dom.isPara, {includeAncestor: true});
     const clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
 
-    $.each(clustereds, (idx, paras) => {
+    $.each(clustereds, (idx, paras) = > {
       const head = lists.head(paras);
-      if (dom.isLi(head)) {
-        this.releaseList([paras]);
-      } else {
-        $.each(paras, (idx, para) => {
-          $(para).css('marginLeft', (idx, val) => {
-            val = (parseInt(val, 10) || 0);
-            return val > 25 ? val - 25 : '';
-          });
-        });
-      }
-    });
+    if (dom.isLi(head)) {
+      this.releaseList([paras]);
+    } else {
+      $.each(paras, (idx, para) = > {
+        $(para).css('marginLeft', (idx, val) = > {
+          val = (parseInt(val, 10) || 0);
+      return val > 25 ? val - 25 : '';
+    })
+      ;
+    })
+      ;
+    }
+  })
+    ;
 
     rng.select();
   }
@@ -87,29 +101,32 @@ export default class Bullet {
   toggleList(listName, editable) {
     const rng = range.create(editable).wrapBodyInlineWithPara();
 
-    let paras = rng.nodes(dom.isPara, { includeAncestor: true });
+    let paras = rng.nodes(dom.isPara, {includeAncestor: true});
     const bookmark = rng.paraBookmark(paras);
     const clustereds = lists.clusterBy(paras, func.peq2('parentNode'));
 
     // paragraph to list
     if (lists.find(paras, dom.isPurePara)) {
       let wrappedParas = [];
-      $.each(clustereds, (idx, paras) => {
+      $.each(clustereds, (idx, paras) = > {
         wrappedParas = wrappedParas.concat(this.wrapList(paras, listName));
-      });
+    })
+      ;
       paras = wrappedParas;
-    // list to paragraph or change list style
+      // list to paragraph or change list style
     } else {
       const diffLists = rng.nodes(dom.isList, {
         includeAncestor: true
-      }).filter((listNode) => {
+      }).filter((listNode) = > {
         return !$.nodeName(listNode, listName);
-      });
+    })
+      ;
 
       if (diffLists.length) {
-        $.each(diffLists, (idx, listNode) => {
+        $.each(diffLists, (idx, listNode) = > {
           dom.replace(listNode, listName);
-        });
+      })
+        ;
       } else {
         paras = this.releaseList(clustereds, true);
       }
@@ -133,9 +150,10 @@ export default class Bullet {
     const listNode = prevList || dom.insertAfter(dom.create(listName || 'UL'), last);
 
     // P to LI
-    paras = paras.map((para) => {
+    paras = paras.map((para) = > {
       return dom.isPurePara(para) ? dom.replace(para, 'LI') : para;
-    });
+  })
+    ;
 
     // append to list(<ul>, <ol>)
     dom.appendChildNodes(listNode, paras);
@@ -158,82 +176,91 @@ export default class Bullet {
   releaseList(clustereds, isEscapseToBody) {
     let releasedParas = [];
 
-    $.each(clustereds, (idx, paras) => {
+    $.each(clustereds, (idx, paras) = > {
       const head = lists.head(paras);
-      const last = lists.last(paras);
+    const last = lists.last(paras);
 
-      const headList = isEscapseToBody ? dom.lastAncestor(head, dom.isList) : head.parentNode;
-      const parentItem = headList.parentNode;
+    const headList = isEscapseToBody ? dom.lastAncestor(head, dom.isList) : head.parentNode;
+    const parentItem = headList.parentNode;
 
-      if (headList.parentNode.nodeName === 'LI') {
-        paras.map(para => {
-          const newList = this.findNextSiblings(para);
+    if (headList.parentNode.nodeName === 'LI') {
+      paras.map(para = > {
+        const newList = this.findNextSiblings(para);
 
-          if (parentItem.nextSibling) {
-            parentItem.parentNode.insertBefore(
-              para,
-              parentItem.nextSibling
-            );
-          } else {
-            parentItem.parentNode.appendChild(para);
-          }
-
-          if (newList.length) {
-            this.wrapList(newList, headList.nodeName);
-            para.appendChild(newList[0].parentNode);
-          }
-        });
-
-        if (headList.children.length === 0) {
-          parentItem.removeChild(headList);
-        }
-
-        if (parentItem.childNodes.length === 0) {
-          parentItem.parentNode.removeChild(parentItem);
-        }
+      if (parentItem.nextSibling) {
+        parentItem.parentNode.insertBefore(
+          para,
+          parentItem.nextSibling
+        );
       } else {
-        const lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
-          node: last.parentNode,
-          offset: dom.position(last) + 1
-        }, {
-          isSkipPaddingBlankHTML: true
-        }) : null;
-
-        const middleList = dom.splitTree(headList, {
-          node: head.parentNode,
-          offset: dom.position(head)
-        }, {
-          isSkipPaddingBlankHTML: true
-        });
-
-        paras = isEscapseToBody ? dom.listDescendant(middleList, dom.isLi)
-          : lists.from(middleList.childNodes).filter(dom.isLi);
-
-        // LI to P
-        if (isEscapseToBody || !dom.isList(headList.parentNode)) {
-          paras = paras.map((para) => {
-            return dom.replace(para, 'P');
-          });
-        }
-
-        $.each(lists.from(paras).reverse(), (idx, para) => {
-          dom.insertAfter(para, headList);
-        });
-
-        // remove empty lists
-        const rootLists = lists.compact([headList, middleList, lastList]);
-        $.each(rootLists, (idx, rootList) => {
-          const listNodes = [rootList].concat(dom.listDescendant(rootList, dom.isList));
-          $.each(listNodes.reverse(), (idx, listNode) => {
-            if (!dom.nodeLength(listNode)) {
-              dom.remove(listNode, true);
-            }
-          });
-        });
+        parentItem.parentNode.appendChild(para);
       }
 
-      releasedParas = releasedParas.concat(paras);
-    });
+      if (newList.length) {
+        this.wrapList(newList, headList.nodeName);
+        para.appendChild(newList[0].parentNode);
+      }
+    })
+      ;
+
+      if (headList.children.length === 0) {
+        parentItem.removeChild(headList);
+      }
+
+      if (parentItem.childNodes.length === 0) {
+        parentItem.parentNode.removeChild(parentItem);
+      }
+    } else {
+      const lastList = headList.childNodes.length > 1 ? dom.splitTree(headList, {
+        node: last.parentNode,
+        offset: dom.position(last) + 1
+      }, {
+        isSkipPaddingBlankHTML: true
+      }) : null;
+
+      const middleList = dom.splitTree(headList, {
+        node: head.parentNode,
+        offset: dom.position(head)
+      }, {
+        isSkipPaddingBlankHTML: true
+      });
+
+      paras = isEscapseToBody ? dom.listDescendant(middleList, dom.isLi)
+        : lists.from(middleList.childNodes).filter(dom.isLi);
+
+      // LI to P
+      if (isEscapseToBody || !dom.isList(headList.parentNode)) {
+        paras = paras.map((para) = > {
+          return dom.replace(para, 'P');
+      })
+        ;
+      }
+
+      $.each(lists.from(paras).reverse(), (idx, para) = > {
+        dom.insertAfter(para, headList);
+    })
+      ;
+
+      // remove empty lists
+      const rootLists = lists.compact([headList, middleList, lastList]);
+      $.each(rootLists, (idx, rootList) = > {
+        const listNodes = [rootList].concat(dom.listDescendant(rootList, dom.isList));
+      $.each(listNodes.reverse(), (idx, listNode) = > {
+        if(
+      !dom.nodeLength(listNode)
+    )
+      {
+        dom.remove(listNode, true);
+      }
+    })
+      ;
+    })
+      ;
+    }
+
+    releasedParas = releasedParas.concat(paras);
+  })
+    ;
 
     return releasedParas;
   }
@@ -263,8 +290,10 @@ export default class Bullet {
    */
   findList(node) {
     return node
-      ? lists.find(node.children, child => ['OL', 'UL'].indexOf(child.nodeName) > -1)
-      : null;
+      ? lists.find(node.children, child = > ['OL', 'UL'].indexOf(child.nodeName) > -1
+  )
+  :
+    null;
   }
 
   /**

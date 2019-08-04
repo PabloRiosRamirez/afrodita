@@ -6,28 +6,31 @@
 * Version: 4.0.6
 */
 
-(function(factory) {
+(function (factory) {
     if (typeof define === "function" && define.amd) {
-        define([ "../global/window" ], factory);
+        define(["../global/window"], factory);
     } else if (typeof exports === "object") {
         module.exports = factory(require("../global/window"));
     } else {
         window.dependencyLib = factory(window);
     }
-})(function(window) {
+})(function (window) {
     var document = window.document;
+
     function indexOf(list, elem) {
         var i = 0, len = list.length;
-        for (;i < len; i++) {
+        for (; i < len; i++) {
             if (list[i] === elem) {
                 return i;
             }
         }
         return -1;
     }
+
     function isWindow(obj) {
         return obj != null && obj === obj.window;
     }
+
     function isArraylike(obj) {
         var length = "length" in obj && obj.length, ltype = typeof obj;
         if (ltype === "function" || isWindow(obj)) {
@@ -38,9 +41,11 @@
         }
         return ltype === "array" || length === 0 || typeof length === "number" && length > 0 && length - 1 in obj;
     }
+
     function isValidElement(elem) {
         return elem instanceof Element;
     }
+
     function DependencyLib(elem) {
         if (elem instanceof DependencyLib) {
             return elem;
@@ -55,13 +60,16 @@
             }
         }
     }
+
     function getWindow(elem) {
         return isWindow(elem) ? elem : elem.nodeType === 9 ? elem.defaultView || elem.parentWindow : false;
     }
+
     DependencyLib.prototype = {
-        on: function(events, handler) {
+        on: function (events, handler) {
             if (isValidElement(this[0])) {
                 var eventRegistry = this[0].eventRegistry, elem = this[0];
+
                 function addEvent(ev, namespace) {
                     if (elem.addEventListener) {
                         elem.addEventListener(ev, handler, false);
@@ -72,6 +80,7 @@
                     eventRegistry[ev][namespace] = eventRegistry[ev][namespace] || [];
                     eventRegistry[ev][namespace].push(handler);
                 }
+
                 var _events = events.split(" ");
                 for (var endx = 0; endx < _events.length; endx++) {
                     var nsEvent = _events[endx].split("."), ev = nsEvent[0], namespace = nsEvent[1] || "global";
@@ -80,9 +89,10 @@
             }
             return this;
         },
-        off: function(events, handler) {
+        off: function (events, handler) {
             if (isValidElement(this[0])) {
                 var eventRegistry = this[0].eventRegistry, elem = this[0];
+
                 function removeEvent(ev, namespace, handler) {
                     if (ev in eventRegistry === true) {
                         if (elem.removeEventListener) {
@@ -99,6 +109,7 @@
                         }
                     }
                 }
+
                 function resolveNamespace(ev, namespace) {
                     var evts = [], hndx, hndL;
                     if (ev.length > 0) {
@@ -142,6 +153,7 @@
                     }
                     return evts;
                 }
+
                 var _events = events.split(" ");
                 for (var endx = 0; endx < _events.length; endx++) {
                     var nsEvent = _events[endx].split("."), offEvents = resolveNamespace(nsEvent[0], nsEvent[1]);
@@ -152,10 +164,10 @@
             }
             return this;
         },
-        trigger: function(events) {
+        trigger: function (events) {
             if (isValidElement(this[0])) {
                 var eventRegistry = this[0].eventRegistry, elem = this[0];
-                var _events = typeof events === "string" ? events.split(" ") : [ events.type ];
+                var _events = typeof events === "string" ? events.split(" ") : [events.type];
                 for (var endx = 0; endx < _events.length; endx++) {
                     var nsEvent = _events[endx].split("."), ev = nsEvent[0], namespace = nsEvent[1] || "global";
                     if (document !== undefined && namespace === "global") {
@@ -199,16 +211,17 @@
             return this;
         }
     };
-    DependencyLib.isFunction = function(obj) {
+    DependencyLib.isFunction = function (obj) {
         return typeof obj === "function";
     };
-    DependencyLib.noop = function() {};
+    DependencyLib.noop = function () {
+    };
     DependencyLib.isArray = Array.isArray;
-    DependencyLib.inArray = function(elem, arr, i) {
+    DependencyLib.inArray = function (elem, arr, i) {
         return arr == null ? -1 : indexOf(arr, elem, i);
     };
     DependencyLib.valHooks = undefined;
-    DependencyLib.isPlainObject = function(obj) {
+    DependencyLib.isPlainObject = function (obj) {
         if (typeof obj !== "object" || obj.nodeType || isWindow(obj)) {
             return false;
         }
@@ -217,8 +230,9 @@
         }
         return true;
     };
-    DependencyLib.extend = function() {
-        var options, name, src, copy, copyIsArray, clone, target = arguments[0] || {}, i = 1, length = arguments.length, deep = false;
+    DependencyLib.extend = function () {
+        var options, name, src, copy, copyIsArray, clone, target = arguments[0] || {}, i = 1, length = arguments.length,
+            deep = false;
         if (typeof target === "boolean") {
             deep = target;
             target = arguments[i] || {};
@@ -231,7 +245,7 @@
             target = this;
             i--;
         }
-        for (;i < length; i++) {
+        for (; i < length; i++) {
             if ((options = arguments[i]) != null) {
                 for (name in options) {
                     src = target[name];
@@ -255,7 +269,7 @@
         }
         return target;
     };
-    DependencyLib.each = function(obj, callback) {
+    DependencyLib.each = function (obj, callback) {
         var value, i = 0;
         if (isArraylike(obj)) {
             for (var length = obj.length; i < length; i++) {
@@ -274,7 +288,7 @@
         }
         return obj;
     };
-    DependencyLib.data = function(owner, key, value) {
+    DependencyLib.data = function (owner, key, value) {
         if (value === undefined) {
             return owner.__data ? owner.__data[key] : null;
         } else {
@@ -285,7 +299,7 @@
     if (typeof window.CustomEvent === "function") {
         DependencyLib.Event = window.CustomEvent;
     } else {
-        DependencyLib.Event = function(event, params) {
+        DependencyLib.Event = function (event, params) {
             params = params || {
                 bubbles: false,
                 cancelable: false,

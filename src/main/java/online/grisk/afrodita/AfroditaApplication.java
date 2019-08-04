@@ -1,7 +1,7 @@
 package online.grisk.afrodita;
 
+import online.grisk.afrodita.domain.entity.Microservice;
 import online.grisk.afrodita.domain.entity.Role;
-import online.grisk.afrodita.domain.entity.ServiceActivator;
 import online.grisk.afrodita.domain.entity.TypeVariable;
 import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.RoleService;
@@ -35,6 +35,10 @@ public class AfroditaApplication {
 
     @Autowired
     RoleService roleService;
+
+    public static void main(String[] args) {
+        SpringApplication.run(AfroditaApplication.class, args);
+    }
 
     @LoadBalanced
     @Bean
@@ -75,8 +79,8 @@ public class AfroditaApplication {
     }
 
     @Bean
-    ServiceActivator serviceActivatorArtemisa() {
-        return new ServiceActivator("artemisa", HttpMethod.POST, "/api/artemisa", "artemisa", "GRisk.2019", new HashMap<>());
+    Microservice serviceActivatorArtemisa() {
+        return new Microservice("artemisa", HttpMethod.POST, "/api/artemisa", "artemisa", "GRisk.2019", new HashMap<>());
     }
 
     @Bean
@@ -88,12 +92,6 @@ public class AfroditaApplication {
     public BCryptPasswordEncoder encoderPassword() {
         return new BCryptPasswordEncoder();
     }
-
-
-    public static void main(String[] args) {
-        SpringApplication.run(AfroditaApplication.class, args);
-    }
-
 
     @Bean
     public List<Variable> getVariablesBureau() {
@@ -167,7 +165,7 @@ public class AfroditaApplication {
     }
 
     @Bean
-    public List<TypeVariable> getTypesVariables(){
+    public List<TypeVariable> getTypesVariables() {
         List<TypeVariable> types = new ArrayList<>();
         types.add(new TypeVariable(1L, "Número entero", "NE"));
         types.add(new TypeVariable(2L, "Número decimal", "ND"));

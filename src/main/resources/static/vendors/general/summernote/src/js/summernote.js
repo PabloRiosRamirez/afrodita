@@ -10,7 +10,7 @@ $.fn.extend({
    * @param {Object|String}
    * @return {this}
    */
-  summernote: function() {
+  summernote: function () {
     const type = $.type(lists.head(arguments));
     const isExternalAPICalled = type === 'string';
     const hasInitOptions = type === 'object';
@@ -22,14 +22,15 @@ $.fn.extend({
     options.icons = $.extend(true, {}, $.summernote.options.icons, options.icons);
     options.tooltip = options.tooltip === 'auto' ? !env.isSupportTouch : options.tooltip;
 
-    this.each((idx, note) => {
+    this.each((idx, note) = > {
       const $note = $(note);
-      if (!$note.data('summernote')) {
-        const context = new Context($note, options);
-        $note.data('summernote', context);
-        $note.data('summernote').triggerEvent('init', context.layoutInfo);
-      }
-    });
+    if (!$note.data('summernote')) {
+      const context = new Context($note, options);
+      $note.data('summernote', context);
+      $note.data('summernote').triggerEvent('init', context.layoutInfo);
+    }
+  })
+    ;
 
     const $note = this.first();
     if ($note.length) {

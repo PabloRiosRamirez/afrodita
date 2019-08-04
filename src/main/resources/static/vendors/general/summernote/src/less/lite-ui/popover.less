@@ -11,11 +11,29 @@
   border: 1px solid @popover-border-color;
   border: 1px solid @popover-fallback-border-color;
 
-  &.in     { display: block; }
-  &.top    { margin-top:  -3px; padding: 5 0; }
-  &.right  { margin-left:  3px; padding: 0 5; }
-  &.bottom { margin-top:   3px; padding: 5 0; }
-  &.left   { margin-left: -3px; padding: 0 5; }
+  &.in {
+    display: block;
+  }
+
+  &.top {
+    margin-top: -3px;
+    padding: 5 0;
+  }
+
+  &.right {
+    margin-left: 3px;
+    padding: 0 5;
+  }
+
+  &.bottom {
+    margin-top: 3px;
+    padding: 5 0;
+  }
+
+  &.left {
+    margin-left: -3px;
+    padding: 0 5;
+  }
 }
 
 .note-popover {
@@ -70,6 +88,7 @@
     }
 
   }
+
   &.left .note-popover-arrow {
     top: 50%;
     right: -11px;
@@ -104,7 +123,7 @@
     border-style: solid;
 
 
-    content :  " ";
+    content: " ";
     border-width: 10px;
   }
 

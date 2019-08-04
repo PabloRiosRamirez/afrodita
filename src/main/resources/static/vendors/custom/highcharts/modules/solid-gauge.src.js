@@ -23,11 +23,13 @@
     }
 }(function (Highcharts) {
     var _modules = Highcharts ? Highcharts._modules : {};
+
     function _registerModule(obj, path, args, fn) {
         if (!obj.hasOwnProperty(path)) {
             obj[path] = fn.apply(null, args);
         }
     }
+
     _registerModule(_modules, 'modules/solid-gauge.src.js', [_modules['parts/Globals.js']], function (H) {
         /* *
          * Solid angular gauge module
@@ -41,7 +43,8 @@
          * Additional options, depending on the actual symbol drawn.
          *
          * @interface Highcharts.SymbolOptionsObject
-         *//**
+         */
+        /**
          * Whether to draw rounded edges.
          * @name Highcharts.SymbolOptionsObject#rounded
          * @type {boolean|undefined}
@@ -436,7 +439,7 @@
 
                         if (graphic) {
                             d = shapeArgs.d;
-                            graphic.animate(H.extend({ fill: toColor }, shapeArgs));
+                            graphic.animate(H.extend({fill: toColor}, shapeArgs));
                             if (d) {
                                 shapeArgs.d = d; // animate alters it
                             }

@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/Handle.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/Handle.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line medium'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -342,8 +342,8 @@ export default class Handle {
 &nbsp;
     this.events = {
       'summernote.mousedown': (we, e) =&gt; {
-        <span class="missing-if-branch" title="if path not taken" >I</span>if (this.update(e.target)) {
-<span class="cstat-no" title="statement not covered" >          e.preventDefault();</span>
+        <span class="missing-if-branch" title="if path not taken">I</span>if (this.update(e.target)) {
+<span class="cstat-no" title="statement not covered">          e.preventDefault();</span>
         }
       },
       'summernote.keyup summernote.scroll summernote.change summernote.dialog.shown': () =&gt; {
@@ -367,49 +367,50 @@ export default class Handle {
       '&lt;div class="note-control-holder note-control-ne"&gt;&lt;/div&gt;',
       '&lt;div class="note-control-holder note-control-sw"&gt;&lt;/div&gt;',
       '&lt;div class="',
-      (this.options.disableResizeImage ? <span class="branch-0 cbranch-no" title="branch not covered" >'note-control-holder' </span>: 'note-control-sizing'),
+      (this.options.disableResizeImage ? <span class="branch-0 cbranch-no" title="branch not covered">'note-control-holder' </span>: 'note-control-sizing'),
       ' note-control-se"&gt;&lt;/div&gt;',
-      (this.options.disableResizeImage ? <span class="branch-0 cbranch-no" title="branch not covered" >'' </span>: '&lt;div class="note-control-selection-info"&gt;&lt;/div&gt;'),
+      (this.options.disableResizeImage ? <span class="branch-0 cbranch-no" title="branch not covered">'' </span>: '&lt;div class="note-control-selection-info"&gt;&lt;/div&gt;'),
       '&lt;/div&gt;',
       '&lt;/div&gt;'
     ].join('')).prependTo(this.$editingArea);
 &nbsp;
-    this.$handle.on('mousedown', <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      if (dom.isControlSizing(event.target)) {</span>
-<span class="cstat-no" title="statement not covered" >        event.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >        event.stopPropagation();</span>
+    this.$handle.on('mousedown', <span class="fstat-no" title="function not covered">(event)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">      if (dom.isControlSizing(event.target)) {</span>
+<span class="cstat-no" title="statement not covered">        event.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">        event.stopPropagation();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        const $target = this.$handle.find('.note-control-selection').data('target');</span>
-<span class="cstat-no" title="statement not covered" >        const posStart = $target.offset();</span>
-<span class="cstat-no" title="statement not covered" >        const scrollTop = this.$document.scrollTop();</span>
+<span class="cstat-no" title="statement not covered">        const $target = this.$handle.find('.note-control-selection').data('target');</span>
+<span class="cstat-no" title="statement not covered">        const posStart = $target.offset();</span>
+<span class="cstat-no" title="statement not covered">        const scrollTop = this.$document.scrollTop();</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        const onMouseMove = <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          this.context.invoke('editor.resizeTo', {</span>
+<span class="cstat-no" title="statement not covered">        const onMouseMove = <span class="fstat-no"
+                                                                                       title="function not covered">(event)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">          this.context.invoke('editor.resizeTo', {</span>
             x: event.clientX - posStart.left,
             y: event.clientY - (posStart.top - scrollTop)
           }, $target, !event.shiftKey);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >          this.update($target[0]);</span>
+<span class="cstat-no" title="statement not covered">          this.update($target[0]);</span>
         };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        this.$document</span>
+<span class="cstat-no" title="statement not covered">        this.$document</span>
           .on('mousemove', onMouseMove)
-          .one('mouseup', <span class="fstat-no" title="function not covered" >(e)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >            e.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >            this.$document.off('mousemove', onMouseMove);</span>
-<span class="cstat-no" title="statement not covered" >            this.context.invoke('editor.afterCommand');</span>
+          .one('mouseup', <span class="fstat-no" title="function not covered">(e)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">            e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">            this.$document.off('mousemove', onMouseMove);</span>
+<span class="cstat-no" title="statement not covered">            this.context.invoke('editor.afterCommand');</span>
           });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >        if (!$target.data('ratio')) { // original ratio.</span>
-<span class="cstat-no" title="statement not covered" >          $target.data('ratio', $target.height() / $target.width());</span>
+<span class="cstat-no" title="statement not covered">        if (!$target.data('ratio')) { // original ratio.</span>
+<span class="cstat-no" title="statement not covered">          $target.data('ratio', $target.height() / $target.width());</span>
         }
       }
     });
 &nbsp;
     // Listen for scrolling on the handle overlay.
-    this.$handle.on('wheel', <span class="fstat-no" title="function not covered" >(e)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >      e.preventDefault();</span>
-<span class="cstat-no" title="statement not covered" >      this.update();</span>
+    this.$handle.on('wheel', <span class="fstat-no" title="function not covered">(e)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">      e.preventDefault();</span>
+<span class="cstat-no" title="statement not covered">      this.update();</span>
     });
   }
 &nbsp;
@@ -427,21 +428,21 @@ export default class Handle {
 &nbsp;
     this.context.invoke('imagePopover.update', target);
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isImage) {
-<span class="cstat-no" title="statement not covered" >      const $image = $(target);</span>
-<span class="cstat-no" title="statement not covered" >      const position = $image.position();</span>
-<span class="cstat-no" title="statement not covered" >      const pos = {</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (isImage) {
+<span class="cstat-no" title="statement not covered">      const $image = $(target);</span>
+<span class="cstat-no" title="statement not covered">      const position = $image.position();</span>
+<span class="cstat-no" title="statement not covered">      const pos = {</span>
         left: position.left + parseInt($image.css('marginLeft'), 10),
         top: position.top + parseInt($image.css('marginTop'), 10)
       };
 &nbsp;
       // exclude margin
-<span class="cstat-no" title="statement not covered" >      const imageSize = {</span>
+<span class="cstat-no" title="statement not covered">      const imageSize = {</span>
         w: $image.outerWidth(false),
         h: $image.outerHeight(false)
       };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      $selection.css({</span>
+<span class="cstat-no" title="statement not covered">      $selection.css({</span>
         display: 'block',
         left: pos.left,
         top: pos.top,
@@ -449,12 +450,12 @@ export default class Handle {
         height: imageSize.h
       }).data('target', $image); // save current image element.
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      const origImageObj = new Image();</span>
-<span class="cstat-no" title="statement not covered" >      origImageObj.src = $image.attr('src');</span>
+<span class="cstat-no" title="statement not covered">      const origImageObj = new Image();</span>
+<span class="cstat-no" title="statement not covered">      origImageObj.src = $image.attr('src');</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      const sizingText = imageSize.w + 'x' + imageSize.h + ' (' + this.lang.image.original + ': ' + origImageObj.width + 'x' + origImageObj.height + ')';</span>
-<span class="cstat-no" title="statement not covered" >      $selection.find('.note-control-selection-info').text(sizingText);</span>
-<span class="cstat-no" title="statement not covered" >      this.context.invoke('editor.saveTarget', target);</span>
+<span class="cstat-no" title="statement not covered">      const sizingText = imageSize.w + 'x' + imageSize.h + ' (' + this.lang.image.original + ': ' + origImageObj.width + 'x' + origImageObj.height + ')';</span>
+<span class="cstat-no" title="statement not covered">      $selection.find('.note-control-selection-info').text(sizingText);</span>
+<span class="cstat-no" title="statement not covered">      this.context.invoke('editor.saveTarget', target);</span>
     } else {
       this.hide();
     }
@@ -474,7 +475,7 @@ export default class Handle {
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -483,11 +484,11 @@ export default class Handle {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

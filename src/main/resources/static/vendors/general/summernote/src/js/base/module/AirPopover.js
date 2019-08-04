@@ -12,24 +12,34 @@ export default class AirPopover {
     this.ui = $.summernote.ui;
     this.options = context.options;
     this.events = {
-      'summernote.keyup summernote.mouseup summernote.scroll': () => {
-        this.update();
-      },
-      'summernote.disable summernote.change summernote.dialog.shown': () => {
-        this.hide();
-      },
-      'summernote.focusout': (we, e) => {
-        // [workaround] Firefox doesn't support relatedTarget on focusout
-        //  - Ignore hide action on focus out in FF.
-        if (env.isFF) {
-          return;
-        }
-
-        if (!e.relatedTarget || !dom.ancestor(e.relatedTarget, func.eq(this.$popover[0]))) {
-          this.hide();
-        }
+      'summernote.keyup summernote.mouseup summernote.scroll': () = > {
+      this.update();
+  },
+    'summernote.disable summernote.change summernote.dialog.shown'
+  :
+    () =
+  >
+    {
+      this.hide();
+    }
+  ,
+    'summernote.focusout'
+  :
+    (we, e) =
+  >
+    {
+      // [workaround] Firefox doesn't support relatedTarget on focusout
+      //  - Ignore hide action on focus out in FF.
+      if (env.isFF) {
+        return;
       }
-    };
+
+      if (!e.relatedTarget || !dom.ancestor(e.relatedTarget, func.eq(this.$popover[0]))) {
+        this.hide();
+      }
+    }
+  }
+    ;
   }
 
   shouldInitialize() {

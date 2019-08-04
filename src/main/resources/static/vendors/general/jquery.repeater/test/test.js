@@ -49,7 +49,7 @@ QUnit.test('instantiate with no first item', function (assert) {
         this.$repeater.find('[data-repeater-item]').css('display'), 'none',
         'display:none css is set'
     );
-    this.$repeater.repeater({ initEmpty: true });
+    this.$repeater.repeater({initEmpty: true});
     assert.strictEqual(
         this.$repeater.find('[data-repeater-item]').length, 0,
         'starts with no items'
@@ -114,7 +114,7 @@ QUnit.test('second repeater add item', function (assert) {
 QUnit.test('multiple add buttons', function (assert) {
     this.$repeater.append(
         '<div data-repeater-create class="second-add">' +
-            'Another Add Button' +
+        'Another Add Button' +
         '</div>'
     );
     this.$repeater.repeater();
@@ -149,7 +149,7 @@ QUnit.test('add item with default values and rewrite names', function (assert) {
         getNamedInputValues(this.$repeater.find('[data-repeater-item]').last()),
         generateNameMappedInputValues('a', 2, '', {
             'group-a[2][text-input]': 'foo',
-            'group-a[2][checkbox-input][]' : ['A', 'B'],
+            'group-a[2][checkbox-input][]': ['A', 'B'],
             "group-a[2][multiple-select-input][]": ['B']
         })
     );
@@ -216,7 +216,7 @@ QUnit.asyncTest('custom hide callback', function (assert) {
             assert.strictEqual($(this).length, 1, 'has one element');
             assert.deepEqual(
                 getNamedInputValues($(this)),
-                generateNameMappedInputValues('a', 0, 'A',{
+                generateNameMappedInputValues('a', 0, 'A', {
                     "group-a[0][multiple-select-input][]": ['A', 'B']
                 }),
                 '"this" is set to first element'
@@ -236,10 +236,10 @@ QUnit.asyncTest('custom hide callback', function (assert) {
 });
 
 QUnit.test('isFirstItemUndeletable configuration option', function (assert) {
-    this.$repeater.repeater({ isFirstItemUndeletable: true });
+    this.$repeater.repeater({isFirstItemUndeletable: true});
 
     var $firstDeleteButton = this.$repeater.find('[data-repeater-item]')
-                                        .first().find('[data-repeater-delete]');
+        .first().find('[data-repeater-delete]');
 
     assert.strictEqual($firstDeleteButton.length, 0, 'first delete button is removed');
 });

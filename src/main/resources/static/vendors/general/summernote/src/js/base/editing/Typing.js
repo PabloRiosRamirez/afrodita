@@ -78,7 +78,7 @@ export default class Typing {
           if (dom.isRightEdgePoint(rng.getStartPoint()) && dom.isBR(rng.sc.nextSibling)) {
             $(rng.sc.nextSibling).remove();
           }
-          const split = dom.splitTree(blockquote, rng.getStartPoint(), { isDiscardEmptySplits: true });
+          const split = dom.splitTree(blockquote, rng.getStartPoint(), {isDiscardEmptySplits: true});
           if (split) {
             split.parentNode.insertBefore(nextPara, split);
           } else {
@@ -91,9 +91,10 @@ export default class Typing {
           let emptyAnchors = dom.listDescendant(splitRoot, dom.isEmptyAnchor);
           emptyAnchors = emptyAnchors.concat(dom.listDescendant(nextPara, dom.isEmptyAnchor));
 
-          $.each(emptyAnchors, (idx, anchor) => {
+          $.each(emptyAnchors, (idx, anchor) = > {
             dom.remove(anchor);
-          });
+        })
+          ;
 
           // replace empty heading, pre or custom-made styleTag with P tag
           if ((dom.isHeading(nextPara) || dom.isPre(nextPara) || dom.isCustomStyleTag(nextPara)) && dom.isEmpty(nextPara)) {
@@ -101,7 +102,7 @@ export default class Typing {
           }
         }
       }
-    // no paragraph: insert empty paragraph
+      // no paragraph: insert empty paragraph
     } else {
       const next = rng.sc.childNodes[rng.so];
       nextPara = $(dom.emptyPara)[0];

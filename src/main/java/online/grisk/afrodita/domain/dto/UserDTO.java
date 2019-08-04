@@ -32,7 +32,7 @@ public class UserDTO {
     private OrganizationDTO organization;
 
     public Map<String, Object> toMap() {
-        Map<String, Object> objectMap  = new HashMap<>();
+        Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("username", username);
         objectMap.put("email", email);
         objectMap.put("pass", pass);

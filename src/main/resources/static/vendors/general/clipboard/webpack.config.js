@@ -35,11 +35,13 @@ module.exports = {
                     keep_fnames: false,
                     output: {
                         beautify: false,
-                        comments: (node, {value, type}) => type == 'comment2' && value.startsWith('!')
-                    }
+                        comments: (node, {value, type}) = > type == 'comment2' && value.startsWith('!')
                 }
-            })
-        ]
-    },
-    plugins: [new webpack.BannerPlugin({ banner })]
-};
+            }
+    }
+)
+]
+},
+plugins: [new webpack.BannerPlugin({banner})]
+}
+;

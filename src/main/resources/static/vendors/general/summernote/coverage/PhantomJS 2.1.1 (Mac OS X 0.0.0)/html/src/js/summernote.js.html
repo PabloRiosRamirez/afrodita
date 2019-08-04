@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/summernote.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../prettify.css" />
-    <link rel="stylesheet" href="../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/summernote.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../prettify.css" rel="stylesheet"/>
+  <link href="../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line low'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -147,43 +147,43 @@ $.fn.extend({
    * @param {Object|String}
    * @return {this}
    */
-  summernote: <span class="fstat-no" title="function not covered" >function() {</span>
-<span class="cstat-no" title="statement not covered" >    const type = $.type(lists.head(arguments));</span>
-<span class="cstat-no" title="statement not covered" >    const isExternalAPICalled = type === 'string';</span>
-<span class="cstat-no" title="statement not covered" >    const hasInitOptions = type === 'object';</span>
+  summernote: <span class="fstat-no" title="function not covered">function() {</span>
+<span class="cstat-no" title="statement not covered">    const type = $.type(lists.head(arguments));</span>
+<span class="cstat-no" title="statement not covered">    const isExternalAPICalled = type === 'string';</span>
+<span class="cstat-no" title="statement not covered">    const hasInitOptions = type === 'object';</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const options = $.extend({}, $.summernote.options, hasInitOptions ? lists.head(arguments) : {});</span>
+<span class="cstat-no" title="statement not covered">    const options = $.extend({}, $.summernote.options, hasInitOptions ? lists.head(arguments) : {});</span>
 &nbsp;
     // Update options
-<span class="cstat-no" title="statement not covered" >    options.langInfo = $.extend(true, {}, $.summernote.lang['en-US'], $.summernote.lang[options.lang]);</span>
-<span class="cstat-no" title="statement not covered" >    options.icons = $.extend(true, {}, $.summernote.options.icons, options.icons);</span>
-<span class="cstat-no" title="statement not covered" >    options.tooltip = options.tooltip === 'auto' ? !env.isSupportTouch : options.tooltip;</span>
+<span class="cstat-no" title="statement not covered">    options.langInfo = $.extend(true, {}, $.summernote.lang['en-US'], $.summernote.lang[options.lang]);</span>
+<span class="cstat-no" title="statement not covered">    options.icons = $.extend(true, {}, $.summernote.options.icons, options.icons);</span>
+<span class="cstat-no" title="statement not covered">    options.tooltip = options.tooltip === 'auto' ? !env.isSupportTouch : options.tooltip;</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    this.each(<span class="fstat-no" title="function not covered" >(idx, note)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >      const $note = $(note);</span>
-<span class="cstat-no" title="statement not covered" >      if (!$note.data('summernote')) {</span>
-<span class="cstat-no" title="statement not covered" >        const context = new Context($note, options);</span>
-<span class="cstat-no" title="statement not covered" >        $note.data('summernote', context);</span>
-<span class="cstat-no" title="statement not covered" >        $note.data('summernote').triggerEvent('init', context.layoutInfo);</span>
+<span class="cstat-no" title="statement not covered">    this.each(<span class="fstat-no" title="function not covered">(idx, note)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">      const $note = $(note);</span>
+<span class="cstat-no" title="statement not covered">      if (!$note.data('summernote')) {</span>
+<span class="cstat-no" title="statement not covered">        const context = new Context($note, options);</span>
+<span class="cstat-no" title="statement not covered">        $note.data('summernote', context);</span>
+<span class="cstat-no" title="statement not covered">        $note.data('summernote').triggerEvent('init', context.layoutInfo);</span>
       }
     });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const $note = this.first();</span>
-<span class="cstat-no" title="statement not covered" >    if ($note.length) {</span>
-<span class="cstat-no" title="statement not covered" >      const context = $note.data('summernote');</span>
-<span class="cstat-no" title="statement not covered" >      if (isExternalAPICalled) {</span>
-<span class="cstat-no" title="statement not covered" >        return context.invoke.apply(context, lists.from(arguments));</span>
-      } else <span class="cstat-no" title="statement not covered" >if (options.focus) {</span>
-<span class="cstat-no" title="statement not covered" >        context.invoke('editor.focus');</span>
+<span class="cstat-no" title="statement not covered">    const $note = this.first();</span>
+<span class="cstat-no" title="statement not covered">    if ($note.length) {</span>
+<span class="cstat-no" title="statement not covered">      const context = $note.data('summernote');</span>
+<span class="cstat-no" title="statement not covered">      if (isExternalAPICalled) {</span>
+<span class="cstat-no" title="statement not covered">        return context.invoke.apply(context, lists.from(arguments));</span>
+      } else <span class="cstat-no" title="statement not covered">if (options.focus) {</span>
+<span class="cstat-no" title="statement not covered">        context.invoke('editor.focus');</span>
       }
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    return this;</span>
+<span class="cstat-no" title="statement not covered">    return this;</span>
   }
 });
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -192,11 +192,11 @@ $.fn.extend({
 </div>
 <script src="../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../sorter.js"></script>
 </body>

@@ -18,15 +18,15 @@ License: You must have a valid license purchased only from themeforest(the above
 <head>
     <meta charset="utf-8"/>
     <title>GRisk | No encontrado</title>
-    <meta name="description" content="GRisk - No encontrado">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta content="GRisk - No encontrado" name="description">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
 
     <!--begin::Page Custom Styles(used by this page) -->
-    <link th:href="@{/css/login/login.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/login/login.css}" type="text/css"/>
     <!--end::Page Custom Styles -->
 
     <!--begin::Global Theme Styles(used by all pages) -->
-    <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.bundle.css}" type="text/css"/>
 
     <!--end::Global Theme Styles -->
 
@@ -48,8 +48,8 @@ License: You must have a valid license purchased only from themeforest(the above
                 <div class="kt-login__container">
                     <div class="kt-login__logo" style="margin: 0 auto 6rem auto">
                         <a href="#">
-                            <img alt="" th:src="@{/images/grisk-reverse.png}" style=" width: 10rem;
-                            background-size: cover;">
+                            <img alt="" style=" width: 10rem;
+                            background-size: cover;" th:src="@{/images/grisk-reverse.png}">
                         </a>
                     </div>
                     <div class="kt-login__signin">
@@ -65,8 +65,9 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                     <div class="kt-form" style="margin: 6rem auto 0 auto">
                         <div class="kt-login__actions">
-                            <button id="kt_redirect_login"
-                                    class="btn btn-brand btn-pill kt-login__btn-primary"  onclick="location.href = '/';">Ir al login
+                            <button class="btn btn-brand btn-pill kt-login__btn-primary"
+                                    id="kt_redirect_login" onclick="location.href = '/';">
+                                Ir al login
                             </button>
                         </div>
                     </div>

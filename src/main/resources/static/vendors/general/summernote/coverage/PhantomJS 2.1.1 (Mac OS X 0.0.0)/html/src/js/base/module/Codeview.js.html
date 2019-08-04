@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/Codeview.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/Codeview.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line medium'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -293,13 +293,14 @@
 import dom from '../core/dom';
 &nbsp;
 let CodeMirror;
-<span class="missing-if-branch" title="if path not taken" >I</span>if (env.hasCodeMirror) {
-<span class="cstat-no" title="statement not covered" >  if (env.isSupportAmd) {</span>
-<span class="cstat-no" title="statement not covered" >    require(['codemirror'], <span class="fstat-no" title="function not covered" >function(cm)</span> {</span>
-<span class="cstat-no" title="statement not covered" >      CodeMirror = cm;</span>
+<span class="missing-if-branch" title="if path not taken">I</span>if (env.hasCodeMirror) {
+<span class="cstat-no" title="statement not covered">  if (env.isSupportAmd) {</span>
+<span class="cstat-no" title="statement not covered">    require(['codemirror'], <span class="fstat-no"
+                                                                                       title="function not covered">function(cm)</span> {</span>
+<span class="cstat-no" title="statement not covered">      CodeMirror = cm;</span>
     });
   } else {
-<span class="cstat-no" title="statement not covered" >    CodeMirror = window.CodeMirror;</span>
+<span class="cstat-no" title="statement not covered">    CodeMirror = window.CodeMirror;</span>
   }
 }
 &nbsp;
@@ -317,8 +318,9 @@ export default class CodeView {
 &nbsp;
   sync() {
     const isCodeview = this.isActivated();
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isCodeview &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >env.hasCodeMirror)</span> {
-<span class="cstat-no" title="statement not covered" >      this.$codable.data('cmEditor').save();</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (isCodeview &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">env.hasCodeMirror)</span> {
+<span class="cstat-no" title="statement not covered">      this.$codable.data('cmEditor').save();</span>
     }
   }
 &nbsp;
@@ -353,28 +355,30 @@ export default class CodeView {
     this.$codable.focus();
 &nbsp;
     // activate CodeMirror as codable
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (env.hasCodeMirror) {
-<span class="cstat-no" title="statement not covered" >      const cmEditor = CodeMirror.fromTextArea(this.$codable[0], this.options.codemirror);</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (env.hasCodeMirror) {
+<span class="cstat-no" title="statement not covered">      const cmEditor = CodeMirror.fromTextArea(this.$codable[0], this.options.codemirror);</span>
 &nbsp;
       // CodeMirror TernServer
-<span class="cstat-no" title="statement not covered" >      if (this.options.codemirror.tern) {</span>
-<span class="cstat-no" title="statement not covered" >        const server = new CodeMirror.TernServer(this.options.codemirror.tern);</span>
-<span class="cstat-no" title="statement not covered" >        cmEditor.ternServer = server;</span>
-<span class="cstat-no" title="statement not covered" >        cmEditor.on('cursorActivity', <span class="fstat-no" title="function not covered" >(cm)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >          server.updateArgHints(cm);</span>
+<span class="cstat-no" title="statement not covered">      if (this.options.codemirror.tern) {</span>
+<span class="cstat-no" title="statement not covered">        const server = new CodeMirror.TernServer(this.options.codemirror.tern);</span>
+<span class="cstat-no" title="statement not covered">        cmEditor.ternServer = server;</span>
+<span class="cstat-no" title="statement not covered">        cmEditor.on('cursorActivity', <span class="fstat-no"
+                                                                                                 title="function not covered">(cm)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">          server.updateArgHints(cm);</span>
         });
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      cmEditor.on('blur', <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {</span>
-<span class="cstat-no" title="statement not covered" >        this.context.triggerEvent('blur.codeview', cmEditor.getValue(), event);</span>
+<span class="cstat-no" title="statement not covered">      cmEditor.on('blur', <span class="fstat-no"
+                                                                                     title="function not covered">(event)</span> =&gt; {</span>
+<span class="cstat-no" title="statement not covered">        this.context.triggerEvent('blur.codeview', cmEditor.getValue(), event);</span>
       });
 &nbsp;
       // CodeMirror hasn't Padding.
-<span class="cstat-no" title="statement not covered" >      cmEditor.setSize(null, this.$editable.outerHeight());</span>
-<span class="cstat-no" title="statement not covered" >      this.$codable.data('cmEditor', cmEditor);</span>
+<span class="cstat-no" title="statement not covered">      cmEditor.setSize(null, this.$editable.outerHeight());</span>
+<span class="cstat-no" title="statement not covered">      this.$codable.data('cmEditor', cmEditor);</span>
     } else {
-      this.$codable.on('blur', <span class="fstat-no" title="function not covered" >(event)</span> =&gt; {
-<span class="cstat-no" title="statement not covered" >        this.context.triggerEvent('blur.codeview', this.$codable.val(), event);</span>
+      this.$codable.on('blur', <span class="fstat-no" title="function not covered">(event)</span> =&gt; {
+<span class="cstat-no" title="statement not covered">        this.context.triggerEvent('blur.codeview', this.$codable.val(), event);</span>
       });
     }
   }
@@ -384,21 +388,22 @@ export default class CodeView {
    */
   deactivate() {
     // deactivate CodeMirror as codable
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (env.hasCodeMirror) {
-<span class="cstat-no" title="statement not covered" >      const cmEditor = this.$codable.data('cmEditor');</span>
-<span class="cstat-no" title="statement not covered" >      this.$codable.val(cmEditor.getValue());</span>
-<span class="cstat-no" title="statement not covered" >      cmEditor.toTextArea();</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (env.hasCodeMirror) {
+<span class="cstat-no" title="statement not covered">      const cmEditor = this.$codable.data('cmEditor');</span>
+<span class="cstat-no" title="statement not covered">      this.$codable.val(cmEditor.getValue());</span>
+<span class="cstat-no" title="statement not covered">      cmEditor.toTextArea();</span>
     }
 &nbsp;
-    const value = dom.value(this.$codable, this.options.prettifyHtml) || <span class="branch-1 cbranch-no" title="branch not covered" >dom.emptyPara;</span>
+    const value = dom.value(this.$codable, this.options.prettifyHtml) || <span class="branch-1 cbranch-no"
+                                                                               title="branch not covered">dom.emptyPara;</span>
     const isChange = this.$editable.html() !== value;
 &nbsp;
     this.$editable.html(value);
-    this.$editable.height(this.options.height ? <span class="branch-0 cbranch-no" title="branch not covered" >this.$codable.height() </span>: 'auto');
+    this.$editable.height(this.options.height ? <span class="branch-0 cbranch-no" title="branch not covered">this.$codable.height() </span>: 'auto');
     this.$editor.removeClass('codeview');
 &nbsp;
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isChange) {
-<span class="cstat-no" title="statement not covered" >      this.context.triggerEvent('change', this.$editable.html(), this.$editable);</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (isChange) {
+<span class="cstat-no" title="statement not covered">      this.context.triggerEvent('change', this.$editable.html(), this.$editable);</span>
     }
 &nbsp;
     this.$editable.focus();
@@ -407,14 +412,14 @@ export default class CodeView {
   }
 &nbsp;
   destroy() {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (this.isActivated()) {
-<span class="cstat-no" title="statement not covered" >      this.deactivate();</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (this.isActivated()) {
+<span class="cstat-no" title="statement not covered">      this.deactivate();</span>
     }
   }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -423,11 +428,11 @@ export default class CodeView {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

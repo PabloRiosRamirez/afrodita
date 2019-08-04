@@ -56,31 +56,36 @@ export default class Context {
   _initialize() {
     // add optional buttons
     const buttons = $.extend({}, this.options.buttons);
-    Object.keys(buttons).forEach((key) => {
+    Object.keys(buttons).forEach((key) = > {
       this.memo('button.' + key, buttons[key]);
-    });
+  })
+    ;
 
     const modules = $.extend({}, this.options.modules, $.summernote.plugins || {});
 
     // add and initialize modules
-    Object.keys(modules).forEach((key) => {
+    Object.keys(modules).forEach((key) = > {
       this.module(key, modules[key], true);
-    });
+  })
+    ;
 
-    Object.keys(this.modules).forEach((key) => {
+    Object.keys(this.modules).forEach((key) = > {
       this.initializeModule(key);
-    });
+  })
+    ;
   }
 
   _destroy() {
     // destroy modules with reversed order
-    Object.keys(this.modules).reverse().forEach((key) => {
+    Object.keys(this.modules).reverse().forEach((key) = > {
       this.removeModule(key);
-    });
+  })
+    ;
 
-    Object.keys(this.memos).forEach((key) => {
+    Object.keys(this.memos).forEach((key) = > {
       this.removeMemo(key);
-    });
+  })
+    ;
     // trigger custom onDestroy callback
     this.triggerEvent('destroy', this);
   }
@@ -198,18 +203,24 @@ export default class Context {
    * Some buttons need to change their visual style immediately once they get pressed
    */
   createInvokeHandlerAndUpdateState(namespace, value) {
-    return (event) => {
+    return (event) =
+  >
+    {
       this.createInvokeHandler(namespace, value)(event);
       this.invoke('buttons.updateCurrentStyle');
-    };
+    }
+    ;
   }
 
   createInvokeHandler(namespace, value) {
-    return (event) => {
+    return (event) =
+  >
+    {
       event.preventDefault();
       const $target = $(event.target);
       this.invoke(namespace, value || $target.closest('[data-value]').data('value'), $target);
-    };
+    }
+    ;
   }
 
   invoke() {

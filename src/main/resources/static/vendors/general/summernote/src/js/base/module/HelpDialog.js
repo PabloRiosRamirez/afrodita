@@ -28,13 +28,14 @@ export default class HelpDialog {
       fade: this.options.dialogsFade,
       body: this.createShortcutList(),
       footer: body,
-      callback: ($node) => {
-        $node.find('.modal-body,.note-modal-body').css({
-          'max-height': 300,
-          'overflow': 'scroll'
-        });
-      }
-    }).render().appendTo($container);
+      callback: ($node) = > {
+      $node.find('.modal-body,.note-modal-body').css({
+        'max-height': 300,
+        'overflow': 'scroll'
+      });
+  }
+  }).
+    render().appendTo($container);
   }
 
   destroy() {
@@ -44,15 +45,16 @@ export default class HelpDialog {
 
   createShortcutList() {
     const keyMap = this.options.keyMap[env.isMac ? 'mac' : 'pc'];
-    return Object.keys(keyMap).map((key) => {
+    return Object.keys(keyMap).map((key) = > {
       const command = keyMap[key];
-      const $row = $('<div><div class="help-list-item"/></div>');
-      $row.append($('<label><kbd>' + key + '</kdb></label>').css({
-        'width': 180,
-        'margin-right': 10
-      })).append($('<span/>').html(this.context.memo('help.' + command) || command));
-      return $row.html();
-    }).join('');
+    const $row = $('<div><div class="help-list-item"/></div>');
+    $row.append($('<label><kbd>' + key + '</kdb></label>').css({
+      'width': 180,
+      'margin-right': 10
+    })).append($('<span/>').html(this.context.memo('help.' + command) || command));
+    return $row.html();
+  }).
+    join('');
   }
 
   /**
@@ -61,19 +63,22 @@ export default class HelpDialog {
    * @return {Promise}
    */
   showHelpDialog() {
-    return $.Deferred((deferred) => {
-      this.ui.onDialogShown(this.$dialog, () => {
+    return $.Deferred((deferred) = > {
+      this.ui.onDialogShown(this.$dialog, () = > {
         this.context.triggerEvent('dialog.shown');
-        deferred.resolve();
-      });
-      this.ui.showDialog(this.$dialog);
-    }).promise();
+    deferred.resolve();
+  })
+    ;
+    this.ui.showDialog(this.$dialog);
+  }).
+    promise();
   }
 
   show() {
     this.context.invoke('editor.saveRange');
-    this.showHelpDialog().then(() => {
+    this.showHelpDialog().then(() = > {
       this.context.invoke('editor.restoreRange');
-    });
+  })
+    ;
   }
 }

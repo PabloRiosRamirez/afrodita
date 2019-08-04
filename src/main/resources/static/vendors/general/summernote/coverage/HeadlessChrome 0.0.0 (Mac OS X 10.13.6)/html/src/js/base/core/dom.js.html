@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/core/dom.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/core/dom.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line high'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -2279,8 +2279,9 @@ function isEditable(node) {
  * @param {Node} node
  * @return {Boolean}
  */
-<span class="fstat-no" title="function not covered" >function isControlSizing(node)</span> {
-<span class="cstat-no" title="statement not covered" >  return node &amp;&amp; $(node).hasClass('note-control-sizing');</span>
+<span class="fstat-no" title="function not covered">function isControlSizing(node)</span> {
+<span class="cstat-no"
+      title="statement not covered">  return node &amp;&amp; $(node).hasClass('note-control-sizing');</span>
 }
 &nbsp;
 /**
@@ -2387,8 +2388,8 @@ function isParaInline(node) {
   return isInline(node) &amp;&amp; !!ancestor(node, isPara);
 }
 &nbsp;
-<span class="fstat-no" title="function not covered" >function isBodyInline(node)</span> {
-<span class="cstat-no" title="statement not covered" >  return isInline(node) &amp;&amp; !ancestor(node, isPara);</span>
+<span class="fstat-no" title="function not covered">function isBodyInline(node)</span> {
+<span class="cstat-no" title="statement not covered">  return isInline(node) &amp;&amp; !ancestor(node, isPara);</span>
 }
 &nbsp;
 const isBody = makePredByNodeName('BODY');
@@ -2400,8 +2401,8 @@ const isBody = makePredByNodeName('BODY');
  * @param {Node} nodeB
  * @return {Boolean}
  */
-<span class="fstat-no" title="function not covered" >function isClosestSibling(nodeA, nodeB)</span> {
-<span class="cstat-no" title="statement not covered" >  return nodeA.nextSibling === nodeB ||</span>
+<span class="fstat-no" title="function not covered">function isClosestSibling(nodeA, nodeB)</span> {
+<span class="cstat-no" title="statement not covered">  return nodeA.nextSibling === nodeB ||</span>
          nodeA.previousSibling === nodeB;
 }
 &nbsp;
@@ -2413,11 +2414,12 @@ const isBody = makePredByNodeName('BODY');
  * @return {Node[]}
  */
 function withClosestSiblings(node, pred) {
-  pred = pred || <span class="branch-1 cbranch-no" title="branch not covered" >func.ok;</span>
+  pred = pred || <span class="branch-1 cbranch-no" title="branch not covered">func.ok;</span>
 &nbsp;
   const siblings = [];
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (node.previousSibling &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >pred(node.previousSibling))</span> {
-<span class="cstat-no" title="statement not covered" >    siblings.push(node.previousSibling);</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (node.previousSibling &amp;&amp; <span
+    class="branch-1 cbranch-no" title="branch not covered">pred(node.previousSibling))</span> {
+<span class="cstat-no" title="statement not covered">    siblings.push(node.previousSibling);</span>
   }
   siblings.push(node);
   if (node.nextSibling &amp;&amp; pred(node.nextSibling)) {
@@ -2431,7 +2433,8 @@ function withClosestSiblings(node, pred) {
  * - [workaround] old IE only works with &amp;nbsp;
  * - [workaround] IE11 and other browser works with bogus br
  */
-const blankHTML = env.isMSIE &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered" >env.browserVersion &lt; 11 </span>? <span class="branch-0 cbranch-no" title="branch not covered" >'&amp;nbsp;' </span>: '&lt;br&gt;';
+const blankHTML = env.isMSIE &amp;&amp; <span class="branch-1 cbranch-no" title="branch not covered">env.browserVersion &lt; 11 </span>? <span
+    class="branch-0 cbranch-no" title="branch not covered">'&amp;nbsp;' </span>: '&lt;br&gt;';
 &nbsp;
 /**
  * @method nodeLength
@@ -2445,11 +2448,11 @@ function nodeLength(node) {
     return node.nodeValue.length;
   }
 &nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (node) {
+  <span class="missing-if-branch" title="else path not taken">E</span>if (node) {
     return node.childNodes.length;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return 0;</span>
+<span class="cstat-no" title="statement not covered">  return 0;</span>
 }
 &nbsp;
 /**
@@ -2466,9 +2469,9 @@ function isEmpty(node) {
   } else if (!isText(node) &amp;&amp; len === 1 &amp;&amp; node.innerHTML === blankHTML) {
     // ex) &lt;p&gt;&lt;br&gt;&lt;/p&gt;, &lt;span&gt;&lt;br&gt;&lt;/span&gt;
     return true;
-  } else <span class="missing-if-branch" title="if path not taken" >I</span>if (lists.all(node.childNodes, isText) &amp;&amp; node.innerHTML === '') {
+  } else <span class="missing-if-branch" title="if path not taken">I</span>if (lists.all(node.childNodes, isText) &amp;&amp; node.innerHTML === '') {
     // ex) &lt;p&gt;&lt;/p&gt;, &lt;span&gt;&lt;/span&gt;
-<span class="cstat-no" title="statement not covered" >    return true;</span>
+<span class="cstat-no" title="statement not covered">    return true;</span>
   }
 &nbsp;
   return false;
@@ -2557,7 +2560,7 @@ function commonAncestor(nodeA, nodeB) {
   for (let n = nodeB; n; n = n.parentNode) {
     if ($.inArray(n, ancestors) &gt; -1) { return n; }
   }
-<span class="cstat-no" title="statement not covered" >  return null; </span>// difference document area
+<span class="cstat-no" title="statement not covered">  return null; </span>// difference document area
 }
 &nbsp;
 /**
@@ -2722,8 +2725,8 @@ function isLeftEdgeOf(node, ancestor) {
  * @return {Boolean}
  */
 function isRightEdgeOf(node, ancestor) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!ancestor) {
-<span class="cstat-no" title="statement not covered" >    return false;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (!ancestor) {
+<span class="cstat-no" title="statement not covered">    return false;</span>
   }
   while (node &amp;&amp; node !== ancestor) {
     if (position(node) !== nodeLength(node.parentNode) - 1) {
@@ -2784,8 +2787,8 @@ function prevPoint(point, isSkipInnerOffset) {
   let offset;
 &nbsp;
   if (point.offset === 0) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEditable(point.node)) {
-<span class="cstat-no" title="statement not covered" >      return null;</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (isEditable(point.node)) {
+<span class="cstat-no" title="statement not covered">      return null;</span>
     }
 &nbsp;
     node = point.node.parentNode;
@@ -2795,7 +2798,7 @@ function prevPoint(point, isSkipInnerOffset) {
     offset = nodeLength(node);
   } else {
     node = point.node;
-    offset = isSkipInnerOffset ? <span class="branch-0 cbranch-no" title="branch not covered" >0 </span>: point.offset - 1;
+    offset = isSkipInnerOffset ? <span class="branch-0 cbranch-no" title="branch not covered">0 </span>: point.offset - 1;
   }
 &nbsp;
   return {
@@ -2815,8 +2818,8 @@ function nextPoint(point, isSkipInnerOffset) {
   let node, offset;
 &nbsp;
   if (nodeLength(point.node) === point.offset) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (isEditable(point.node)) {
-<span class="cstat-no" title="statement not covered" >      return null;</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (isEditable(point.node)) {
+<span class="cstat-no" title="statement not covered">      return null;</span>
     }
 &nbsp;
     node = point.node.parentNode;
@@ -2882,7 +2885,7 @@ function prevPointUntil(point, pred) {
     point = prevPoint(point);
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+<span class="cstat-no" title="statement not covered">  return null;</span>
 }
 &nbsp;
 /**
@@ -2901,7 +2904,7 @@ function nextPointUntil(point, pred) {
     point = nextPoint(point);
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return null;</span>
+<span class="cstat-no" title="statement not covered">  return null;</span>
 }
 &nbsp;
 /**
@@ -2911,8 +2914,8 @@ function nextPointUntil(point, pred) {
  * @return {Boolean}
  */
 function isCharPoint(point) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!isText(point.node)) {
-<span class="cstat-no" title="statement not covered" >    return false;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (!isText(point.node)) {
+<span class="cstat-no" title="statement not covered">    return false;</span>
   }
 &nbsp;
   const ch = point.node.nodeValue.charAt(point.offset - 1);
@@ -2968,8 +2971,9 @@ function makeOffsetPath(ancestor, node) {
 function fromOffsetPath(ancestor, offsets) {
   let current = ancestor;
   for (let i = 0, len = offsets.length; i &lt; len; i++) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (current.childNodes.length &lt;= offsets[i]) {
-<span class="cstat-no" title="statement not covered" >      current = current.childNodes[current.childNodes.length - 1];</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (current.childNodes.length &lt;= offsets[i]) {
+<span class="cstat-no"
+      title="statement not covered">      current = current.childNodes[current.childNodes.length - 1];</span>
     } else {
       current = current.childNodes[offsets[i]];
     }
@@ -3002,7 +3006,7 @@ function splitNode(point, options) {
   if (isEdgePoint(point) &amp;&amp; (isText(point.node) || isNotSplitEdgePoint)) {
     if (isLeftEdgePoint(point)) {
       return point.node;
-    } else <span class="missing-if-branch" title="else path not taken" >E</span>if (isRightEdgePoint(point)) {
+    } else <span class="missing-if-branch" title="else path not taken">E</span>if (isRightEdgePoint(point)) {
       return point.node.nextSibling;
     }
   }
@@ -3050,8 +3054,8 @@ function splitTree(root, point, options) {
   // ex) [#text, &lt;span&gt;, &lt;p&gt;]
   const ancestors = listAncestor(point.node, func.eq(root));
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (!ancestors.length) {
-<span class="cstat-no" title="statement not covered" >    return null;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (!ancestors.length) {
+<span class="cstat-no" title="statement not covered">    return null;</span>
   } else if (ancestors.length === 1) {
     return splitNode(point, options);
   }
@@ -3081,7 +3085,8 @@ function splitPoint(point, isInline) {
   //  - block: splitRoot is a child of bodyContainer
   const pred = isInline ? isPara : isBodyContainer;
   const ancestors = listAncestor(point.node, pred);
-  const topAncestor = lists.last(ancestors) || <span class="branch-1 cbranch-no" title="branch not covered" >point.node;</span>
+  const topAncestor = lists.last(ancestors) || <span class="branch-1 cbranch-no"
+                                                     title="branch not covered">point.node;</span>
 &nbsp;
   let splitRoot, container;
   if (pred(topAncestor)) {
@@ -3127,17 +3132,18 @@ function createText(text) {
  */
 function remove(node, isRemoveChild) {
   if (!node || !node.parentNode) { return; }
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (node.removeNode) { <span class="cstat-no" title="statement not covered" >return node.removeNode(isRemoveChild); </span>}
+  <span class="missing-if-branch" title="if path not taken">I</span>if (node.removeNode) { <span class="cstat-no"
+                                                                                                 title="statement not covered">return node.removeNode(isRemoveChild); </span>}
 &nbsp;
   const parent = node.parentNode;
   if (!isRemoveChild) {
     const nodes = [];
     for (let i = 0, len = node.childNodes.length; i &lt; len; i++) {
-<span class="cstat-no" title="statement not covered" >      nodes.push(node.childNodes[i]);</span>
+<span class="cstat-no" title="statement not covered">      nodes.push(node.childNodes[i]);</span>
     }
 &nbsp;
     for (let i = 0, len = nodes.length; i &lt; len; i++) {
-<span class="cstat-no" title="statement not covered" >      parent.insertBefore(nodes[i], node);</span>
+<span class="cstat-no" title="statement not covered">      parent.insertBefore(nodes[i], node);</span>
     }
   }
 &nbsp;
@@ -3150,15 +3156,15 @@ function remove(node, isRemoveChild) {
  * @param {Node} node
  * @param {Function} pred
  */
-<span class="fstat-no" title="function not covered" >function removeWhile(node, pred)</span> {
-<span class="cstat-no" title="statement not covered" >  while (node) {</span>
-<span class="cstat-no" title="statement not covered" >    if (isEditable(node) || !pred(node)) {</span>
-<span class="cstat-no" title="statement not covered" >      break;</span>
+<span class="fstat-no" title="function not covered">function removeWhile(node, pred)</span> {
+<span class="cstat-no" title="statement not covered">  while (node) {</span>
+<span class="cstat-no" title="statement not covered">    if (isEditable(node) || !pred(node)) {</span>
+<span class="cstat-no" title="statement not covered">      break;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const parent = node.parentNode;</span>
-<span class="cstat-no" title="statement not covered" >    remove(node);</span>
-<span class="cstat-no" title="statement not covered" >    node = parent;</span>
+<span class="cstat-no" title="statement not covered">    const parent = node.parentNode;</span>
+<span class="cstat-no" title="statement not covered">    remove(node);</span>
+<span class="cstat-no" title="statement not covered">    node = parent;</span>
   }
 }
 &nbsp;
@@ -3172,14 +3178,14 @@ function remove(node, isRemoveChild) {
  * @return {Node} - new node
  */
 function replace(node, nodeName) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (node.nodeName.toUpperCase() === nodeName.toUpperCase()) {
-<span class="cstat-no" title="statement not covered" >    return node;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (node.nodeName.toUpperCase() === nodeName.toUpperCase()) {
+<span class="cstat-no" title="statement not covered">    return node;</span>
   }
 &nbsp;
   const newNode = create(nodeName);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (node.style.cssText) {
-<span class="cstat-no" title="statement not covered" >    newNode.style.cssText = node.style.cssText;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (node.style.cssText) {
+<span class="cstat-no" title="statement not covered">    newNode.style.cssText = node.style.cssText;</span>
   }
 &nbsp;
   appendChildNodes(newNode, lists.from(node.childNodes));
@@ -3197,8 +3203,8 @@ const isTextarea = makePredByNodeName('TEXTAREA');
  */
 function value($node, stripLinebreaks) {
   const val = isTextarea($node[0]) ? $node.val() : $node.html();
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (stripLinebreaks) {
-<span class="cstat-no" title="statement not covered" >    return val.replace(/[\n\r]/g, '');</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (stripLinebreaks) {
+<span class="cstat-no" title="statement not covered">    return val.replace(/[\n\r]/g, '');</span>
   }
   return val;
 }
@@ -3214,17 +3220,18 @@ function value($node, stripLinebreaks) {
 function html($node, isNewlineOnBlock) {
   let markup = value($node);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (isNewlineOnBlock) {
-<span class="cstat-no" title="statement not covered" >    const regexTag = /&lt;(\/?)(\b(?!!)[^&gt;\s]*)(.*?)(\s*\/?&gt;)/g;</span>
-<span class="cstat-no" title="statement not covered" >    markup = markup.replace(regexTag, <span class="fstat-no" title="function not covered" >function(match, endSlash, name)</span> {</span>
-<span class="cstat-no" title="statement not covered" >      name = name.toUpperCase();</span>
-<span class="cstat-no" title="statement not covered" >      const isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &amp;&amp;</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (isNewlineOnBlock) {
+<span class="cstat-no" title="statement not covered">    const regexTag = /&lt;(\/?)(\b(?!!)[^&gt;\s]*)(.*?)(\s*\/?&gt;)/g;</span>
+<span class="cstat-no" title="statement not covered">    markup = markup.replace(regexTag, <span class="fstat-no"
+                                                                                                 title="function not covered">function(match, endSlash, name)</span> {</span>
+<span class="cstat-no" title="statement not covered">      name = name.toUpperCase();</span>
+<span class="cstat-no" title="statement not covered">      const isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &amp;&amp;</span>
                                    !!endSlash;
-<span class="cstat-no" title="statement not covered" >      const isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);</span>
+<span class="cstat-no" title="statement not covered">      const isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');</span>
+<span class="cstat-no" title="statement not covered">      return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');</span>
     });
-<span class="cstat-no" title="statement not covered" >    markup = $.trim(markup);</span>
+<span class="cstat-no" title="statement not covered">    markup = $.trim(markup);</span>
   }
 &nbsp;
   return markup;
@@ -3357,7 +3364,7 @@ export default {
 };
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -3366,11 +3373,11 @@ export default {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

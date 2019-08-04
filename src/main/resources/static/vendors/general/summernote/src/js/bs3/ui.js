@@ -25,8 +25,8 @@ const airEditable = renderer.create([
 
 const buttonGroup = renderer.create('<div class="note-btn-group btn-group">');
 
-const dropdown = renderer.create('<ul class="dropdown-menu" role="list">', function($node, options) {
-  const markup = $.isArray(options.items) ? options.items.map(function(item) {
+const dropdown = renderer.create('<ul class="dropdown-menu" role="list">', function ($node, options) {
+  const markup = $.isArray(options.items) ? options.items.map(function (item) {
     const value = (typeof item === 'string') ? item : (item.value || '');
     const content = options.template ? options.template(item) : item;
     const option = (typeof item === 'object') ? item.option : undefined;
@@ -36,23 +36,23 @@ const dropdown = renderer.create('<ul class="dropdown-menu" role="list">', funct
     return '<li role="listitem" aria-label="' + item + '"><a href="#" ' + (dataValue + dataOption) + '>' + content + '</a></li>';
   }).join('') : options.items;
 
-  $node.html(markup).attr({ 'aria-label': options.title });
+  $node.html(markup).attr({'aria-label': options.title});
 });
 
-const dropdownButtonContents = function(contents, options) {
+const dropdownButtonContents = function (contents, options) {
   return contents + ' ' + icon(options.icons.caret, 'span');
 };
 
-const dropdownCheck = renderer.create('<ul class="dropdown-menu note-check" role="list">', function($node, options) {
-  const markup = $.isArray(options.items) ? options.items.map(function(item) {
+const dropdownCheck = renderer.create('<ul class="dropdown-menu note-check" role="list">', function ($node, options) {
+  const markup = $.isArray(options.items) ? options.items.map(function (item) {
     const value = (typeof item === 'string') ? item : (item.value || '');
     const content = options.template ? options.template(item) : item;
     return '<li role="listitem" aria-label="' + item + '"><a href="#" data-value="' + value + '">' + icon(options.checkClassName) + ' ' + content + '</a></li>';
   }).join('') : options.items;
-  $node.html(markup).attr({ 'aria-label': options.title });
+  $node.html(markup).attr({'aria-label': options.title});
 });
 
-const palette = renderer.create('<div class="note-color-palette"/>', function($node, options) {
+const palette = renderer.create('<div class="note-color-palette"/>', function ($node, options) {
   const contents = [];
   for (let row = 0, rowSize = options.colors.length; row < rowSize; row++) {
     const eventName = options.eventName;
@@ -85,7 +85,7 @@ const palette = renderer.create('<div class="note-color-palette"/>', function($n
   }
 });
 
-const dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function($node, options) {
+const dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex="-1" role="dialog"/>', function ($node, options) {
   if (options.fade) {
     $node.addClass('fade');
   }
@@ -96,14 +96,14 @@ const dialog = renderer.create('<div class="modal" aria-hidden="false" tabindex=
     '<div class="modal-dialog">',
     '  <div class="modal-content">',
     (options.title
-      ? '    <div class="modal-header">' +
-    '      <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' +
-    '      <h4 class="modal-title">' + options.title + '</h4>' +
-    '    </div>' : ''
+        ? '    <div class="modal-header">' +
+        '      <button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true">&times;</button>' +
+        '      <h4 class="modal-title">' + options.title + '</h4>' +
+        '    </div>' : ''
     ),
     '    <div class="modal-body">' + options.body + '</div>',
     (options.footer
-      ? '    <div class="modal-footer">' + options.footer + '</div>' : ''
+        ? '    <div class="modal-footer">' + options.footer + '</div>' : ''
     ),
     '  </div>',
     '</div>'
@@ -115,7 +115,7 @@ const popover = renderer.create([
   '  <div class="arrow"/>',
   '  <div class="popover-content note-children-container"/>',
   '</div>'
-].join(''), function($node, options) {
+].join(''), function ($node, options) {
   const direction = typeof options.direction !== 'undefined' ? options.direction : 'bottom';
 
   $node.addClass(direction);
@@ -125,7 +125,7 @@ const popover = renderer.create([
   }
 });
 
-const checkbox = renderer.create('<div class="checkbox"></div>', function($node, options) {
+const checkbox = renderer.create('<div class="checkbox"></div>', function ($node, options) {
   $node.html([
     '<label' + (options.id ? ' for="' + options.id + '"' : '') + '>',
     ' <input role="checkbox" type="checkbox"' + (options.id ? ' id="' + options.id + '"' : ''),
@@ -136,7 +136,7 @@ const checkbox = renderer.create('<div class="checkbox"></div>', function($node,
   ].join(''));
 });
 
-const icon = function(iconClassName, tagName) {
+const icon = function (iconClassName, tagName) {
   tagName = tagName || 'i';
   return '<' + tagName + ' class="' + iconClassName + '"/>';
 };
@@ -160,8 +160,8 @@ const ui = {
   icon: icon,
   options: {},
 
-  button: function($node, options) {
-    return renderer.create('<button type="button" class="note-btn btn btn-default btn-sm" role="button" tabindex="-1">', function($node, options) {
+  button: function ($node, options) {
+    return renderer.create('<button type="button" class="note-btn btn btn-default btn-sm" role="button" tabindex="-1">', function ($node, options) {
       if (options && options.tooltip) {
         $node.attr({
           title: options.tooltip,
@@ -175,32 +175,32 @@ const ui = {
     })($node, options);
   },
 
-  toggleBtn: function($btn, isEnable) {
+  toggleBtn: function ($btn, isEnable) {
     $btn.toggleClass('disabled', !isEnable);
     $btn.attr('disabled', !isEnable);
   },
 
-  toggleBtnActive: function($btn, isActive) {
+  toggleBtnActive: function ($btn, isActive) {
     $btn.toggleClass('active', isActive);
   },
 
-  onDialogShown: function($dialog, handler) {
+  onDialogShown: function ($dialog, handler) {
     $dialog.one('shown.bs.modal', handler);
   },
 
-  onDialogHidden: function($dialog, handler) {
+  onDialogHidden: function ($dialog, handler) {
     $dialog.one('hidden.bs.modal', handler);
   },
 
-  showDialog: function($dialog) {
+  showDialog: function ($dialog) {
     $dialog.modal('show');
   },
 
-  hideDialog: function($dialog) {
+  hideDialog: function ($dialog) {
     $dialog.modal('hide');
   },
 
-  createLayout: function($note, options) {
+  createLayout: function ($note, options) {
     const $editor = (options.airMode ? ui.airEditor([
       ui.editingArea([
         ui.airEditable()
@@ -227,7 +227,7 @@ const ui = {
     };
   },
 
-  removeLayout: function($note, layoutInfo) {
+  removeLayout: function ($note, layoutInfo) {
     $note.html(layoutInfo.editable.html());
     layoutInfo.editor.remove();
     $note.show();

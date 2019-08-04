@@ -50,7 +50,7 @@ div.source-links {
 .bs-sidenav {
     margin-top: 30px;
     margin-bottom: 30px;
-    padding-top:    10px;
+    padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 5px;
 }
@@ -61,11 +61,13 @@ div.source-links {
     padding: 5px 20px;
     z-index: 1;
 }
+
 .bs-sidebar .nav > li > a:hover,
 .bs-sidebar .nav > li > a:focus {
     text-decoration: none;
     border-right: 1px solid;
 }
+
 .bs-sidebar .nav .nav-link.active,
 .bs-sidebar .nav .nav-link.active:hover,
 .bs-sidebar .nav .nav-link.active:focus {
@@ -79,8 +81,9 @@ div.source-links {
     display: none; /* Hide by default, but at >768px, show it */
     margin-bottom: 8px;
 }
+
 .bs-sidebar .nav .nav > li > a {
-    padding-top:    3px;
+    padding-top: 3px;
     padding-bottom: 3px;
     padding-left: 30px;
     font-size: 90%;
@@ -91,6 +94,7 @@ div.source-links {
     .bs-sidebar .nav-link.active + .nav {
         display: block;
     }
+
     /* Widen the fixed sidebar */
     .bs-sidebar {
         position: sticky; /* Undo the static from mobile first approach */

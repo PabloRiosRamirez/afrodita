@@ -10,8 +10,8 @@ import lists from '../core/lists';
  * @param {enum} action Action to be applied. Use enum: TableResultAction.requestAction
  * @param {object} domTable Dom element of table to make changes.
  */
-const TableResultAction = function(startPoint, where, action, domTable) {
-  const _startPoint = { 'colPos': 0, 'rowPos': 0 };
+const TableResultAction = function (startPoint, where, action, domTable) {
+  const _startPoint = {'colPos': 0, 'rowPos': 0};
   const _virtualTable = [];
   const _actionCellList = [];
 
@@ -219,7 +219,7 @@ const TableResultAction = function(startPoint, where, action, domTable) {
   /**
    * Recover array os what to do in table.
    */
-  this.getActionList = function() {
+  this.getActionList = function () {
     const fixedRow = (where === TableResultAction.where.Row) ? _startPoint.rowPos : -1;
     const fixedCol = (where === TableResultAction.where.Column) ? _startPoint.colPos : -1;
 
@@ -259,20 +259,26 @@ const TableResultAction = function(startPoint, where, action, domTable) {
   init();
 };
 /**
-*
-* Where action occours enum.
-*/
-TableResultAction.where = { 'Row': 0, 'Column': 1 };
+ *
+ * Where action occours enum.
+ */
+TableResultAction.where = {'Row': 0, 'Column': 1};
 /**
-*
-* Requested action to apply enum.
-*/
-TableResultAction.requestAction = { 'Add': 0, 'Delete': 1 };
+ *
+ * Requested action to apply enum.
+ */
+TableResultAction.requestAction = {'Add': 0, 'Delete': 1};
 /**
-*
-* Result action to be executed enum.
-*/
-TableResultAction.resultAction = { 'Ignore': 0, 'SubtractSpanCount': 1, 'RemoveCell': 2, 'AddCell': 3, 'SumSpanCount': 4 };
+ *
+ * Result action to be executed enum.
+ */
+TableResultAction.resultAction = {
+  'Ignore': 0,
+  'SubtractSpanCount': 1,
+  'RemoveCell': 2,
+  'AddCell': 3,
+  'SumSpanCount': 4
+};
 
 /**
  *
@@ -453,7 +459,9 @@ export default class Table {
           continue;
         case TableResultAction.resultAction.AddCell:
           const nextRow = row.next('tr')[0];
-          if (!nextRow) { continue; }
+          if (!nextRow) {
+            continue;
+          }
           const cloneRow = row[0].cells[cellPos];
           if (hasRowspan) {
             if (rowspanNumber > 2) {
@@ -473,10 +481,14 @@ export default class Table {
             if (rowspanNumber > 2) {
               rowspanNumber--;
               baseCell.setAttribute('rowSpan', rowspanNumber);
-              if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
+              if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) {
+                baseCell.innerHTML = '';
+              }
             } else if (rowspanNumber === 2) {
               baseCell.removeAttribute('rowSpan');
-              if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
+              if (virtualPosition.rowIndex !== rowPos && baseCell.cellIndex === cellPos) {
+                baseCell.innerHTML = '';
+              }
             }
           }
           continue;
@@ -518,10 +530,14 @@ export default class Table {
             if (colspanNumber > 2) {
               colspanNumber--;
               baseCell.setAttribute('colSpan', colspanNumber);
-              if (baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
+              if (baseCell.cellIndex === cellPos) {
+                baseCell.innerHTML = '';
+              }
             } else if (colspanNumber === 2) {
               baseCell.removeAttribute('colSpan');
-              if (baseCell.cellIndex === cellPos) { baseCell.innerHTML = ''; }
+              if (baseCell.cellIndex === cellPos) {
+                baseCell.innerHTML = '';
+              }
             }
           }
           continue;

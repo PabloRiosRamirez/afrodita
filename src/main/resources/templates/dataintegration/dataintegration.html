@@ -30,7 +30,7 @@
                             <div class="kt-subheader__main">
                                 <span class="kt-subheader__separator kt-hidden"></span>
                                 <div class="kt-subheader__breadcrumbs">
-                                    <a th:href="@{/}" class="kt-subheader__breadcrumbs-home"><i
+                                    <a class="kt-subheader__breadcrumbs-home" th:href="@{/}"><i
                                             class="flaticon2-shelter"></i></a>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <!--<a href="" class="kt-subheader__breadcrumbs-link">
@@ -70,7 +70,7 @@
                                                     role="tablist">
                                                     <li class="nav-item">
                                                         <a class="nav-link active"
-                                                           th:href="@{/data-integration/setting}" role="tab">
+                                                           role="tab" th:href="@{/dataintegration/setting}">
                                                             <i class="flaticon2-gear"></i>
                                                             Nueva configuración
                                                         </a>
@@ -86,8 +86,8 @@
                                                     Detalles de la configuración
                                                     activa
                                                 </div>
-                                                <div th:if="${dataintegration != null and !dataintegration.bureau}"
-                                                     class="row">
+                                                <div class="row"
+                                                     th:if="${dataintegration != null and !dataintegration.bureau}">
                                                     <div class="form-group col-12">
                                                         <div class="col-12" style="margin-bottom: 15px;">
                                                             <strong>
@@ -95,7 +95,7 @@
                                                             </strong>
                                                         </div>
                                                         <div class="col-12">
-                                                            <a th:href="@{/v1/rest/data-integration/organization/${dataintegration.organization}/file}"
+                                                            <a th:href="@{/v1/rest/dataintegration/organization/${dataintegration.organization}/file}"
                                                                th:text="${dataintegration.analyticsFileName}"></a>
                                                         </div>
                                                     </div>
@@ -124,8 +124,8 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div th:if="${dataintegration != null and dataintegration.bureau}"
-                                                     class="row">
+                                                <div class="row"
+                                                     th:if="${dataintegration != null and dataintegration.bureau}">
                                                     <div class="form-group col-md-6">
                                                         <div class="col-12" style="margin-bottom: 5px;">
                                                             <strong>
@@ -172,7 +172,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div th:if="${dataintegration == null}" class="row">
+                                                <div class="row" th:if="${dataintegration == null}">
                                                     <div class="col-12">
                                                         <div class="col-12 alert alert-outline-danger"
                                                              role="alert" style="margin-bottom: 0px;">

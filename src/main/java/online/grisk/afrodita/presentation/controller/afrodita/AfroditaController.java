@@ -1,10 +1,10 @@
-package online.grisk.afrodita.presentation.controller;
+package online.grisk.afrodita.presentation.controller.afrodita;
 
-import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.TypeVariable;
 import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.UserService;
-import online.grisk.afrodita.integration.activator.impl.ArtemisaActivatorService;
+import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
+import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,7 +26,10 @@ public class AfroditaController {
     UserService userService;
 
     @Autowired
-    ArtemisaActivatorService artemisaActivatorService;
+    EmailActivatorService emailActivatorService;
+
+    @Autowired
+    DataintegrationActivatorService dataintegrationActivatorService;
 
     @Autowired
     List<TypeVariable> getTypesVariables;
@@ -80,42 +83,11 @@ public class AfroditaController {
         model.addAttribute("module", "analysis");
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
         model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
         return "analysis";
-    }
-
-    @RequestMapping(value = "/data-integration", method = GET)
-    public String dataIntegration(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Data Integration");
-        model.addAttribute("description", "Data Integration");
-        model.addAttribute("module", "data-integration");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-        }
-        return "data_integration/data_integration";
-    }
-
-    @RequestMapping(value = "/data-integration/setting", method = GET)
-    public String dataIntegrationSetting(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Data Integration");
-        model.addAttribute("description", "Configuración de Data Integration");
-        model.addAttribute("module", "data-integration");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = artemisaActivatorService.invokeGetDataIntegration(idOrganization);
-        getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-        }
-        model.addAttribute("variables", getVariablesBureau);
-        model.addAttribute("types_variables", getTypesVariables);
-        return "data_integration/data_integration-setting";
     }
 
 

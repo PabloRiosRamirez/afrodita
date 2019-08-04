@@ -24,10 +24,10 @@ class Clipboard extends Emitter {
      * @param {Object} options
      */
     resolveOptions(options = {}) {
-        this.action    = (typeof options.action    === 'function') ? options.action    : this.defaultAction;
-        this.target    = (typeof options.target    === 'function') ? options.target    : this.defaultTarget;
-        this.text      = (typeof options.text      === 'function') ? options.text      : this.defaultText;
-        this.container = (typeof options.container === 'object')   ? options.container : document.body;
+        this.action = (typeof options.action === 'function') ? options.action : this.defaultAction;
+        this.target = (typeof options.target === 'function') ? options.target : this.defaultTarget;
+        this.text = (typeof options.text === 'function') ? options.text : this.defaultText;
+        this.container = (typeof options.container === 'object') ? options.container : document.body;
     }
 
     /**
@@ -35,7 +35,9 @@ class Clipboard extends Emitter {
      * @param {String|HTMLElement|HTMLCollection|NodeList} trigger
      */
     listenClick(trigger) {
-        this.listener = listen(trigger, 'click', (e) => this.onClick(e));
+        this.listener = listen(trigger, 'click', (e) = > this.onClick(e)
+    )
+        ;
     }
 
     /**
@@ -50,12 +52,12 @@ class Clipboard extends Emitter {
         }
 
         this.clipboardAction = new ClipboardAction({
-            action    : this.action(trigger),
-            target    : this.target(trigger),
-            text      : this.text(trigger),
-            container : this.container,
-            trigger   : trigger,
-            emitter   : this
+            action: this.action(trigger),
+            target: this.target(trigger),
+            text: this.text(trigger),
+            container: this.container,
+            trigger: trigger,
+            emitter: this
         });
     }
 
@@ -88,9 +90,10 @@ class Clipboard extends Emitter {
         const actions = (typeof action === 'string') ? [action] : action;
         let support = !!document.queryCommandSupported;
 
-        actions.forEach((action) => {
+        actions.forEach((action) = > {
             support = support && !!document.queryCommandSupported(action);
-        });
+    })
+        ;
 
         return support;
     }

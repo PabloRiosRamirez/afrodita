@@ -1,8 +1,8 @@
 package online.grisk.afrodita.domain.service.impl;
 
 import online.grisk.afrodita.domain.entity.Organization;
-import online.grisk.afrodita.persistence.repository.OrganizationRepository;
 import online.grisk.afrodita.domain.service.OrganizationService;
+import online.grisk.afrodita.persistence.repository.OrganizationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -40,7 +40,7 @@ function isControlSizing(node) {
  */
 function makePredByNodeName(nodeName) {
   nodeName = nodeName.toUpperCase();
-  return function(node) {
+  return function (node) {
     return node && node.nodeName.toUpperCase() === nodeName;
   };
 }
@@ -104,12 +104,12 @@ const isData = makePredByNodeName('DATA');
 
 function isInline(node) {
   return !isBodyContainer(node) &&
-         !isList(node) &&
-         !isHr(node) &&
-         !isPara(node) &&
-         !isTable(node) &&
-         !isBlockquote(node) &&
-         !isData(node);
+    !isList(node) &&
+    !isHr(node) &&
+    !isPara(node) &&
+    !isTable(node) &&
+    !isBlockquote(node) &&
+    !isData(node);
 }
 
 function isList(node) {
@@ -149,7 +149,7 @@ const isBody = makePredByNodeName('BODY');
  */
 function isClosestSibling(nodeA, nodeB) {
   return nodeA.nextSibling === nodeB ||
-         nodeA.previousSibling === nodeB;
+    nodeA.previousSibling === nodeB;
 }
 
 /**
@@ -238,8 +238,12 @@ function paddingBlankHTML(node) {
  */
 function ancestor(node, pred) {
   while (node) {
-    if (pred(node)) { return node; }
-    if (isEditable(node)) { break; }
+    if (pred(node)) {
+      return node;
+    }
+    if (isEditable(node)) {
+      break;
+    }
 
     node = node.parentNode;
   }
@@ -256,9 +260,15 @@ function singleChildAncestor(node, pred) {
   node = node.parentNode;
 
   while (node) {
-    if (nodeLength(node) !== 1) { break; }
-    if (pred(node)) { return node; }
-    if (isEditable(node)) { break; }
+    if (nodeLength(node) !== 1) {
+      break;
+    }
+    if (pred(node)) {
+      return node;
+    }
+    if (isEditable(node)) {
+      break;
+    }
 
     node = node.parentNode;
   }
@@ -275,7 +285,7 @@ function listAncestor(node, pred) {
   pred = pred || func.fail;
 
   const ancestors = [];
-  ancestor(node, function(el) {
+  ancestor(node, function (el) {
     if (!isEditable(el)) {
       ancestors.push(el);
     }
@@ -302,7 +312,9 @@ function lastAncestor(node, pred) {
 function commonAncestor(nodeA, nodeB) {
   const ancestors = listAncestor(nodeA);
   for (let n = nodeB; n; n = n.parentNode) {
-    if ($.inArray(n, ancestors) > -1) { return n; }
+    if ($.inArray(n, ancestors) > -1) {
+      return n;
+    }
   }
   return null; // difference document area
 }
@@ -318,7 +330,9 @@ function listPrev(node, pred) {
 
   const nodes = [];
   while (node) {
-    if (pred(node)) { break; }
+    if (pred(node)) {
+      break;
+    }
     nodes.push(node);
     node = node.previousSibling;
   }
@@ -336,7 +350,9 @@ function listNext(node, pred) {
 
   const nodes = [];
   while (node) {
-    if (pred(node)) { break; }
+    if (pred(node)) {
+      break;
+    }
     nodes.push(node);
     node = node.nextSibling;
   }
@@ -407,7 +423,7 @@ function insertAfter(node, preceding) {
  * @param {Collection} aChild
  */
 function appendChildNodes(node, aChild) {
-  $.each(aChild, function(idx, child) {
+  $.each(aChild, function (idx, child) {
     node.appendChild(child);
   });
   return node;
@@ -685,8 +701,8 @@ function walkPoint(startPoint, endPoint, handler, isSkipInnerOffset) {
     }
 
     const isSkipOffset = isSkipInnerOffset &&
-                       startPoint.node !== point.node &&
-                       endPoint.node !== point.node;
+      startPoint.node !== point.node &&
+      endPoint.node !== point.node;
     point = nextPoint(point, isSkipOffset);
   }
 }
@@ -803,7 +819,7 @@ function splitTree(root, point, options) {
     return splitNode(point, options);
   }
 
-  return ancestors.reduce(function(node, parent) {
+  return ancestors.reduce(function (node, parent) {
     if (node === point.node) {
       node = splitNode(point, options);
     }
@@ -873,8 +889,12 @@ function createText(text) {
  * @param {Boolean} isRemoveChild
  */
 function remove(node, isRemoveChild) {
-  if (!node || !node.parentNode) { return; }
-  if (node.removeNode) { return node.removeNode(isRemoveChild); }
+  if (!node || !node.parentNode) {
+    return;
+  }
+  if (node.removeNode) {
+    return node.removeNode(isRemoveChild);
+  }
 
   const parent = node.parentNode;
   if (!isRemoveChild) {
@@ -963,10 +983,10 @@ function html($node, isNewlineOnBlock) {
 
   if (isNewlineOnBlock) {
     const regexTag = /<(\/?)(\b(?!!)[^>\s]*)(.*?)(\s*\/?>)/g;
-    markup = markup.replace(regexTag, function(match, endSlash, name) {
+    markup = markup.replace(regexTag, function (match, endSlash, name) {
       name = name.toUpperCase();
       const isEndOfInlineContainer = /^DIV|^TD|^TH|^P|^LI|^H[1-7]/.test(name) &&
-                                   !!endSlash;
+        !!endSlash;
       const isBlockNode = /^BLOCKQUOTE|^TABLE|^TBODY|^TR|^HR|^UL|^OL/.test(name);
 
       return match + ((isEndOfInlineContainer || isBlockNode) ? '\n' : '');
@@ -989,13 +1009,13 @@ function posFromPlaceholder(placeholder) {
 }
 
 function attachEvents($node, events) {
-  Object.keys(events).forEach(function(key) {
+  Object.keys(events).forEach(function (key) {
     $node.on(key, events[key]);
   });
 }
 
 function detachEvents($node, events) {
-  Object.keys(events).forEach(function(key) {
+  Object.keys(events).forEach(function (key) {
     $node.off(key, events[key]);
   });
 }

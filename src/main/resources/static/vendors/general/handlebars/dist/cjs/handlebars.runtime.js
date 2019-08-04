@@ -1,13 +1,29 @@
 'use strict';
 
 exports.__esModule = true;
-// istanbul ignore next
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
 // istanbul ignore next
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+function _interopRequireDefault(obj) {
+    return obj && obj.__esModule ? obj : {'default': obj};
+}
+
+// istanbul ignore next
+
+function _interopRequireWildcard(obj) {
+    if (obj && obj.__esModule) {
+        return obj;
+    } else {
+        var newObj = {};
+        if (obj != null) {
+            for (var key in obj) {
+                if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key];
+            }
+        }
+        newObj['default'] = obj;
+        return newObj;
+    }
+}
 
 var _handlebarsBase = require('./handlebars/base');
 
@@ -38,20 +54,20 @@ var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 
 // For compatibility and usage outside of module systems, make the Handlebars object a namespace
 function create() {
-  var hb = new base.HandlebarsEnvironment();
+    var hb = new base.HandlebarsEnvironment();
 
-  Utils.extend(hb, base);
-  hb.SafeString = _handlebarsSafeString2['default'];
-  hb.Exception = _handlebarsException2['default'];
-  hb.Utils = Utils;
-  hb.escapeExpression = Utils.escapeExpression;
+    Utils.extend(hb, base);
+    hb.SafeString = _handlebarsSafeString2['default'];
+    hb.Exception = _handlebarsException2['default'];
+    hb.Utils = Utils;
+    hb.escapeExpression = Utils.escapeExpression;
 
-  hb.VM = runtime;
-  hb.template = function (spec) {
-    return runtime.template(spec, hb);
-  };
+    hb.VM = runtime;
+    hb.template = function (spec) {
+        return runtime.template(spec, hb);
+    };
 
-  return hb;
+    return hb;
 }
 
 var inst = create();

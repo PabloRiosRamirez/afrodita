@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 const isSupportAmd = typeof define === 'function' && define.amd; // eslint-disable-line
 
 /**
@@ -63,7 +64,7 @@ if (!hasCodeMirror && isSupportAmd) {
       } catch (e) {
         // do nothing
       }
-    // Almond/Require
+      // Almond/Require
     } else if (typeof require.specified !== 'undefined') {
       hasCodeMirror = require.specified('codemirror');
     }
@@ -72,8 +73,8 @@ if (!hasCodeMirror && isSupportAmd) {
 
 const isSupportTouch =
   (('ontouchstart' in window) ||
-   (navigator.MaxTouchPoints > 0) ||
-   (navigator.msMaxTouchPoints > 0));
+    (navigator.MaxTouchPoints > 0) ||
+    (navigator.msMaxTouchPoints > 0));
 
 // [workaround] IE doesn't have input events for contentEditable
 // - see: https://goo.gl/4bfIvA

@@ -26,5 +26,10 @@
   "trailing": true,
   "browser": false,
   "asi": true,
-  "predef": ["window","document","jQuery","define"]
+  "predef": [
+    "window",
+    "document",
+    "jQuery",
+    "define"
+  ]
 }

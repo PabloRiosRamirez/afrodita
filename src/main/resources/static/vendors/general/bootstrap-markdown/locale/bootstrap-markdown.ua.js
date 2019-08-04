@@ -2,7 +2,7 @@
  * Ukrainian translation for bootstrap-markdown
  * by Oleg Vivtash <o@vivtash.net>
  */
-;(function($){
+;(function ($) {
   $.fn.markdown.messages['ua'] = {
     'Bold': "Жирний",
     'Italic': "Курсів",

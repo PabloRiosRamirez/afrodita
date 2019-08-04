@@ -21,7 +21,7 @@
                             <div class="kt-subheader__main">
                                 <span class="kt-subheader__separator kt-hidden"></span>
                                 <div class="kt-subheader__breadcrumbs">
-                                    <a th:href="@{/}" class="kt-subheader__breadcrumbs-home"><i
+                                    <a class="kt-subheader__breadcrumbs-home" th:href="@{/}"><i
                                             class="flaticon2-shelter"></i></a>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <!--<a href="" class="kt-subheader__breadcrumbs-link">
@@ -32,7 +32,9 @@
                             </div>
                             <div class="kt-subheader__toolbar">
                                 <div class="kt-subheader__wrapper kt-sticky-toolbar__item kt-sticky-toolbar__item--brand">
-                                    <a th:href="@{/indicators/score/setting}" style="font-weight: 900;">Nueva configuración<i class="flaticon2-gear" style="font-size: 1.3rem; margin-left: 8px;"></i></a>
+                                    <a style="font-weight: 900;" th:href="@{/indicators/score/setting}">Nueva
+                                        configuración<i class="flaticon2-gear"
+                                                        style="font-size: 1.3rem; margin-left: 8px;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -62,15 +64,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="form-group row">
-                                                            <div class="col-12 alert alert-warning" role="alert" style="margin-top: 30px">
+                                                            <div class="col-12 alert alert-warning" role="alert"
+                                                                 style="margin-top: 30px">
                                                                 <label>
                                                                     <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                     Actualmente no está configurado el <strong>indicador
                                                                     Risk Score</strong>. Por favor dirigase a
                                                                     Indicadores > Risk Score >
                                                                     <strong>
-                                                                        <a th:href="@{/indicators/score/setting}"
-                                                                           style="color: #ffffff;">Nueva configuración</a>
+                                                                        <a style="color: #ffffff;"
+                                                                           th:href="@{/indicators/score/setting}">Nueva
+                                                                            configuración</a>
                                                                     </strong>
                                                                 </label>
                                                             </div>

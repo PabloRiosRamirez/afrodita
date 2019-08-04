@@ -8,15 +8,15 @@ module.exports = function (grunt) {
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        preprocess : {
+        preprocess: {
             options: {
-                context : {
+                context: {
                     DEBUG: true
                 }
             },
-            test : {
-                src : 'test/index.pre.html',
-                dest : 'test/index.html'
+            test: {
+                src: 'test/index.pre.html',
+                dest: 'test/index.html'
             },
             index: {
                 src: 'index.pre.html',
@@ -42,15 +42,15 @@ module.exports = function (grunt) {
         },
 
         uglify: {
-            options: { banner: bannerTemplate },
+            options: {banner: bannerTemplate},
             dist: {
-                files: { '<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>'] }
+                files: {'<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']}
             }
         },
 
         qunit: {
             // http://stackoverflow.com/questions/22409002/qunitphantomjs-ajax-success-handler-not-called-in-grunt-using-qunit-with-phant
-            options : {
+            options: {
                 '--web-security': false,
                 '--local-to-remote-url-access': true
             },
@@ -61,7 +61,7 @@ module.exports = function (grunt) {
             scripts: {
                 files: ['**/*'],
                 tasks: ['preprocess', 'concat', 'uglify', 'qunit'],
-                options: { spawn: true }
+                options: {spawn: true}
             }
         }
 

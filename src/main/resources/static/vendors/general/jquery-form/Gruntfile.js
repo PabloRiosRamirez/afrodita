@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
 		meta: {
@@ -44,12 +44,12 @@ module.exports = function(grunt) {
 			},
 			dist: {
 				files: [{
-					expand:	true,
-					cwd:	'src',
-					src:	['*.js','!*.min.js'],
-					dest:	'dist',
-					ext:	'.min.js',
-					extDot:	'last'
+					expand: true,
+					cwd: 'src',
+					src: ['*.js', '!*.min.js'],
+					dest: 'dist',
+					ext: '.min.js',
+					extDot: 'last'
 				}]
 			}
 		}
@@ -62,8 +62,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-githooks');
 
 	// Default task.
-	grunt.registerTask('lint', [ 'eslint' ]);
-	grunt.registerTask('test', [ 'lint', 'mocha' ]);
-	grunt.registerTask('pre-commit', [ 'test' ]);
-	grunt.registerTask('default', [ 'test', 'uglify' ]);
+	grunt.registerTask('lint', ['eslint']);
+	grunt.registerTask('test', ['lint', 'mocha']);
+	grunt.registerTask('pre-commit', ['test']);
+	grunt.registerTask('default', ['test', 'uglify']);
 };

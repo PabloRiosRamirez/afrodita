@@ -80,7 +80,7 @@
         //Act
         $toast = toastr.info(msg, sampleTitle + '-1');
         $toast.find('button').focus();
-        toastr.clear($toast, { force: true });
+        toastr.clear($toast, {force: true});
         var $container = toastr.getContainer();
         //Assert
         ok($container && $container.children().length === 0, 'Focused toast after a clear with force is not visible');
@@ -153,7 +153,7 @@
     });
     asyncTest('clear and show - do not clear toast after hover', 1, function () {
         //Arrange
-        var $toast = toastr.info(sampleMsg, sampleTitle, { closeOnHover: false });
+        var $toast = toastr.info(sampleMsg, sampleTitle, {closeOnHover: false});
         var $container = toastr.getContainer();
         $toast.trigger("mouseout");
         //Act
@@ -472,7 +472,7 @@
         //Arrange
         //Act
         //Assert
-        toastr.subscribe(function(response) {
+        toastr.subscribe(function (response) {
             equal(response.options.rtl, false, 'ltr by default (i.e. rtl=false)');
         });
         var $toast = toastr.success('');
@@ -504,45 +504,45 @@
     });
 
     module('accessibility');
-    test('toastr success has aria polite',1,function() {
+    test('toastr success has aria polite', 1, function () {
         // Arrange
         var $toast = toastr.success('');
 
         // Act
-        ok($toast.attr('aria-live')==='polite', 'success toast has aria-live of polite');
+        ok($toast.attr('aria-live') === 'polite', 'success toast has aria-live of polite');
 
         // Teardown
         $toast.remove();
         clearContainerChildren();
     });
-    test('toastr info has aria polite',1,function() {
+    test('toastr info has aria polite', 1, function () {
         // Arrange
         var $toast = toastr.info('');
 
         // Act
-        ok($toast.attr('aria-live')==='polite', 'info toast has aria-live of polite');
+        ok($toast.attr('aria-live') === 'polite', 'info toast has aria-live of polite');
 
         // Teardown
         $toast.remove();
         clearContainerChildren();
     });
-    test('toastr warning has aria assertive',1,function() {
+    test('toastr warning has aria assertive', 1, function () {
         // Arrange
         var $toast = toastr.warning('');
 
         // Act
-        ok($toast.attr('aria-live')==='assertive', 'warning toast has aria-live of assertive');
+        ok($toast.attr('aria-live') === 'assertive', 'warning toast has aria-live of assertive');
 
         // Teardown
         $toast.remove();
         clearContainerChildren();
     });
-    test('toastr error has aria assertive',1,function() {
+    test('toastr error has aria assertive', 1, function () {
         // Arrange
         var $toast = toastr.error('');
 
         // Act
-        ok($toast.attr('aria-live')==='assertive', 'error toast has aria-live of assertive');
+        ok($toast.attr('aria-live') === 'assertive', 'error toast has aria-live of assertive');
 
         // Teardown
         $toast.remove();
@@ -558,7 +558,9 @@
     asyncTest('event - onShown is executed', 1, function () {
         // Arrange
         var run = false;
-        var onShown = function () { run = true; };
+        var onShown = function () {
+            run = true;
+        };
         toastr.options.onShown = onShown;
         // Act
         var $toast = toastr.success(sampleMsg, sampleTitle);
@@ -575,7 +577,9 @@
     asyncTest('event - onHidden is executed', 1, function () {
         //Arrange
         var run = false;
-        var onHidden = function () { run = true; };
+        var onHidden = function () {
+            run = true;
+        };
         toastr.options.onHidden = onHidden;
         toastr.options.timeOut = 1;
         //Act
@@ -593,8 +597,12 @@
         //Arrange
         var onShowRun = false;
         var onHideRun = false;
-        var onShow = function () { onShowRun = true; };
-        var onHide = function () { onHideRun = true; };
+        var onShow = function () {
+            onShowRun = true;
+        };
+        var onHide = function () {
+            onHideRun = true;
+        };
         toastr.options.onShown = onShow;
         toastr.options.onHidden = onHide;
         toastr.options.timeOut = 1;
@@ -617,7 +625,9 @@
         toastr.options.closeButton = true;
         toastr.options.closeDuration = 0;
         toastr.options.hideDuration = 2000;
-        var onCloseClick = function () { run = true; };
+        var onCloseClick = function () {
+            run = true;
+        };
         toastr.options.onCloseClick = onCloseClick;
         toastr.options.timeOut = 1;
         //Act
@@ -643,7 +653,7 @@
         clearContainerChildren();
     });
 
-    test('event - prevent duplicate sequential toasts.', 1, function(){
+    test('event - prevent duplicate sequential toasts.', 1, function () {
         toastr.options.preventDuplicates = true;
 
         var $toast = [];
@@ -658,7 +668,7 @@
         clearContainerChildren();
     });
 
-    test('event - prevent duplicate sequential toasts, but allow previous after clear.', 1, function(){
+    test('event - prevent duplicate sequential toasts, but allow previous after clear.', 1, function () {
         toastr.options.preventDuplicates = true;
 
         var $toast = [];
@@ -673,7 +683,7 @@
         clearContainerChildren();
     });
 
-    test('event - allow duplicate sequential toasts.', 1, function(){
+    test('event - allow duplicate sequential toasts.', 1, function () {
         toastr.options.preventDuplicates = false;
 
         var $toast = [];
@@ -687,7 +697,7 @@
         clearContainerChildren();
     });
 
-    test('event - allow preventDuplicates option to be overridden.', 1, function() {
+    test('event - allow preventDuplicates option to be overridden.', 1, function () {
         var $toast = [];
 
         $toast[0] = toastr.info(sampleMsg, sampleTitle, {
@@ -709,14 +719,14 @@
         var $toast = [];
         var expectedReponses = [];
         //Act
-        toastr.subscribe(function(response) {
-          if(response.options.testId) {
-            expectedReponses.push(response);
-          }
+        toastr.subscribe(function (response) {
+            if (response.options.testId) {
+                expectedReponses.push(response);
+            }
         })
 
-        $toast[0] = toastr.info(sampleMsg, sampleTitle, {testId : 1});
-        $toast[1] = toastr.info(sampleMsg, sampleTitle, {testId : 2});
+        $toast[0] = toastr.info(sampleMsg, sampleTitle, {testId: 1});
+        $toast[1] = toastr.info(sampleMsg, sampleTitle, {testId: 2});
 
         $toast[1].click()
 

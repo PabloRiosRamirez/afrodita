@@ -3,17 +3,18 @@
 <head>
   <meta charset="utf-8">
   <title>Bootstrap TouchSpin</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4.">
-  <meta name="author" content="István Ujj-Mészáros">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4." name="description">
+  <meta content="István Ujj-Mészáros" name="author">
 
-  <meta itemprop="name" content="Bootstrap Touchspin">
-  <meta itemprop="description" content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4.">
+  <meta content="Bootstrap Touchspin" itemprop="name">
+  <meta content="A mobile and touch friendly input spinner component for Bootstrap 3 & 4." itemprop="description">
 
-  <link rel="shortcut icon" href="favicon.ico">
+  <link href="favicon.ico" rel="shortcut icon">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css" integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" crossorigin="anonymous">
+  <link crossorigin="anonymous" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css"
+        integrity="sha384-3AB7yXWz4OeoZcPbieVW64vVXEwADiYyAEhwilzWsLw+9FgqpyjjStpPnpBO8o8S" rel="stylesheet">
 
 
   <!-- BOOTSTRAP 3 -->
@@ -22,9 +23,10 @@
 
   <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" rel="stylesheet" type="text/css" media="all">
-  <link href="../src/jquery.bootstrap-touchspin.css" rel="stylesheet" type="text/css" media="all">
-  <link href="demo.css" rel="stylesheet" type="text/css" media="all">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.css" media="all" rel="stylesheet"
+        type="text/css">
+  <link href="../src/jquery.bootstrap-touchspin.css" media="all" rel="stylesheet" type="text/css">
+  <link href="demo.css" media="all" rel="stylesheet" type="text/css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/prettify/r298/prettify.js"></script>
   <script src="../src/jquery.bootstrap-touchspin.js"></script>
 
@@ -37,9 +39,11 @@
 
     <h1>Bootstrap TouchSpin</h1>
 
-    <a id="link-ghp" class="btn btn-primary" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" target="_blank"><span class="glyphicon glyphicon-link"></span>
+    <a class="btn btn-primary" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" id="link-ghp"
+       target="_blank"><span class="glyphicon glyphicon-link"></span>
       Github project page</a>
-    <a id="link-ghdl" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin/archive/master.zip" class="btn btn-primary" title="download"><span class="glyphicon glyphicon-download"></span>
+    <a class="btn btn-primary" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin/archive/master.zip"
+       id="link-ghdl" title="download"><span class="glyphicon glyphicon-download"></span>
       Download</a>
 
   </div>
@@ -56,7 +60,12 @@
   <div class="row">
     <div class="col-md-5">
       <label for="demo0">Example using data attributes:</label>
-      <input id="demo0" type="text" value="40" name="demo0" data-bts-min="0" data-bts-max="100" data-bts-init-val="" data-bts-step="1" data-bts-decimal="0" data-bts-step-interval="100" data-bts-force-step-divisibility="round" data-bts-step-interval-delay="500" data-bts-prefix="" data-bts-postfix="" data-bts-prefix-extra-class="" data-bts-postfix-extra-class="" data-bts-booster="true" data-bts-boostat="10" data-bts-max-boosted-step="false" data-bts-mousewheel="true" data-bts-button-down-class="btn btn-success" data-bts-button-up-class="btn btn-success">
+      <input data-bts-boostat="10" data-bts-booster="true" data-bts-button-down-class="btn btn-success" data-bts-button-up-class="btn btn-success" data-bts-decimal="0" data-bts-force-step-divisibility="round" data-bts-init-val=""
+             data-bts-max="100" data-bts-max-boosted-step="false" data-bts-min="0"
+             data-bts-mousewheel="true" data-bts-postfix="" data-bts-postfix-extra-class=""
+             data-bts-prefix="" data-bts-prefix-extra-class="" data-bts-step="1" data-bts-step-interval="100"
+             data-bts-step-interval-delay="500" id="demo0" name="demo0"
+             type="text" value="40">
     </div>
 
     <div class="col-md-7">
@@ -91,7 +100,7 @@
 </pre>
 
       <script>
-        $("input[name='demo0']").TouchSpin({});
+          $("input[name='demo0']").TouchSpin({});
       </script>
 
     </div>
@@ -101,7 +110,8 @@
     <div class="col-md-5">
       <label for="demo_callback">Callback example to format the number with
         <a href="http://numeraljs.com/" target="_blank">numeraljs</a> (anything else can be used):</label>
-      <input id="demo_callback" type="text" value="10000.00" name="demo_callback" data-bts-min="-1000000" data-bts-max="1000000" data-bts-step=".01" data-bts-decimals="2"/>
+      <input data-bts-decimals="2" data-bts-max="1000000" data-bts-min="-1000000" data-bts-step=".01" id="demo_callback"
+             name="demo_callback" type="text" value="10000.00"/>
     </div>
 
     <div class="col-md-7">
@@ -128,14 +138,14 @@
 </pre>
 
       <script>
-        $("input[name='demo_callback']").TouchSpin({
-          callback_before_calculation: function (v) {
-            return numeral(v).value();
-          },
-          callback_after_calculation: function (v) {
-            return numeral(v).format("$0,0.00");
-          }
-        });
+          $("input[name='demo_callback']").TouchSpin({
+              callback_before_calculation: function (v) {
+                  return numeral(v).value();
+              },
+              callback_after_calculation: function (v) {
+                  return numeral(v).format("$0,0.00");
+              }
+          });
       </script>
 
     </div>
@@ -145,7 +155,7 @@
   <div class="row">
     <div class="col-md-5">
       <label for="demo_vertical">Vertical button alignment (large):</label>
-      <input id="demo_vertical" type="text" value="" name="demo_vertical" class="input-lg">
+      <input class="input-lg" id="demo_vertical" name="demo_vertical" type="text" value="">
     </div>
 
     <div class="col-md-7">
@@ -159,9 +169,9 @@
 </pre>
 
       <script>
-        $("input[name='demo_vertical']").TouchSpin({
-          verticalbuttons: true
-        });
+          $("input[name='demo_vertical']").TouchSpin({
+              verticalbuttons: true
+          });
       </script>
 
     </div>
@@ -170,7 +180,7 @@
   <div class="row">
     <div class="col-md-5">
       <label for="demo_vertical2">Vertical buttons with custom icons (small):</label>
-      <input id="demo_vertical2" type="text" value="" name="demo_vertical2" class="input-sm">
+      <input class="input-sm" id="demo_vertical2" name="demo_vertical2" type="text" value="">
     </div>
 
     <div class="col-md-7">
@@ -186,11 +196,11 @@
 </pre>
 
       <script>
-        $("input[name='demo_vertical2']").TouchSpin({
-          verticalbuttons: true,
-          verticalup: '<i class="fas fa-caret-up"></i>',
-          verticaldown: '<i class="fas fa-caret-down"></i>'
-        });
+          $("input[name='demo_vertical2']").TouchSpin({
+              verticalbuttons: true,
+              verticalup: '<i class="fas fa-caret-up"></i>',
+              verticaldown: '<i class="fas fa-caret-down"></i>'
+          });
       </script>
 
     </div>
@@ -198,7 +208,7 @@
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo1">Example with postfix:</label> <input id="demo1" type="text" value="55" name="demo1">
+      <label for="demo1">Example with postfix:</label> <input id="demo1" name="demo1" type="text" value="55">
     </div>
 
     <div class="col-md-7">
@@ -218,15 +228,15 @@
 </pre>
 
       <script>
-        $("input[name='demo1']").TouchSpin({
-          min: 0,
-          max: 100,
-          step: 0.1,
-          decimals: 2,
-          boostat: 5,
-          maxboostedstep: 10,
-          postfix: '%'
-        });
+          $("input[name='demo1']").TouchSpin({
+              min: 0,
+              max: 100,
+              step: 0.1,
+              decimals: 2,
+              boostat: 5,
+              maxboostedstep: 10,
+              postfix: '%'
+          });
       </script>
 
     </div>
@@ -235,8 +245,8 @@
     <div class="col-md-5">
       <form class="form-horizontal" role="form">
         <div class="form-group">
-          <label for="demo2" class="col-md-5 control-label">With prefix</label>
-          <input id="demo2" type="text" value="0" name="demo2" class="col-md-7 form-control">
+          <label class="col-md-5 control-label" for="demo2">With prefix</label>
+          <input class="col-md-7 form-control" id="demo2" name="demo2" type="text" value="0">
         </div>
       </form>
     </div>
@@ -260,13 +270,13 @@
 &lt;/script&gt;
 </pre>
       <script>
-        $("input[name='demo2']").TouchSpin({
-          min: -1000000000,
-          max: 1000000000,
-          stepinterval: 50,
-          maxboostedstep: 10000000,
-          prefix: '$'
-        });
+          $("input[name='demo2']").TouchSpin({
+              min: -1000000000,
+              max: 1000000000,
+              stepinterval: 50,
+              maxboostedstep: 10000000,
+              prefix: '$'
+          });
       </script>
 
     </div>
@@ -274,7 +284,7 @@
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo3">Init with empty value:</label> <input id="demo3" type="text" value="" name="demo3">
+      <label for="demo3">Init with empty value:</label> <input id="demo3" name="demo3" type="text" value="">
     </div>
 
     <div class="col-md-7">
@@ -286,7 +296,7 @@
 </pre>
 
       <script>
-        $("input[name='demo3']").TouchSpin();
+          $("input[name='demo3']").TouchSpin();
       </script>
 
     </div>
@@ -300,10 +310,10 @@
     <div class="col-md-5">
       <label for="demo3_21">Value attribute is not set (Big)
         <small>(applying settings.initval)</small>
-        :</label> <input id="demo3_21" type="text" class="input-lg" value="" name="demo3_21">
+        :</label> <input class="input-lg" id="demo3_21" name="demo3_21" type="text" value="">
       <label for="demo3_22">Value is set explicitly to 33 (Small)
         <small>(skipping settings.initval)</small>
-        :</label> <input id="demo3_22" type="text" class="input-sm" value="33" name="demo3_22">
+        :</label> <input class="input-sm" id="demo3_22" name="demo3_22" type="text" value="33">
     </div>
 
     <div class="col-md-7">
@@ -323,12 +333,12 @@
 </pre>
 
       <script>
-        $("input[name='demo3_21']").TouchSpin({
-          initval: 40
-        });
-        $("input[name='demo3_22']").TouchSpin({
-          initval: 40
-        });
+          $("input[name='demo3_21']").TouchSpin({
+              initval: 40
+          });
+          $("input[name='demo3_22']").TouchSpin({
+              initval: 40
+          });
       </script>
 
     </div>
@@ -342,7 +352,7 @@
   <div class="row">
     <div class="col-md-5">
       <label for="demo4">Button postfix (small):</label>
-      <input id="demo4" type="text" value="" name="demo4" class="input-sm">
+      <input class="input-sm" id="demo4" name="demo4" type="text" value="">
     </div>
 
     <div class="col-md-7">
@@ -357,10 +367,10 @@
 </pre>
 
       <script>
-        $("input[name='demo4']").TouchSpin({
-          postfix: "a button",
-          postfix_extraclass: "btn btn-primary"
-        });
+          $("input[name='demo4']").TouchSpin({
+              postfix: "a button",
+              postfix_extraclass: "btn btn-primary"
+          });
       </script>
 
     </div>
@@ -371,7 +381,7 @@
       <label for="demo4_2">Button postfix (large):</label>
 
       <div class="input-group input-group-lg">
-        <input id="demo4_2" type="text" value="" name="demo4_2" class="form-control input-lg">
+        <input class="form-control input-lg" id="demo4_2" name="demo4_2" type="text" value="">
       </div>
     </div>
 
@@ -389,10 +399,10 @@
 </pre>
 
       <script>
-        $("input[name='demo4_2']").TouchSpin({
-          postfix: "a button",
-          postfix_extraclass: "btn btn-primary"
-        });
+          $("input[name='demo4_2']").TouchSpin({
+              postfix: "a button",
+              postfix_extraclass: "btn btn-primary"
+          });
       </script>
 
     </div>
@@ -407,11 +417,11 @@
       </a>
 
       <div class="input-group">
-        <input id="demo5" type="text" class="form-control" name="demo5" value="50">
+        <input class="form-control" id="demo5" name="demo5" type="text" value="50">
 
         <div class="input-group-btn">
-          <button type="button" class="btn btn-default">Action</button>
-          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+          <button class="btn btn-default" type="button">Action</button>
+          <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" type="button">
             <span class="caret"></span>
             <span class="sr-only">Toggle Dropdown</span>
           </button>
@@ -455,10 +465,10 @@
 </pre>
 
       <script>
-        $("input[name='demo5']").TouchSpin({
-          prefix: "pre",
-          postfix: "post"
-        });
+          $("input[name='demo5']").TouchSpin({
+              prefix: "pre",
+              postfix: "post"
+          });
       </script>
 
     </div>
@@ -466,7 +476,7 @@
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo6">Change button class:</label> <input id="demo6" type="text" value="50" name="demo6">
+      <label for="demo6">Change button class:</label> <input id="demo6" name="demo6" type="text" value="50">
     </div>
 
     <div class="col-md-7">
@@ -478,10 +488,10 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
 </pre>
 
       <script>
-        $("input[name='demo6']").TouchSpin({
-          buttondown_class: "btn btn-link",
-          buttonup_class: "btn btn-link"
-        });
+          $("input[name='demo6']").TouchSpin({
+              buttondown_class: "btn btn-link",
+              buttonup_class: "btn btn-link"
+          });
       </script>
 
     </div>
@@ -489,7 +499,7 @@ $(&quot;input[name='demo6']&quot;).TouchSpin({
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo7">Blank/Non-Number replaced:</label> <input id="demo7" type="text" value="50" name="demo7">
+      <label for="demo7">Blank/Non-Number replaced:</label> <input id="demo7" name="demo7" type="text" value="50">
     </div>
 
     <div class="col-md-7">
@@ -500,19 +510,21 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
 </pre>
 
       <script>
-        $("input[name='demo7']").TouchSpin({
-          replacementval: 10
-        });
+          $("input[name='demo7']").TouchSpin({
+              replacementval: 10
+          });
       </script>
 
     </div>
   </div>
 
-  <p style="margin-top: 40px;">By setting the <code>min</code> or <code>max</code> option to <code>NULL</code> no limit is enfored to the particular boundary.</p>
+  <p style="margin-top: 40px;">By setting the <code>min</code> or <code>max</code> option to <code>NULL</code> no limit
+    is enfored to the particular boundary.</p>
 
   <div class="row">
     <div class="col-md-5">
-      <label for="demo8-1">Disabling boundaries:</label> <input id="demo8-1" type="text" value="1234567890" name="demo8-1">
+      <label for="demo8-1">Disabling boundaries:</label> <input id="demo8-1" name="demo8-1" type="text"
+                                                                value="1234567890">
     </div>
 
     <div class="col-md-7">
@@ -527,10 +539,10 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
 </pre>
 
       <script>
-        $("input[name='demo8-1']").TouchSpin({
-          min: null,
-          max: null
-        });
+          $("input[name='demo8-1']").TouchSpin({
+              min: null,
+              max: null
+          });
       </script>
 
     </div>
@@ -539,50 +551,50 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
   <div class="row">
     <div class="col-md-3">
       <label for="demo8">Event demo:</label>
-      <input id="demo8" type="text" value="50" name="demo8">
+      <input id="demo8" name="demo8" type="text" value="50">
     </div>
     <div class="col-md-9">
       <pre id="demo8textarea" style="height:200px;overflow:auto;"></pre>
     </div>
 
     <script>
-      var i = $("input[name='demo8']"),
-        demoarea = $("#demo8textarea"),
-        text = "";
+        var i = $("input[name='demo8']"),
+            demoarea = $("#demo8textarea"),
+            text = "";
 
-      function writeLine(line) {
-        text += line + "\n";
-        demoarea.text(text);
-        demoarea.scrollTop(
-          demoarea[0].scrollHeight - demoarea.height()
-        );
-      }
+        function writeLine(line) {
+            text += line + "\n";
+            demoarea.text(text);
+            demoarea.scrollTop(
+                demoarea[0].scrollHeight - demoarea.height()
+            );
+        }
 
-      i.TouchSpin({});
-      i.on("touchspin.on.startspin", function () {
-        writeLine("touchspin.on.startspin");
-      });
-      i.on("touchspin.on.startupspin", function () {
-        writeLine("touchspin.on.startupspin");
-      });
-      i.on("touchspin.on.startdownspin", function () {
-        writeLine("touchspin.on.startdownspin");
-      });
-      i.on("touchspin.on.stopspin", function () {
-        writeLine("touchspin.on.stopspin");
-      });
-      i.on("touchspin.on.stopupspin", function () {
-        writeLine("touchspin.on.stopupspin");
-      });
-      i.on("touchspin.on.stopdownspin", function () {
-        writeLine("touchspin.on.stopdownspin");
-      });
-      i.on("touchspin.on.min", function () {
-        writeLine("touchspin.on.min");
-      });
-      i.on("touchspin.on.max", function () {
-        writeLine("touchspin.on.max");
-      });
+        i.TouchSpin({});
+        i.on("touchspin.on.startspin", function () {
+            writeLine("touchspin.on.startspin");
+        });
+        i.on("touchspin.on.startupspin", function () {
+            writeLine("touchspin.on.startupspin");
+        });
+        i.on("touchspin.on.startdownspin", function () {
+            writeLine("touchspin.on.startdownspin");
+        });
+        i.on("touchspin.on.stopspin", function () {
+            writeLine("touchspin.on.stopspin");
+        });
+        i.on("touchspin.on.stopupspin", function () {
+            writeLine("touchspin.on.stopupspin");
+        });
+        i.on("touchspin.on.stopdownspin", function () {
+            writeLine("touchspin.on.stopdownspin");
+        });
+        i.on("touchspin.on.min", function () {
+            writeLine("touchspin.on.min");
+        });
+        i.on("touchspin.on.max", function () {
+            writeLine("touchspin.on.max");
+        });
     </script>
 
   </div>
@@ -837,15 +849,15 @@ $(&quot;input[name='demo7']&quot;).TouchSpin({
 
   <h2>Download</h2>
 
-  <p><a id="link-ghd" href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" target="_blank">Download</a> from
+  <p><a href="https://github.com/istvan-ujjmeszaros/bootstrap-touchspin" id="link-ghd" target="_blank">Download</a> from
     github. Please report issues and suggestions to github's issue tracker or contact me on
-    <a id="link-gp" href="https://plus.google.com/101242556570448529330/posts" target="_blank">g+</a> or
-    <a id="link-tw" href="https://twitter.com/styu007" target="_blank">twitter</a>!</p>
+    <a href="https://plus.google.com/101242556570448529330/posts" id="link-gp" target="_blank">g+</a> or
+    <a href="https://twitter.com/styu007" id="link-tw" target="_blank">twitter</a>!</p>
 
 </div>
 
 <script>
-  prettyPrint();
+    prettyPrint();
 </script>
 
 </body>

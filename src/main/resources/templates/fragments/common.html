@@ -2,13 +2,13 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="head">
     <meta charset="UTF-8"/>
-    <meta name="google-site-verification" content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08"/>
+    <meta content="bwWMxQjqt20cC6ZklRhrh5cXmUNPgfORZydWT_6WB08" name="google-site-verification"/>
     <title th:text="'GRisk | ' + ${title}"></title>
     <meta name="description" th:content="${description}">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link th:href="@{/vendors/custom/vendors/flaticon/flaticon.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" rel="stylesheet" type="text/css"/>
-    <link th:href="@{/css/style.bundle.css}" rel="stylesheet" type="text/css"/>
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <link rel="stylesheet" th:href="@{/vendors/custom/vendors/flaticon/flaticon.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/vendors/custom/vendors/flaticon2/flaticon.css}" type="text/css"/>
+    <link rel="stylesheet" th:href="@{/css/style.bundle.css}" type="text/css"/>
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
     <style>
         @media (min-width: 752px) {
@@ -19,7 +19,7 @@
                 position: fixed;
             }
 
-            #li_data-integration {
+            #li_dataintegration {
                 width: 141px;
             }
         }
@@ -27,7 +27,7 @@
 </head>
 <body>
 <div th:fragment="header">
-    <div id="kt_header_mobile" class="kt-header-mobile  kt-header-mobile--fixed ">
+    <div class="kt-header-mobile  kt-header-mobile--fixed " id="kt_header_mobile">
         <div class="kt-header-mobile__logo">
             <a th:href="@{/}">
                 <img alt="GRisk" th:src="@{/images/grisk.png}">
@@ -37,21 +37,21 @@
             <!--begin: User bar -->
             <div class="kt-header__topbar-item kt-header__topbar-item--user"
                  style="margin-left: 10px;cursor: pointer;">
-                <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                <div class="kt-header__topbar-wrapper" data-offset="10px,0px" data-toggle="dropdown">
                     <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                     <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                          th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ?'Administrador':'Básico'"
                           style="margin-left: 15px;"
-                          th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
+                          th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"
+                          th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ?'Administrador':'Básico'"></span>
                 </div>
                 <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
                     <!-- begin: Head -->
                     <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
                         <div class="kt-user-card__avatar">
                             <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                                  th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"
                                   style="font-size: 1.3rem;"
-                                  th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
+                                  th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"
+                                  th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"></span>
                         </div>
                         <div class="kt-user-card__name">
                             <label th:text="${#strings.toUpperCase(#authentication.name)}"></label>
@@ -60,7 +60,7 @@
                     <!-- end: Head -->
                     <!--begin: Navigation -->
                     <div class="kt-notification">
-                        <a th:href="@{/account}" class="kt-notification__item">
+                        <a class="kt-notification__item" th:href="@{/account}">
                             <div class="kt-notification__item-icon">
                                 <i class="flaticon2-calendar-3 kt-font-success"></i>
                             </div>
@@ -74,7 +74,7 @@
                             </div>
                         </a>
                         <div class="kt-notification__custom kt-space-between">
-                            <a th:href="@{/logout}" class="btn btn-label btn-label-brand btn-sm btn-bold">
+                            <a class="btn btn-label btn-label-brand btn-sm btn-bold" th:href="@{/logout}">
                                 <i class="flaticon-logout"></i>
                                 Cerrar sesión
                             </a>
@@ -91,7 +91,7 @@
 
         </div>
     </div>
-    <div id="kt_header" class="kt-header  kt-header--fixed " data-ktheader-minimize="on">
+    <div class="kt-header  kt-header--fixed " data-ktheader-minimize="on" id="kt_header">
         <div class="kt-container kt-container--fluid">
 
             <!-- begin:: Brand -->
@@ -108,21 +108,21 @@
             </button>
             <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid"
                  id="kt_header_menu_wrapper">
-                <div id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile ">
+                <div class="kt-header-menu kt-header-menu-mobile " id="kt_header_menu">
                     <ul class="kt-menu__nav ">
-                        <li th:classappend="${module == 'analysis' ? 'kt-menu__'+'item--here' : ''}"
+                        <li aria-haspopup="false"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            aria-haspopup="false">
-                            <a th:href="@{/}" class="kt-menu__link">
+                            th:classappend="${module == 'analysis' ? 'kt-menu__'+'item--here' : ''}">
+                            <a class="kt-menu__link" th:href="@{/}">
                                 <span class="kt-menu__link-text">Análisis</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                             </a>
                         </li>
-                        <li th:classappend="${module == 'user' ? 'kt-menu__'+'item--here' : ''}"
+                        <li aria-haspopup="true"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                            <a href="javascript:;"
-                               class="kt-menu__link kt-menu__toggle">
+                            data-ktmenu-submenu-toggle="click" th:classappend="${module == 'user' ? 'kt-menu__'+'item--here' : ''}">
+                            <a class="kt-menu__link kt-menu__toggle"
+                               href="javascript:;">
                                         <span
                                                 class="kt-menu__link-text">Usuarios
                                         </span>
@@ -142,15 +142,15 @@
                                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                                             </h3>
                                             <ul class="kt-menu__inner">
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a th:href="@{/users/create}" class="kt-menu__link ">
+                                                <li aria-haspopup="true" class="kt-menu__item ">
+                                                    <a class="kt-menu__link " th:href="@{/users/create}">
                                                         <i class="kt-menu__link-icon flaticon-user-add"
                                                            style="font-size: 25px;"></i>
                                                         <span class="kt-menu__link-text">Crear un usuario</span>
                                                     </a>
                                                 </li>
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a th:href="@{/users/edit}" class="kt-menu__link ">
+                                                <li aria-haspopup="true" class="kt-menu__item ">
+                                                    <a class="kt-menu__link " th:href="@{/users/edit}">
                                                         <i class="kt-menu__link-icon flaticon-user-settings"
                                                            style="font-size: 25px;"></i>
                                                         <span class="kt-menu__link-text">Editar un usuario
@@ -163,18 +163,18 @@
                                 </div>
                             </div>
                         </li>
-                        <li th:classappend="${module == 'data-integration' ? 'kt-menu__'+'item--here' : ''}"
+                        <li aria-haspopup="false"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            aria-haspopup="false">
-                            <a th:href="@{/data-integration}" class="kt-menu__link">
+                            th:classappend="${module == 'dataintegration' ? 'kt-menu__'+'item--here' : ''}">
+                            <a class="kt-menu__link" th:href="@{/dataintegration}">
                                 <span class="kt-menu__link-text">Data Integration</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                             </a>
                         </li>
-                        <li th:classappend="${module == 'indicators' ? 'kt-menu__'+'item--here' : ''}"
+                        <li aria-haspopup="true"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            data-ktmenu-submenu-toggle="click" aria-haspopup="true">
-                            <a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+                            data-ktmenu-submenu-toggle="click" th:classappend="${module == 'indicators' ? 'kt-menu__'+'item--here' : ''}">
+                            <a class="kt-menu__link kt-menu__toggle" href="javascript:;">
                                 <span class="kt-menu__link-text">Indicadores</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                             </a>
@@ -192,22 +192,22 @@
                                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
                                             </h3>
                                             <ul class="kt-menu__inner">
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a th:href="@{/indicators/score}" class="kt-menu__link ">
+                                                <li aria-haspopup="true" class="kt-menu__item ">
+                                                    <a class="kt-menu__link " th:href="@{/indicators/score}">
                                                         <i class="kt-menu__link-icon flaticon-dashboard"
                                                            style="font-size: 25px;"></i>
                                                         <span class="kt-menu__link-text">Risk Score</span>
                                                     </a>
                                                 </li>
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a th:href="@{/indicators/ratios}" class="kt-menu__link ">
+                                                <li aria-haspopup="true" class="kt-menu__item ">
+                                                    <a class="kt-menu__link " th:href="@{/indicators/ratios}">
                                                         <i class="kt-menu__link-icon flaticon2-graph-1"
                                                            style="font-size: 25px;"></i>
                                                         <span class="kt-menu__link-text">Risk Ratios</span>
                                                     </a>
                                                 </li>
-                                                <li class="kt-menu__item " aria-haspopup="true">
-                                                    <a th:href="@{/indicators/tree}" class="kt-menu__link ">
+                                                <li aria-haspopup="true" class="kt-menu__item ">
+                                                    <a class="kt-menu__link " th:href="@{/indicators/tree}">
                                                         <i class="kt-menu__link-icon flaticon-map"
                                                            style="font-size: 25px;"></i>
                                                         <span class="kt-menu__link-text">Business Tree</span>
@@ -228,7 +228,7 @@
             <div class="kt-header__topbar kt-grid__item">
                 <!--begin: User bar -->
                 <div class="kt-header__topbar-item kt-header__topbar-item--user">
-                    <div class="kt-header__topbar-wrapper" data-toggle="dropdown" data-offset="10px,0px">
+                    <div class="kt-header__topbar-wrapper" data-offset="10px,0px" data-toggle="dropdown">
                                 <span class="kt-header__topbar-welcome  kt-visible-tablet  kt-visible-desktop">Hola,
                                 </span>
                         <span class="kt-header__topbar-username kt-visible-tablet  kt-visible-desktop"
@@ -237,9 +237,9 @@
 
                         <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                         <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bolder"
-                              th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'Administrador':'Básico'"
                               style="margin-left: 15px;"
-                              th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"></span>
+                              th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"
+                              th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'Administrador':'Básico'"></span>
                     </div>
                     <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
 
@@ -250,9 +250,9 @@
                                 <!--                                             th:src="@{/images/user.jpg}"/>-->
                                 <!--use below badge element instead the user avatar to display username's first letter(remove kt-hidden class to display it) -->
                                 <span class="kt-badge kt-badge--username kt-badge--unified-success kt-badge--lg kt-badge--rounded kt-badge--bold"
-                                      th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"
                                       style="font-size: 1.3rem;"
-                                      th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"></span>
+                                      th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'color: #1930d2;background: rgba(29, 76, 201, 0.49);;':''"
+                                      th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'A':'B'"></span>
                             </div>
                             <div class="kt-user-card__name">
                                 <label th:text="${#strings.toUpperCase(#authentication.name)}"></label>
@@ -263,7 +263,7 @@
 
                         <!--begin: Navigation -->
                         <div class="kt-notification">
-                            <a th:href="@{/account}" class="kt-notification__item">
+                            <a class="kt-notification__item" th:href="@{/account}">
                                 <div class="kt-notification__item-icon">
                                     <i class="flaticon2-calendar-3 kt-font-success"></i>
                                 </div>
@@ -277,7 +277,7 @@
                                 </div>
                             </a>
                             <div class="kt-notification__custom kt-space-between">
-                                <a th:href="@{/logout}" class="btn btn-label btn-label-brand btn-sm btn-bold">
+                                <a class="btn btn-label btn-label-brand btn-sm btn-bold" th:href="@{/logout}">
                                     <i class="flaticon-logout"></i>
                                     Cerrar sesión
                                 </a>
@@ -296,7 +296,7 @@
     </div>
 </div>
 
-<div th:fragment="footer" class="kt-footer kt-grid__item" id="kt_footer">
+<div class="kt-footer kt-grid__item" id="kt_footer" th:fragment="footer">
     <div class="kt-container">
         <div class="kt-footer__bottom">
             <div class="kt-footer__copyright">
@@ -304,12 +304,12 @@
             </div>
             <div class="kt-footer__menu">
                 <label style="font-size: 10px;">Powered by</label>
-                <a href="http://www.pabloriosramirez.com" target="_blank" class="kt-link"
-                   style="margin-left: 5px;color: #2b2a35">Pablo Ríos
+                <a class="kt-link" href="http://www.pabloriosramirez.com" style="margin-left: 5px;color: #2b2a35"
+                   target="_blank">Pablo Ríos
                 </a>
                 &nbsp;&
-                <a href="https://github.com/BO511" target="_blank" class="kt-link"
-                   style="margin-left: 5px;color: #2b2a35">Bastian Oyarzún
+                <a class="kt-link" href="https://github.com/BO511" style="margin-left: 5px;color: #2b2a35"
+                   target="_blank">Bastian Oyarzún
                 </a>
             </div>
         </div>
@@ -317,7 +317,7 @@
 </div>
 
 <div th:fragment="scripts">
-    <div id="kt_scrolltop" class="kt-scrolltop">
+    <div class="kt-scrolltop" id="kt_scrolltop">
         <i class="flaticon2-arrow-up"></i>
     </div>
 

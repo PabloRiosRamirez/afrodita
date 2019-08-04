@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/bs3/ui.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../prettify.css" />
-    <link rel="stylesheet" href="../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/bs3/ui.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line high'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -546,12 +546,14 @@ const buttonGroup = renderer.create('&lt;div class="note-btn-group btn-group"&gt
 &nbsp;
 const dropdown = renderer.create('&lt;ul class="dropdown-menu" role="list"&gt;', function($node, options) {
   const markup = $.isArray(options.items) ? options.items.map(function(item) {
-    const value = (typeof item === 'string') ? item : (<span class="branch-1 cbranch-no" title="branch not covered" >item.value || '')</span>;
-    const content = options.template ? options.template(item) : <span class="branch-1 cbranch-no" title="branch not covered" >item;</span>
-    const option = (typeof item === 'object') ? <span class="branch-0 cbranch-no" title="branch not covered" >item.option </span>: undefined;
+    const value = (typeof item === 'string') ? item : (<span class="branch-1 cbranch-no" title="branch not covered">item.value || '')</span>;
+    const content = options.template ? options.template(item) : <span class="branch-1 cbranch-no"
+                                                                      title="branch not covered">item;</span>
+    const option = (typeof item === 'object') ? <span class="branch-0 cbranch-no"
+                                                      title="branch not covered">item.option </span>: undefined;
 &nbsp;
     const dataValue = 'data-value="' + value + '"';
-    const dataOption = (option !== undefined) ? <span class="branch-0 cbranch-no" title="branch not covered" >' data-option="' + option + '"' </span>: '';
+    const dataOption = (option !== undefined) ? <span class="branch-0 cbranch-no" title="branch not covered">' data-option="' + option + '"' </span>: '';
     return '&lt;li role="listitem" aria-label="' + item + '"&gt;&lt;a href="#" ' + (dataValue + dataOption) + '&gt;' + content + '&lt;/a&gt;&lt;/li&gt;';
   }).join('') : options.items;
 &nbsp;
@@ -564,10 +566,10 @@ const dropdownButtonContents = function(contents, options) {
 &nbsp;
 const dropdownCheck = renderer.create('&lt;ul class="dropdown-menu note-check" role="list"&gt;', function($node, options) {
   const markup = $.isArray(options.items) ? options.items.map(function(item) {
-    const value = (typeof item === 'string') ? item : (<span class="branch-1 cbranch-no" title="branch not covered" >item.value || '')</span>;
+    const value = (typeof item === 'string') ? item : (<span class="branch-1 cbranch-no" title="branch not covered">item.value || '')</span>;
     const content = options.template ? options.template(item) : item;
     return '&lt;li role="listitem" aria-label="' + item + '"&gt;&lt;a href="#" data-value="' + value + '"&gt;' + icon(options.checkClassName) + ' ' + content + '&lt;/a&gt;&lt;/li&gt;';
-  }).join('') : <span class="branch-1 cbranch-no" title="branch not covered" >options.items;</span>
+  }).join('') : <span class="branch-1 cbranch-no" title="branch not covered">options.items;</span>
   $node.html(markup).attr({ 'aria-label': options.title });
 });
 &nbsp;
@@ -595,7 +597,7 @@ const palette = renderer.create('&lt;div class="note-color-palette"/&gt;', funct
   }
   $node.html(contents.join(''));
 &nbsp;
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (options.tooltip) {
+  <span class="missing-if-branch" title="else path not taken">E</span>if (options.tooltip) {
     $node.find('.note-color-btn').tooltip({
       container: options.container,
       trigger: 'hover',
@@ -605,8 +607,8 @@ const palette = renderer.create('&lt;div class="note-color-palette"/&gt;', funct
 });
 &nbsp;
 const dialog = renderer.create('&lt;div class="modal" aria-hidden="false" tabindex="-1" role="dialog"/&gt;', function($node, options) {
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (options.fade) {
-<span class="cstat-no" title="statement not covered" >    $node.addClass('fade');</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (options.fade) {
+<span class="cstat-no" title="statement not covered">    $node.addClass('fade');</span>
   }
   $node.attr({
     'aria-label': options.title
@@ -618,11 +620,12 @@ const dialog = renderer.create('&lt;div class="modal" aria-hidden="false" tabind
       ? '    &lt;div class="modal-header"&gt;' +
     '      &lt;button type="button" class="close" data-dismiss="modal" aria-label="Close" aria-hidden="true"&gt;&amp;times;&lt;/button&gt;' +
     '      &lt;h4 class="modal-title"&gt;' + options.title + '&lt;/h4&gt;' +
-    '    &lt;/div&gt;' : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+    '    &lt;/div&gt;' : <span class="branch-1 cbranch-no" title="branch not covered">''</span>
     ),
     '    &lt;div class="modal-body"&gt;' + options.body + '&lt;/div&gt;',
     (options.footer
-      ? '    &lt;div class="modal-footer"&gt;' + options.footer + '&lt;/div&gt;' : <span class="branch-1 cbranch-no" title="branch not covered" >''</span>
+      ? '    &lt;div class="modal-footer"&gt;' + options.footer + '&lt;/div&gt;' : <span class="branch-1 cbranch-no"
+                                                                                         title="branch not covered">''</span>
     ),
     '  &lt;/div&gt;',
     '&lt;/div&gt;'
@@ -635,22 +638,25 @@ const popover = renderer.create([
   '  &lt;div class="popover-content note-children-container"/&gt;',
   '&lt;/div&gt;'
 ].join(''), function($node, options) {
-  const direction = typeof options.direction !== 'undefined' ? <span class="branch-0 cbranch-no" title="branch not covered" >options.direction </span>: 'bottom';
+  const direction = typeof options.direction !== 'undefined' ? <span class="branch-0 cbranch-no"
+                                                                     title="branch not covered">options.direction </span>: 'bottom';
 &nbsp;
   $node.addClass(direction);
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (options.hideArrow) {
-<span class="cstat-no" title="statement not covered" >    $node.find('.arrow').hide();</span>
+  <span class="missing-if-branch" title="if path not taken">I</span>if (options.hideArrow) {
+<span class="cstat-no" title="statement not covered">    $node.find('.arrow').hide();</span>
   }
 });
 &nbsp;
 const checkbox = renderer.create('&lt;div class="checkbox"&gt;&lt;/div&gt;', function($node, options) {
   $node.html([
-    '&lt;label' + (options.id ? <span class="branch-0 cbranch-no" title="branch not covered" >' for="' + options.id + '"' </span>: '') + '&gt;',
-    ' &lt;input role="checkbox" type="checkbox"' + (options.id ? <span class="branch-0 cbranch-no" title="branch not covered" >' id="' + options.id + '"' </span>: ''),
-    (options.checked ? ' checked' : <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>,
-    ' aria-checked="' + (options.checked ? 'true' : <span class="branch-1 cbranch-no" title="branch not covered" >'false')</span> + '"/&gt;',
-    (options.text ? options.text : <span class="branch-1 cbranch-no" title="branch not covered" >'')</span>,
+    '&lt;label' + (options.id ? <span class="branch-0 cbranch-no"
+                                      title="branch not covered">' for="' + options.id + '"' </span>: '') + '&gt;',
+    ' &lt;input role="checkbox" type="checkbox"' + (options.id ? <span class="branch-0 cbranch-no"
+                                                                       title="branch not covered">' id="' + options.id + '"' </span>: ''),
+    (options.checked ? ' checked' : <span class="branch-1 cbranch-no" title="branch not covered">'')</span>,
+    ' aria-checked="' + (options.checked ? 'true' : <span class="branch-1 cbranch-no" title="branch not covered">'false')</span> + '"/&gt;',
+    (options.text ? options.text : <span class="branch-1 cbranch-no" title="branch not covered">'')</span>,
     '&lt;/label&gt;'
   ].join(''));
 });
@@ -681,12 +687,13 @@ const ui = {
 &nbsp;
   button: function($node, options) {
     return renderer.create('&lt;button type="button" class="note-btn btn btn-default btn-sm" role="button" tabindex="-1"&gt;', function($node, options) {
-      <span class="missing-if-branch" title="else path not taken" >E</span>if (options &amp;&amp; options.tooltip) {
+      <span class="missing-if-branch" title="else path not taken">E</span>if (options &amp;&amp; options.tooltip) {
         $node.attr({
           title: options.tooltip,
           'aria-label': options.tooltip
         }).tooltip({
-          container: (options.container !== undefined) ? options.container : <span class="branch-1 cbranch-no" title="branch not covered" >'body',</span>
+          container: (options.container !== undefined) ? options.container : <span class="branch-1 cbranch-no"
+                                                                                   title="branch not covered">'body',</span>
           trigger: 'hover',
           placement: 'bottom'
         });
@@ -720,7 +727,8 @@ const ui = {
   },
 &nbsp;
   createLayout: function($note, options) {
-    const $editor = (options.airMode ? <span class="branch-0 cbranch-no" title="branch not covered" >ui.airEditor([</span>
+    const $editor = (options.airMode ? <span class="branch-0 cbranch-no"
+                                             title="branch not covered">ui.airEditor([</span>
       ui.editingArea([
         ui.airEditable()
       ])
@@ -756,7 +764,7 @@ const ui = {
 export default ui;
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -765,11 +773,11 @@ export default ui;
 </div>
 <script src="../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../sorter.js"></script>
 </body>

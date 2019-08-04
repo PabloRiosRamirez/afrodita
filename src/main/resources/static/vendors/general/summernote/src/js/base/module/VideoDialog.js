@@ -39,12 +39,15 @@ export default class VideoDialog {
   }
 
   bindEnterKey($input, $btn) {
-    $input.on('keypress', (event) => {
-      if (event.keyCode === key.code.ENTER) {
-        event.preventDefault();
-        $btn.trigger('click');
-      }
-    });
+    $input.on('keypress', (event) = > {
+      if(event.keyCode === key.code.ENTER
+  )
+    {
+      event.preventDefault();
+      $btn.trigger('click');
+    }
+  })
+    ;
   }
 
   createVideoNode(url) {
@@ -152,21 +155,23 @@ export default class VideoDialog {
   show() {
     const text = this.context.invoke('editor.getSelectedText');
     this.context.invoke('editor.saveRange');
-    this.showVideoDialog(text).then((url) => {
+    this.showVideoDialog(text).then((url) = > {
       // [workaround] hide dialog before restore range for IE range focus
       this.ui.hideDialog(this.$dialog);
-      this.context.invoke('editor.restoreRange');
+    this.context.invoke('editor.restoreRange');
 
-      // build node
-      const $node = this.createVideoNode(url);
+    // build node
+    const $node = this.createVideoNode(url);
 
-      if ($node) {
-        // insert video node
-        this.context.invoke('editor.insertNode', $node);
-      }
-    }).fail(() => {
+    if ($node) {
+      // insert video node
+      this.context.invoke('editor.insertNode', $node);
+    }
+  }).
+    fail(() = > {
       this.context.invoke('editor.restoreRange');
-    });
+  })
+    ;
   }
 
   /**
@@ -176,40 +181,45 @@ export default class VideoDialog {
    * @return {Promise}
    */
   showVideoDialog(text) {
-    return $.Deferred((deferred) => {
+    return $.Deferred((deferred) = > {
       const $videoUrl = this.$dialog.find('.note-video-url');
-      const $videoBtn = this.$dialog.find('.note-video-btn');
+    const $videoBtn = this.$dialog.find('.note-video-btn');
 
-      this.ui.onDialogShown(this.$dialog, () => {
-        this.context.triggerEvent('dialog.shown');
+    this.ui.onDialogShown(this.$dialog, () = > {
+      this.context.triggerEvent('dialog.shown');
 
-        $videoUrl.val(text).on('input', () => {
-          this.ui.toggleBtn($videoBtn, $videoUrl.val());
-        });
+    $videoUrl.val(text).on('input', () = > {
+      this.ui.toggleBtn($videoBtn, $videoUrl.val());
+  })
+    ;
 
-        if (!env.isSupportTouch) {
-          $videoUrl.trigger('focus');
-        }
+    if (!env.isSupportTouch) {
+      $videoUrl.trigger('focus');
+    }
 
-        $videoBtn.click((event) => {
-          event.preventDefault();
+    $videoBtn.click((event) = > {
+      event.preventDefault();
 
-          deferred.resolve($videoUrl.val());
-        });
+    deferred.resolve($videoUrl.val());
+  })
+    ;
 
-        this.bindEnterKey($videoUrl, $videoBtn);
-      });
+    this.bindEnterKey($videoUrl, $videoBtn);
+  })
+    ;
 
-      this.ui.onDialogHidden(this.$dialog, () => {
-        $videoUrl.off('input');
-        $videoBtn.off('click');
+    this.ui.onDialogHidden(this.$dialog, () = > {
+      $videoUrl.off('input');
+    $videoBtn.off('click');
 
-        if (deferred.state() === 'pending') {
-          deferred.reject();
-        }
-      });
+    if (deferred.state() === 'pending') {
+      deferred.reject();
+    }
+  })
+    ;
 
-      this.ui.showDialog(this.$dialog);
-    });
+    this.ui.showDialog(this.$dialog);
+  })
+    ;
   }
 }

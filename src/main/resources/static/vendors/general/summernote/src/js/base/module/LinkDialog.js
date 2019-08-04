@@ -54,12 +54,15 @@ export default class LinkDialog {
   }
 
   bindEnterKey($input, $btn) {
-    $input.on('keypress', (event) => {
-      if (event.keyCode === key.code.ENTER) {
-        event.preventDefault();
-        $btn.trigger('click');
-      }
-    });
+    $input.on('keypress', (event) = > {
+      if(event.keyCode === key.code.ENTER
+  )
+    {
+      event.preventDefault();
+      $btn.trigger('click');
+    }
+  })
+    ;
   }
 
   /**
@@ -76,86 +79,102 @@ export default class LinkDialog {
    * @return {Promise}
    */
   showLinkDialog(linkInfo) {
-    return $.Deferred((deferred) => {
+    return $.Deferred((deferred) = > {
       const $linkText = this.$dialog.find('.note-link-text');
-      const $linkUrl = this.$dialog.find('.note-link-url');
-      const $linkBtn = this.$dialog.find('.note-link-btn');
-      const $openInNewWindow = this.$dialog
-        .find('.sn-checkbox-open-in-new-window input[type=checkbox]');
+    const $linkUrl = this.$dialog.find('.note-link-url');
+    const $linkBtn = this.$dialog.find('.note-link-btn');
+    const $openInNewWindow = this.$dialog
+      .find('.sn-checkbox-open-in-new-window input[type=checkbox]');
 
-      this.ui.onDialogShown(this.$dialog, () => {
-        this.context.triggerEvent('dialog.shown');
+    this.ui.onDialogShown(this.$dialog, () = > {
+      this.context.triggerEvent('dialog.shown');
 
-        // if no url was given, copy text to url
-        if (!linkInfo.url) {
-          linkInfo.url = linkInfo.text;
-        }
+    // if no url was given, copy text to url
+    if (!linkInfo.url) {
+      linkInfo.url = linkInfo.text;
+    }
 
-        $linkText.val(linkInfo.text);
+    $linkText.val(linkInfo.text);
 
-        const handleLinkTextUpdate = () => {
-          this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-          // if linktext was modified by keyup,
-          // stop cloning text from linkUrl
-          linkInfo.text = $linkText.val();
-        };
+    const handleLinkTextUpdate = () =
+  >
+    {
+      this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+      // if linktext was modified by keyup,
+      // stop cloning text from linkUrl
+      linkInfo.text = $linkText.val();
+    }
+    ;
 
-        $linkText.on('input', handleLinkTextUpdate).on('paste', () => {
-          setTimeout(handleLinkTextUpdate, 0);
-        });
+    $linkText.on('input', handleLinkTextUpdate).on('paste', () = > {
+      setTimeout(handleLinkTextUpdate, 0
+  )
+    ;
+  })
+    ;
 
-        const handleLinkUrlUpdate = () => {
-          this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-          // display same link on `Text to display` input
-          // when create a new link
-          if (!linkInfo.text) {
-            $linkText.val($linkUrl.val());
-          }
-        };
+    const handleLinkUrlUpdate = () =
+  >
+    {
+      this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+      // display same link on `Text to display` input
+      // when create a new link
+      if (!linkInfo.text) {
+        $linkText.val($linkUrl.val());
+      }
+    }
+    ;
 
-        $linkUrl.on('input', handleLinkUrlUpdate).on('paste', () => {
-          setTimeout(handleLinkUrlUpdate, 0);
-        }).val(linkInfo.url);
+    $linkUrl.on('input', handleLinkUrlUpdate).on('paste', () = > {
+      setTimeout(handleLinkUrlUpdate, 0
+  )
+    ;
+  }).
+    val(linkInfo.url);
 
-        if (!env.isSupportTouch) {
-          $linkUrl.trigger('focus');
-        }
+    if (!env.isSupportTouch) {
+      $linkUrl.trigger('focus');
+    }
 
-        this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
-        this.bindEnterKey($linkUrl, $linkBtn);
-        this.bindEnterKey($linkText, $linkBtn);
+    this.toggleLinkBtn($linkBtn, $linkText, $linkUrl);
+    this.bindEnterKey($linkUrl, $linkBtn);
+    this.bindEnterKey($linkText, $linkBtn);
 
-        const isNewWindowChecked = linkInfo.isNewWindow !== undefined
-          ? linkInfo.isNewWindow : this.context.options.linkTargetBlank;
+    const isNewWindowChecked = linkInfo.isNewWindow !== undefined
+      ? linkInfo.isNewWindow : this.context.options.linkTargetBlank;
 
-        $openInNewWindow.prop('checked', isNewWindowChecked);
+    $openInNewWindow.prop('checked', isNewWindowChecked);
 
-        $linkBtn.one('click', (event) => {
-          event.preventDefault();
+    $linkBtn.one('click', (event) = > {
+      event.preventDefault();
 
-          deferred.resolve({
-            range: linkInfo.range,
-            url: $linkUrl.val(),
-            text: $linkText.val(),
-            isNewWindow: $openInNewWindow.is(':checked')
-          });
-          this.ui.hideDialog(this.$dialog);
-        });
-      });
+    deferred.resolve({
+      range: linkInfo.range,
+      url: $linkUrl.val(),
+      text: $linkText.val(),
+      isNewWindow: $openInNewWindow.is(':checked')
+    });
+    this.ui.hideDialog(this.$dialog);
+  })
+    ;
+  })
+    ;
 
-      this.ui.onDialogHidden(this.$dialog, () => {
-        // detach events
-        $linkText.off('input paste keypress');
-        $linkUrl.off('input paste keypress');
-        $linkBtn.off('click');
+    this.ui.onDialogHidden(this.$dialog, () = > {
+      // detach events
+      $linkText.off('input paste keypress');
+    $linkUrl.off('input paste keypress');
+    $linkBtn.off('click');
 
-        if (deferred.state() === 'pending') {
-          deferred.reject();
-        }
-      });
+    if (deferred.state() === 'pending') {
+      deferred.reject();
+    }
+  })
+    ;
 
-      this.ui.showDialog(this.$dialog);
-    }).promise();
+    this.ui.showDialog(this.$dialog);
+  }).
+    promise();
   }
 
   /**
@@ -165,11 +184,13 @@ export default class LinkDialog {
     const linkInfo = this.context.invoke('editor.getLinkInfo');
 
     this.context.invoke('editor.saveRange');
-    this.showLinkDialog(linkInfo).then((linkInfo) => {
+    this.showLinkDialog(linkInfo).then((linkInfo) = > {
       this.context.invoke('editor.restoreRange');
-      this.context.invoke('editor.createLink', linkInfo);
-    }).fail(() => {
+    this.context.invoke('editor.createLink', linkInfo);
+  }).
+    fail(() = > {
       this.context.invoke('editor.restoreRange');
-    });
+  })
+    ;
   }
 }

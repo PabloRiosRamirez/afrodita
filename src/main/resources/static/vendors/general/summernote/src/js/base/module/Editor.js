@@ -5,7 +5,7 @@ import func from '../core/func';
 import lists from '../core/lists';
 import dom from '../core/dom';
 import range from '../core/range';
-import { readFileAsDataURL, createImage } from '../core/async';
+import {readFileAsDataURL, createImage} from '../core/async';
 import History from '../editing/History';
 import Style from '../editing/Style';
 import Typing from '../editing/Typing';
@@ -57,191 +57,221 @@ export default class Editor {
     ];
 
     for (let idx = 0, len = commands.length; idx < len; idx++) {
-      this[commands[idx]] = ((sCmd) => {
-        return (value) => {
-          this.beforeCommand();
-          document.execCommand(sCmd, false, value);
-          this.afterCommand(true);
-        };
-      })(commands[idx]);
+      this[commands[idx]] = ((sCmd) = > {
+        return(value) =
+    >
+      {
+        this.beforeCommand();
+        document.execCommand(sCmd, false, value);
+        this.afterCommand(true);
+      }
+      ;
+    })
+      (commands[idx]);
       this.context.memo('help.' + commands[idx], this.lang.help[commands[idx]]);
     }
 
-    this.fontName = this.wrapCommand((value) => {
+    this.fontName = this.wrapCommand((value) = > {
       return this.fontStyling('font-family', "\'" + value + "\'");
-    });
+  })
+    ;
 
-    this.fontSize = this.wrapCommand((value) => {
+    this.fontSize = this.wrapCommand((value) = > {
       return this.fontStyling('font-size', value + 'px');
-    });
+  })
+    ;
 
     for (let idx = 1; idx <= 6; idx++) {
-      this['formatH' + idx] = ((idx) => {
-        return () => {
-          this.formatBlock('H' + idx);
-        };
-      })(idx);
+      this['formatH' + idx] = ((idx) = > {
+        return() =
+    >
+      {
+        this.formatBlock('H' + idx);
+      }
+      ;
+    })
+      (idx);
       this.context.memo('help.formatH' + idx, this.lang.help['formatH' + idx]);
-    };
+    }
+    ;
 
-    this.insertParagraph = this.wrapCommand(() => {
+    this.insertParagraph = this.wrapCommand(() = > {
       this.typing.insertParagraph(this.editable);
-    });
+  })
+    ;
 
-    this.insertOrderedList = this.wrapCommand(() => {
+    this.insertOrderedList = this.wrapCommand(() = > {
       this.bullet.insertOrderedList(this.editable);
-    });
+  })
+    ;
 
-    this.insertUnorderedList = this.wrapCommand(() => {
+    this.insertUnorderedList = this.wrapCommand(() = > {
       this.bullet.insertUnorderedList(this.editable);
-    });
+  })
+    ;
 
-    this.indent = this.wrapCommand(() => {
+    this.indent = this.wrapCommand(() = > {
       this.bullet.indent(this.editable);
-    });
+  })
+    ;
 
-    this.outdent = this.wrapCommand(() => {
+    this.outdent = this.wrapCommand(() = > {
       this.bullet.outdent(this.editable);
-    });
+  })
+    ;
 
     /**
      * insertNode
      * insert node
      * @param {Node} node
      */
-    this.insertNode = this.wrapCommand((node) => {
-      if (this.isLimited($(node).text().length)) {
-        return;
-      }
-      const rng = this.createRange();
-      rng.insertNode(node);
-      range.createFromNodeAfter(node).select();
-    });
+    this.insertNode = this.wrapCommand((node) = > {
+      if(this.isLimited($(node).text().length)
+  )
+    {
+      return;
+    }
+    const rng = this.createRange();
+    rng.insertNode(node);
+    range.createFromNodeAfter(node).select();
+  })
+    ;
 
     /**
      * insert text
      * @param {String} text
      */
-    this.insertText = this.wrapCommand((text) => {
-      if (this.isLimited(text.length)) {
-        return;
-      }
-      const rng = this.createRange();
-      const textNode = rng.insertNode(dom.createText(text));
-      range.create(textNode, dom.nodeLength(textNode)).select();
-    });
+    this.insertText = this.wrapCommand((text) = > {
+      if(this.isLimited(text.length)
+  )
+    {
+      return;
+    }
+    const rng = this.createRange();
+    const textNode = rng.insertNode(dom.createText(text));
+    range.create(textNode, dom.nodeLength(textNode)).select();
+  })
+    ;
     /**
      * paste HTML
      * @param {String} markup
      */
-    this.pasteHTML = this.wrapCommand((markup) => {
-      if (this.isLimited(markup.length)) {
-        return;
-      }
-      const contents = this.createRange().pasteHTML(markup);
-      range.createFromNodeAfter(lists.last(contents)).select();
-    });
+    this.pasteHTML = this.wrapCommand((markup) = > {
+      if(this.isLimited(markup.length)
+  )
+    {
+      return;
+    }
+    const contents = this.createRange().pasteHTML(markup);
+    range.createFromNodeAfter(lists.last(contents)).select();
+  })
+    ;
 
     /**
      * formatBlock
      *
      * @param {String} tagName
      */
-    this.formatBlock = this.wrapCommand((tagName, $target) => {
+    this.formatBlock = this.wrapCommand((tagName, $target) = > {
       const onApplyCustomStyle = this.options.callbacks.onApplyCustomStyle;
-      if (onApplyCustomStyle) {
-        onApplyCustomStyle.call(this, $target, this.context, this.onFormatBlock);
-      } else {
-        this.onFormatBlock(tagName, $target);
-      }
-    });
+    if (onApplyCustomStyle) {
+      onApplyCustomStyle.call(this, $target, this.context, this.onFormatBlock);
+    } else {
+      this.onFormatBlock(tagName, $target);
+    }
+  })
+    ;
 
     /**
      * insert horizontal rule
      */
-    this.insertHorizontalRule = this.wrapCommand(() => {
+    this.insertHorizontalRule = this.wrapCommand(() = > {
       const hrNode = this.createRange().insertNode(dom.create('HR'));
-      if (hrNode.nextSibling) {
-        range.create(hrNode.nextSibling, 0).normalize().select();
-      }
-    });
+    if (hrNode.nextSibling) {
+      range.create(hrNode.nextSibling, 0).normalize().select();
+    }
+  })
+    ;
 
     /**
      * lineHeight
      * @param {String} value
      */
-    this.lineHeight = this.wrapCommand((value) => {
+    this.lineHeight = this.wrapCommand((value) = > {
       this.style.stylePara(this.createRange(), {
         lineHeight: value
       });
-    });
+  })
+    ;
 
     /**
      * create link (command)
      *
      * @param {Object} linkInfo
      */
-    this.createLink = this.wrapCommand((linkInfo) => {
+    this.createLink = this.wrapCommand((linkInfo) = > {
       let linkUrl = linkInfo.url;
-      const linkText = linkInfo.text;
-      const isNewWindow = linkInfo.isNewWindow;
-      let rng = linkInfo.range || this.createRange();
-      const additionalTextLength = linkText.length - rng.toString().length;
-      if (additionalTextLength > 0 && this.isLimited(additionalTextLength)) {
-        return;
-      }
-      const isTextChanged = rng.toString() !== linkText;
+    const linkText = linkInfo.text;
+    const isNewWindow = linkInfo.isNewWindow;
+    let rng = linkInfo.range || this.createRange();
+    const additionalTextLength = linkText.length - rng.toString().length;
+    if (additionalTextLength > 0 && this.isLimited(additionalTextLength)) {
+      return;
+    }
+    const isTextChanged = rng.toString() !== linkText;
 
-      // handle spaced urls from input
-      if (typeof linkUrl === 'string') {
-        linkUrl = linkUrl.trim();
-      }
+    // handle spaced urls from input
+    if (typeof linkUrl === 'string') {
+      linkUrl = linkUrl.trim();
+    }
 
-      if (this.options.onCreateLink) {
-        linkUrl = this.options.onCreateLink(linkUrl);
-      } else {
-        // if url is not relative,
-        if (!/^\.?\/(.*)/.test(linkUrl)) {
-          // if url doesn't match an URL schema, set http:// as default
-          linkUrl = /^[A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?/.test(linkUrl)
-            ? linkUrl : 'http://' + linkUrl;
-        }
+    if (this.options.onCreateLink) {
+      linkUrl = this.options.onCreateLink(linkUrl);
+    } else {
+      // if url is not relative,
+      if (!/^\.?\/(.*)/.test(linkUrl)) {
+        // if url doesn't match an URL schema, set http:// as default
+        linkUrl = /^[A-Za-z][A-Za-z0-9+-.]*\:[\/\/]?/.test(linkUrl)
+          ? linkUrl : 'http://' + linkUrl;
       }
+    }
 
-      let anchors = [];
-      if (isTextChanged) {
-        rng = rng.deleteContents();
-        const anchor = rng.insertNode($('<A>' + linkText + '</A>')[0]);
-        anchors.push(anchor);
-      } else {
-        anchors = this.style.styleNodes(rng, {
-          nodeName: 'A',
-          expandClosestSibling: true,
-          onlyPartialContains: true
-        });
-      }
-
-      $.each(anchors, (idx, anchor) => {
-        $(anchor).attr('href', linkUrl);
-        if (isNewWindow) {
-          $(anchor).attr('target', '_blank');
-        } else {
-          $(anchor).removeAttr('target');
-        }
+    let anchors = [];
+    if (isTextChanged) {
+      rng = rng.deleteContents();
+      const anchor = rng.insertNode($('<A>' + linkText + '</A>')[0]);
+      anchors.push(anchor);
+    } else {
+      anchors = this.style.styleNodes(rng, {
+        nodeName: 'A',
+        expandClosestSibling: true,
+        onlyPartialContains: true
       });
+    }
 
-      const startRange = range.createFromNodeBefore(lists.head(anchors));
-      const startPoint = startRange.getStartPoint();
-      const endRange = range.createFromNodeAfter(lists.last(anchors));
-      const endPoint = endRange.getEndPoint();
+    $.each(anchors, (idx, anchor) = > {
+      $(anchor).attr('href', linkUrl);
+    if (isNewWindow) {
+      $(anchor).attr('target', '_blank');
+    } else {
+      $(anchor).removeAttr('target');
+    }
+  })
+    ;
 
-      range.create(
-        startPoint.node,
-        startPoint.offset,
-        endPoint.node,
-        endPoint.offset
-      ).select();
-    });
+    const startRange = range.createFromNodeBefore(lists.head(anchors));
+    const startPoint = startRange.getStartPoint();
+    const endRange = range.createFromNodeAfter(lists.last(anchors));
+    const endPoint = endRange.getEndPoint();
+
+    range.create(
+      startPoint.node,
+      startPoint.offset,
+      endPoint.node,
+      endPoint.offset
+    ).select();
+  })
+    ;
 
     /**
      * setting color
@@ -250,120 +280,145 @@ export default class Editor {
      * @param {String} sObjColor.foreColor foreground color
      * @param {String} sObjColor.backColor background color
      */
-    this.color = this.wrapCommand((colorInfo) => {
+    this.color = this.wrapCommand((colorInfo) = > {
       const foreColor = colorInfo.foreColor;
-      const backColor = colorInfo.backColor;
+    const backColor = colorInfo.backColor;
 
-      if (foreColor) { document.execCommand('foreColor', false, foreColor); }
-      if (backColor) { document.execCommand('backColor', false, backColor); }
-    });
+    if (foreColor) {
+      document.execCommand('foreColor', false, foreColor);
+    }
+    if (backColor) {
+      document.execCommand('backColor', false, backColor);
+    }
+  })
+    ;
 
     /**
      * Set foreground color
      *
      * @param {String} colorCode foreground color code
      */
-    this.foreColor = this.wrapCommand((colorInfo) => {
+    this.foreColor = this.wrapCommand((colorInfo) = > {
       document.execCommand('styleWithCSS', false, true);
-      document.execCommand('foreColor', false, colorInfo);
-    });
+    document.execCommand('foreColor', false, colorInfo);
+  })
+    ;
 
     /**
      * insert Table
      *
      * @param {String} dimension of table (ex : "5x5")
      */
-    this.insertTable = this.wrapCommand((dim) => {
+    this.insertTable = this.wrapCommand((dim) = > {
       const dimension = dim.split('x');
 
-      const rng = this.createRange().deleteContents();
-      rng.insertNode(this.table.createTable(dimension[0], dimension[1], this.options));
-    });
+    const rng = this.createRange().deleteContents();
+    rng.insertNode(this.table.createTable(dimension[0], dimension[1], this.options));
+  })
+    ;
 
     /**
      * remove media object and Figure Elements if media object is img with Figure.
      */
-    this.removeMedia = this.wrapCommand(() => {
+    this.removeMedia = this.wrapCommand(() = > {
       let $target = $(this.restoreTarget()).parent();
-      if ($target.parent('figure').length) {
-        $target.parent('figure').remove();
-      } else {
-        $target = $(this.restoreTarget()).detach();
-      }
-      this.context.triggerEvent('media.delete', $target, this.$editable);
-    });
+    if ($target.parent('figure').length) {
+      $target.parent('figure').remove();
+    } else {
+      $target = $(this.restoreTarget()).detach();
+    }
+    this.context.triggerEvent('media.delete', $target, this.$editable);
+  })
+    ;
 
     /**
      * float me
      *
      * @param {String} value
      */
-    this.floatMe = this.wrapCommand((value) => {
+    this.floatMe = this.wrapCommand((value) = > {
       const $target = $(this.restoreTarget());
-      $target.toggleClass('note-float-left', value === 'left');
-      $target.toggleClass('note-float-right', value === 'right');
-      $target.css('float', value);
-    });
+    $target.toggleClass('note-float-left', value === 'left');
+    $target.toggleClass('note-float-right', value === 'right');
+    $target.css('float', value);
+  })
+    ;
 
     /**
      * resize overlay element
      * @param {String} value
      */
-    this.resize = this.wrapCommand((value) => {
+    this.resize = this.wrapCommand((value) = > {
       const $target = $(this.restoreTarget());
-      $target.css({
-        width: value * 100 + '%',
-        height: ''
-      });
+    $target.css({
+      width: value * 100 + '%',
+      height: ''
     });
+  })
+    ;
   }
 
   initialize() {
     // bind custom events
-    this.$editable.on('keydown', (event) => {
-      if (event.keyCode === key.code.ENTER) {
-        this.context.triggerEvent('enter', event);
-      }
-      this.context.triggerEvent('keydown', event);
+    this.$editable.on('keydown', (event) = > {
+      if(event.keyCode === key.code.ENTER
+  )
+    {
+      this.context.triggerEvent('enter', event);
+    }
+    this.context.triggerEvent('keydown', event);
 
-      if (!event.isDefaultPrevented()) {
-        if (this.options.shortcuts) {
-          this.handleKeyMap(event);
-        } else {
-          this.preventDefaultEditableShortCuts(event);
-        }
+    if (!event.isDefaultPrevented()) {
+      if (this.options.shortcuts) {
+        this.handleKeyMap(event);
+      } else {
+        this.preventDefaultEditableShortCuts(event);
       }
-      if (this.isLimited(1, event)) {
-        return false;
-      }
-    }).on('keyup', (event) => {
+    }
+    if (this.isLimited(1, event)) {
+      return false;
+    }
+  }).
+    on('keyup', (event) = > {
       this.context.triggerEvent('keyup', event);
-    }).on('focus', (event) => {
+  }).
+    on('focus', (event) = > {
       this.context.triggerEvent('focus', event);
-    }).on('blur', (event) => {
+  }).
+    on('blur', (event) = > {
       this.context.triggerEvent('blur', event);
-    }).on('mousedown', (event) => {
+  }).
+    on('mousedown', (event) = > {
       this.context.triggerEvent('mousedown', event);
-    }).on('mouseup', (event) => {
+  }).
+    on('mouseup', (event) = > {
       this.context.triggerEvent('mouseup', event);
-    }).on('scroll', (event) => {
+  }).
+    on('scroll', (event) = > {
       this.context.triggerEvent('scroll', event);
-    }).on('paste', (event) => {
+  }).
+    on('paste', (event) = > {
       this.context.triggerEvent('paste', event);
-    });
+  })
+    ;
 
     // init content before set event
     this.$editable.html(dom.html(this.$note) || dom.emptyPara);
 
-    this.$editable.on(env.inputEventName, func.debounce(() => {
+    this.$editable.on(env.inputEventName, func.debounce(() = > {
       this.context.triggerEvent('change', this.$editable.html());
-    }, 10));
+  },
+    10
+  ))
+    ;
 
-    this.$editor.on('focusin', (event) => {
+    this.$editor.on('focusin', (event) = > {
       this.context.triggerEvent('focusin', event);
-    }).on('focusout', (event) => {
+  }).
+    on('focusout', (event) = > {
       this.context.triggerEvent('focusout', event);
-    });
+  })
+    ;
 
     if (!this.options.airMode) {
       if (this.options.width) {
@@ -391,9 +446,15 @@ export default class Editor {
     const keyMap = this.options.keyMap[env.isMac ? 'mac' : 'pc'];
     const keys = [];
 
-    if (event.metaKey) { keys.push('CMD'); }
-    if (event.ctrlKey && !event.altKey) { keys.push('CTRL'); }
-    if (event.shiftKey) { keys.push('SHIFT'); }
+    if (event.metaKey) {
+      keys.push('CMD');
+    }
+    if (event.ctrlKey && !event.altKey) {
+      keys.push('CTRL');
+    }
+    if (event.shiftKey) {
+      keys.push('SHIFT');
+    }
 
     const keyName = key.nameFromCode[event.keyCode];
     if (keyName) {
@@ -423,8 +484,8 @@ export default class Editor {
 
     if (typeof event !== 'undefined') {
       if (key.isMove(event.keyCode) ||
-          (event.ctrlKey || event.metaKey) ||
-          lists.contains([key.code.BACKSPACE, key.code.DELETE], event.keyCode)) {
+        (event.ctrlKey || event.metaKey) ||
+        lists.contains([key.code.BACKSPACE, key.code.DELETE], event.keyCode)) {
         return false;
       }
     }
@@ -436,6 +497,7 @@ export default class Editor {
     }
     return false;
   }
+
   /**
    * create range
    * @return {WrappedRange}
@@ -593,7 +655,7 @@ export default class Editor {
    * run given function between beforeCommand and afterCommand
    */
   wrapCommand(fn) {
-    return function() {
+    return function () {
       this.beforeCommand();
       fn.apply(this, arguments);
       this.afterCommand();
@@ -608,25 +670,27 @@ export default class Editor {
    * @return {Promise}
    */
   insertImage(src, param) {
-    return createImage(src, param).then(($image) => {
+    return createImage(src, param).then(($image) = > {
       this.beforeCommand();
 
-      if (typeof param === 'function') {
-        param($image);
-      } else {
-        if (typeof param === 'string') {
-          $image.attr('data-filename', param);
-        }
-        $image.css('width', Math.min(this.$editable.width(), $image.width()));
+    if (typeof param === 'function') {
+      param($image);
+    } else {
+      if (typeof param === 'string') {
+        $image.attr('data-filename', param);
       }
+      $image.css('width', Math.min(this.$editable.width(), $image.width()));
+    }
 
-      $image.show();
-      range.create(this.editable).insertNode($image[0]);
-      range.createFromNodeAfter($image[0]).select();
-      this.afterCommand();
-    }).fail((e) => {
+    $image.show();
+    range.create(this.editable).insertNode($image[0]);
+    range.createFromNodeAfter($image[0]).select();
+    this.afterCommand();
+  }).
+    fail((e) = > {
       this.context.triggerEvent('image.upload.error', e);
-    });
+  })
+    ;
   }
 
   /**
@@ -634,18 +698,21 @@ export default class Editor {
    * @param {File[]} files
    */
   insertImagesAsDataURL(files) {
-    $.each(files, (idx, file) => {
+    $.each(files, (idx, file) = > {
       const filename = file.name;
-      if (this.options.maximumImageFileSize && this.options.maximumImageFileSize < file.size) {
-        this.context.triggerEvent('image.upload.error', this.lang.image.maximumFileSizeError);
-      } else {
-        readFileAsDataURL(file).then((dataURL) => {
-          return this.insertImage(dataURL, filename);
-        }).fail(() => {
-          this.context.triggerEvent('image.upload.error');
-        });
-      }
-    });
+    if (this.options.maximumImageFileSize && this.options.maximumImageFileSize < file.size) {
+      this.context.triggerEvent('image.upload.error', this.lang.image.maximumFileSizeError);
+    } else {
+      readFileAsDataURL(file).then((dataURL) = > {
+        return this.insertImage(dataURL, filename);
+    }).
+      fail(() = > {
+        this.context.triggerEvent('image.upload.error');
+    })
+      ;
+    }
+  })
+    ;
   }
 
   /**

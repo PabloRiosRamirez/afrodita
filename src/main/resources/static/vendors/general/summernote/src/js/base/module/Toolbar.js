@@ -1,4 +1,5 @@
 import $ from 'jquery';
+
 export default class Toolbar {
   constructor(context) {
     this.context = context;
@@ -34,9 +35,10 @@ export default class Toolbar {
 
     this.changeContainer(false);
 
-    this.$note.on('summernote.keyup summernote.mouseup summernote.change', () => {
+    this.$note.on('summernote.keyup summernote.mouseup summernote.change', () = > {
       this.context.invoke('buttons.updateCurrentStyle');
-    });
+  })
+    ;
 
     this.context.invoke('buttons.updateCurrentStyle');
     if (this.options.followingToolbar) {

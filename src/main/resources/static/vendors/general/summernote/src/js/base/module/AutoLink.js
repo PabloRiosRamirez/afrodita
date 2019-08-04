@@ -9,15 +9,23 @@ export default class AutoLink {
   constructor(context) {
     this.context = context;
     this.events = {
-      'summernote.keyup': (we, e) => {
-        if (!e.isDefaultPrevented()) {
-          this.handleKeyup(e);
-        }
-      },
-      'summernote.keydown': (we, e) => {
-        this.handleKeydown(e);
-      }
-    };
+      'summernote.keyup': (we, e) = > {
+      if(
+    !e.isDefaultPrevented()
+  )
+    {
+      this.handleKeyup(e);
+    }
+  },
+    'summernote.keydown'
+  :
+    (we, e) =
+  >
+    {
+      this.handleKeydown(e);
+    }
+  }
+    ;
   }
 
   initialize() {

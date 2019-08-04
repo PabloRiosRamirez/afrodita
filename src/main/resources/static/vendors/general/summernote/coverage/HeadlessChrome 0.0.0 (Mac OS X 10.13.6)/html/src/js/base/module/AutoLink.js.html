@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Code coverage report for src/js/base/module/AutoLink.js</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="../../../../prettify.css" />
-    <link rel="stylesheet" href="../../../../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style type='text/css'>
-        .coverage-summary .sorter {
-            background-image: url(../../../../sort-arrow-sprite.png);
-        }
-    </style>
+  <title>Code coverage report for src/js/base/module/AutoLink.js</title>
+  <meta charset="utf-8"/>
+  <link href="../../../../prettify.css" rel="stylesheet"/>
+  <link href="../../../../base.css" rel="stylesheet"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <style type='text/css'>
+    .coverage-summary .sorter {
+      background-image: url(../../../../sort-arrow-sprite.png);
+    }
+  </style>
 </head>
 <body>
 <div class='wrapper'>
@@ -42,7 +42,7 @@
     </div>
   </div>
   <div class='status-line medium'></div>
-<pre><table class="coverage">
+  <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
 3
@@ -183,7 +183,7 @@ export default class AutoLink {
     this.context = context;
     this.events = {
       'summernote.keyup': (we, e) =&gt; {
-        <span class="missing-if-branch" title="else path not taken" >E</span>if (!e.isDefaultPrevented()) {
+        <span class="missing-if-branch" title="else path not taken">E</span>if (!e.isDefaultPrevented()) {
           this.handleKeyup(e);
         }
       },
@@ -201,43 +201,44 @@ export default class AutoLink {
     this.lastWordRange = null;
   }
 &nbsp;
-<span class="fstat-no" title="function not covered" >  replace() {</span>
-<span class="cstat-no" title="statement not covered" >    if (!this.lastWordRange) {</span>
-<span class="cstat-no" title="statement not covered" >      return;</span>
+<span class="fstat-no" title="function not covered">  replace() {</span>
+<span class="cstat-no" title="statement not covered">    if (!this.lastWordRange) {</span>
+<span class="cstat-no" title="statement not covered">      return;</span>
     }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    const keyword = this.lastWordRange.toString();</span>
-<span class="cstat-no" title="statement not covered" >    const match = keyword.match(linkPattern);</span>
+<span class="cstat-no" title="statement not covered">    const keyword = this.lastWordRange.toString();</span>
+<span class="cstat-no" title="statement not covered">    const match = keyword.match(linkPattern);</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >    if (match &amp;&amp; (match[1] || match[2])) {</span>
-<span class="cstat-no" title="statement not covered" >      const link = match[1] ? keyword : defaultScheme + keyword;</span>
-<span class="cstat-no" title="statement not covered" >      const node = $('&lt;a /&gt;').html(keyword).attr('href', link)[0];</span>
-<span class="cstat-no" title="statement not covered" >      if (this.context.options.linkTargetBlank) {</span>
-<span class="cstat-no" title="statement not covered" >        $(node).attr('target', '_blank');</span>
+<span class="cstat-no" title="statement not covered">    if (match &amp;&amp; (match[1] || match[2])) {</span>
+<span class="cstat-no"
+      title="statement not covered">      const link = match[1] ? keyword : defaultScheme + keyword;</span>
+<span class="cstat-no" title="statement not covered">      const node = $('&lt;a /&gt;').html(keyword).attr('href', link)[0];</span>
+<span class="cstat-no" title="statement not covered">      if (this.context.options.linkTargetBlank) {</span>
+<span class="cstat-no" title="statement not covered">        $(node).attr('target', '_blank');</span>
       }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >      this.lastWordRange.insertNode(node);</span>
-<span class="cstat-no" title="statement not covered" >      this.lastWordRange = null;</span>
-<span class="cstat-no" title="statement not covered" >      this.context.invoke('editor.focus');</span>
+<span class="cstat-no" title="statement not covered">      this.lastWordRange.insertNode(node);</span>
+<span class="cstat-no" title="statement not covered">      this.lastWordRange = null;</span>
+<span class="cstat-no" title="statement not covered">      this.context.invoke('editor.focus');</span>
     }
   }
 &nbsp;
   handleKeydown(e) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
-<span class="cstat-no" title="statement not covered" >      const wordRange = this.context.invoke('editor.createRange').getWordRange();</span>
-<span class="cstat-no" title="statement not covered" >      this.lastWordRange = wordRange;</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
+<span class="cstat-no" title="statement not covered">      const wordRange = this.context.invoke('editor.createRange').getWordRange();</span>
+<span class="cstat-no" title="statement not covered">      this.lastWordRange = wordRange;</span>
     }
   }
 &nbsp;
   handleKeyup(e) {
-    <span class="missing-if-branch" title="if path not taken" >I</span>if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
-<span class="cstat-no" title="statement not covered" >      this.replace();</span>
+    <span class="missing-if-branch" title="if path not taken">I</span>if (lists.contains([key.code.ENTER, key.code.SPACE], e.keyCode)) {
+<span class="cstat-no" title="statement not covered">      this.replace();</span>
     }
   }
 }
 &nbsp;</pre></td></tr>
 </table></pre>
-<div class='push'></div><!-- for sticky footer -->
+  <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
@@ -246,11 +247,11 @@ export default class AutoLink {
 </div>
 <script src="../../../../prettify.js"></script>
 <script>
-window.onload = function () {
+    window.onload = function () {
         if (typeof prettyPrint === 'function') {
             prettyPrint();
         }
-};
+    };
 </script>
 <script src="../../../../sorter.js"></script>
 </body>

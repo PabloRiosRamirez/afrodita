@@ -22,7 +22,7 @@
                             <div class="kt-subheader__main">
                                 <span class="kt-subheader__separator kt-hidden"></span>
                                 <div class="kt-subheader__breadcrumbs">
-                                    <a th:href="@{/}" class="kt-subheader__breadcrumbs-home">
+                                    <a class="kt-subheader__breadcrumbs-home" th:href="@{/}">
                                         <i class="flaticon2-shelter"></i>
                                     </a>
                                 </div>
@@ -43,8 +43,9 @@
                                             </div>
                                         </div>
                                         <form class="kt-form"
-                                              th:if="${dataintegration != null and dataintegration.bureau == false}"
-                                              th:action="@{/analysis/} + ${id_organization} + '/file'" method="post" enctype="multipart/form-data">
+                                              enctype="multipart/form-data"
+                                              method="post" th:action="@{/analysis/} + ${id_organization} + '/file'"
+                                              th:if="${dataintegration != null and dataintegration.bureau == false}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -66,17 +67,17 @@
                                                                     </div>
                                                                     <div class="col-12">
                                                                         <div class="custom-file">
-                                                                            <input type="file"
-                                                                                   class="custom-file-input"
+                                                                            <input class="custom-file-input"
+                                                                                   id="file"
                                                                                    name="file"
-                                                                                   id="file">
+                                                                                   type="file">
                                                                             <label class="custom-file-label">Ningún
                                                                                 archivo seleccionado</label>
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-12" style="margin-top: 5px;">
-                                                                        <a th:href="@{/}"
-                                                                           class="text-info text-sm float-right">
+                                                                        <a class="text-info text-sm float-right"
+                                                                           th:href="@{/}">
                                                                             ¿Desea descargar el archivo de plantilla?
                                                                         </a>
                                                                     </div>
@@ -88,8 +89,8 @@
                                             </div>
                                             <div class="kt-portlet__foot">
                                                 <div class="kt-form__actions kt-form__actions--center">
-                                                    <button type="submit" class="btn btn-success"
-                                                            id="btn_submit_analysis_excel">Realizar análisis de
+                                                    <button class="btn btn-success" id="btn_submit_analysis_excel"
+                                                            type="submit">Realizar análisis de
                                                         riesgo
                                                     </button>
                                                 </div>
@@ -125,8 +126,8 @@
                                             </div>
                                             <div class="kt-portlet__foot">
                                                 <div class="kt-form__actions kt-form__actions--center">
-                                                    <button type="reset" class="btn btn-success"
-                                                            id="btn_submit_analysis_bureau">Realizar análisis de
+                                                    <button class="btn btn-success" id="btn_submit_analysis_bureau"
+                                                            type="reset">Realizar análisis de
                                                         riesgo
                                                     </button>
                                                 </div>
@@ -172,8 +173,8 @@
                                                     Risk Score</strong>. Por favor dirigase a
                                                     Indicadores > Risk Score >
                                                     <strong>
-                                                        <a th:href="@{/indicators/score/setting}"
-                                                           style="color: #ffffff;">Nueva
+                                                        <a style="color: #ffffff;"
+                                                           th:href="@{/indicators/score/setting}">Nueva
                                                             configuración</a>
                                                     </strong>
                                                 </label>
@@ -185,8 +186,8 @@
                                                     Risk Ratios</strong>. Por favor dirigase a
                                                     Indicadores > Risk Ratios >
                                                     <strong>
-                                                        <a th:href="@{/indicators/ratios/setting}"
-                                                           style="color: #ffffff;">Nueva
+                                                        <a style="color: #ffffff;"
+                                                           th:href="@{/indicators/ratios/setting}">Nueva
                                                             configuración</a>
                                                     </strong>
                                                 </label>
@@ -199,8 +200,8 @@
                                                     Tree</strong>. Por favor dirigase a Indicadores
                                                     > Business Tree >
                                                     <strong>
-                                                        <a th:href="@{/indicators/tree/setting}"
-                                                           style="color: #ffffff;">Nueva
+                                                        <a style="color: #ffffff;"
+                                                           th:href="@{/indicators/tree/setting}">Nueva
                                                             configuración</a>
                                                     </strong>
                                                 </label>

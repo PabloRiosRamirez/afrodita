@@ -21,9 +21,10 @@ export default class Style {
   jQueryCSS($obj, propertyNames) {
     if (env.jqueryVersion < 1.9) {
       const result = {};
-      $.each(propertyNames, (idx, propertyName) => {
+      $.each(propertyNames, (idx, propertyName) = > {
         result[propertyName] = $obj.css(propertyName);
-      });
+    })
+      ;
       return result;
     }
     return $obj.css(propertyNames);
@@ -51,9 +52,10 @@ export default class Style {
   stylePara(rng, styleInfo) {
     $.each(rng.nodes(dom.isPara, {
       includeAncestor: true
-    }), (idx, para) => {
+    }), (idx, para) = > {
       $(para).css(styleInfo);
-    });
+  })
+    ;
   }
 
   /**
@@ -80,29 +82,33 @@ export default class Style {
     let pred = dom.makePredByNodeName(nodeName);
     const nodes = rng.nodes(dom.isText, {
       fullyContains: true
-    }).map((text) => {
+    }).map((text) = > {
       return dom.singleChildAncestor(text, pred) || dom.wrap(text, nodeName);
-    });
+  })
+    ;
 
     if (expandClosestSibling) {
       if (onlyPartialContains) {
         const nodesInRange = rng.nodes();
         // compose with partial contains predication
-        pred = func.and(pred, (node) => {
+        pred = func.and(pred, (node) = > {
           return lists.contains(nodesInRange, node);
-        });
+      })
+        ;
       }
 
-      return nodes.map((node) => {
+      return nodes.map((node) = > {
         const siblings = dom.withClosestSiblings(node, pred);
-        const head = lists.head(siblings);
-        const tails = lists.tail(siblings);
-        $.each(tails, (idx, elem) => {
-          dom.appendChildNodes(head, elem.childNodes);
-          dom.remove(elem);
-        });
-        return lists.head(siblings);
-      });
+      const head = lists.head(siblings);
+      const tails = lists.tail(siblings);
+      $.each(tails, (idx, elem) = > {
+        dom.appendChildNodes(head, elem.childNodes);
+      dom.remove(elem);
+    })
+      ;
+      return lists.head(siblings);
+    })
+      ;
     } else {
       return nodes;
     }
@@ -130,7 +136,8 @@ export default class Style {
         'font-strikethrough': document.queryCommandState('strikethrough') ? 'strikethrough' : 'normal',
         'font-family': document.queryCommandValue('fontname') || styleInfo['font-family']
       });
-    } catch (e) {}
+    } catch (e) {
+    }
 
     // list-style-type to list-style(unordered, ordered)
     if (!rng.isOnList()) {

@@ -1,34 +1,34 @@
 module('Component', {
-    setup: function(){
-        this.component = $('<div class="input-group date" id="datetimepicker">'+
-                                '<input size="16" type="text" value="12-02-2012" readonly>'+
-                                '<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>'+
-                            '</div>')
-                        .appendTo('#qunit-fixture')
-                        .datetimepicker({format: "dd-mm-yyyy", viewSelect: 2});
+    setup: function () {
+        this.component = $('<div class="input-group date" id="datetimepicker">' +
+            '<input size="16" type="text" value="12-02-2012" readonly>' +
+            '<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>' +
+            '</div>')
+            .appendTo('#qunit-fixture')
+            .datetimepicker({format: "dd-mm-yyyy", viewSelect: 2});
         this.input = this.component.find('input');
         this.addon = this.component.find('.input-group-addon');
         this.dp = this.component.data('datetimepicker');
         this.picker = this.dp.picker;
     },
-    teardown: function(){
+    teardown: function () {
         this.picker.remove();
     }
 });
 
 
-test('Component gets date/viewDate from input value', function(){
+test('Component gets date/viewDate from input value', function () {
     datesEqual(this.dp.date, UTCDate(2012, 1, 12));
     datesEqual(this.dp.viewDate, UTCDate(2012, 1, 12));
 });
 
-test('Activation by component', function(){
+test('Activation by component', function () {
     ok(!this.picker.is(':visible'));
     this.addon.click();
     ok(this.picker.is(':visible'));
 });
 
-test('simple keyboard nav test', function(){
+test('simple keyboard nav test', function () {
     var target;
 
     // Keyboard nav only works with non-readonly inputs
@@ -77,20 +77,20 @@ test('simple keyboard nav test', function(){
     equal(target.text(), 'March 2011', 'Title is "March 2011"');
 });
 
-test('setValue', function(){
+test('setValue', function () {
     this.dp.date = UTCDate(2012, 2, 13)
     this.dp.setValue()
     datesEqual(this.dp.date, UTCDate(2012, 2, 13));
     equal(this.input.val(), '13-03-2012');
 });
 
-test('update', function(){
+test('update', function () {
     this.input.val('13-03-2012');
     this.dp.update()
     datesEqual(this.dp.date, UTCDate(2012, 2, 13));
 });
 
-test('Navigating to/from decade view', function(){
+test('Navigating to/from decade view', function () {
     var target;
 
     this.addon.click();
@@ -134,7 +134,7 @@ test('Navigating to/from decade view', function(){
     datesEqual(this.dp.date, UTCDate(2012, 2, 31));
 });
 
-test('Selecting date resets viewDate and date', function(){
+test('Selecting date resets viewDate and date', function () {
     var target;
 
     this.addon.click();
@@ -156,14 +156,14 @@ test('Selecting date resets viewDate and date', function(){
     equal(target.text(), '29'); // Should be Jan 29
 });
 
-test('Highlight in month', function() {
+test('Highlight in month', function () {
     // custom setup for specifically bootstrap 2
     var component = $('<div class="input-group date" id="datetimepicker">' +
-                             '<input size="16" type="text" value="12-02-2012" readonly>' +
-                             '<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>' +
-                             '</div>')
-        .appendTo('#qunit-fixture')
-        .datetimepicker({format: "dd-mm-yyyy", bootcssVer: 2}),
+        '<input size="16" type="text" value="12-02-2012" readonly>' +
+        '<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>' +
+        '</div>')
+            .appendTo('#qunit-fixture')
+            .datetimepicker({format: "dd-mm-yyyy", bootcssVer: 2}),
         addon = component.find('.input-group-addon'),
         picker = component.data('datetimepicker').picker;
     addon.click();

@@ -16,10 +16,11 @@ export default class ImagePopover {
     this.options = context.options;
 
     this.events = {
-      'summernote.disable': () => {
-        this.hide();
-      }
-    };
+      'summernote.disable': () = > {
+      this.hide();
+  }
+  }
+    ;
   }
 
   shouldInitialize() {

@@ -22,7 +22,7 @@ class TooltipUI {
       const hideCallback = this.hide.bind(this);
       const toggleCallback = this.toggle.bind(this);
 
-      this.options.trigger.split(' ').forEach(function(eventName) {
+      this.options.trigger.split(' ').forEach(function (eventName) {
         if (eventName === 'hover') {
           $node.off('mouseenter mouseleave');
           $node.on('mouseenter', showCallback).on('mouseleave', hideCallback);

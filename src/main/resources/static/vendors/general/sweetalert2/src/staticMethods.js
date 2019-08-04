@@ -6,7 +6,7 @@ export * from './staticMethods/queue.js'
 export * from './staticMethods/showLoading.js'
 export * from './staticMethods/timer.js'
 export {
-  isValidParameter,
-  isUpdatableParameter,
-  isDeprecatedParameter
+    isValidParameter,
+    isUpdatableParameter,
+    isDeprecatedParameter
 } from './utils/params.js'

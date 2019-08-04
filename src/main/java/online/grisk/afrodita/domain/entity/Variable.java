@@ -5,7 +5,6 @@
  */
 package online.grisk.afrodita.domain.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,10 +14,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.Collection;
 
 /**
- *
  * @author Pablo Ríos Ramírez
  * @email pa.riosramirez@gmail.com
  * @web www.pabloriosramirez.com
@@ -28,7 +25,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "variable",schema = "public")
+@Table(name = "variable", schema = "public")
 public class Variable implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -45,10 +42,7 @@ public class Variable implements Serializable {
     @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
-    @Column(name = "code", nullable = false, length = 50)
+    @Column(name = "code", length = 50)
     private String code;
 
     @Column(name = "coordinate", length = 50)

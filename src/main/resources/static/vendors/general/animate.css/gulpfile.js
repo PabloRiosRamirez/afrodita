@@ -48,7 +48,7 @@ var opts = {
 // Gulp task definitions
 // ----------------------------
 
-gulp.task('createCSS', function() {
+gulp.task('createCSS', function () {
   return gulp
     .src(activatedAnimations)
     .pipe(concat(opts.concatName))
@@ -59,7 +59,7 @@ gulp.task('createCSS', function() {
     .pipe(gulp.dest(opts.destPath));
 });
 
-gulp.task('addHeader', function() {
+gulp.task('addHeader', function () {
   return gulp
     .src('*.css')
     .pipe(header(opts.banner, pkg))

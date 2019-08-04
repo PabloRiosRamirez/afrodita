@@ -24,14 +24,14 @@ module.exports = {
 			"warn",
 			"always"
 		],
-		"brace-style":  [
+		"brace-style": [
 			"error",
 			"1tbs"
 		],
 		"callback-return": "error",
 		"camelcase": [
 			"warn",
-			{ "properties": "always" }
+			{"properties": "always"}
 		],
 		"capitalized-comments": "off",
 		"class-methods-use-this": "error",
@@ -73,7 +73,7 @@ module.exports = {
 		"id-blacklist": "error",
 		"id-length": [
 			"warn",
-			{ "exceptions": ["$","e","i","j"] }
+			{"exceptions": ["$", "e", "i", "j"]}
 		],
 		"id-match": "error",
 		"indent": [
@@ -109,15 +109,15 @@ module.exports = {
 		"max-nested-callbacks": "error",
 		"max-params": [
 			"warn",
-			{ "max": 4 }
+			{"max": 4}
 		],
 		"max-statements": [
 			"warn",
-			{ "max": 20 }
+			{"max": 20}
 		],
 		"max-statements-per-line": [
 			"error",
-			{ "max": 2 }
+			{"max": 2}
 		],
 		"multiline-ternary": [
 			"error",
@@ -128,7 +128,7 @@ module.exports = {
 		"newline-before-return": "error",
 		"newline-per-chained-call": [
 			"warn",
-			{ "ignoreChainWithDepth": 3 }
+			{"ignoreChainWithDepth": 3}
 		],
 		"no-alert": "error",
 		"no-array-constructor": "error",
@@ -144,16 +144,16 @@ module.exports = {
 		"no-else-return": "error",
 		"no-empty": [
 			"error",
-			{ "allowEmptyCatch": true }
+			{"allowEmptyCatch": true}
 		],
 		"no-empty-function": [
 			"error",
-			{ "allow": ["functions"] }
+			{"allow": ["functions"]}
 		],
 		"no-eq-null": "error",
 		"no-eval": [
 			"error",
-			{ "allowIndirect": true }
+			{"allowIndirect": true}
 		],
 		"no-extend-native": "error",
 		"no-extra-bind": "error",
@@ -185,7 +185,7 @@ module.exports = {
 		"no-magic-numbers": [
 			"warn",
 			{
-				"ignore": [0,1],
+				"ignore": [0, 1],
 				"ignoreArrayIndexes": true
 			}
 		],
