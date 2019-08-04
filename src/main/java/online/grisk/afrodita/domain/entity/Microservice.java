@@ -11,22 +11,17 @@ import java.util.Map;
 @AllArgsConstructor
 public class Microservice {
 
-    @ApiModelProperty("Service Id")
     private String serviceId;
 
-    @ApiModelProperty("Service Call Method")
     private HttpMethod serviceCallMethod;
 
-    @ApiModelProperty("Service Path")
     private String servicePath;
 
     @ApiModelProperty("Service Username")
     private String serviceUsername;
 
-    @ApiModelProperty("Service Password")
     private String servicePassword;
 
-    @ApiModelProperty("Service Headers")
     private Map<String, Object> serviceHeaders;
 
 

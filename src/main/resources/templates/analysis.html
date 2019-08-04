@@ -32,7 +32,7 @@
                         <!--Begin::  Content-->
                         <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
                              style="margin-bottom: 50px;">
-                            <div class="row">
+                            <div class="row" id="row_analysis">
                                 <div class="col-xl-12">
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">
@@ -42,10 +42,9 @@
                                                 </h3>
                                             </div>
                                         </div>
-                                        <form class="kt-form"
-                                              enctype="multipart/form-data"
-                                              method="post" th:action="@{/analysis/} + ${id_organization} + '/file'"
-                                              th:if="${dataintegration != null and dataintegration.bureau == false}">
+                                        <input id="organization" type="text" hidden th:value="${id_organization}">
+                                        <form class="kt-form" >
+<!--                                              th:if="${dataintegration != null and dataintegration.bureau == false}">-->
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -68,7 +67,7 @@
                                                                     <div class="col-12">
                                                                         <div class="custom-file">
                                                                             <input class="custom-file-input"
-                                                                                   id="file"
+                                                                                   id="analysis_file"
                                                                                    name="file"
                                                                                    type="file">
                                                                             <label class="custom-file-label">Ningún
@@ -89,15 +88,15 @@
                                             </div>
                                             <div class="kt-portlet__foot">
                                                 <div class="kt-form__actions kt-form__actions--center">
-                                                    <button class="btn btn-success" id="btn_submit_analysis_excel"
-                                                            type="submit">Realizar análisis de
+                                                    <button class="btn btn-success" id="btn_submit_analysis_excel" type="button">
+                                                        Realizar análisis de
                                                         riesgo
                                                     </button>
                                                 </div>
                                             </div>
                                         </form>
-                                        <form class="kt-form"
-                                              th:if="${dataintegration != null and dataintegration.bureau == true}">
+                                        <form class="kt-form" >
+<!--                                              th:if="${dataintegration != null and dataintegration.bureau == true}">-->
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -107,35 +106,68 @@
                                                                     financiero</h2>
                                                             </div>
                                                         </div>
-                                                        <div class="row">
-                                                            <div class="col-md-0 col-lg-3"></div>
-                                                            <div class="col-md-12 col-lg-6">
-                                                                <div class="form-group row">
-                                                                    <div class="col-12" style="margin-bottom: 10px;">
-                                                                        <label class="text-center">Ingresa datos
-                                                                            necesarios</label>
-                                                                    </div>
-                                                                    <div class="col-12">
-
-                                                                    </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-md-12 offset-lg-4 col-lg-4">
+                                                                <label class="col-12"
+                                                                       style="margin-bottom: 10px;">Por favor,
+                                                                    ingrese
+                                                                    el rut de la persona a
+                                                                    consultar:</label>
+                                                                <div class="col-12">
+                                                                    <input class="form-control"
+                                                                           placeholder="Rut del consultado"
+                                                                           type="text">
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="kt-portlet__foot">
+                                                    <div class="kt-form__actions kt-form__actions--center">
+                                                        <button class="btn btn-success" id="btn_submit_analysis_bureau"  type="button">
+                                                            Realizar análisis de
+                                                            riesgo
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" id="row_dashboard_analysis">
+                                <div class="col-xl-12">
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">Resultado de análisis
+                                                    <small>--</small>
+                                                </h3>
                                             </div>
-                                            <div class="kt-portlet__foot">
-                                                <div class="kt-form__actions kt-form__actions--center">
-                                                    <button class="btn btn-success" id="btn_submit_analysis_bureau"
-                                                            type="reset">Realizar análisis de
-                                                        riesgo
-                                                    </button>
+                                        </div>
+                                        <form class="kt-form">
+                                            <div class="kt-portlet__body">
+                                                <div class="kt-section kt-section--first">
+                                                    <div class="kt-section__body">
+                                                        <div class="row">
+                                                            <div class="col-12"
+                                                                 style="margin-bottom: 50px;margin-top: 50px;">
+                                                                <h2 class="text-center">Resultado análisis de riesgo
+                                                                    financiero</h2>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-xl-12">
                                     <div class="row" th:if="${dataintegration == null}">
@@ -228,7 +260,7 @@
 <div th:replace="fragments/common :: footer"></div>
 
 <!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
-<script th:src="@{/js/dashboard/analysis-excel.js}"
+<script th:src="@{/js/analysis/analysis.js}"
         type="text/javascript"></script>
 </body>
 </html>

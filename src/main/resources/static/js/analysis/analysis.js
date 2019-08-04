@@ -1,19 +1,18 @@
 "use strict";
 
 // Class definition
-var KTDashboard = function () {
-
-    var initSendFileExcel = function () {
+var AnalysisDashboard = function () {
+    var initAnalysisExcel = function () {
         $("#btn_submit_analysis_excel").on('click', function () {
-            sendFile(document.querySelector("#file_analysis").files[0], $("#btn_submit_analysis_excel"));
+            KTApp.progress($("#btn_submit_analysis_excel"));
+            sendFile(document.querySelector("#analysis_file").files[0], $("#btn_submit_analysis_excel"));
         });
     }
-
     var sendFile = function (file, btn) {
         var formData = new FormData();
         formData.append("file", file);
         var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/v1/rest/analysis/" + $('#organization').val() + "/file");
+        xhr.open("POST", "/analysis/" + $('#organization').val() + "/excel");
         xhr.onload = function () {
             KTApp.unprogress(btn);
             if (xhr.status == 200) {
@@ -34,16 +33,16 @@ var KTDashboard = function () {
         }
         xhr.send(formData);
     }
-
     return {
         // Init demos
         init: function () {
-            initSendFileExcel();
+            initAnalysisExcel();
         }
     };
 }();
 
+
 // Class initialization on page load
 jQuery(document).ready(function () {
-    // KTDashboard.init();
+    AnalysisDashboard.init();
 });

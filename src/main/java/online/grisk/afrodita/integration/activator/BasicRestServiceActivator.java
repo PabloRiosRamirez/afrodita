@@ -2,16 +2,20 @@ package online.grisk.afrodita.integration.activator;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
 import online.grisk.afrodita.domain.entity.Microservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestClientResponseException;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -40,6 +44,23 @@ public class BasicRestServiceActivator {
         return this.executeRequest(path, method, microserviceArtemisa, httpEntity);
     }
 
+    private HttpEntity<Object> buildHttpEntityMultipart(Map<String, Object> payload, Map<String, Object> headers, Microservice microservice) throws IOException {
+        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(payload);
+        ContentDisposition contentDisposition = ContentDisposition.builder("form-data").name("file").filename(fileDataIntegrationDTO.getFile().getOriginalFilename()).build();
+
+        HttpHeaders httpHeaders = this.createHttpHeaders(headers, microservice);
+        httpHeaders.setContentDisposition(contentDisposition);
+        httpHeaders.setContentType(MediaType.MULTIPART_FORM_DATA);
+        MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+        body.add("file", fileDataIntegrationDTO.getFile().getResource());
+        return new HttpEntity<>(body, httpHeaders);
+    }
+
+
+    protected ResponseEntity<Map<String, Object>> consumerMultipartRestServiceActivator(@NotBlank String path, @NotNull HttpMethod method, @NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers, @NotNull Microservice microserviceArtemisa) throws Exception {
+        HttpEntity<Object> httpEntity = this.buildHttpEntityMultipart(payload, headers, microserviceArtemisa);
+        return this.executeRequest(path, method, microserviceArtemisa, httpEntity);
+    }
 
     protected HttpEntity<Object> buildHttpEntity(Map<String, Object> payload, Map<String, Object> headers, Microservice microservice) {
         HttpHeaders httpHeaders = createHttpHeaders(headers, microservice);
