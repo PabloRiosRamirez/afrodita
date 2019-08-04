@@ -38,17 +38,21 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 
     //    Action for 'sendEmailRegisterUser'
     public Map<String, Object> invokeEmailRegisterByLogin(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
-        UserDTO userDTO = objectMapper.convertValue(payload.get("request"), UserDTO.class);
+        UserDTO userDTO = objectMapper.convertValue(payload, UserDTO.class);
         if (artemisaService.isOrganizationValidForRegister(userDTO)) {
-            if (artemisaService.isUserValidForRegister(userDTO)) {
-                User user = artemisaService.registerUserAndOrganization(userDTO);
-                ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email", HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenConfirm()), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
-                return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
+            if (artemisaService.isUsernameValidForRegister(userDTO)) {
+            	 if (artemisaService.isEmailValidForRegister(userDTO)) {
+	                User user = artemisaService.registerUserAndOrganization(userDTO);
+	                ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email", HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenConfirm()), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
+	                return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
+            	 } else {
+            		 return addServiceResponseToResponseMap(buildResponseError("Email Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+            	 }
             } else {
-                return addServiceResponseToResponseMap(buildResponseError("Registered user"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+                return addServiceResponseToResponseMap(buildResponseError("Username Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
             }
         } else {
-            return addServiceResponseToResponseMap(buildResponseError("Registered organization"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+            return addServiceResponseToResponseMap(buildResponseError("Organization Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
         }
     }
 

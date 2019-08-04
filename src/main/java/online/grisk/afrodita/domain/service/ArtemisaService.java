@@ -38,6 +38,14 @@ public class ArtemisaService {
     public boolean isUserValidForRegister(@Valid UserDTO userDTO) {
         return userService.findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail()) == null;
     }
+    
+    public boolean isUsernameValidForRegister(@Valid UserDTO userDTO) {
+        return userService.findByUsername(userDTO.getUsername()) == null;
+    }
+    
+    public boolean isEmailValidForRegister(@Valid UserDTO userDTO) {
+        return userService.findByEmail(userDTO.getEmail()) == null;
+    }
 
     public boolean isOrganizationValidForRegister(@Valid UserDTO userDTO) {
         return organizationService.findByRut(userDTO.getOrganization().getRut()) == null;

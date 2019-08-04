@@ -54,7 +54,7 @@ public class AfroditaController {
             }
             userByToken.setTokenConfirm(null);
             userByToken.setEnabled(true);
-            online.grisk.afrodita.domain.entity.User user = userService.save(userByToken);
+            userService.save(userByToken);
             model.addAttribute("proccess", "confirm_by_email_success");
             return "login";
         } catch (Exception e) {
