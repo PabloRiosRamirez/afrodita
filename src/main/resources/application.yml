@@ -6,16 +6,6 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-  datasource:
-    hikari:
-      maximum-pool-size: 2
-      minimum-idle: 1
-    tomcat:
-      initial-size: 2
-      max-active: 2
-    dbcp2:
-      max-idle: 2
-        
-server:
-  port: 8090
+#server:
+#  port: 8090
   
