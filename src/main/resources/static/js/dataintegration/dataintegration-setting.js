@@ -54,6 +54,16 @@ var KTWizard3 = function () {
             if (validatorBureau.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
+            var length = $('input[type="checkbox"]:checked').length
+            for (var i = 0; i < length; i++) {
+                $('#group_details_variable_'+ $('input[type="checkbox"]:checked')[i].value).removeAttr('hidden');
+            }
+        })
+        wizardBureau.on('beforePrev', function (wizardObj) {
+            var length = $('input[type="checkbox"]:checked').length
+            for (var i = 0; i < length; i++) {
+                $('#group_details_variable_'+ $('input[type="checkbox"]:checked')[i].value).attr('hidden', 'hidden');
+            }
         })
 
         // Change event
@@ -109,7 +119,6 @@ var KTWizard3 = function () {
             // Display error
             invalidHandler: function (event, validator) {
                 KTUtil.scrollTop();
-
                 swal.fire({
                     "title": "",
                     "text": "Hay algunos errores por favor corríjalos.",
