@@ -58,7 +58,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 
     //    Action for 'sendEmailResetPassword'
     public Map<String, Object> invokeEmailResetPassByLogin(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
-        User userValidForResetPass = artemisaService.isUserValidForResetPass((Map<String, Object>) payload.get("request"));
+        User userValidForResetPass = artemisaService.isUserValidForResetPass((Map<String, Object>) payload);
         if (userValidForResetPass != null) {
             User userReseted = artemisaService.registerTokenForPostReset(userValidForResetPass);
             ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email", HttpMethod.POST, buildRequestHermesByArtemisa(userValidForResetPass.getEmail(), userReseted.getTokenRestart()), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
@@ -73,7 +73,8 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 
     //    Action for 'postResetPassword'
     public Map<String, Object> invokePostResetPassByLogin(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
-        User user = artemisaService.isUserValidForPostResetPass((ResetPassDTO) payload.get("request"));
+    	ResetPassDTO resetPassDto = new ResetPassDTO(payload.get("email").toString(), payload.get("token").toString(), payload.get("pass").toString());
+    	User user = artemisaService.isUserValidForPostResetPass(resetPassDto);
         if (user != null) {
             user.setPass(artemisaService.encryte(user.getPass()));
             if (artemisaService.registerUserWithNewPassword(user) != null)

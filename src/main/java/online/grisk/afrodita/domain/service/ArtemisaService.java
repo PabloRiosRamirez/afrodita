@@ -52,7 +52,7 @@ public class ArtemisaService {
     }
 
     public User isUserValidForPostResetPass(@Valid ResetPassDTO resetPassDTO) {
-        return userService.findByUsernameOrEmail(resetPassDTO.getEmail(), resetPassDTO.getToken());
+        return userService.findByUsernameOrEmail(resetPassDTO.getToken(), resetPassDTO.getEmail());
     }
 
     public User registerUserAndOrganization(@Valid UserDTO userDTO) {

@@ -27,7 +27,7 @@ public class ResetPassDTO {
     @NotNull
     @Size(min = 1, max = 2147483647)
     private String pass;
-
+    
     public Map toMap() {
         Map<String, Object> objectMap = new HashMap<>();
         objectMap.put("email", email);

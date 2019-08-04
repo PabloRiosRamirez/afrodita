@@ -210,12 +210,13 @@ var KTLoginGeneral = function () {
             }
 
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
-
+            var requestJson = {};
+            requestJson["email"] = $("#kt-login__forgot-email").val();
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
                 url: '/v1/rest/user/reset-by-login',
-                data: $("#kt-login__forgot-email").val(),
+                data: JSON.stringify(requestJson),
                 dataType: 'json',
                 cache: false,
                 timeout: 60000,
