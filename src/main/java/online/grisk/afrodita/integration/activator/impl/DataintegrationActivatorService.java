@@ -2,19 +2,20 @@ package online.grisk.afrodita.integration.activator.impl;
 
 import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
 import online.grisk.afrodita.domain.entity.Microservice;
+import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.integration.activator.BasicRestServiceActivator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
@@ -23,6 +24,18 @@ public class DataintegrationActivatorService extends BasicRestServiceActivator {
     @Autowired
     Microservice microserviceArtemisa;
 
+    //    Action for 'variableBureau'
+    public List<Variable> getVariableBureau() throws Exception {
+        try {
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBasicAuth("artemisa", "GRisk.2019");
+            ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, new HttpEntity(new HashMap<>(), headers));
+            return (List<Variable>) responseEntity.getBody().get("variables");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
 
     //    Action for 'getDataIntegrationExcel'
     public Map<String, Object> invokeGetDataIntegration(@NotNull Long id_organization) throws Exception {
