@@ -3,6 +3,7 @@ package online.grisk.afrodita.presentation.controller.afrodita;
 import online.grisk.afrodita.domain.entity.TypeVariable;
 import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.UserService;
+import online.grisk.afrodita.integration.activator.impl.AfroditaActivatorService;
 import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,9 @@ public class AfroditaController {
 
     @Autowired
     DataintegrationActivatorService dataintegrationActivatorService;
+
+    @Autowired
+    AfroditaActivatorService afroditaActivatorService;
 
     @Autowired
     List<TypeVariable> getTypesVariables;
@@ -148,7 +152,8 @@ public class AfroditaController {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
         model.addAttribute("module", "user");
-        return "users/create-user";
+//        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        return "users/user-create";
     }
 
     @RequestMapping(value = "/users/edit", method = GET)
@@ -156,7 +161,8 @@ public class AfroditaController {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
-        return "users/edit-user";
+//        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        return "users/user-edit";
     }
 
 }

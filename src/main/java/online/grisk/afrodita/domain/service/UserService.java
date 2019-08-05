@@ -3,6 +3,8 @@ package online.grisk.afrodita.domain.service;
 import online.grisk.afrodita.domain.entity.User;
 
 public interface UserService {
+    public User findByIdUser(Long user);
+
     public User findByUsername(String username);
 
     public User findByEmail(String email);

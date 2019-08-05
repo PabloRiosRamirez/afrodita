@@ -12,6 +12,10 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+    public User findByIdUser(Long user) {
+        return userRepository.findById(user).get();
+    }
+
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
