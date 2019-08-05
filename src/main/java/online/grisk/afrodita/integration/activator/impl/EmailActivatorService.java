@@ -76,7 +76,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
     	ResetPassDTO resetPassDto = new ResetPassDTO(payload.get("email").toString(), payload.get("token").toString(), payload.get("pass").toString());
     	User user = artemisaService.isUserValidForPostResetPass(resetPassDto);
         if (user != null) {
-            user.setPass(artemisaService.encryte(user.getPass()));
+            user.setPass(artemisaService.encryte(resetPassDto.getPass()));
             if (artemisaService.registerUserWithNewPassword(user) != null)
                 return addServiceResponseToResponseMap(payload, null, HttpStatus.OK, microserviceArtemisa.getServiceId());
             else
