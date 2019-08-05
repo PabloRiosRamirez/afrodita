@@ -318,7 +318,7 @@
     /*]]>*/
 </script>
 <script th:if="${proccess != null and proccess == 'confirm_by_email_success'}" th:inline="javascript">
-    showErrorMsg($('#kt_login').find('.kt-login__signin form'), 'success', 'La confirmación de su cuenta GRisk ha sido realizada con éxito.');
+    showErrorMsg($('#kt_login').find('.kt-login__signin form'), 'success', 'La confirmación de su cuenta GRisk ha sido realizada con éxito, por favor ingrese con sus credenciales.');
 </script>
 <script th:if="${errors != null and errors == 'confirm_by_email_token_failed'}" th:inline="javascript">
     showErrorMsg($('#kt_login').find('.kt-login__signin form'), 'info', 'El token ya ha sido utilizado o es invalido, por favor realizar la petición nuevamente.');

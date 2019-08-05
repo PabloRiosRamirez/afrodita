@@ -212,6 +212,7 @@ var KTLoginGeneral = function () {
             btn.addClass('kt-spinner kt-spinner--right kt-spinner--sm kt-spinner--light').attr('disabled', true);
             var requestJson = {};
             requestJson["email"] = $("#kt-login__forgot-email").val();
+            var signInForm = login.find('.kt-login__signin form');
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
@@ -225,7 +226,6 @@ var KTLoginGeneral = function () {
                     form.clearForm();
                     form.validate().resetForm();
                     displaySignInForm();
-                    var signInForm = login.find('.kt-login__signin form');
                     signInForm.clearForm();
                     signInForm.validate().resetForm();
                 },
