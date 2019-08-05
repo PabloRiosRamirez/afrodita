@@ -5,8 +5,6 @@ import online.grisk.afrodita.domain.entity.Microservice;
 import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.integration.activator.BasicRestServiceActivator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Headers;
@@ -24,15 +22,13 @@ public class DataintegrationActivatorService extends BasicRestServiceActivator {
     @Autowired
     Microservice microserviceArtemisa;
 
+    @Autowired
+    DataintegrationActivatorService dataintegrationActivatorService;
+
     //    Action for 'variableBureau'
     public List<Variable> getVariableBureau() throws Exception {
-        try {
-            ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, this.buildHttpEntity(new HashMap<>(), new HashMap<>(), microserviceArtemisa));
-            return (List<Variable>) responseEntity.getBody().get("variables");
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
+        ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, this.buildHttpEntity(new HashMap<>(), new HashMap<>(), microserviceArtemisa));
+        return (List<Variable>) responseEntity.getBody().get("variables");
     }
 
     //    Action for 'getDataIntegrationExcel'

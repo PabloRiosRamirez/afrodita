@@ -34,9 +34,6 @@ public class AfroditaController {
     @Autowired
     List<TypeVariable> getTypesVariables;
 
-    @Autowired
-    List<Variable> getVariablesBureau;
-
     @RequestMapping(value = "/login", method = GET)
     public String loginPage(Model model) {
         model.addAttribute("title", "Login");

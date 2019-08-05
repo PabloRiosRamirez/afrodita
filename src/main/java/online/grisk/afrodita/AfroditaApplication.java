@@ -94,15 +94,6 @@ public class AfroditaApplication {
         return new BCryptPasswordEncoder();
     }
 
-    @Autowired
-    DataintegrationActivatorService dataintegrationActivatorService;
-
-    @Bean
-    public List<Variable> getVariablesBureau() throws Exception {
-        List<Variable> variables = dataintegrationActivatorService.getVariableBureau();
-        return variables;
-    }
-
     @Bean
     public List<TypeVariable> getTypesVariables() {
         List<TypeVariable> types = new ArrayList<>();

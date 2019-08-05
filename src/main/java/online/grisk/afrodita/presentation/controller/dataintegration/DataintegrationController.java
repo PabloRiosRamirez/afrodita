@@ -32,9 +32,6 @@ public class DataintegrationController {
     @Autowired
     List<TypeVariable> getTypesVariables;
 
-    @Autowired
-    List<Variable> getVariablesBureau;
-
     @RequestMapping(value = "/dataintegration", method = GET)
     public String dataIntegration(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Data Integration");
@@ -61,7 +58,7 @@ public class DataintegrationController {
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
-        model.addAttribute("variables", getVariablesBureau);
+        model.addAttribute("variables", dataintegrationActivatorService.getVariableBureau());
         model.addAttribute("types_variables", getTypesVariables);
         return "dataintegration/dataintegration-setting";
     }
