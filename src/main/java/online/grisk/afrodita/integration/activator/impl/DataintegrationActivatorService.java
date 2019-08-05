@@ -27,9 +27,7 @@ public class DataintegrationActivatorService extends BasicRestServiceActivator {
     //    Action for 'variableBureau'
     public List<Variable> getVariableBureau() throws Exception {
         try {
-            HttpHeaders headers = new HttpHeaders();
-            headers.setBasicAuth("artemisa", "GRisk.2019");
-            ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, new HttpEntity(new HashMap<>(), headers));
+            ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, this.buildHttpEntity(new HashMap<>(), new HashMap<>(), microserviceArtemisa));
             return (List<Variable>) responseEntity.getBody().get("variables");
         } catch (Exception e) {
             System.out.println(e);
