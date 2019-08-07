@@ -152,7 +152,9 @@ public class AfroditaController {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
         model.addAttribute("module", "user");
-//        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
         return "users/user-create";
     }
 
@@ -161,7 +163,8 @@ public class AfroditaController {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
-//        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
         return "users/user-edit";
     }
 

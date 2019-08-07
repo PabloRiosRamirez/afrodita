@@ -6,6 +6,8 @@ public interface OrganizationService {
 
     public Organization findByRut(String rut);
 
+    public Organization findById(Long idOrganization);
+
     public Organization save(Organization organization);
 
 }

@@ -3,6 +3,7 @@ package online.grisk.afrodita.domain.service;
 import lombok.Setter;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
+import online.grisk.afrodita.domain.dto.UserFormDTO;
 import online.grisk.afrodita.domain.entity.Organization;
 import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.User;
@@ -27,6 +28,9 @@ public class ArtemisaService {
     private OrganizationService organizationService;
 
     @Autowired
+    private RoleService roleService;
+
+    @Autowired
     private Role roleWithCodeAdmin;
 
     @Autowired
@@ -42,10 +46,17 @@ public class ArtemisaService {
     public boolean isUsernameValidForRegister(@Valid UserDTO userDTO) {
         return userService.findByUsername(userDTO.getUsername()) == null;
     }
+    public boolean isUsernameValidForRegister(String username) {
+        return userService.findByUsername(username) == null;
+    }
     
     public boolean isEmailValidForRegister(@Valid UserDTO userDTO) {
         return userService.findByEmail(userDTO.getEmail()) == null;
     }
+    public boolean isEmailValidForRegister(String email) {
+        return userService.findByEmail(email) == null;
+    }
+
 
     public boolean isOrganizationValidForRegister(@Valid UserDTO userDTO) {
         return organizationService.findByRut(userDTO.getOrganization().getRut()) == null;
@@ -59,6 +70,11 @@ public class ArtemisaService {
         return userService
                 .save(new User(userDTO.getUsername(), userDTO.getEmail(), organizationService.save(new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())), encryte(userDTO.getPass()), null, token,
                         false, true, new Date(), new Date(), roleWithCodeAdmin));
+    }
+    public User registerUser(@Valid UserFormDTO userDTO) {
+        return userService
+                .save(new User(userDTO.getUsername(), userDTO.getEmail(), organizationService.findById(userDTO.getOrganization()), encryte(userDTO.getPass()), null, token,
+                        false, true, new Date(), new Date(), roleService.findByCode(userDTO.getRol())));
     }
 
     public User registerUserWithNewPassword(@Valid User user) {

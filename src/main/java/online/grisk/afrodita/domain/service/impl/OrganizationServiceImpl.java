@@ -16,6 +16,11 @@ public class OrganizationServiceImpl implements OrganizationService {
         return organizationRepository.findByRut(rut);
     }
 
+    @Override
+    public Organization findById(Long idOrganization) {
+        return organizationRepository.findById(idOrganization).get();
+    }
+
     public Organization save(Organization organization) {
         return organizationRepository.save(organization);
     }

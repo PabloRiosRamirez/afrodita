@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
+import online.grisk.afrodita.domain.dto.UserFormDTO;
 import online.grisk.afrodita.domain.entity.Microservice;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.ArtemisaService;
@@ -54,6 +55,21 @@ public class EmailActivatorService extends BasicRestServiceActivator {
         } else {
             return addServiceResponseToResponseMap(buildResponseError("Organization Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
         }
+    }
+    //    Action for 'invokeEmailRegisterForm'
+    public Map<String, Object> invokeEmailRegisterForm(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
+        UserFormDTO userDTO = objectMapper.convertValue(payload, UserFormDTO.class);
+            if (artemisaService.isUsernameValidForRegister(userDTO.getUsername())) {
+                if (artemisaService.isEmailValidForRegister(userDTO.getEmail())) {
+                    User user = artemisaService.registerUser(userDTO);
+                    ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email", HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenConfirm()), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
+                    return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
+                } else {
+                    return addServiceResponseToResponseMap(buildResponseError("Email Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+                }
+            } else {
+                return addServiceResponseToResponseMap(buildResponseError("Username Already Exist"), null, HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+            }
     }
 
     //    Action for 'sendEmailResetPassword'

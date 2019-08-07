@@ -2,6 +2,7 @@ package online.grisk.afrodita.presentation.controller.email;
 
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
+import online.grisk.afrodita.domain.dto.UserFormDTO;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
@@ -25,6 +26,16 @@ public class EmailRestController extends BasicRestController {
 
     @Autowired
     EmailActivatorService emailActivatorService;
+
+    @PostMapping(value = "/v1/rest/user/register")
+    public HttpEntity<?> createdUser(@Valid @RequestBody UserFormDTO userDTO, Errors errors) throws Exception {
+        if (errors.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        this.verifyParameters(userDTO.toMap());
+        Map response = emailActivatorService.invokeEmailRegisterForm(userDTO.toMap(), createHeadersWithAction("sendEmailRegisterUser"));
+        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
+    }
 
     @PostMapping(value = "/v1/rest/user/register-by-login")
     public HttpEntity<?> createdUserAdminByLogin(@Valid @RequestBody UserDTO userDTO, Errors errors) throws Exception {
