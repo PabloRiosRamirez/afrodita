@@ -1,0 +1,3027 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+    <link rel="stylesheet" th:href="@{/css/tree/jsPlumb/jsPlumbToolkit-defaults.css}">
+    <link rel="stylesheet" th:href="@{/css/tree/jsPlumb/jsPlumbToolkit-demo.css}">
+    <link rel="stylesheet" th:href="@{/css/tree/jsPlumb/demo.css}">
+    <style>
+
+        .fondo{
+            background-image: url("images/cuadro.png");
+            background-size: 20px;
+            background-repeat: repeat;
+            /*background-color: #73cfd7;*/
+        }
+
+        #mdialTamanio { width: 80% !important;}
+        .Acolor { background-color: #8BE764; }
+        .Bcolor { background-color: #bfedab; }
+        .Ccolor { background-color: #d8edab; }
+        .Dcolor { background-color: #ede4ab; }
+        .Ecolor { background-color: #edd5ab; }
+        .Fcolor { background-color: #edabab; }
+
+        body.dragging, body.dragging * {
+            cursor: move !important;
+        }
+
+        .dragged {
+            position: absolute;
+            opacity: 0.5;
+            z-index: 2000;
+        }
+
+        ol.example li.placeholder {
+            position: relative;
+            /** More li styles **/
+        }
+        ol.example li.placeholder:before {
+            position: absolute;
+            /** Define arrowhead **/
+        }
+
+        .toggle.ios, .toggle-on.ios, .toggle-off.ios { border-radius: 15px !important;}
+
+        .toggle-handle { border-radius: 15px !important; width: 50px !important}
+
+        .form1 {
+            font-size: 12px !important;
+            height: 30px !important;
+            padding: 0px 7px !important;
+        }
+
+        .btn1{
+            font-size: 13px !important;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 60%, 100% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0);
+            }
+
+            40% {
+                -webkit-transform: translateY(-2px);
+                transform: translateY(-2px);
+            }
+
+            80% {
+                -webkit-transform: translateY(-1px);
+                transform: translateY(-1px);
+            }
+        }
+        .tabla1 tbody tr td{
+            font-size: 76%;
+            margin-bottom: 0px;
+            border-left: 1px solid #e7ecf1;
+            padding-left: 2%;
+        }
+        .tabla1{
+            margin-bottom: -15px;
+            margin-top: -4%;
+        }
+        .tooltip > .tooltip-inner {
+            background-color: #e6e6e6 !important;
+            color: #666666 !important;
+            padding:5px 4px !important;
+            text-align:center !important;
+        }
+        .tooltip > .tooltip-arrow {
+            border-bottom-color:#e6e6e6 !important;
+        }
+    </style>
+</head>
+
+<script th:inline="javascript">
+
+    /*<![CDATA[*/
+
+    var var_temp = /*[[${dataintegration}]]*/ 'DataIntegration';
+
+    /*]]>*/
+</script>
+
+<body id="cuerpo" class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
+
+<div th:replace="fragments/common :: header"></div>
+
+<div class="kt-grid kt-grid--hor kt-grid--root">
+    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
+        <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor kt-wrapper" id="kt_wrapper">
+            <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-grid--stretch">
+                <div class="kt-container kt-body  kt-grid kt-grid--ver" id="kt_body">
+                    <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--hor">
+
+                        <!-- begin:: Subheader -->
+                        <div class="kt-subheader   kt-grid__item" id="kt_subheader" style="padding: 10px 0 !important;">
+                            <div class="kt-subheader__main">
+                                <span class="kt-subheader__separator kt-hidden"></span>
+                                <div class="kt-subheader__breadcrumbs">
+                                    <a class="kt-subheader__breadcrumbs-home" th:href="@{/}"><i
+                                            class="flaticon2-shelter"></i></a>
+                                    <span class="kt-subheader__breadcrumbs-separator"></span>
+                                    <!--<a href="" class="kt-subheader__breadcrumbs-link">
+                                        Cuenta </a>-->
+
+                                    <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Data Integration</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end:: Subheader -->
+
+                        <!--Begin::  Content-->
+                        <div class="kt-content kt-grid__item kt-grid__item--fluid" id="kt_content"
+                             style="margin-bottom: 50px;">
+                            <div class="row" id="first_dataintegration">
+                                <div class="col-lg-12">
+                                    <!--begin::Portlet-->
+                                    <div class="kt-portlet">
+                                        <div class="kt-portlet__head">
+                                            <div class="kt-portlet__head-label">
+                                                <h3 class="kt-portlet__head-title">
+                                                    Business tree
+                                                </h3>
+                                            </div>
+                                            <div class="kt-portlet__head-toolbar">
+                                                <ul class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-brand nav-tabs-line-info"
+                                                    role="tablist">
+                                                    <li class="nav-item">
+                                                        <a class="nav-link active"
+                                                           role="tab" th:href="@{/dataintegration/setting}">
+                                                            <i class="flaticon2-gear"></i>
+                                                            Nueva configuración
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!--begin::Form-->
+                                        <div class="kt-portlet__body">
+                                            <div class="kt-wizard-v3__content"
+                                                 data-ktwizard-type="step-content">
+                                                <div class="kt-heading kt-heading--md" style="margin-top: 0px;">
+                                                    Detalles de la configuración
+                                                    activa
+                                                </div>
+                                                <div class="row">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Portlet-->
+                                </div>
+                            </div>
+                        </div>
+                        <!--End::  Content-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+<style>
+
+    @media handheld, only screen and (max-width: 767px) {
+        #logoPrincipal{
+            margin-left: 0px!important;
+            margin-top: 10px!important;
+            height: 60px!important;
+        }
+
+        #boxbuscarRut{
+            margin-top: 75px!important;
+            width: 0px!important;
+        }
+        #boxBuscarRut02{
+            margin-top: 75px!important;
+            width: 300px!important;
+        }
+        #menuHead{
+            height: 0px;
+        }
+
+        #barraOcultarMenuCelular{
+            display: block!important;
+        }
+
+        #barraOcultarMenuCelularEasyHelp{
+            display: block!important;
+        }
+
+        #barraOcultarMenu{
+            display: none!important;
+        }
+    }
+
+
+</style>
+
+
+<div id="menuHead" class="page-header navbar navbar-fixed-top" style="background-color: #3B3F51; height: 76px;">
+    <div class="page-header-inner ">
+        <div class="page-logo">
+            <div style="width: 140px;">
+                <!--                <div style="position: absolute; left: -7px; top: 0;">
+                                    <img style="width: 75px; height: 75px" src="images/beta.png" alt=""/>
+                                </div>-->
+                <a href="cmd" class="">
+                    <!--SINACOFI LAYOUT-->
+
+                    <!--                        <img id="logoPrincipal" src="assets/layouts/layout4/img/Lg_Sina.png" alt="logo" class="logo-default" style="margin-left: 35px !important; margin-top: 17px; height: 40px">-->
+
+                    <img id="logoPrincipal" src="assets/layouts/layout4/img/logo4.png" alt="logo" class="logo-default" style="margin-left: 50px; margin-top: 10px; height: 60px">
+
+                </a>
+            </div>
+
+
+            <!--            <div class="menu-toggler sidebar-toggler">
+                             DOC: Remove the above "hide" to enable the sidebar toggler button on header
+                        </div>-->
+        </div>
+        <!--<a href="javascript:;" class="menu-toggler responsive-toggler hidden-lg hidden-md" data-toggle="collapse" data-target=".navbar-collapse"> </a>-->
+
+        <div class="page-actions">
+
+
+
+        </div>
+        <div class="page-top" style="height: 76px;">
+            <div class="top-menu" style="float: right; background-color: #3B3F51;">
+                <!--                <ul class="nav navbar-nav col-md-2 col-xs-1">
+                                    <li class="dropdown dropdown-user dropdown-dark">
+                                        <div class="top-menu" >
+
+
+                <div style="position: relative;">
+                    <div style="position: absolute; left: -7px; top: 0;">
+                        <img style="width: 75px; height: 75px" src="images/beta.png" alt=""/>
+                    </div>
+                </div>
+
+
+                <a href="cmd">
+                    <img id="logoPrincipal" src="assets/layouts/layout4/img/logo4.png" alt="logo" class="logo-default" style="margin-left: 50px; margin-top: 10px; height: 60px">
+                </a>
+            </div>
+        </li>
+    </ul>-->
+
+                <ul class="nav navbar-nav pull-right ">
+                    <li class="separator hide"> </li>
+                    <!-- BEGIN TODO DROPDOWN -->
+                    <!-- DOC: Apply "dropdown-dark" class after below "dropdown-extended" to change the dropdown styte -->
+                    <!--                    <li class="dropdown dropdown-extended dropdown-tasks dropdown-dark hidden-lg hidden-md" id="header_task_bar">
+                                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true" onclick="$('#modalMonitoreo').modal({backdrop: 'static'});">
+                                                <i class="fa fa-thermometer-three-quarters" style="font-size: 30px;"></i>
+                                                <i class="fa fa-support" style="font-size: 30px;"></i>
+                                                <span class="badge badge-primary"></span>
+                                            </a>
+                                        </li>-->
+
+
+
+
+                    <li class="dropdown dropdown-user dropdown-dark">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                            <span class="username username-hide-on-mobile hidden-sm hidden-xs">admin admin (Super Root)</span>
+                            <img alt="" class="img-circle" src="images/avatar2.jpg">
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-default">
+                            <li>
+                                <a onclick="go('cmd', [{id: 'accion', val: 'miPerfil'}], undefined, 'cmd');">
+                                    <i class="icon-user"></i>
+                                    Mi Perfil
+                                </a>
+                            </li>
+                            <li>
+                                <a href="Login?code=logout">
+                                    <i class="icon-key"></i>
+                                    Cerrar sesión
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown dropdown-user dropdown-dark" style="padding-left: 0px;">
+                        <a href="javascript:;" class="dropdown-toggle" style="padding-left: 0px;">
+                            <span class="username"></span>
+                            <img class="dropdown dropdown-extended quick-sidebar-toggler" src="images/help-icon-02.png">
+                            <div id="notificaChat" style="display: inline-block; position:absolute; top:10px; right:0;"></div>
+                        </a>
+                    </li>
+
+                    <a id="barraOcultarMenu" href="javascript:;" class="visible-lg visible-md hidden-sm hidden-xs menu-toggler responsive-toggler " onclick="expandirMenu()" style="display: block;"> </a>
+
+                    <a id="barraOcultarMenuCelular" href="javascript:;" class="hidden-lg hidden-md visible-sm visible-xs menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" style="display: none;"> </a>
+
+                </ul>
+                <ul id="boxbuscarRut" class="nav navbar-nav hidden-sm hidden-xs" style="background-color: #3B3F51; float: right; width: 300px;">
+                    <li class=" dropdown dropdown-user dropdown-dark" style="background-color: #3B3F51">
+                        <div class=" top-menu" style="float: right; background-color: #3B3F51;">
+
+                            <form class=" search-form open" action="javascript:;" style="background-color: #3B3F51">
+                                <div id="boxBuscarRut02" class="input-group" style="width: 300px;">
+                                    <table>
+                                        <tbody><tr><td>
+                                            <input type="text" name="rut" id="txtRutClienteHead" placeholder="Rut..." class="form-control" style="padding: 0; text-align: center;" maxlength="10" onkeyup="formatoNumero(this); cli_rut_dv(this, event, 'txtDvClienteHead');" onchange="formatoNumero(this); cli_rut_dv(this, event, 'txtDv');">
+                                        </td>
+                                            <td>
+                                                <label class="form-control">-</label>
+                                            </td>
+                                            <td>
+                                                <input type="text" name="dv" id="txtDvClienteHead" style="padding: 0; text-align: center;" class="form-control" size="1" maxlength="1" disabled="">
+                                            </td>
+                                            <td>
+                                                <input type="text" class="form-control" id="txtRentaHead" placeholder="Renta..." onkeyup="formatoNumero(this);" autocomplete="off" maxlength="16">
+                                            </td>
+                                            <td>
+                                            <span class="input-group-btn">
+                                                <a href="javascript:;" class="btn submit" onclick="//ValidaControlBioHead();//buscarRutRentaHeader('rut-persona', 2)">
+                                                    <i class="icon-magnifier"></i>
+                                                </a>
+                                            </span>
+                                            </td>
+                                        </tr></tbody></table>
+                                </div>
+                            </form>
+
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<div class="modal fade " id="modalMonitoreo" tabindex="-2012" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content" style="background-color: #3B3F51">
+        <div class="modal-content" style="background-color: #2c3b41">
+            <div class="modal-header">
+                <button type="button" class="close wht" data-dismiss="modal" aria-hidden="true" style="color: white">&times;</button>
+                <h4 class="modal-title sbold" style="color: white">EASY Health Service</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">Transunion</span>
+                        <div id="semaforoTransunion-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">OFAC</span>
+                        <div id="semaforoOFAC-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">Poder Judicial</span>
+                        <div id="semaforoJudicial-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">AFP</span>
+                        <div id="semaforoAFP-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">Patentes</span>
+                        <div id="semaforoPatentes-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">SII</span>
+                        <div id="semaforoSII-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+                    <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12" style="margin-bottom: 10px">
+                        <span class="title font-light col-lg-offset-1 col-md-offset-1 col-xs-offset-1 col-sm-offset-1 col-lg-8 col-md-8 col-xs-8 col-sm-8" style="color: white">Quiebras</span>
+                        <div id="semaforoQuiebras-xs" class="col-lg-3 col-md-3 col-xs-3 col-sm-3">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 15px;">
+            </div>
+        </div>
+    </div>
+</div>-->
+<script src="js/head.js"></script>
+
+
+
+
+
+
+<style>
+    @media handheld, only screen and (max-width: 1300px) {
+        .distancia2{
+            width: 100px!important;
+        }
+    }
+    @media handheld, only screen and (max-width: 1100px) {
+        .distancia2{
+            width: 10px!important;
+        }
+    }
+    @media handheld, only screen and (max-width: 1000px) {
+        .distancia2{
+            display: none;
+        }
+
+        #tituloEasyHealth{
+            display: none;
+        }
+
+        #EasyHealthService{
+            display: block!important;
+        }
+    }
+    @media handheld, only screen and (max-width: 770px) {
+        #distanciaMenu{
+            display: block!important;
+        }
+        .titulosDerecha {
+            float: right!important;
+            height: 15px!important;
+            bottom: 0px!important;
+            background-color: #0088cc!important;
+            position: relative!important;
+            color: white!important;
+        }
+
+        #semaforos2 {
+            height: 50px!important;
+        }
+
+        .titulosDerecha {
+            float: right!important;
+            height: 15px!important;
+            bottom: 0px!important;
+            margin-bottom: 10px!important;
+            background-color: #0088cc!important;
+            position: relative!important;
+            color: white!important;
+        }
+
+        .distancia{
+            width: 5px!important;
+        }
+    }
+
+    @media handheld, only screen and (max-width: 385px) {
+        #semaforos2 {
+            height: 100px!important;
+        }
+    }
+
+    .titulosDerecha {
+        float: right;
+        height: 15px;
+        bottom: -3px;
+        background-color: #0088cc;
+        position: relative;
+        color: white;
+    }
+
+    .semaforo{
+        width: 10px;
+        height: 10px;
+    }
+
+    .distancia{
+        width: 20px;
+        float: right;
+        height: 15px;
+        bottom: 3px;
+        background-color: #0088cc;
+        position: relative;
+        color: white;
+    }
+
+    .distancia2{
+        width: 300px;
+        float: right;
+        height: 15px;
+        bottom: 3px;
+        background-color: #0088cc;
+        position: relative;
+        color: white;
+    }
+</style>
+
+<!--<div id="distanciaMenu" class="col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs" style="height: 80px; background-color: #0088cc; display: none">
+</div>
+<div id="EasyHealthService" class="col-md-12 col-sm-12 col-xs-12 hidden-sm hidden-xs" style="height: 30px; background-color: #0088cc; display: none">
+    <div class="col-md-12 col-sm-12 col-xs-12" style="text-align: center; width: 240px; height: 15px; bottom: -3px; background-color: #0088cc">
+        <FONT SIZE=1 style="color: white;">EASY Health Service</font>
+    </div>
+</div>-->
+
+<div id="semaforos2" class=" hidden-sm hidden-xs col-md-12 col-sm-12 col-xs-12" style="height: 30px; background-color: #0088cc">
+    <div id="semaforos" class="col-md-12 col-sm-12 col-xs-12" style="height: 30px; background-color: #0088cc">
+        <div class="form-group">
+
+            <div id="semaforoTransunion" class="titulosDerecha"><font size="1">Bureau</font><font size="1">&ensp;</font><img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <!--            <div class="distancia"></div>
+                        <div id="semaforoEquifax" class="titulosDerecha">
+                        </div>
+                        <div class="distancia"></div>
+                        <div id="semaforoSinacofi" class="titulosDerecha">
+                            <FONT SIZE=1>Sinacofi</font>
+                            <img class="semaforo" src="images/semaforoAmarillo.gif" alt=""/>
+                        </div>-->
+            <div class="distancia"></div>
+            <div id="semaforoOFAC" class="titulosDerecha"><font size="1">OFAC</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia"></div>
+            <div id="semaforoJudicial" class="titulosDerecha"><font size="1">Poder Judicial</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia"></div>
+            <div id="semaforoAFP" class="titulosDerecha"><font size="1">Inf. Previsional</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia"></div>
+            <div id="semaforoPatentes" class="titulosDerecha"><font size="1">Patentes</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia"></div>
+            <div id="semaforoSII" class="titulosDerecha"><font size="1">SII</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia"></div>
+            <div id="semaforoQuiebras" class="titulosDerecha"><font size="1">Quiebras</font>&ensp;<img class="semaforo" src="images/semaforo02.gif" alt=""></div>
+            <div class="distancia2"></div>
+            <div id="tituloEasyHealth" class="col-md-1" style="float: right; text-align: center; width: 240px; height: 15px; bottom: -3px; background-color: #0088cc">
+                <font size="1" style="color: white;">EASY Health Service</font>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/head.js"></script>
+
+
+
+<div class="clearfix"></div>
+<div class="page-container">
+    <div class="page-sidebar-wrapper">
+
+
+
+
+
+        <script>
+            var recurso = "9";
+
+            function noCerrarSubMenu1(){
+                $(".sub-menu1").css("display", "block");
+                $(".sub-menu2").css("display", "none");
+            }
+            function noCerrarSubMenu2(){
+                $(".sub-menu1").css("display", "none");
+                $(".sub-menu2").css("display", "block");
+            }
+        </script>
+        <style>
+            /*a hover{
+               background-color: #800;
+            }*/
+            .sinabg:hover{
+                background-color: #ED008C !important;
+                color: #FFFFFF !important;
+            }
+            .sinabgMenu{
+                background-color: #E8E8E8 !important;
+            }
+        </style>
+        <!--SINACOFI LAYOUT-->
+
+        <div id="sidebar" class="page-sidebar-wrapper disabled">
+            <div class="page-sidebar navbar-collapse collapse">
+                <ul id="sidebarMenu" class="page-sidebar-menu" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+
+
+                    <li class="nav-item start " id="recurso17">
+
+                        <a href="javascript:;" onclick="go('cmd', [{id: 'recurso', val: '17'}], undefined, 'cmd');" class="nav-link nav-toggle ">
+                            <i class="fa fa-user-plus"></i>
+                            <span class="title">Records Administration</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+
+
+
+
+                    <li class="heading">
+                        <h3 class="uppercase">Tools</h3>
+                    </li>
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso43">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '43'}], undefined, 'cmd');">
+                            <i class="fa fa-search"></i>
+                            <span class="title">Search</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso2">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '2'}], undefined, 'cmd');">
+                            <i class="fa fa-home"></i>
+                            <span class="title">My Risk Manager</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item active" id="recurso9">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '9'}], undefined, 'cmd');">
+                            <i class="fa fa-table"></i>
+                            <span class="title">Risk Tier</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso8">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '8'}], undefined, 'cmd');">
+                            <i class="fa fa-sitemap"></i>
+                            <span class="title">Answer Tree Business</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso53">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '53'}], undefined, 'cmd');">
+                            <i class="fa fa-exclamation-triangle"></i>
+                            <span class="title">Warning Generator</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso54">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '54'}], undefined, 'cmd');">
+                            <i class="fa fa-angle-double-up"></i>
+                            <span class="title">Rating Generator</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso5">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '5'}], undefined, 'cmd');">
+                            <i class="fa fa-bar-chart"></i>
+                            <span class="title">Usage Statistics</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso6">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '6'}], undefined, 'cmd');">
+                            <i class="icon-bar-chart"></i>
+                            <span class="title">MIS Risk Credit</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso16">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '16'}], undefined, 'cmd');">
+                            <i class="fa fa-sliders"></i>
+                            <span class="title">Business Ratios</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso49">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '49'}], undefined, 'cmd');">
+                            <i class="fa fa-usd"></i>
+                            <span class="title">Financial Ratios</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso22">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '22'}], undefined, 'cmd');">
+                            <i class="fa fa-calculator"></i>
+                            <span class="title">Model Deployment</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+
+                    <!--                                <li>
+                                                        <br>
+                                                    </li> -->
+
+                    <li class="nav-item " id="recurso23">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '23'}], undefined, 'cmd');">
+                            <i class="fa fa-gears"></i>
+                            <span class="title">Engine Optimizer</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso24">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '24'}], undefined, 'cmd');">
+                            <i class="fa fa-history"></i>
+                            <span class="title">History</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso18">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '18'}], undefined, 'cmd');">
+                            <i class="fa fa-book"></i>
+                            <span class="title">Queries</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso51">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '51'}], undefined, 'cmd');">
+                            <i class="fa fa-calendar-check-o"></i>
+                            <span class="title">Query Summary</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso32">
+                        <a href="javascript:;" class="nav-link" onclick="noCerrarSubMenu2()">
+                            <i class="fa fa-wrench"></i>
+                            <span class="title">Configuration</span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+
+                        <ul class="sub-menu sub-menu1" style="display: block;">
+
+                            <li class="nav-item " id="recurso7">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '7'}], undefined, 'cmd');">
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span class="title">Connection Bureau</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso52">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '52'}], undefined, 'cmd');">
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span class="title">Connection HBES</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso10">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '10'}], undefined, 'cmd');">
+                                    <i class="fa fa-wrench"></i>
+                                    <span class="title">System Options</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso11">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '11'}], undefined, 'cmd');">
+                                    <i class="fa fa-user-plus"></i>
+                                    <span class="title">Profiles</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso12">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '12'}], undefined, 'cmd');">
+                                    <i class="fa fa-users"></i>
+                                    <span class="title">Users</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso30">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '30'}], undefined, 'cmd');">
+                                    <i class="fa fa-bank"></i>
+                                    <span class="title">Enterprises</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso34">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '34'}], undefined, 'cmd');">
+                                    <i class="fa fa-pencil-square-o"></i>
+                                    <span class="title">Queries to Bureau</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso39">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '39'}], undefined, 'cmd');">
+                                    <i class="fa fa-language"></i>
+                                    <span class="title">Keywords</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso42">
+                                <a href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '42'}], undefined, 'cmd');">
+                                    <i class="fa fa-circle"></i>
+                                    <span class="title">Initial setup</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+
+                    <li class="nav-item " id="recurso31">
+                        <a href="javascript:;" class="nav-link nav-toggle" onclick="go('cmd', [{id: 'recurso', val: '31'}], undefined, 'cmd');">
+                            <i class="fa fa-dollar"></i>
+                            <span class="title">Point of Sales</span>
+                            <span class="selected"></span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+                    </li>
+
+
+                    <!-- si un menu padre -->
+
+
+                    <li class="nav-item " id="recurso25">
+                        <a href="javascript:;" class="nav-link" onclick="noCerrarSubMenu1()">
+                            <i class="fa fa-cog"></i>
+                            <span class="title">Product Workshop</span>
+                            <span class="arrow"></span>
+
+
+
+                        </a>
+
+
+                        <ul class="sub-menu2 sub-menu" style="display: block;">
+
+                            <li class="nav-item " id="recurso26">
+                                <a id="subMenuTaller" href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '26'}], undefined, 'cmd');">
+                                    <i class="fa fa-list"></i>
+                                    <span class="title">Products</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso27">
+                                <a id="subMenuTaller" href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '27'}], undefined, 'cmd');">
+                                    <i class="fa fa-info-circle"></i>
+                                    <span class="title">Register Products</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso28">
+                                <a id="subMenuTaller" href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '28'}], undefined, 'cmd');">
+                                    <i class="fa fa-tag "></i>
+                                    <span class="title">Fields</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item " id="recurso29">
+                                <a id="subMenuTaller" href="javascript:;" class="nav-link" onclick="go('cmd', [{id: 'submenu', val: '29'}], undefined, 'cmd');">
+                                    <i class="fa fa-hand-o-right"></i>
+                                    <span class="title">Type Products</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+
+
+                    <!--                <li class="nav-item" style="background-color: #E6E6E6 !important;">
+                                    <a href="javascript:;" class="nav-link nav-toggle" >
+                                        <i class="fa fa-balance-scale"></i>
+                                        <span class="title">Entrenamiento</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                </li>-->
+                    <!--            <li class="nav-item" style="background-color: #E6E6E6 !important;">
+                                    <a href="javascript:;" class="nav-link nav-toggle" >
+                                        <i class="fa fa-life-ring"></i>
+                                        <span class="title">Perfiles</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                </li>-->
+                    <!--            <li class="nav-item" style="background-color: #E6E6E6 !important;">
+                                    <a href="javascript:;" class="nav-link nav-toggle" >
+                                        <i class="fa fa-users"></i>
+                                        <span class="title">Usuarios</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                </li>
+                    -->
+                    <!--            <li class="nav-item" style="background-color: #E6E6E6 !important;">
+                                    <a href="javascript:;" class="nav-link nav-toggle">
+                                        <i class="fa fa-handshake-o"></i>
+                                        <span class="title">Procedure Rules</span>
+                                        <span class="selected"></span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                </li>            -->
+                    <!--            <li class="nav-item" style="background-color: #E6E6E6 !important;">
+                                    <a href="javascript:;" class="nav-link nav-toggle" >
+                                        <i class="fa fa-cogs"></i>
+                                        <span class="title">Configuración </span>
+                                        <span class="selected"></span>
+                                        <span class="arrow"></span>
+                                    </a>
+                                </li>           -->
+                </ul>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+
+
+    <div id="crearRT" class="page-content-wrapper">
+
+        <div class="page-content" style="min-height: 1441px;">
+            <div class="row">
+                <div class="page-head col-md-12">
+                    <div class="page-title">
+                        <h1 id="nombreRisk">Árbol Manual</h1>
+                    </div>
+                    <div class="pull-right">
+                        <div id="btnRayo" style="width: 40px; height: 40px; background-color: rgb(115, 207, 215); margin-left: 0px; margin-top: 0px; cursor: pointer;">
+                            <span style="color:white"><i class="fa fa-bolt" style="font-size: 25px;margin-top: 15px;margin-left:15px"></i></span>
+                        </div>
+                        <div id="rayo"><div id="divRayo" class="caption" style="width: 570px; height: 40px; border:1px; margin-left:40px; margin-top: -40px; display:none;"><span style="color:#95A5A6;"><strong></strong><div style="padding-top:10px; padding-left:30px"><strong>   Reglas ATB, RT, RH, RF, PR, <span style="color:#95A5A6; margin-top:30px;">ACTIVADAS</span><span style="color:#95A5A6"> para industria  TELCO</span></strong></div></span></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="page-breadcrumb breadcrumb">
+                <li>
+                    <a href="javascript:;" onclick="go('cmd', [], undefined, 'cmd');">Inicio</a>
+                </li>
+                <i class="fa fa-circle"></i>
+                <li>
+                    <a href="javascript:;" id="subNombre" onclick="go('cmd', [{id: 'recurso', val: recurso}], undefined, 'cmd');">Árbol Manual</a>
+                </li>
+            </ul>
+
+
+            <div class="col-md-12 ">
+                <div class="portlet light">
+                    <div class="portlet-title">
+                        <div class="row">
+
+                            <div class="col-md-2">
+
+                                <select id="tipo" class="form-control form-filter input-sm" onchange="changeTipo();TipoRisTier(this.value)/*return fillTree(this.value)*/" onclick="seleccion()" style="display: none;">
+
+                                    <option value="1">Natural</option>
+
+                                    <option value="2">Jurídico</option>
+
+                                </select>
+
+                                <!--tipo de arbol-->
+
+                                <select class="form-control form-filter input-sm" id="cmboxTipoM" onchange="fillBureauM()" style="">
+
+                                    <option value="1">Natural</option>
+
+                                    <option value="2">Juridica</option>
+
+                                </select>
+
+                                <!--tipo de arbol automatico-->
+
+                                <select class="form-control form-filter input-sm" id="pmmlTipo" style="display: none">
+
+                                    <option value="1">Natural</option>
+
+                                    <option value="2">Juridica</option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="col-md-4 text-center">
+
+                                Matriz&nbsp;<div class="toggle btn btn-sm ios btn-primary" data-toggle="toggle" style="width: 47px; height: 12px;"><input id="chboxArbolManual" type="checkbox" data-size="small" data-onstyle="primary" data-offstyle="primary" data-style="ios"><div class="toggle-group"><label class="btn btn-primary btn-sm toggle-on"></label><label class="btn btn-primary btn-sm active toggle-off"></label><span class="toggle-handle btn btn-default btn-sm"></span></div></div>
+
+                                &nbsp;Árbol
+
+                            </div>
+
+                            <div class="col-md-4 text-center off">
+
+                                Manual&nbsp;<div class="toggle btn off btn-sm ios btn-primary" data-toggle="toggle" style="width: 47px; height: 12px;"><input id="chboxRiskTierAutomatico" type="checkbox" data-size="small" data-onstyle="primary" data-offstyle="primary" data-style="ios"><div class="toggle-group"><label class="btn btn-primary btn-sm toggle-on"></label><label class="btn btn-primary btn-sm active toggle-off"></label><span class="toggle-handle btn btn-default btn-sm"></span></div></div>
+
+                                &nbsp;Machine Learning
+
+                            </div>
+
+                            <div class="col-md-2 text-center">
+
+                                <a href="javascript:;" class="btn btn-circle red btn-outline btn-sm" onclick="go('cmd', [{id: 'code', val: 'detallesRisktier'}, {id: 'parentRecurso', val: recurso}, {id: 'select', val: _TIPOSELECCIONx}], undefined, 'cmd');">
+
+                                    <i class="fa fa-list-alt"></i> Detalles
+
+                                </a>
+
+                                <a id="btnMostrarHerr" href="javascript:;" class="btn btn-circle blue btn-outline btn-sm" onclick="mostrarHerramientas()" style="display: none">
+
+                                    <i class="fa fa-pencil"></i> Crear
+
+                                </a>
+
+                                <a id="volverRiskTier" href="javascript:;" class="btn btn-circle blue btn-outline btn-sm" onclick="ocultarHerramientas()" style="display: none">
+
+                                    <i class="fa fa-backward"></i> Volver
+
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="btnRTI" style="display: none" class="col-md-12">
+                        <button id="guardarRTI" type="button" class="btn btn-warning mt-ladda-btn ladda-button" data-style="zoom-in">
+                            <span class="ladda-label">Guardar RISK TIER</span>
+                            <span class="ladda-spinner"></span></button>
+                    </div>
+                    <div id="pizarraPrincipal" class="portlet-body form" style="display: none;">
+                        <div class="table-scrollable" id="">
+                            <section class="content jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="Droped" style="padding: 20px; height: 1000px; overflow-y: scroll; overflow-x: hidden;"></section>
+                        </div>
+                    </div>
+                    <div id="pizarra">
+                        <div id="divDibujable" class="col-md-12" style=" padding-left: 0px; padding-right: 0px;">
+                            <div id="limpiar">
+                                <div class="row">
+                                    <div id="herramientasRT1st" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; display: none;">
+                                        <!-- BEGIN Portlet PORTLET-->
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-long-arrow-right font-grey-gallery"></i>
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Eje X </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div id="divParametros">
+                                                    <div class="portlet box green">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <i class="fa fa-puzzle-piece"></i>Variable
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body" id="cuerpoVar1st">
+                                                            <div id="">
+                                                                <div id="divParametros1st" class="form-body">
+                                                                    <div class="form-group">
+                                                                        <label for="cmboxOrigenEjeX" style="font-size: 13px">Origen de Variable</label>
+                                                                        <select class="form-control form1" id="cmboxOrigenEjeX" onchange="obtenerVariables(1, this)" disabled="true"><option value="2">EQUIFAX</option><option value="5">FUENTE DE TERCEROS</option><option value="23">PREVIRED</option><option value="4">SIISA</option><option value="1">SINACOFI</option><option value="25">DATA ENTRY</option><option value="3">TRANSUNION</option></select>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="cmboxEjeX" style="font-size: 13px">Variable</label>
+                                                                        <select class="form-control form1 select2-hidden-accessible" id="cmboxEjeX" disabled="" onchange="validaDatoVarAux(this, 1);" tabindex="-1" aria-hidden="true"><option value="0" disabled="" selected="">Seleccione</option></select><span class="select2 select2-container select2-container--bootstrap select2-container--disabled" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-cmboxEjeX-container"><span class="select2-selection__rendered" id="select2-cmboxEjeX-container" title="Seleccione">Seleccione</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label for="txtCantidadEjeX" style="font-size: 13px;">Cantidad</label>
+                                                                        <input type="text" class="form-control form1" id="txtCantidadEjeX" disabled="true" onkeyup="formatoNumero(this);" maxlength="3">
+                                                                    </div>
+                                                                    <div class="form-group" align="left" id="mostrarModalClass2" style="display:none;">
+                                                                        <button class="btn btn1 btn-primary btn-circle" id="" onclick="mostrarModalVar(0);"><i class="fa fa-plus"></i> </button>
+                                                                    </div>
+                                                                    <div align="right">
+                                                                        <button id="btnAgregarNodo" type="button" class="btn1 btn btn-circle green" disabled="true"><i class="fa fa-plus"></i> Nodo</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END GRID PORTLET-->
+                                    </div>
+                                    <div id="arbolM1" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
+                                        <!-- BEGIN Portlet PORTLET-->
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <!--<i class="fa fa-long-arrow-right font-grey-gallery"></i>-->
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Configuración </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="portlet box green">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-sitemap"></i> Árbol
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div class="">
+                                                            <div align="left" id="divLeftButtonsRM">
+                                                                <button class="btn btn1 btn-success btn-circle" id="btnNuevoGrupo" onclick="NuevoGrupo()"><i class="fa fa-plus"></i> Nuevo Árbol</button>
+                                                            </div>
+                                                            <br>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Nombre</label>
+                                                                <input class="form-control form1" placeholder="Ingrese Nombre" type="text" maxlength="20" id="txtNombreRM" disabled="disabled">
+                                                            </div>
+                                                            <div align="left" id="divLeftButtonsRM">
+                                                                <button type="button" id="btnGuardarSolicitudRM" style="width: 100% !important" class="btn btn1 blue-madison mt-ladda-btn ladda-button btn-circle btn-outline" data-style="slide-up" data-spinner-color="#333">
+                                                                    <span class="ladda-label"><i class="fa fa-plus"></i> Agregar Clasificación</span>
+                                                                </button>
+                                                            </div>
+                                                            <br>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Rut</label>
+                                                                <div class="input-group col-md-12">
+                                                                    <input id="rutRT" class="form-control form1" placeholder="RUT..." type="text" maxlength="10" onkeyup="formatoNumero(this); cli_rut_dv(this, event, 'dvRT')" onchange="formatoNumero(this); cli_rut_dv(this, event, 'dvRT', 1)">
+                                                                    <span class="input-group-addon">-</span>
+                                                                    <input id="dvRT" disabled="" class="form-control form1" type="text" style="width: 40px;">
+                                                                </div>
+                                                            </div>
+                                                            <div align="right">
+                                                                <button class="btn1 btn btn-circle btn-primary ladda-button green-sharp" onclick="" data-style="slide-down" type="button" id="btnConsultar" style="margin-right: 0px;">
+                                                                                    <span class="ladda-label">
+                                                                                        <i class="fa fa-search"></i> Probar Rut
+                                                                                    </span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END GRID PORTLET-->
+                                    </div>
+                                    <div id="arbolAM1" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style=" padding-left: 0px; padding-right: 0px; display: none;">
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <!--<i class="fa fa-long-arrow-right font-grey-gallery"></i>-->
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Información </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="portlet box green" id="">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">Árbol</div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div class="row">
+                                                            <table class="table tabla1">
+                                                                <tbody>
+                                                                <tr id="tr">
+                                                                    <td>Descripción</td>
+                                                                    <td id="descrit"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr id="tr">
+                                                                    <td>Modelo</td>
+                                                                    <td id="modelonom"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr id="tr">
+                                                                    <td>Función</td>
+                                                                    <td id="functionnom"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr id="tr">
+                                                                    <td>Algoritmo</td>
+                                                                    <td id="algoritmonom"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr id="tr">
+                                                                    <td>Fecha</td>
+                                                                    <td id="time"></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 col-md-8 col-xs-12 col-sm-12" id="section">
+                                        <div class="portlet box blue" id="cuadroRM">
+                                            <div class="portlet-title" id="tituloRM" hidden="" style="display: block;">
+                                                <div class="caption">Visualización de Árbol Risk Tier</div>
+                                                <div class="tools">
+                                                    <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div id="discriptRM" hidden="" style="display: block;">
+                                                    <i class="fa fa-circle-thin fa-lg font-green-jungle" aria-hidden="true"></i>
+                                                    <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+                                                    <strong> Valor Verdadero </strong>
+                                                    &nbsp;&nbsp;<strong> | </strong>&nbsp;&nbsp;
+                                                    <strong> Valor Falso</strong>
+                                                    <i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+                                                    <i class="fa fa-circle-thin fa-lg font-red-flamingo" aria-hidden="true"></i>
+                                                </div>
+                                                <!--                                                                <div class="table-scrollable" id="limpiarRM">-->
+                                                <!--                                                                    <div id="arbolM">
+                                                                                                                        <section class="fondo content jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvasManual" style="height: 1000px; overflow-y: scroll; overflow-x: scroll; width: 100%"></section>
+                                                                                                                    </div>-->
+                                                <div>
+                                                    <section class="fondo content jtk-demo-canvas canvas-wide flowchart-demo jtk-surface jtk-surface-nopan" id="canvas2" style="padding: 20px; height: 1000px; overflow-y: scroll; overflow-x: hidden;"><div id="m_nodo_1482" class="window jtk-node widget-thumb widget-bg-color-white text-uppercase margin-bottom-20 bordered jtk-endpoint-anchor jtk-draggable ui-draggable ui-draggable-handle jtk-connected" style="text-align: center; border: 1px solid rgb(0, 136, 204); padding: 10px; top: 200px; left: 463px; background-color: rgb(255, 255, 255) !important;" data-original-title="" title=""><div class="closeNodo"><p onclick="aceptarEliminacion(1482)" style="float: right;">X</p></div><div class="widget-thumb-wrap"><div class="widget-thumb-body" style="padding-right: 10px; padding-top: 10px;"><span class="widget-thumb-subtitle text-left fuente font-blue-madison" style="font-size:13px !important;text-align: center;">CLASIFICACIÓN</span></div></div><br><select id="accion_RM1482" class="form-control" onchange="guardarAccion(1482)"><option value="1">A</option><option value="2" selected="selected">B</option><option value="3">C</option><option value="4">D</option><option value="5">E</option><option value="6">F</option><option value="7">G</option><option value="8">H</option><option value="9">I</option><option value="10">J</option></select></div><div class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable" style="position: absolute; height: 14px; width: 14px; left: 456px; top: 249.5px;"><svg style="position:absolute;left:0px;top:0px" width="14" height="14" pointer-events="all" position="absolute" version="1.1" xmlns="http://www.w3.org/1999/xhtml"><circle cx="7" cy="7" r="7" version="1.1" xmlns="http://www.w3.org/1999/xhtml" fill="#3598DC" stroke="none" style=""></circle></svg></div>&nbsp;&nbsp;<div id="m_nodo_0" data-var="0" data-origen="0" class="window jtk-node jtk-endpoint-anchor jtk-connected jtk-draggable" style="text-align: center; border: 1px solid #0088cc; padding: 20px; top: 357px;left: 6px;background-color: #ffffff !important;">
+                                                        <strong>INICIO</strong> </div><div class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable" style="position: absolute; height: 16px; width: 16px; left: 79px; top: 378.5px;"><svg style="position:absolute;left:0px;top:0px" width="16" height="16" pointer-events="all" position="absolute" version="1.1" xmlns="http://www.w3.org/1999/xhtml"><circle cx="8" cy="8" r="7" version="1.1" xmlns="http://www.w3.org/1999/xhtml" fill="transparent" stroke="#7AB02C" style="" stroke-width="1"></circle></svg></div><div class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable" style="display: block; width: 10px; height: 0px; background: transparent; position: absolute; left: 87px; top: 386.5px;"></div><div class="jtk-endpoint jtk-endpoint-anchor jtk-draggable jtk-droppable" style="display: block; width: 10px; height: 0px; background: transparent; position: absolute; left: 463px; top: 256.5px;"></div><svg style="position:absolute;left:86.5px;top:254.89633686533983px" width="377" height="132.10366313466017" pointer-events="none" position="absolute" version="1.1" xmlns="http://www.w3.org/1999/xhtml" class="jtk-connector"><path d="M 0 130 L 376 0 " transform="translate(0.5,1.6036631346601578)" pointer-events="visibleStroke" version="1.1" xmlns="http://www.w3.org/1999/xhtml" fill="none" stroke="#456" style=""></path><path pointer-events="all" version="1.1" xmlns="http://www.w3.org/1999/xhtml" d="M376,0 L367.4010476744947,8.792497876240128 L369.5231916902091,2.2393220220021575 L363.8066303037047,-1.6036631346601578 L376,0" class="" stroke="#456" fill="#456" transform="translate(0.5,1.6036631346601578)"></path></svg><div class="jtk-overlay aLabel" id="jsPlumb_1_10" style="position: absolute; transform: translate(-50%, -50%); left: 124.1px; top: 373px;"></div></section>
+                                                </div>
+                                                <!--</div>-->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="arbolM2" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style="padding-left: 0px; padding-right: 0px;">
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <!--<i class="fa fa-long-arrow-up  font-grey-gallery"></i>-->
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Nodo </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-puzzle-piece"></i> <font style="size: 5px">Variable</font>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div class="form-body">
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Origen variable</label>
+                                                                <select class="form-control form1" id="sl_actividadM" onchange="fillBureauVariablesM();"><option value="0" selected="" disabled="">Seleccione</option><optgroup label="Obtención de Datos"><option value="1">SINACOFI</option><option value="2">EQUIFAX</option><option value="3">TRANSUNION</option><option value="4">SIISA</option><option value="5">FUENTE DE TERCEROS</option><option value="6">SII</option><option value="18">FINANCIAL RATIOS</option><option value="23">PREVIRED</option><option value="24">SII ACT.COMERCIAL</option><option value="25">DATA ENTRY</option></optgroup></select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Variable</label>
+                                                                <select class="form-control form1 select2-hidden-accessible" id="nombre_varM" onchange="validaDatoVar(this)" tabindex="-1" aria-hidden="true"></select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-nombre_varM-container"><span class="select2-selection__rendered" id="select2-nombre_varM-container"><span class="select2-selection__placeholder">Seleccione una opción</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Operador</label>
+                                                                <select class="form-control form1 sl_operador" id="sl_operadorM"><option value="0">Seleccione</option><option value="<" simbolo="undefined">Menor</option><option value="<=" simbolo="undefined">Menor o Igual</option><option value=">" simbolo="undefined">Mayor</option><option value=">=" simbolo="undefined">Mayor o Igual</option><option value="==" simbolo="undefined">Igual</option><option value="!=" simbolo="undefined">Distinto</option></select>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label style="font-size: 13px;">Valor</label>
+                                                                <input class="form-control form1" type="text" maxlength="50" id="valor" onkeyup="formatoNumero(this);">
+                                                                <select class="form-control form1 sl_operador" id="sl_ValorMFecha" style="display: none;"><option value="0" selected="" disabled="">Valor</option><option value="1">1 Mes </option><option value="3">3 Meses </option><option value="6">6 Meses </option><option value="12">12 Meses </option><option value="24">24 Meses </option></select>
+                                                            </div>
+                                                            <div class="form-group" align="left" id="mostrarModalClass" style="display:none;">
+                                                                <button class="btn btn1 btn-primary btn-circle" id="" onclick="mostrarModalVar();"><i class="fa fa-plus"></i> </button>
+                                                            </div>
+                                                            <div align="right" id="divRightButtons">
+                                                                <button class="btn btn1 btn-primary btn-circle" id="btnAgregarNodoRM" onclick="agregarNodoRM()"><i class="fa fa-leaf"></i> Agregar Nodo</button>
+                                                            </div>
+                                                            <div class="row" style="display: none;">
+                                                                <div class="col-md-2 col-xs-6">
+                                                                    <label>Nodo Padre</label>
+                                                                    <select class="form-control form1" id="sl_nodopadreRM" disabled="">
+                                                                        <option value="0" selected="">Raíz</option>
+                                                                        <option value="1482">1</option></select>
+                                                                </div>
+                                                            </div>
+                                                            <div id="NodoPadreM">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="seccionarbolM" hidden="" style="display: block;">
+                                        <div class="col-lg-12 col-md-12 col-xs-12 col-sm-12">
+                                            <div class="portlet box blue">
+                                                <div class="portlet-title">
+                                                    <div class="caption">Repositorio Árbol Risk Tier</div>
+                                                    <div class="tools">
+                                                        <a href="javascript:;" class="collapse" data-original-title="" title=""> </a>
+                                                    </div>
+                                                </div>
+                                                <div class="portlet-body">
+                                                    <div class="row" id="divTablaArbolM" style="margin-left: 5px; margin-right: 5px;"><div id="tblRiskMGrupo_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer"><div class="row"><div class="col-sm-6"><div class="dataTables_length" id="tblRiskMGrupo_length"><label>Mostrar <select name="tblRiskMGrupo_length" aria-controls="tblRiskMGrupo" class="form-control input-sm"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select> registros</label></div></div><div class="col-sm-6"><div id="tblRiskMGrupo_filter" class="dataTables_filter"><label>Buscar:<input type="search" class="form-control input-sm" placeholder="" aria-controls="tblRiskMGrupo"></label></div></div></div><div class="row"><div class="col-sm-12"><table class="col-md-12 col-xs-12 table table-bordered table-hover dataTable no-footer" id="tblRiskMGrupo" style="width: 100%;" role="grid" aria-describedby="tblRiskMGrupo_info"><thead><tr role="row"><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 1149px;">NOMBRE</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 565px;">FECHA CREACIÓN</th><th class="sorting_disabled" rowspan="1" colspan="1" style="width: 178px;"></th></tr></thead><tbody><tr role="row" class="odd"><td>Arbol 1</td><td>06-08-2019</td><td><div style="text-align: center"><button id="estado_91" class="btn btn-success" onclick="desactivarTodosRM()" data-toggle="tooltip" title="Activar Optimizador del Motor"><i class="fa fa-check-circle"></i> Desactivar</button><div></div></div></td></tr></tbody></table></div></div><div class="row"><div class="col-sm-5"><div class="dataTables_info" id="tblRiskMGrupo_info" role="status" aria-live="polite">Mostrando registros del 1 al 1 de un total de 1 registros</div></div><div class="col-sm-7"><div class="dataTables_paginate paging_simple_numbers" id="tblRiskMGrupo_paginate"><ul class="pagination"><li class="paginate_button previous disabled" id="tblRiskMGrupo_previous"><a href="#" aria-controls="tblRiskMGrupo" data-dt-idx="0" tabindex="0">Anterior</a></li><li class="paginate_button active"><a href="#" aria-controls="tblRiskMGrupo" data-dt-idx="1" tabindex="0">1</a></li><li class="paginate_button next disabled" id="tblRiskMGrupo_next"><a href="#" aria-controls="tblRiskMGrupo" data-dt-idx="2" tabindex="0">Siguiente</a></li></ul></div></div></div></div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="herramientasRT" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style="padding-left: 0px; padding-right: 0px; display: none;">
+                                        <!-- BEGIN Portlet PORTLET-->
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <i class="fa fa-long-arrow-up  font-grey-gallery"></i>
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Eje Y </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div id="divParametros2">
+                                                    <div class="portlet box blue">
+                                                        <div class="portlet-title">
+                                                            <div class="caption">
+                                                                <i class="fa fa-puzzle-piece"></i> <font style="size: 5px">Variable</font>
+                                                            </div>
+                                                        </div>
+                                                        <div class="portlet-body">
+                                                            <div id="datosVar2" class="form-body">
+                                                                <div class="form-group">
+                                                                    <label for="cmboxOrigenEjeY" style="font-size: 13px;">Origen de Variable</label>
+                                                                    <select class="form-control form1" id="cmboxOrigenEjeY" onchange="obtenerVariables(2, this)" disabled="true"><option value="2">EQUIFAX</option><option value="5">FUENTE DE TERCEROS</option><option value="23">PREVIRED</option><option value="4">SIISA</option><option value="1">SINACOFI</option><option value="25">DATA ENTRY</option><option value="3">TRANSUNION</option></select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="cmboxEjeY" style="font-size: 13px">Variable</label>
+                                                                    <select class="form-control form1 select2-hidden-accessible" id="cmboxEjeY" disabled="" onchange="validaDatoVarAux(this, 2);" tabindex="-1" aria-hidden="true"><option value="0" disabled="" selected="">Seleccione</option></select><span class="select2 select2-container select2-container--bootstrap select2-container--disabled" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-labelledby="select2-cmboxEjeY-container"><span class="select2-selection__rendered" id="select2-cmboxEjeY-container" title="Seleccione">Seleccione</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="txtCantidad" style="font-size: 13px;">Cantidad</label>
+                                                                    <input type="text" class="form-control form1" id="txtCantidad" disabled="true" onkeyup="formatoNumero(this);" maxlength="3">
+                                                                </div>
+                                                                <div class="form-group" align="left" id="mostrarModalClass3" style="display:none;">
+                                                                    <button class="btn btn1 btn-primary btn-circle" id="" onclick="mostrarModalVar(1);"><i class="fa fa-plus"></i> </button>
+                                                                </div>
+                                                                <div align="right">
+                                                                    <button id="btnAgregarNodo2" type="button" class="btn1 btn btn-circle green" disabled="true"><i class="fa fa-plus"></i> Nodo</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="btnRTII" style="display: none" class="col-md-12">
+                                                    <button id="guardarRTII" type="button" class="btn btn-warning mt-ladda-btn ladda-button" data-style="zoom-in">
+                                                        <span class="ladda-label">Guardar RISK TIER</span>
+                                                        <span class="ladda-spinner"></span></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- END GRID PORTLET-->
+                                    </div>
+
+                                    <div id="arbolAM2" class="col-lg-2 col-md-2 col-xs-12 col-sm-12" style=" padding-left: 0px; padding-right: 0px; display: none;">
+                                        <div class="portlet light" style="padding-left: 4px !important;padding-right: 4px !important;">
+                                            <div class="portlet-title">
+                                                <div class="caption">
+                                                    <!--<i class="fa fa-long-arrow-up  font-grey-gallery"></i>-->
+                                                    <span class="caption-subject bold font-grey-gallery uppercase"> Nodo </span>
+                                                </div>
+                                            </div>
+                                            <div class="portlet-body">
+                                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-puzzle-piece"></i> <font style="size: 5px">Variable</font>
+                                                        </div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div class="row">
+                                                            <table class="table tabla1">
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </tbody>
+                                                                <tbody>
+                                                                <tr>
+                                                                    <td></td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="portlet-body form"></div>
+                </div>
+
+                <!--                                <div class="portlet box blue">
+                                                    <div class="portlet-title">
+                                                        <div class="caption">
+                                                            <i class="fa fa-history"></i>Risk Tier Machine Learning</div>
+                                                    </div>
+                                                    <div class="portlet-body">
+                                                        <div id="arbol" style="height: 800px;"></div>
+                                                    </div>
+                                                </div>-->
+                <div class="portlet box blue col-lg-12 col-md-12 col-xs-12 col-sm-12" id="historialRT" style="display: none;">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-history"></i>History Risk Tier </div>
+                    </div>
+                    <div class="portlet-body">
+                        <div class="table-responsive">
+                            <table id="tblHistorialRT" class="table">
+                                <thead>
+                                <tr>
+                                    <th>Nombre Risk Tier</th>
+                                    <th>Origen X</th>
+                                    <th>Variable X</th>
+                                    <th>Origen Y</th>
+                                    <th>Variable Y</th>
+                                    <th>Estado</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="modalNombreRMGuardar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Ingreso Nombre Árbol Risk Tier</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row row-centered" style="padding: 10px;">
+                    <div class="col-md-offset-1 col-md-10 col-xs-12 col-centered">
+                        <form role="form" action="javascript:;">
+                            <div class="form-group">
+                                <label for="txtNombreRMSave">Nombre para el Árbol Risk Tier</label>
+                                <input type="text" class="form-control" id="txtNombreRMSave" maxlength="70">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn green mt-ladda-btn ladda-button" id="GuardarSaveRM" data-style="zoom-in">
+                    <span class="ladda-label">Guardar</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalSolicitud" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">Acción </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" id="cuerpoModal" style="padding-right: 15px; padding-left: 15px;">
+                </div>
+            </div>
+            <div id="piesModal" class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="ModaleditarRiskTierEnElArbol" class="modal fade" role="dialog">
+    <div class="modal-dialog" id="mdialTamanio">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #0080cc;">
+                <button style="color: white;" type="button" class="close" data-dismiss="modal">X</button>
+                <h4 style="color: white;" id="tituloModalEditarMatrizRisktier" class="modal-title"></h4>
+                <input type="hidden" value="" id="tipoMatriz">
+            </div>
+            <div class="modal-body">
+                <div class="portlet-body">
+                    <div class="table-scrollable">
+                        <table class="table table-bordered table-hover" id="tablaRiskTier">
+                            <thead>
+                            <tr class="uppercase">
+                                <th style="text-align: center;"> Buscando datos para  RiskTier.. </th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+                <div class="actions">
+                    <a href="javascript:;" onclick="editarMatrizRiskTierEnElArbol()" class="btn btn-circle blue btn-outline btn-sm">
+                        <i class="fa fa-pencil"></i> Editar Matriz Risk Tier
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalRangoRT" class="modal fade" tabindex="-1" aria-hidden="true" style="display: none;">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="closeModalValor()"></button>
+                <h4 class="modal-title">Rango</h4>
+            </div>
+            <div class="modal-body">
+                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 100px;"><div class="scroller" style="height: 300px; overflow: hidden; width: auto;" data-always-visible="1" data-rail-visible1="1" data-initialized="1">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input type="text" class="form-control" id="txtDesde">
+                                    <label for="txtDesde">Desde</label>
+                                    <span class="help-block">Rango Inicial</span>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <select id="cmboxLogicos" class="form-control edited">
+                                        <option val="<=">&lt;  =</option>
+                                    </select>
+                                    <label for="cmboxLogicos">Operador</label>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group form-md-line-input form-md-floating-label">
+                                    <input type="text" class="form-control" id="txtHasta" onkeyup="formatoNumero(this);">
+                                    <label for="txtHasta">Hasta</label>
+                                    <span class="help-block">Rango Final</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div><div class="slimScrollBar" style="background: rgb(187, 187, 187); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 300px;"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(234, 234, 234); opacity: 0.2; z-index: 90; right: 1px;"></div></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" class="btn dark btn-outline" onclick="closeModalValor()">Cancelar</button>
+                <button type="button" class="btn green" onclick="agregarRango()">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalPaso03" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Revisión detalles RiskTier</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="container" style="width:100%;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>En tercer lugar, sugerimos que revise los los valores con los que el Risktier trabajará,
+                                        puede editarlos en cualquier momento, pero es importante que sepa cuáles son los valores actuales.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <img style="width: 100%; height: 100%;" src="images/gif/GIF003.gif" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left" id="btnAgregar">
+                    <button id="btnCrearEmpresa" type="submit" class="btn blue btn-outline" onclick="go('cmd', [{id: 'code', val: 'detallesRisktier'}, {id: 'parentRecurso', val: recurso}, {id: 'select', val: _TIPOSELECCIONx}], undefined, 'cmd');"><i class="fa fa-plus"></i> Revisión Detalles Risk Tier</button>
+                </div>
+                <!--                                <div class="pull-right" id="btnAgregar">
+                                                    <button type="button" class="btn blue btn-outline" data-dismiss="modal" >Cerrar</button>
+                                                </div>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalNombreRTEditar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Ingreso Nombre Risk Tier</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row row-centered" style="padding: 10px;">
+                    <div class="col-md-offset-1 col-md-10 col-xs-12 col-centered">
+                        <form role="form" action="javascript:;">
+                            <div class="form-group">
+                                <label for="txtNombreRT">Nombre para el RISK TIER</label>
+                                <input type="text" class="form-control" id="txtNombreRT" maxlength="70">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn green mt-ladda-btn ladda-button" id="GuardarEditRT" data-style="zoom-in">
+                    <span class="ladda-label">Guardar Risk Tier</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modalNombreRTGuardar" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Ingreso Nombre Risk Tier</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row row-centered" style="padding: 10px;">
+                    <div class="col-md-offset-1 col-md-10 col-xs-12 col-centered">
+                        <form role="form" action="javascript:;">
+                            <div class="form-group">
+                                <label for="txtNombreRTSave">Nombre para el RISK TIER</label>
+                                <input type="text" class="form-control" id="txtNombreRTSave" maxlength="70">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn green mt-ladda-btn ladda-button" id="GuardarSaveRT" data-style="zoom-in">
+                    <span class="ladda-label">Guardar Risk Tier</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div id="modalRenombrarRT" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Ingreso Nombre Risk Tier</h4>
+            </div>
+
+            <div class="modal-body">
+                <div class="row row-centered" style="padding: 10px;">
+                    <div class="col-md-offset-1 col-md-10 col-xs-12 col-centered">
+                        <form role="form" action="javascript:;">
+                            <div class="form-group">
+                                <label for="txtRenombrarRT">Nombre para el RISK TIER</label>
+                                <input type="text" class="form-control" id="txtRenombrarRT" maxlength="70">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn green mt-ladda-btn ladda-button" id="btnRenombrarRT" data-style="zoom-in">
+                    <span class="ladda-label">Renombrar Risk Tier</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="modalAgregarReglasaRray" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg" style="width: 50%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title" id="modalSubirIvas-titulo"></h4>
+            </div>
+            <div class="modal-body" id="modalVigencia-body">
+                <div class="portlet light bordered" id="form_wizard_1">
+                    <div class="portlet-title">
+                        <div class="caption">
+                            <i class="fa fa-calendar"></i>
+                            <span class="caption-subject bold uppercase"> Reglas
+                                            </span>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+                        <div class="row" id="contenedorReglas">
+                        </div>
+                        <div class="modal-footer">
+                            <div class="pull-right">
+                                <button onclick="eliminarReglasArray();" class="btn blue btn-outline"><i></i>Eliminar Variable</button>
+                                <button onclick="agregarReglasArray();" class="btn blue btn-outline" id="btnAgregarRegla"><i></i>Agregar Variable</button>
+                                <button onclick="" class="btn blue btn-outline" data-dismiss="modal"><i></i>Aceptar</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" value="false" id="contVariables">
+<!--Modal editar nodo Arbol M-->
+<div id="modalModifArbolM" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">×</button>
+                <h4 class="modal-title">Modificación de Árbol Risk Tier</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row row-centered" style="padding: 10px;">
+                    <div class="col-md-offset-1 col-md-10 col-xs-12 col-centered">
+                        <form role="form" action="javascript:;">
+                            <div class="form-group">
+                                <label style="font-size: 13px;">Origen variable</label>
+                                <select class="form-control form1" id="sl_actividadMR" onchange="fillBureauVariablesMR();"><option value="0" selected="" disabled="">Seleccione</option><optgroup label="Obtención de Datos"><option value="1">SINACOFI</option><option value="2">EQUIFAX</option><option value="3">TRANSUNION</option><option value="4">SIISA</option><option value="5">FUENTE DE TERCEROS</option><option value="6">SII</option><option value="18">FINANCIAL RATIOS</option><option value="23">PREVIRED</option><option value="24">SII ACT.COMERCIAL</option><option value="25">DATA ENTRY</option></optgroup></select>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">Variable</label>
+                                <select class="form-control form1 select2-hidden-accessible" id="nombre_varMR" onchange="validaDatoVarRM(this)" tabindex="-1" aria-hidden="true"></select><span class="select2 select2-container select2-container--bootstrap" dir="ltr" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-labelledby="select2-nombre_varMR-container"><span class="select2-selection__rendered" id="select2-nombre_varMR-container"><span class="select2-selection__placeholder">Seleccione una opción</span></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">Operador</label>
+                                <select class="form-control form1 sl_operador" id="sl_operadorMR"><option value="0">Seleccione</option><option value="<" simbolo="undefined">Menor</option><option value="<=" simbolo="undefined">Menor o Igual</option><option value=">" simbolo="undefined">Mayor</option><option value=">=" simbolo="undefined">Mayor o Igual</option><option value="==" simbolo="undefined">Igual</option><option value="!=" simbolo="undefined">Distinto</option></select>
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 13px;">Valor</label>
+                                <input class="form-control form1" type="text" maxlength="50" id="valorMR" onkeyup="formatoNumero(this);">
+                                <select class="form-control form1 sl_operador" id="sl_ValorMFechaMR" style="display: none;"><option value="0" selected="" disabled="">Valor</option><option value="1">1 Mes </option><option value="3">3 Meses </option><option value="6">6 Meses </option><option value="12">12 Meses </option><option value="24">24 Meses </option></select>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal" id="actuCanceMR" onclick="CaneditarArbol();">Cancelar</button>
+                <button type="button" class="btn green mt-ladda-btn ladda-button" id="actualizarAM" data-style="zoom-in">
+                    <span class="ladda-label"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>   Actualizar</span>
+                    <span class="ladda-spinner"></span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div id="modalEasy" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="background-image: url('images/ModalEasyV01.png'); background-size: 100% 100%; width:775px!important; height: 380px!important;position: fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+
+        <div class="col-lg-12" style="padding-top: 275px;">
+            <a class="btn blue-sharp col-lg-6" href="javascript:" onclick="go('cmd', [{id: 'code', val: 'registrar'}], undefined, 'cmd');">Sí, quiero probarlo!</a>
+        </div>
+        <div class="col-lg-12" style="padding-top: 10px;">
+            <button type="button" class="btn btn-outline blue-hoki col-lg-6" onclick="go('cmd', [{id: 'code', val: 'inicioPj'}], undefined, 'cmd');">No quiero probarlo</button>
+        </div>
+        <!--<img alt="Logo" style="width:100%; height: 100%;" src="images/ModalEasy.png">-->
+        <!--            <button type="button" class="btn dark btn-outline col-lg-6" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn green col-lg-6" >Save changes</button>
+        -->
+
+    </div>
+</div>
+
+<div id="modalxml_SIISA" class="modal fade" role="dialog" onclick="closeImagen()">
+    <div class="modal-dialog">
+        <!--<span id="closeModalSIISA"class="fa fa-close" style="width: 20px; height: 20px; color: white;" onclick="closeImagen()"></span>-->
+        <img class="modal-content" id="img01" src="images/xml_SIISA.png">
+    </div>
+</div>
+
+<!--
+<div class="modal fade in" id="modalEasy" tabindex="-1" role="dialog" aria-hidden="true" style="display: block; padding-right: 17px;">
+    <div class="modal-dialog modal-full" style="width: 80% !important;height: 500px !important;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                <h4 class="modal-title">Modal Title</h4>
+            </div>
+            <div class="modal-body"> Modal body goes here </div>
+            <div class="modal-footer">
+                <button type="button" class="btn dark btn-outline" data-dismiss="modal">Close</button>
+                <button type="button" class="btn green">Save changes</button>
+            </div>
+        </div>
+         /.modal-content
+    </div>
+     /.modal-dialog
+</div>-->
+
+<div class="page-footer">
+    <div class="page-footer-inner">
+        <a href="#" title="Expert Choice" target="_blank">Expert Choice</a>
+        <!--Todos los derechos reservados 2017 &copy; 2017  V 2017.03.10.01.1 LTE-->
+        Todos los derechos reservados 2017 © 2017  V 2017.07.06.01.2 LTE
+    </div>
+    <p class="hidden-xs hidden-sm" style="color:#777;float: right; margin: 0px;">Powered by <img src="images/Logo_TOC.png" alt="" width="40px">
+        <!--SINACOFI LAYOUT-->
+
+        – Powered by <img src="images/Logo_SIISA.png" alt="" width="30px">
+
+
+        <!-- – Powered by <img src="images/Logo_FICO.png" alt="" width="30px">--> – Powered by <img src="images/ssl.png" alt="" width="20px"></p>
+    <br>
+    <p class="hidden-md hidden-lg" style="color:#777;">Powered by <img src="images/Logo_TOC.png" alt="" width="40px"> – Powered by <img src="images/Logo_SIISA.gif" alt="" width="30px"><!-- – Powered by <img src="images/Logo_FICO.png" alt="" width="30px">--> – Powered by <img src="images/ssl.png" alt="" width="20px"></p>
+    <div class="scroll-to-top" style="display: none;">
+        <i class="icon-arrow-up"></i>
+    </div>
+</div>
+<script src="lib/toc_jquery-1.6.4.min.js"></script>
+<script> var jqTOC = jQuery.noConflict();</script>
+<script src="lib/toc_jquery.signalr-2.1.0.min.js"></script>
+<script src="https://localhost:12321/signalr/hubs"></script>
+<script src="js/jquery-2.1.3.min.js" type="text/javascript"></script>
+<!--<script src="js/jquery-3.3.1.min.js" type="text/javascript"></script>-->
+<script src="assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.blockui.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js" type="text/javascript"></script>
+<script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/ladda/spin.min.js"></script>
+<script src="assets/global/plugins/ladda/ladda.min.js"></script>
+<script src="assets/layouts/layout4/scripts/layout.min.js" type="text/javascript"></script>
+<script src="assets/layouts/global/scripts/quick-sidebar.min.js" type="text/javascript"></script>
+<script src="js/number_format.js" type="text/javascript"></script>
+<script src="js/funciones.js?v=1.1.97" type="text/javascript"></script>
+<script src="js/jquery.Rut.js"></script>
+<script src="js/barraMonitoreo.js" type="text/javascript"></script>
+<script src="js/jquery.toast.js"></script>
+
+<script src="dist/js/sweetalert.min.js"></script>
+<script src="DataTables/js/jquery.dataTables.min.js" type="text/javascript"></script>
+<script src="DataTables/js/dataTables.bootstrap.min.js" type="text/javascript"></script>
+<script src="js/dataTables.select.min.js"></script>
+<script src="assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
+<!--<script src="js/dataTables.editor.min.js"></script>-->
+<script src="js/swall.js"></script>
+<script src="js/jquery.validate.min.js"></script>
+<script src="js/messages_es.min.js"></script>
+<script src="js/ayuda.js"></script>
+<script src="js/DT_UTILS.js"></script>
+<script src="assets/global/plugins/counterup/jquery.counterup.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/counterup/jquery.waypoints.min.js" type="text/javascript"></script>
+
+<script src="assets/global/plugins/amcharts/amcharts/amcharts.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/serial.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/pie.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/radar.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/themes/light.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/themes/patterns.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amcharts/themes/chalk.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/ammap/ammap.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/ammap/maps/js/worldLow.js" type="text/javascript"></script>
+<script src="assets/global/plugins/amcharts/amstockcharts/amstock.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jstree/dist/jstree.min.js" type="text/javascript"></script>
+<script src="assets/pages/scripts/ui-tree.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
+<script src="assets/pages/scripts/components-bootstrap-multiselect.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery.pulsate.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/jquery-bootpag/jquery.bootpag.min.js" type="text/javascript"></script>
+<script src="assets/global/plugins/holder.js" type="text/javascript"></script>
+<script src="js/dashboard_Penal_pulsate.js" type="text/javascript"></script>
+<script src="js/tipo_industria.js" type="text/javascript"></script>
+<script src="js/jquery-dateformat.min.js" type="text/javascript"></script>
+
+
+
+
+
+
+
+
+<style>
+    .page-quick-sidebar-wrapper {
+        transition: right .3s;
+        z-index: 9997;
+        position: fixed;
+        bottom: 0;
+        /*        width: 800px;
+                right: -800px;*/
+        width: 700px;
+        right: -800px;
+        top: 0;
+        overflow: hidden;
+        color: #99a8b5;
+        background: #21282e;
+        min-height: 100px;
+    }
+
+    /*    .page-quick-sidebar-wrapper .page-quick-sidebar .page-quick-sidebar-list {
+            position: absolute!important;
+            width: 20px!important;
+            transition: margin .3s;
+        }*/
+
+    /*    .page-quick-sidebar-item{
+                    transition: right .3s;
+                    z-index: 9997;
+                    position: relative;
+                    top: 0;
+                    bottom: 0;
+                    width: 10px;
+                    right: -10px;
+                    overflow: hidden;
+                    color: #99a8b5;
+                    background: #21282e;
+                    min-height: 100px;
+                    right: -1px;
+                    z-index: 9990;
+            background-color: #31b131;
+        }*/
+
+
+    @media handheld, only screen and (max-width: 767px) {
+        .page-quick-sidebar-wrapper{
+            top: 0;
+            width: 100%;
+            right: -100%;
+        }
+
+    }
+
+    .page-quick-sidebar-open .page-quick-sidebar-wrapper {
+        transition: right .3s;
+        right: -200;
+    }
+
+    h3 {
+        color: gray;
+    }
+
+
+</style>
+
+
+<style>
+    #myImg {
+        border-radius: 5px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #myImg:hover {opacity: 0.7;}
+
+    /* The Modal (background) */
+    /*    .modal {
+            display: none;  Hidden by default
+            position: fixed;  Stay in place
+            z-index: 1;  Sit on top
+            padding-top: 100px;  Location of the box
+            left: 0;
+            top: 0;
+            width: 100%;  Full width
+            height: 100%;  Full height
+            overflow: auto;  Enable scroll if needed
+            background-color: rgb(0,0,0);  Fallback color
+            background-color: rgba(0,0,0,0.9);  Black w/ opacity
+        }*/
+
+    /* Modal Content (image) */
+    /*    .modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+        }*/
+
+    /* Caption of Modal Image */
+    /*    #caption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #ccc;
+            padding: 10px 0;
+            height: 150px;
+        }*/
+
+    /* Add Animation */
+    /*    .modal-content, #caption {
+            -webkit-animation-name: zoom;
+            -webkit-animation-duration: 0.6s;
+            animation-name: zoom;
+            animation-duration: 0.6s;
+        }*/
+
+    @-webkit-keyframes zoom {
+        from {-webkit-transform:scale(0)}
+        to {-webkit-transform:scale(1)}
+    }
+
+    @keyframes zoom {
+        from {transform:scale(0)}
+        to {transform:scale(1)}
+    }
+
+    /* The Close Button */
+    /*    .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f1f1f1;
+            font-size: 40px;
+            font-weight: bold;
+            transition: 0.3s;
+        }*/
+
+    /*    .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }*/
+
+    /* 100% Image Width on Smaller Screens */
+    @media only screen and (max-width: 700px){
+        .modal-content {
+            width: 100%;
+        }
+    }
+</style>
+
+<div id="ayudaEasy" class="page-quick-sidebar-wrapper" data-close-on-body-click="false">
+    <div class="page-quick-sidebar" style="height: 100%">
+
+        <div class="tab-content" style="background-color: #fff; height: 100%">
+
+            <div class="row">
+                <div class="col-md-12" style="background-color: #0088cc">
+                    <div id="LOGO" class="col-md-4">
+                        <img src="assets/layouts/layout4/img/logo4.png" alt="logo" class="logo-default" style="align-content: center; margin:0px; margin-top: 10px; height: 64px">
+                        <!--                        <div class="page-header navbar" style="width: 20px!important;">
+                                                    <ul class="nav navbar-nav pull-right">
+
+                        <a id="barraOcultarMenuCelular" href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse" style="display: block;"> </a>
+
+                    </ul>
+                </div>-->
+                    </div>
+                    <div class="col-md-6">
+                        <h2 style="text-align: center; color: white;">Easy Help</h2>
+                    </div>
+
+                    <div class="col-md-1">
+
+                        <a href="javascript:;" class="page-quick-sidebar-toggler">
+                            <i class="icon-close" onclick="cierraAyuda()"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="height: 100%;">
+                <div class="col-md-4" style="background-color: #fff">
+                    <div class="page-sidebar navbar-collapse collapse">
+
+                        <!--<ul class="page-sidebar-menu page-sidebar-menu-closed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">-->
+                        <ul id="menuAyuda" class="page-sidebar-menu page-sidebar-menu-hover-submenu " data-keep-expanded="true" data-auto-scroll="false" data-slide-speed="200">
+
+                            <!-- MENU SIMPLE -->
+
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle">
+                                    <i class="icon-graph"></i>
+                                    <span class="title">Easy Gestor de Riesgo</span>
+                                    <span class="arrow"></span>
+                                </a>
+                                <ul class="sub-menu">
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt1()">
+                                            <i class="icon-home"></i>
+                                            <span class="title">Desarrollo del modelo</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt2()">
+                                            <i class="fa fa-check-square-o"></i>
+                                            <span class="title">Calidad de nuestros modelos</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt3()">
+                                            <i class="icon-tag"></i>
+                                            <span class="title">Implementación</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt4()">
+                                            <i class="fa fa-industry"></i>
+                                            <span class="title">Implementación de modelo</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt5()">
+                                            <i class="fa fa-bar-chart-o"></i>
+                                            <span class="title">Modelo de Pérdida Esperada</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item  ">
+                                        <a href="javascript:;" class="nav-link" onclick="toggle_ppt6()">
+                                            <i class="fa fa-dollar"></i>
+                                            <span class="title">Modelo de Riesgo - Rentabilidad</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- FIN MENU SIMPLE -->
+
+                            <!-- TITULO DE MENU -->
+                            <!--                            <li class="heading">
+                                                            <h3 class="uppercase">TITULO</h3>
+                                                        </li>-->
+                            <!-- FIN TITULO DE MENU -->
+
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="toggle_quePuede()">
+                                    <i class="icon-support"></i>
+                                    <span class="title"> ¿Por qué debe usar Easy?</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="toggle_porque()">
+                                    <i class="icon-graduation"></i>
+                                    <span class="title">¿Qué puede hacer Easy?</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="toggle_arquitectura()">
+                                    <i class="icon-puzzle"></i>
+                                    <span class="title">Arquitectura Easy Shark</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="toggle_chat()">
+                                    <i class="fa fa-comments-o"></i>
+                                    <span class="title">EasyShark Community</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="toggle_xmlEasyShark()">
+                                    <i class="fa fa-file-text-o"></i>
+                                    <span class="title">XML EasyShark</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+                            <li class="nav-item start ">
+                                <a href="javascript:;" class="nav-link nav-toggle" onclick="inicioDemostracion()">
+                                    <i class="fa fa-star-o"></i>
+                                    <span class="title">Demo setup</span>
+                                    <span class="arrow"></span>
+                                </a>
+                            </li>
+
+
+                            <!--                            <li class="nav-item start ">
+                                                            <a href="images/ERP Risk Business Suite Expert Choice.pdf" class="nav-link nav-toggle" download>
+                                                                <i class="icon-doc"></i>
+                                                                <span class="title">Descargue Presentación</span>
+                                                                <span class="arrow"></span>
+                                                            </a>
+                                                        </li>-->
+
+                        </ul>
+                        <!-- END SIDEBAR MENU -->
+                    </div>
+                </div>
+                <!--arquitecturaDiv-->
+                <div id="arquitecturaDiv" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <h2 style="text-align: center" id="tituloGrande">Arquitectura Easy Shark</h2>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva1_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva1_2.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarousel" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/arquitecturaEasy.png" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <div class="col-md-12">
+                        <h3 id="titulo">Características </h3>
+                        <p id="descripcion">
+                            Se pretende con estas características onCloud obtener la mayor seguridad,
+                            redundancia, flexibilidad y dinamismo que se requiere, permitiendo
+                            operatividad del 99.9%, fiabilidad, continuidad del servicio,
+                            rapidez y acceso/control de la información, formando parte de
+                            la red como si estuviera físicamente en la empresa. Habitualmente,
+                            las medidas de seguridad más sofisticadas están fuera del
+                            alcance de la mayoría de las empresas, no obstante, las normativas
+                            de seguridad que cumplen los Centros de Datos de Amazon generan
+                            la confianza de que la información estará totalmente protegida.
+                            Todos estos aspectos permitirán un equilibrio permanente entre el
+                            software y hardware, dando dinamismo con el fin de racionalizar,
+                            simplificar y estandarizar la toma de decisiones.
+                        </p>
+                        <br><br><br><br><br>
+                    </div>
+
+                </div>
+
+                <!--Chat-->
+                <div id="chat" class="col-md-8" style="background-color: #e9ecf3; height: 100%; display: none;">
+                    <div class="portlet light bordered">
+                        <div class="portlet-title">
+                            <div class="caption">
+                                <i class="icon-bubble font-hide hide"></i>
+                                <span class="caption-subject font-hide bold uppercase">Comunicaciones</span>
+                                <span class="caption-helper"> EasyShark</span>
+                            </div>
+                        </div>
+                        <div class="portlet-body" id="chats" style="overflow-y: scroll; height: 500px;">
+                            <ul class="chats" id="VentanaChat">
+                                <!--                                    <li class="out">
+                                                                        <img class="avatar" alt="" src="images/avatar2.jpg">
+                                                                        <div class="message">
+                                                                            <span class="arrow"> </span>
+                                                                            <a href="javascript:;" class="name"> Lisa Wong </a>
+                                                                            <span class="datetime"> at 20:11 </span>
+                                                                            <span class="body"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="in">
+                                                                        <img class="avatar" alt="" src="images/avatar2.jpg">
+                                                                        <div class="message">
+                                                                            <span class="arrow"> </span>
+                                                                            <a href="javascript:;" class="name"> Bob Nilson </a>
+                                                                            <span class="datetime"> at 20:30 </span>
+                                                                            <span class="body"> Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. </span>
+                                                                        </div>
+                                                                    </li>-->
+                            </ul>
+                        </div>
+                        <div class="chat-form">
+                            <div class="input-cont">
+                                <input id="mensajeChat" class="form-control" type="text" placeholder="Escribe un mensaje aqui..."> </div>
+                            <div class="btn-cont">
+                                <span class="arrow"> </span>
+                                <a href="javascript:;" class="btn blue icn-only" onclick="enviarMensaje()">
+                                    <i class="fa fa-paper-plane icon-white"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br><br><br><br>
+                </div>
+
+                <script>
+                    $("#mensajeChat").bind(
+                        'keypress',
+                        function (e) {
+                            if (e.which == 13) {
+                                enviarMensaje();
+                            }
+                        }
+                    );
+                </script>
+
+                <!--ppt1Div-->
+                <div id="ppt1Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <div class="col-md-12">
+                        <h3 id="titulo">Desarrollo del modelo de Applicant y Behavior Score </h3>
+                        <p id="descripcion">
+                            Nuestros modelos asignan un nivel de riesgo
+                            en el proceso de admisión del crédito, en base
+                            a la información crediticia contenida o en el
+                            Data Entry del POS y/o otros datos. Este Score
+                            permite  tomar decisiones  EXPERTAS.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarousel" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva1_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva1_2.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarousel" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        --&gt;
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva1_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva1_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+
+                    <br><br><br><br><br>
+                </div>
+                <!--ppt2Div-->
+                <div id="ppt2Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <div class="col-md-12">
+                        <h3 id="titulo">Calidad de nuestros modelos score Applicant/ Behavior Scoring</h3>
+                        <p id="descripcion">
+                            Las tecnicas de Cluster, Redes Neuronales, Redes
+                            de Arboles y Support Vector Machine, permiten ajustes
+                            exactos al comportamiento de clientes, Pago/No Pago,
+                            Morosidad, Etc. Permiten predecir moralidad comercial
+                            y comportamiento de pago de FORMA EXACTA con KS
+                            superiores al 60%.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarouse2" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarouse2" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarouse2" data-slide-to="1"></li>
+                                                        <li data-target="#myCarouse2" data-slide-to="2"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva2_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva2_2.JPG" alt=""/>
+                                                        </div>
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva2_3.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarouse2" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarouse2" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva2_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva2_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva2_3.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <br><br><br><br><br>
+
+
+
+                </div>
+                <!--ppt3Div-->
+                <div id="ppt3Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+
+
+                    <div class="col-md-12">
+                        <h3 id="titulo">Implementación Modelo de Decisión Experto </h3>
+                        <p id="descripcion">
+                            Nuestras soluciones estan basada en técnicas SVM
+                            (Support Vector Machine), los modelos se ajustan
+                            comparando valores de comportamiento previo versus
+                            las predicciones iniciales del modelo, estos ajustes
+                            nos permiten proveer RESULTADOS de mas del 89,75%
+                            de clasificaciones correctas.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarouse3" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarouse3" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarouse3" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva3_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva3_2.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarouse3" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarouse3" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva3_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva3_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <br><br><br><br><br>
+
+
+
+                </div>
+                <!--ppt4Div-->
+                <div id="ppt4Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <div class="col-md-12">
+                        <h3 id="titulo">Implementación de modelo Risk to Price </h3>
+                        <p id="descripcion">
+                            TASA de i Exacta por cada cluster de cliente, de forma
+                            de MAXIMIZAR LA RENTABILIDAD, determinando Z de corte
+                            de acuerdo a la TMC. Carteriza los clientes, mejorando
+                            condiciones para clientes de menor PE.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarouse4" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarouse4" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarouse4" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva4_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva4_2.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarouse4" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarouse4" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva4_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva4_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <br><br><br><br><br>
+
+
+                </div>
+                <!--ppt5Div-->
+                <div id="ppt5Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <div class="col-md-12">
+                        <h3 id="titulo">Desarrollo de Modelo de pérdida esperada </h3>
+                        <p id="descripcion">
+                            El modelo permiten afinar mucho más CALIDAD DE LA
+                            CARTERA, ya que el cliente puede fijar los niveles
+                            de cobertura en función de sus propias experiencias
+                            históricas de venta y DISCRIMINAR buenos de malos.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarouse5" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarouse5" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarouse5" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva5_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva5_2.JPG" alt=""/>
+                                                        </div>
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva5_3.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarouse5" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarouse5" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva5_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva5_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva5_3.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <br><br><br><br><br>
+
+
+
+                </div>
+                <!--ppt6Div-->
+                <div id="ppt6Div" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <div class="col-md-12">
+                        <h3 id="titulo">Modelo Riesgo-Rentabilidad </h3>
+                        <p id="descripcion">
+                            A través de Clúster de Clientes construidos en base
+                            a Scoring Crediticios y Risk Tier, determina la
+                            rentabilidad target del Cliente. Ajuste la tasa de
+                            cada clúster de forma de “Comprar” Riesgo por EERR
+                            según Scoring.
+                        </p>
+                    </div>
+                    <div class="col-md-12">
+
+
+                        <!--                        <div id="myCarouse6" class="carousel slide" data-ride="carousel">
+                                                    Indicators
+                                                    <ol class="carousel-indicators">
+                                                        <li data-target="#myCarouse6" data-slide-to="0" class="active"></li>
+                                                        <li data-target="#myCarouse6" data-slide-to="1"></li>
+                                                    </ol>
+
+                                                    Wrapper for slides
+                                                    <div class="carousel-inner">
+                                                        <div class="item active">
+                                                            <img src="images/ppt/Diapositiva6_1.JPG" alt=""/>
+                                                        </div>
+
+                                                        <div class="item">
+                                                            <img src="images/ppt/Diapositiva6_2.JPG" alt=""/>
+                                                        </div>
+                                                    </div>
+
+                                                    Left and right controls
+                                                    <a class="left carousel-control" href="#myCarouse6" data-slide="prev" style="background-image: linear-gradient(to right,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                                    </a>
+                                                    <a class="right carousel-control" href="#myCarouse6" data-slide="next"  style="background-image: linear-gradient(to left,rgba(0, 0, 0, 0.22) 0,rgba(0, 0, 0, 0) 100%);">
+                                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                                    </a>
+                                                </div>-->
+
+                        <hr style="border-top: 1px solid #99a8b5;">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva6_1.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/ppt/Diapositiva6_2.JPG" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <br><br><br><br><br>
+
+                </div>
+                <!--quepuedeDiv-->
+                <div id="quepuedeDiv" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <div class="col-md-12">
+
+
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/easy1.png" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                </div>
+                <!--porqueDiv-->
+                <div id="porqueDiv" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+                    <div class="col-md-12">
+
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img src="images/easy2.png" alt="" style="width: 100%; height: 100%">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+
+
+                </div>
+
+
+                <!--xml Easy Shark-->
+                <div id="xmlEasySharkDiv" class="col-md-8" style="background-color: #e9ecf3; height: 100%; overflow: scroll;">
+                    <div class="col-md-12">
+                        <h2 style="text-align: center" id="tituloGrande">XML Easy Shark</h2>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                    </div>
+                    <div class="col-md-12">
+                        <div style="background-color: #000; width: 100%; height: 100%" id="imagen">
+                            <img id="myImg" src="images/xml_SIISA.png" alt="" style="width: 100%; height: 100%" onclick="expandirImagen()">
+                        </div>
+                        <hr style="border-top: 1px solid #99a8b5;">
+                        <p>Click en la imagen para mayor resolución </p>
+                    </div>
+                </div>
+
+                <!--                <div id="modalxml_SIISA" class="modal" role="dialog" >
+                                    <div class="modal-dialog" style="background-image: url('images/xml_SIISA.png'); background-size: 100% 100%; width:975px!important; height: 871px!important;">
+                                    </div>
+                                </div>-->
+            </div>
+        </div>
+        <!-- END QUICK SIDEBAR -->
+    </div>
+</div>
+
+<div id="modalDemostracion" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="tituloDemo"></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="container" style="width:100%;">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group" style="height: 50px">
+                                    <label id="infoDemo"></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12" id="marcoDemo">
+                                <img id="gifDemo" style="width: 100%; height: 100%;" src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-left">
+                    <button type="button" class="btn blue btn-outline" data-dismiss="modal">Cerrar</button>
+                </div>
+                <div class="pull-right">
+                    <button id="backPaso1" type="submit" class="btn blue btn-outline" onclick="goPaso1()"><i class="fa fa-arrow-left"></i> Paso 01</button>
+                    <button id="backPaso2" type="submit" class="btn blue btn-outline" onclick="goPaso2()"><i class="fa fa-arrow-left"></i> Paso 02</button>
+                    <button id="backPaso3" type="submit" class="btn blue btn-outline" onclick="goPaso3()"><i class="fa fa-arrow-left"></i> Paso 03</button>
+                    <button id="backPaso4" type="submit" class="btn blue btn-outline" onclick="goPaso4()"><i class="fa fa-arrow-left"></i> Paso 04</button>
+                    <button id="backPaso5" type="submit" class="btn blue btn-outline" onclick="goPaso5()"><i class="fa fa-arrow-left"></i> Paso 05</button>
+                    <button id="backPaso6" type="submit" class="btn blue btn-outline" onclick="goPaso6()"><i class="fa fa-arrow-left"></i> Paso 06</button>
+
+                    <button id="goPaso2" type="submit" class="btn blue btn-outline" onclick="goPaso2()">Paso 02 <i class="fa fa-arrow-right"></i></button>
+                    <button id="goPaso3" type="submit" class="btn blue btn-outline" onclick="goPaso3()">Paso 03 <i class="fa fa-arrow-right"></i></button>
+                    <button id="goPaso4" type="submit" class="btn blue btn-outline" onclick="goPaso4()">Paso 04 <i class="fa fa-arrow-right"></i></button>
+                    <button id="goPaso5" type="submit" class="btn blue btn-outline" onclick="goPaso5()">Paso 05 <i class="fa fa-arrow-right"></i></button>
+                    <button id="goPaso6" type="submit" class="btn blue btn-outline" onclick="goPaso6()">Paso 06 <i class="fa fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="fragments/common :: footer"></div>
+
+<!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+
+<script th:src="@{/js/tree/jsplumb.min.js}" ></script>
+<script th:src="@{/js/tree/procedure_home.js}" ></script>
+<script th:src="@{/js/tree/jsPlumb/lib/jsBezier-0.8.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/lib/mottle-0.7.4.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/lib/biltong-0.3.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/lib/katavorio-0.18.0.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/util.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/browser-util.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/jsPlumb.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/dom-adapter.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/overlay-component.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/endpoint.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/connection.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/anchors.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/defaults.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/connectors-bezier.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/connectors-statemachine.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/connectors-flowchart.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/connectors-straight.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/renderers-svg.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/base-library-adapter.js}"></script>
+<script th:src="@{/js/tree/jsPlumb/src/dom.jsPlumb.js}"></script>
+<script th:src="@{/js/tree/politicas.js}"></script>
+<script th:src="@{/js/tree/mod_crear_indicador.js}"></script>
+<script th:src="@{/js/tree/risktier_tree.js}" type="text/javascript}"></script>
+<script th:src="@{/js/tree/risktier_tree_auto.js}" type="text/javascript}"></script>
+<script th:src="@{/js/tree/riskTierM.js}" type="text/javascript"></script>
+
+</body>
+
+
+</html>

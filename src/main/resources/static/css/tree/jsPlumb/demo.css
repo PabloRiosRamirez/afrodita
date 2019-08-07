@@ -1,0 +1,142 @@
+.demo {
+    /* for IE10+ touch devices */
+    touch-action:none;
+}
+
+.flowchart-demo .window {
+    border: 1px solid #346789;
+    -o-box-shadow: 2px 2px 19px #aaa;
+    -webkit-box-shadow: 2px 2px 19px #aaa;
+    -moz-box-shadow: 2px 2px 19px #aaa;
+    -moz-border-radius: 0.5em;
+    border-radius: 0.5em;
+    opacity: 0.8;
+    /*width: 80px;
+    height: 20px;*/
+    cursor: pointer;
+    text-align: center;
+    z-index: 20;
+    position: absolute;
+    background-color: #eeeeef;
+    color: black;
+    font-family: helvetica, sans-serif;
+    font-size: 0.9em;
+    -webkit-transition: -webkit-box-shadow 0.15s ease-in;
+    -moz-transition: -moz-box-shadow 0.15s ease-in;
+    -o-transition: -o-box-shadow 0.15s ease-in;
+    transition: box-shadow 0.15s ease-in;
+}
+
+.flowchart-demo .window:hover {
+    box-shadow: 2px 2px 19px #444;
+    -o-box-shadow: 2px 2px 19px #444;
+    -webkit-box-shadow: 2px 2px 19px #444;
+    -moz-box-shadow: 2px 2px 19px #444;
+    opacity: 0.6;
+}
+
+.flowchart-demo .active {
+    border: 1px dotted green;
+}
+
+.flowchart-demo .hover {
+    border: 1px dotted red;
+}
+
+#flowchartWindow1 {top: 10px;left: 10px;}
+
+#flowchartWindow2 {top: 10px;left: 250px;}
+#flowchartWindow3 {top: 40px;left: 250px;}
+#flowchartWindow4 {top: 70px;left: 250px;}
+#flowchartWindow5 {top: 100px;left: 250px;}
+#flowchartWindow6 {top: 130px;left: 250px}
+#flowchartWindow7 {top: 160px;left: 250px;}
+
+
+/*Reglas*/
+#flowchartWindow8 {top: 10px;left: 500px;}
+#flowchartWindow9 {top: 40px;left: 500px;}
+#flowchartWindow10 {top: 70px;left: 500px;}
+#flowchartWindow11 {top: 100px;left: 500px;}
+#flowchartWindow12 {top: 130px;left: 500px;}
+#flowchartWindow13 {top: 160px;left: 500px;}
+#flowchartWindow14 {top: 190px;left: 500px;}
+#flowchartWindow15 {top: 220px;left: 500px;}
+#flowchartWindow16 {top: 250px;left: 500px;}
+#flowchartWindow17 {top: 280px;left: 500px;}
+#flowchartWindow18 {top: 310px;left: 500px;}
+#flowchartWindow19 {top: 340px;left: 500px;}
+#flowchartWindow20 {top: 370px;left: 500px;}
+
+
+#flowchartWindow21 {top: 10px;left: 850px;}
+#flowchartWindow22 {top: 40px;left: 850px;}
+#flowchartWindow23 {top: 70px;left: 850px;}
+#flowchartWindow24 {top: 100px;left: 850px;}
+#flowchartWindow25 {top: 130px;left: 850px;}
+#flowchartWindow26 {top: 160px;left: 850px;}
+#flowchartWindow27 {top: 190px;left: 850px;}
+#flowchartWindow28 {top: 220px;left: 850px;}
+#flowchartWindow29 {top: 250px;left: 850px;}
+#flowchartWindow30 {top: 280px;left: 850px;}
+#flowchartWindow31 {top: 310px;left: 850px;}
+#flowchartWindow32 {top: 340px;left: 850px;}
+#flowchartWindow33 {top: 370px;left: 850px;}
+#flowchartWindow34 {top: 400px;left: 850px;}
+#flowchartWindow35 {top: 430px;left: 850px;}
+#flowchartWindow36 {top: 460px;left: 850px;}
+#flowchartWindow37 {top: 490px;left: 850px;}
+#flowchartWindow38 {top: 520px;left: 850px;}
+#flowchartWindow39 {top: 550px;left: 850px;}
+
+
+
+
+.flowchart-demo .jtk-connector {
+    z-index: 4;
+}
+
+.flowchart-demo .jtk-endpoint, .endpointTargetLabel, .endpointSourceLabel {
+    z-index: 21;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel {
+    background-color: white;
+    /*padding: 0.4em;*/
+    font: 12px sans-serif;
+    color: #444;
+    z-index: 21;
+    border: 1px dotted gray;
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.flowchart-demo .aLabel.jtk-hover {
+    background-color: #5C96BC;
+    color: white;
+    border: 1px solid white;
+}
+
+.window.jtk-connected {
+    border: 1px solid green;
+}
+
+.jtk-drag {
+    outline: 4px solid pink !important;
+}
+
+path, .jtk-endpoint {
+    cursor: pointer;
+}
+
+.jtk-overlay {
+    background-color:transparent;
+}
+
+.closeNodo{
+    width: 100%;
+    height: 10px;
+    text-align: center;
+    color:red;
+}

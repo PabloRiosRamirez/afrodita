@@ -1,7 +1,6 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
 import online.grisk.afrodita.domain.entity.TypeVariable;
-import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.AfroditaActivatorService;
 import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
@@ -75,6 +74,15 @@ public class AfroditaController {
         model.addAttribute("forgotemail", userByToken.getEmail());
         model.addAttribute("forgottoken", token);
         return "login";
+    }
+
+    @RequestMapping(value = "/a", method = GET)
+    public String tree(HttpSession session, Model model, Principal principal) throws Exception {
+        model.addAttribute("title", "Análisis");
+        model.addAttribute("description", "Análisis de riesgo");
+        model.addAttribute("module", "analysis");
+
+        return "main";
     }
 
     @RequestMapping(value = "/", method = GET)
