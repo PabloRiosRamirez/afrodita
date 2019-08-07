@@ -2,9 +2,9 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+    <!--/*/ <th:block th:include="common :: head"></th:block> /*/-->
 <!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">-->
-    <link th:href="@{/static/css/flowcharts/jquery.flowchart.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/flowcharts/jquery.flowchart.css}" rel="stylesheet" type="text/css">
 </head>
 <style>
     body { background-color:#fafafa;}
@@ -17,7 +17,7 @@
 
 <body class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
 
-<div th:replace="fragments/common :: header"></div>
+<div th:replace="common :: header"></div>
 
 <div class="kt-grid kt-grid--hor kt-grid--root">
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
@@ -112,13 +112,13 @@
     </div>
 </div>
 
-<div th:replace="fragments/common :: footer"></div>
+<div th:replace="common :: footer"></div>
 
-<!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+<!--/*/ <th:block th:include="common :: scripts"></th:block> /*/-->
 
 <script src="https://code.jquery.com/jquery-1.12.2.min.js"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
-<script th:src="@{/static/js/flowcharts/jquery.flowchart.js}" type="text/javascript"></script>
+<script th:src="@{/js/flowcharts/jquery.flowchart.js}" type="text/javascript"></script>
 <script type="text/javascript">
     $(document).ready(function() {
         var data = {

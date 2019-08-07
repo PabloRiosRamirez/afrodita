@@ -2,12 +2,12 @@
 <html lang="es" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <!--/*/ <th:block th:include="fragments/common :: head"></th:block> /*/-->
+    <!--/*/ <th:block th:include="common :: head"></th:block> /*/-->
 </head>
 
 <body class="kt-page--fluid kt-header--fixed kt-header--minimize-menu kt-header-mobile--fixed kt-subheader--enabled kt-subheader--transparent">
 
-<div th:replace="fragments/common :: header"></div>
+<div th:replace="common :: header"></div>
 
 <div class="kt-grid kt-grid--hor kt-grid--root">
     <div class="kt-grid__item kt-grid__item--fluid kt-grid kt-grid--ver kt-page">
@@ -96,9 +96,9 @@
     </div>
 </div>
 
-<div th:replace="fragments/common :: footer"></div>
+<div th:replace="common :: footer"></div>
 
-<!--/*/ <th:block th:include="fragments/common :: scripts"></th:block> /*/-->
+<!--/*/ <th:block th:include="common :: scripts"></th:block> /*/-->
 
 </body>
 </html>

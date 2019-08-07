@@ -97,7 +97,7 @@ public class AfroditaController {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
         model.addAttribute("module", "indicators");
-        return "indicator-score/indicator-score";
+        return "indicator_score/indicator_score";
     }
 
     @RequestMapping(value = "/indicators/score/setting", method = GET)
@@ -105,7 +105,7 @@ public class AfroditaController {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
         model.addAttribute("module", "indicators");
-        return "indicator-score/indicator-score-setting";
+        return "indicator_score/indicator_score-setting";
     }
 
     @RequestMapping(value = "/indicators/ratios", method = GET)
@@ -113,7 +113,7 @@ public class AfroditaController {
         model.addAttribute("title", "Risk Ratios");
         model.addAttribute("description", "Configuración de Risk Ratios");
         model.addAttribute("module", "indicators");
-        return "indicators-ratios/indicators-ratios";
+        return "indicator_ratios/indicator_ratios";
     }
 
     @RequestMapping(value = "/indicators/ratios/setting", method = GET)
@@ -121,7 +121,7 @@ public class AfroditaController {
         model.addAttribute("title", "Risk Ratios");
         model.addAttribute("description", "Configuración de Risk Ratios");
         model.addAttribute("module", "indicators");
-        return "indicators-ratios/indicators-ratios-setting";
+        return "indicator_ratios/indicator_ratios-setting";
     }
 
     @RequestMapping(value = "/indicators/tree", method = GET)
@@ -129,7 +129,7 @@ public class AfroditaController {
         model.addAttribute("title", "Business Tree");
         model.addAttribute("description", "Configuración de Business Tree");
         model.addAttribute("module", "indicators");
-        return "indicators/indicators-tree";
+        return "indicators_tree/indicator_tree";
     }
 
     @RequestMapping(value = "/indicators/tree/setting", method = GET)
@@ -137,7 +137,7 @@ public class AfroditaController {
         model.addAttribute("title", "Business Tree");
         model.addAttribute("description", "Configuración de Business Tree");
         model.addAttribute("module", "indicators");
-        return "indicators/indicators-tree-setting";
+        return "indicators_tree/indicator_tree-setting";
     }
 
     @RequestMapping(value = "/account", method = GET)
