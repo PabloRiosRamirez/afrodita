@@ -54,14 +54,10 @@
                                                 <h3 class="kt-portlet__head-title">
                                                     Data Integration
                                                     <small th:if="${dataintegration != null and dataintegration.bureau == false}">
-                                                        Configuración de Data
-                                                        Integration a
-                                                        través de <strong>Excel</strong>.
+                                                        A través de <strong>Excel</strong>.
                                                     </small>
                                                     <small th:if="${dataintegration != null and dataintegration.bureau == true}">
-                                                        Configuración de Data
-                                                        Integration a
-                                                        través de <strong>Bureau</strong>.
+                                                        A través de <strong>Bureau</strong>.
                                                     </small>
                                                 </h3>
                                             </div>
@@ -70,7 +66,7 @@
                                                     role="tablist">
                                                     <li class="nav-item">
                                                         <a class="nav-link active"
-                                                           role="tab" th:href="@{/dataintegration/setting}">
+                                                           role="tab" th:href="@{/dataintegration/setting}" style="font-weight: 900 !important;";>
                                                             <i class="flaticon2-gear"></i>
                                                             Nueva configuración
                                                         </a>
@@ -96,7 +92,7 @@
                                                         </div>
                                                         <div class="col-12">
                                                             <a th:href="@{/v1/rest/dataintegration/organization/${dataintegration.organization}/file}"
-                                                               th:text="${dataintegration.analyticsFileName}"></a>
+                                                               th:text="${dataintegration.analyticsFileName}" class="text-info"></a>
                                                         </div>
                                                     </div>
                                                     <div class="form-group col-12">

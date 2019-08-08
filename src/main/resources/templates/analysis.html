@@ -44,7 +44,7 @@
                                         </div>
                                         <input id="organization" type="text" hidden th:value="${id_organization}">
                                         <form class="kt-form"
-                                              th:if="${dataintegration != null and dataintegration.bureau == false}">
+                                              th:if="${dataintegration != null and dataintegration.bureau == false and score != null}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -96,7 +96,7 @@
                                             </div>
                                         </form>
                                         <form class="kt-form"
-                                              th:if="${dataintegration != null and dataintegration.bureau == true}">
+                                              th:if="${dataintegration != null and dataintegration.bureau == true and score != null}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -134,7 +134,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="row_dashboard_analysis">
+                            <div class="row" id="row_dashboard_analysis" hidden>
                                 <div class="col-xl-12">
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">

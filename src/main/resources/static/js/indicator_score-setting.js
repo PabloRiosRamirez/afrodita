@@ -82,7 +82,7 @@ var KTWizard3 = function () {
     // Private functions
     var initWizard = function () {
         // Initialize form wizard
-        wizard = new KTWizard('kt_wizard_v3', {
+        wizard = new KTWizard('kt_wizard_score', {
             startStep: 1,
         });
 
@@ -194,6 +194,71 @@ var KTWizard3 = function () {
         var btn = formEl.find('[data-ktwizard-type="action-submit"]');
 
         btn.on('click', function (e) {
+            Swal.fire({
+                title: '¿Está seguro de guardar esta configuración?',
+                text: "Si guarda esto, se borrará toda configuración anterior de Risk Score.",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: "Atrás",
+                confirmButtonText: 'Si, deseo guardar esto!'
+            })
+                .then(function (result) {
+                        if (result.value) {
+                            if (validatorExcel.form()) {
+                                KTApp.progress(btn);
+                                var score = {};
+                                score['titulo'] = $('#score_titule').val();
+                                score['variable'] = $('#score_variable').val();
+                                var cant = $('[name*="[lim_score_down]"]').length;
+                                var listRanges = [];
+                                for (var i; i < cant; i++) {
+                                    var range = {};
+                                    range['limitDown'] = $($('[name*="[lim_score_down]"]')[i]).val();
+                                    range['limitUp'] = $($('[name*="[lim_score_up]"]')[i]).val();
+                                    range['color'] = $($('[name*="[score_range_color]"]')[i]).val();
+                                    listRanges.push(range);
+                                }
+                                score['ranges'] = listRanges;
+
+
+                                $.ajax({
+                                    type: "POST",
+                                    contentType: "application/json",
+                                    url: "/v1/rest/score",
+                                    data: JSON.stringify(score),
+                                    dataType: 'json',
+                                    cache: false,
+                                    timeout: 60000,
+                                    success: function (data, textStatus, jqXHR) {
+                                        Swal.fire({
+                                            title: "",
+                                            text: "La configuración de Data Integration ha sido guardado correctamente!",
+                                            type: "success",
+                                            onClose: function () {
+                                                window.location = "/dataintegration"
+                                            }
+                                        });
+                                    },
+                                    error: function (jqXHR, textStatus, errorThrown) {
+                                        KTApp.unprogress(btn);
+                                        swal.fire({
+                                            "title": "",
+                                            "text": "Ha ocurrido un error inesperado, por favor intente nuevamente!",
+                                            "type": "error",
+                                            "confirmButtonClass": "btn btn-secondary"
+                                        });
+
+                                    }
+                                });
+
+                            }
+                        }
+                    }
+                );
+        });
+
+
+        btn.on('click', function (e) {
             e.preventDefault();
 
             if (validator.form()) {
@@ -222,7 +287,7 @@ var KTWizard3 = function () {
     return {
         // public functions
         init: function () {
-            wizardEl = KTUtil.get('kt_wizard_v3');
+            wizardEl = KTUtil.get('kt_wizard_score');
             formEl = $('#kt_form');
 
             initWizard();
@@ -232,6 +297,22 @@ var KTWizard3 = function () {
     };
 }();
 
+function resumen() {
+    $('[data-ktwizard-type="action-next"]').on('click', function () {
+        $('#content_titule').html($('[name=score_titule]').val());
+        $('#content_variable').html($('option[value=' + $('[name="score_variable"]').val() + ']').text());
+        var cant = $('[name*="[lim_score_down]"]').length;
+        var template = "";
+        for (var i = 0; i < cant; i++) {
+            template = template += "<div class=\"form-group row\"><label class=\"col-xl-3 col-lg-3 col-form-label\">Rango:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>"
+            template = template += $($('[name*="[lim_score_down]"]')[i]).val() + " a " + $($('[name*="[lim_score_up]"]')[i]).val();
+            template = template += "</strong></label><label class=\"col-xl-3 col-lg-3 col-form-label\">Color:</label><div class=\"col-lg-3 col-xl-3\"><input class=\"form-control\" disabled type=\"color\" value=\"";
+            template = template += $($('[name*="[score_range_color]"]')[i]).val() + "\"></div></div></div>";
+        }
+        $('#content_ranges').html(template);
+    });
+}
+
 jQuery(document).ready(function () {
     onClickDeletedRange();
     disabledDownRange();
@@ -239,4 +320,5 @@ jQuery(document).ready(function () {
     onClickBtnCreateRange();
     onClickBtnDeleteRange();
     KTWizard3.init();
+    resumen();
 });

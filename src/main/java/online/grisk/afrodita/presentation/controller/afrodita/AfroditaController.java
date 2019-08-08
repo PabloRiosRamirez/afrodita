@@ -1,7 +1,6 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
 import online.grisk.afrodita.domain.entity.TypeVariable;
-import online.grisk.afrodita.domain.entity.Variable;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.AfroditaActivatorService;
 import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
@@ -93,18 +92,29 @@ public class AfroditaController {
 
 
     @RequestMapping(value = "/indicators/score", method = GET)
-    public String indicatorScore(HttpSession session, Model model, Principal principal) {
+    public String indicatorScore(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
         model.addAttribute("module", "indicators");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+        }
         return "indicator_score/indicator_score";
     }
 
     @RequestMapping(value = "/indicators/score/setting", method = GET)
-    public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) {
+    public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
         model.addAttribute("module", "indicators");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+        }
         return "indicator_score/indicator_score-setting";
     }
 
@@ -117,10 +127,14 @@ public class AfroditaController {
     }
 
     @RequestMapping(value = "/indicators/ratios/setting", method = GET)
-    public String indicatorsRatiosSetting(HttpSession session, Model model, Principal principal) {
+    public String indicatorsRatiosSetting(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Ratios");
         model.addAttribute("description", "Configuración de Risk Ratios");
         model.addAttribute("module", "indicators");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
         return "indicator_ratios/indicator_ratios-setting";
     }
 
