@@ -61,7 +61,7 @@ public class EmailRestController extends BasicRestController {
     public HttpEntity<?> resetUser(@PathVariable Long idUser, @NotEmpty @Payload @RequestBody Map payload, @NotEmpty @Headers @RequestHeader Map headers) throws Exception {
         this.verifyParameters(payload);
         User byIdUser = userService.findByIdUser(idUser);
-        byIdUser.setUsername(payload.get("username").toString());
+        byIdUser.setUsername(payload.get("username").toString().toUpperCase());
         byIdUser.setEmail(payload.get("email").toString());
         userService.save(byIdUser);
         Map response = new HashMap();

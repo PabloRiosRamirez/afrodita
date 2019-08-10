@@ -24,7 +24,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         List<GrantedAuthority> grantList = new ArrayList<>();
-        online.grisk.afrodita.domain.entity.User user = userRepository.findByUsernameOrEmail(username, username);
+        online.grisk.afrodita.domain.entity.User user = userRepository.findByUsernameOrEmail(username.toUpperCase(), username.toUpperCase());
         if (user == null) {
             throw new UsernameNotFoundException(SpringSecurityMessageSource.getAccessor()
                     .getMessage("AbstractUserDetailsAuthenticationProvider.UserUnknown", new Object[]{username}, "{0} no está registrado"));
@@ -33,6 +33,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         if (role != null) {
             grantList.add(new SimpleGrantedAuthority("ROLE_" + role.getCode().toUpperCase()));
         }
-        return new User(user.getUsername(), user.getPass(), user.isEnabled(), true, true, user.isNonLocked(), grantList);
+        return new User(user.getUsername().toUpperCase(), user.getPass(), user.isEnabled(), true, true, user.isNonLocked(), grantList);
     }
 }

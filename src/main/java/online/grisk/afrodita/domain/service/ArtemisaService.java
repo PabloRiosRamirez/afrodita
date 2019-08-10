@@ -57,7 +57,7 @@ public class ArtemisaService {
 
     public User registerUserAndOrganization(@Valid UserDTO userDTO) {
         return userService
-                .save(new User(userDTO.getUsername(), userDTO.getEmail(), organizationService.save(new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())), encryte(userDTO.getPass()), null, token,
+                .save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail(), organizationService.save(new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())), encryte(userDTO.getPass()), null, token,
                         false, true, new Date(), new Date(), roleWithCodeAdmin));
     }
 
