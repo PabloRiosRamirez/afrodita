@@ -155,36 +155,28 @@
                                                             </h4>
                                                         </div>
                                                         <div th:if="${dataintegration != null and (score == null or score == null)}">
-                                                            <h4 class="text-danger">
-                                                                <strong style="margin-right: 8px;">Problemas!</strong>No
-                                                                podrás realizar análisis de riesgo mientras el
-                                                                <strong>todos los
-                                                                    indicadores</strong> sean configurados.
-                                                            </h4>
                                                             <div class="col-12">
-                                                                <div class="col-12">
-                                                                    <div class="col-12">
-                                                                        <h3 class="kt-portlet__head-title">
-                                                                            <small>Detalles con la configuración actual
-                                                                                de indicadores:</small>
-                                                                        </h3>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="col-12 alert alert-success"
-                                                                         role="alert">
-                                                                        <label>
-                                                                            <strong style="margin-right: 8px;">Cuidado!</strong>
-                                                                            Actualmente no está configurado el <strong>indicador
-                                                                            Risk Score</strong>. Por favor dirigase a
-                                                                            Indicadores > Risk Score >
-                                                                            <strong>
-                                                                                <a style="color: #ffffff;"
-                                                                                   th:href="@{/indicators/score/setting}">Nueva
-                                                                                    configuración</a>
-                                                                            </strong>
-                                                                        </label>
-                                                                    </div>
+                                                                <div class="form-group"><h4 class="text-danger">
+                                                                    <strong style="margin-right: 8px;">Problemas!</strong>No
+                                                                    podrás realizar análisis de riesgo mientras el
+                                                                    <strong>todos los
+                                                                        indicadores</strong> sean configurados.
+                                                                </h4></div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group col-12 alert alert-danger"
+                                                                     role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Risk Score</strong>. Por favor dirigase a
+                                                                        Indicadores > Risk Score >
+                                                                        <strong>
+                                                                            <a style="color: #ffffff;"
+                                                                               th:href="@{/indicators/score/setting}">Nueva
+                                                                                configuración</a>
+                                                                        </strong>
+                                                                    </label>
                                                                 </div>
                                                             </div>
                                                         </div>
