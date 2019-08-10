@@ -311,118 +311,119 @@ function resumen() {
         }
         $('#content_ranges').html(template);
 
-    });
-}
 
-var ranges = [];
+        var ranges = [];
 
-var cant = $('[name*="[lim_score_down]"]').length;
-var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant-1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
+        var cant = $('[name*="[lim_score_down]"]').length;
+        var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
 
-$($('[name*="[lim_score_up]"]')[i]).val();
-for (var i = 0; i < cant; i++) {
-    ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val())/sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
-}
-
-
-var gaugeOptions = {
-
-    chart: {
-        type: 'solidgauge'
-    },
-
-    title: null,
-
-    pane: {
-        center: ['50%', '85%'],
-        size: '140%',
-        startAngle: -90,
-        endAngle: 90,
-        background: {
-            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
-            innerRadius: '60%',
-            outerRadius: '100%',
-            shape: 'arc'
+        $($('[name*="[lim_score_up]"]')[i]).val();
+        for (var i = 0; i < cant; i++) {
+            ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
         }
-    },
 
-    tooltip: {
-        enabled: false
-    },
 
-    // the value axis
-    yAxis: {
-        stops: ranges,
-        lineWidth: 0,
-        minorTickInterval: null,
-        tickAmount: 2,
-        title: {
-            y: -70
-        },
-        labels: {
-            y: 16
-        }
-    },
+        var gaugeOptions = {
 
-    plotOptions: {
-        solidgauge: {
-            dataLabels: {
-                y: 5,
-                borderWidth: 0,
-                useHTML: true
+            chart: {
+                type: 'solidgauge'
+            },
+
+            title: null,
+
+            pane: {
+                center: ['50%', '85%'],
+                size: '140%',
+                startAngle: -90,
+                endAngle: 90,
+                background: {
+                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                    innerRadius: '60%',
+                    outerRadius: '100%',
+                    shape: 'arc'
+                }
+            },
+
+            tooltip: {
+                enabled: false
+            },
+
+            // the value axis
+            yAxis: {
+                stops: ranges,
+                lineWidth: 0,
+                minorTickInterval: null,
+                tickAmount: 2,
+                title: {
+                    y: -70
+                },
+                labels: {
+                    y: 16
+                }
+            },
+
+            plotOptions: {
+                solidgauge: {
+                    dataLabels: {
+                        y: 5,
+                        borderWidth: 0,
+                        useHTML: true
+                    }
+                }
             }
-        }
-    }
-};
+        };
 
 // The speed gauge
-var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(gaugeOptions, {
-    yAxis: {
-        min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
-        max: parseInt($($('[name*="[lim_score_down]"]')[cant-1]).val()),
-        title: {
-            text: $('[name=score_titule]').val()
-        }
-    },
+        var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(gaugeOptions, {
+            yAxis: {
+                min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
+                max: parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()),
+                title: {
+                    text: $('[name=score_titule]').val()
+                }
+            },
 
-    credits: {
-        enabled: false
-    },
+            credits: {
+                enabled: false
+            },
 
-    series: [{
-        name: 'Score',
-        data: [sizeGraphic],
-        dataLabels: {
-            format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                '<span style="font-size:12px;color:silver"></span></div>'
-        },
-        tooltip: {
-            valueSuffix: ''
-        }
-    }]
+            series: [{
+                name: 'Score',
+                data: [sizeGraphic],
+                dataLabels: {
+                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                        '<span style="font-size:12px;color:silver"></span></div>'
+                },
+                tooltip: {
+                    valueSuffix: ''
+                }
+            }]
 
-}));
+        }));
 
 // Bring life to the dials
-setInterval(function () {
-    // Speed
-    var point,
-        newVal,
-        inc;
+        setInterval(function () {
+            // Speed
+            var point,
+                newVal,
+                inc;
 
-    if (chartSpeed) {
-        point = chartSpeed.series[0].points[0];
-        inc = Math.round((Math.random() - 0.5) * sizeGraphic);
-        newVal = point.y + inc;
+            if (chartSpeed) {
+                point = chartSpeed.series[0].points[0];
+                inc = Math.round((Math.random() - 0.5) * sizeGraphic);
+                newVal = point.y + inc;
 
-        if (newVal < 0 || newVal > sizeGraphic) {
-            newVal = point.y - inc;
-        }
+                if (newVal < 0 || newVal > sizeGraphic) {
+                    newVal = point.y - inc;
+                }
 
-        point.update(newVal);
-    }
-}, 2000);
+                point.update(newVal);
+            }
+        }, 2000);
+
+    });
+}
 
 
 jQuery(document).ready(function () {
