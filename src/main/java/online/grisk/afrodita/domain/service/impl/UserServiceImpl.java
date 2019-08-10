@@ -112,11 +112,20 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User cancelUser(long id) throws Exception {
+	public User activation(long id, boolean target) throws Exception {
 		try {
 			User user = userRepository.findById(id).get();
-			user.setNonLocked(false);
+			user.setNonLocked(target);
 			return userRepository.save(user);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public User findByOrganizationId(long organizationId) throws Exception {
+		try {
+			return userRepository.findByOrganizationId(organizationId);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

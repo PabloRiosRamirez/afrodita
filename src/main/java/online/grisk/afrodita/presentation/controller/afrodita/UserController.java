@@ -100,12 +100,15 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/v1/rest/users/{id}/cancel", method = RequestMethod.POST)
-	public ResponseEntity<?> cancelUser(@PathVariable("id") long id, Errors errors, Principal principal) {
+	@RequestMapping(value = "/v1/rest/users/{id}/activation", method = RequestMethod.POST)
+	public ResponseEntity<?> userActivation(@PathVariable("id") long id, @RequestBody Map<String, Object> body , Errors errors, Principal principal) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		try {
+			
+			boolean target = Boolean.parseBoolean(body.get("target").toString());
+			
 			boolean autoUpdate = false;
 			
 			String usernameLogged = principal.getName();
@@ -116,7 +119,7 @@ public class UserController {
 				autoUpdate = true;
 			}
 			
-			User usr = userService.cancelUser(id);
+			User usr = userService.activation(id, target);
 			Map<String, Object> map = new HashMap<>();
 			map.put("response", usr);
 			map.put("autoUpdate", autoUpdate);
@@ -126,11 +129,11 @@ public class UserController {
 		}
 	}
 	
-	protected void verifyParameters(Map payload) {
+	private void verifyParameters(Map payload) {
 		Assert.notEmpty(payload, "Payload required");
 	}
 
-	protected Map createHeadersWithAction(String action) {
+	private Map createHeadersWithAction(String action) {
 		Map<String, Object> headers = new HashMap<>();
 		headers.put("action", action);
 		return headers;

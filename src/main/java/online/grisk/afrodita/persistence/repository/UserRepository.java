@@ -22,4 +22,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     User findByTokenConfirm(String tokenConfirm);
 
     User findByTokenRestart(String tokenRestart);
+    
+    @Query("select u from User u where u.organization.idOrganization = ?1")
+    User findByOrganizationId(long organizationId);
 }
