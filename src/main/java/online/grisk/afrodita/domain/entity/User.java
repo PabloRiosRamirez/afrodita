@@ -51,6 +51,7 @@ public class User implements Serializable {
     @Column(name = "email", nullable = false)
     private String email;
 
+    @JsonManagedReference
     @JoinColumn(name = "organization", referencedColumnName = "id_organization", nullable = false)
     @ManyToOne(optional = false)
     private Organization organization;

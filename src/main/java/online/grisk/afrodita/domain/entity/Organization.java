@@ -7,6 +7,9 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import java.util.Collection;
 
@@ -47,6 +50,7 @@ public class Organization implements Serializable {
     @Column(name = "rut", nullable = false)
     private String rut;
 
+    @JsonBackReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
     private Collection<User> users;
 

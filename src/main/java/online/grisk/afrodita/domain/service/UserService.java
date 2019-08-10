@@ -22,4 +22,5 @@ public interface UserService {
 	public User findByTokenRestart(String tokenRestart) throws Exception;
 
 	public User update(User user) throws Exception;
+	
 }

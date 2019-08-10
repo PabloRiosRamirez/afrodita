@@ -4,8 +4,6 @@ import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.persistence.repository.UserRepository;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +27,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-
 	}
 
 	public User findByEmail(String email) throws Exception {
@@ -42,11 +39,13 @@ public class UserServiceImpl implements UserService {
 
 	public User findByUsernameOrEmail(String username, String email) throws Exception {
 		try {
+			if(username != null) {
+				username = username.toUpperCase();
+			}
 			return userRepository.findByUsernameOrEmail(username, email);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-
 	}
 
 	public User findByEmailAndTokenRestart(String email, String tokenRestart) throws Exception {
@@ -55,7 +54,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-
 	}
 
 	public User save(User user) throws Exception {
@@ -64,7 +62,6 @@ public class UserServiceImpl implements UserService {
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-
 	}
 
 	public User findByTokenConfirm(String tokenConfirm) throws Exception {
@@ -86,23 +83,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(User user) throws Exception {
 		try {
-			Optional<User> usr =  userRepository.findById(user.getIdUser());
-			User uf = usr.get();
-			uf.setCreateAt(user.getCreateAt());
-			uf.setEmail(user.getEmail());
-			uf.setEnabled(user.isEnabled());
-			uf.setIdUser(user.getIdUser());
-			uf.setNonLocked(user.isNonLocked());
-			uf.setOrganization(user.getOrganization());
-			uf.setPass(user.getPass());
-			uf.setRole(user.getRole());
-			uf.setTokenConfirm(user.getTokenConfirm());
-			uf.setTokenRestart(user.getTokenRestart());
-			uf.setUpdateAt(user.getUpdateAt());
-			uf.setUsername(user.getUsername());
-			return userRepository.save(uf);
+			User usr =  userRepository.findById(user.getIdUser()).get();
+			usr.setCreateAt(user.getCreateAt());
+			usr.setEmail(user.getEmail());
+			usr.setEnabled(user.isEnabled());
+			usr.setIdUser(user.getIdUser());
+			usr.setNonLocked(user.isNonLocked());
+			usr.setOrganization(user.getOrganization());
+			usr.setPass(user.getPass());
+			usr.setRole(user.getRole());
+			usr.setTokenConfirm(user.getTokenConfirm());
+			usr.setTokenRestart(user.getTokenRestart());
+			usr.setUpdateAt(user.getUpdateAt());
+			usr.setUsername(user.getUsername());
+			return userRepository.save(usr);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-	} 
+	}
 }
