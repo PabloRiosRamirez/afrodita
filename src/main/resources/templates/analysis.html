@@ -37,10 +37,14 @@
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title" th:if="${dataintegration != null or score == null}">Detalles de la configuración de actual:
-                                                    <small>Descripción de las configuraciones actuales del sistema</small>
+                                                <h3 class="kt-portlet__head-title"
+                                                    th:if="${dataintegration != null or score == null}">Detalles de la
+                                                    configuración de actual:
+                                                    <small>Descripción de las configuraciones actuales del
+                                                        sistema</small>
                                                 </h3>
-                                                <h3 class="kt-portlet__head-title" th:if="${dataintegration != null and score != null}">Análisis
+                                                <h3 class="kt-portlet__head-title"
+                                                    th:if="${dataintegration != null and score != null}">Análisis
                                                     <small>--</small>
                                                 </h3>
                                             </div>
@@ -141,24 +145,28 @@
                                             <div class="kt-section kt-section--first">
                                                 <div class="kt-section__body">
                                                     <div class="col-12">
-                                                        <h1 class="text-danger" th:if="${dataintegration == null}">
-                                                            <strong style="margin-right: 8px;">Problemas!</strong>No
-                                                            podrás realizar análisis de riesgo mientras el
-                                                            <strong>Data Integration y todos los
-                                                                indicadores</strong> sean configurados.
-                                                        </h1>
-                                                        <div th:if="${dataintegration == null and (score == null or score == null)}">
-                                                            <h1 class="text-danger">
+                                                        <div class="col-12 alert alert-outline-danger"
+                                                             role="alert" th:if="${dataintegration == null}">
+                                                            <h4>
+                                                                <strong style="margin-right: 8px;">Problemas!</strong>No
+                                                                podrás realizar análisis de riesgo mientras el
+                                                                <strong>Data Integration y todos los
+                                                                    indicadores</strong> sean configurados.
+                                                            </h4>
+                                                        </div>
+                                                        <div th:if="${dataintegration != null and (score == null or score == null)}">
+                                                            <h4 class="text-danger">
                                                                 <strong style="margin-right: 8px;">Problemas!</strong>No
                                                                 podrás realizar análisis de riesgo mientras el
                                                                 <strong>todos los
                                                                     indicadores</strong> sean configurados.
-                                                            </h1>
+                                                            </h4>
                                                             <div class="col-12">
                                                                 <div class="col-12">
                                                                     <div class="col-12">
                                                                         <h3 class="kt-portlet__head-title">
-                                                                            <small>Detalles con la configuración actual de indicadores:</small>
+                                                                            <small>Detalles con la configuración actual
+                                                                                de indicadores:</small>
                                                                         </h3>
                                                                     </div>
                                                                 </div>
