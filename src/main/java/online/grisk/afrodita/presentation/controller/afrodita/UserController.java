@@ -100,19 +100,31 @@ public class UserController {
 		}
 	}
 
-//	@RequestMapping(value = "/v1/rest/users/{id}/cancel", method = RequestMethod.POST)
-//	public ResponseEntity<?> cancelUser(@PathVariable("id") long id, Errors errors) {
-//		if (errors.hasErrors()) {
-//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//		}
-//		try {
-//			
-//			userService.cancelUser(id);
-//			
-//		} catch (Exception e) {
-//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-//		}
-//	}
+	@RequestMapping(value = "/v1/rest/users/{id}/cancel", method = RequestMethod.POST)
+	public ResponseEntity<?> cancelUser(@PathVariable("id") long id, Errors errors, Principal principal) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		try {
+			boolean autoUpdate = false;
+			
+			String usernameLogged = principal.getName();
+			
+			String currentUsername = userService.findByIdUser(id).getUsername();
+			
+			if(usernameLogged.equalsIgnoreCase(currentUsername)) {
+				autoUpdate = true;
+			}
+			
+			User usr = userService.cancelUser(id);
+			Map<String, Object> map = new HashMap<>();
+			map.put("response", usr);
+			map.put("autoUpdate", autoUpdate);
+			return new ResponseEntity<>(map, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 	
 	protected void verifyParameters(Map payload) {
 		Assert.notEmpty(payload, "Payload required");
