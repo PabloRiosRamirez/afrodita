@@ -144,8 +144,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 							ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email", HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenRestart()), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
 							return addServiceResponseToResponseMap(payload, responseEntity.getBody(), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
 						} else {
-							return addServiceResponseToResponseMap(buildResponseError("Request Successful"), null,
-									HttpStatus.OK, microserviceArtemisa.getServiceId());
+							return addServiceResponseToResponseMap(payload, user, HttpStatus.OK, microserviceArtemisa.getServiceId());
 						}
 					} else {
 						return addServiceResponseToResponseMap(buildResponseError(messageEmailValidation), null,

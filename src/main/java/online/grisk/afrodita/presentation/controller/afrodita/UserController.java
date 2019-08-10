@@ -1,5 +1,6 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,6 +62,7 @@ public class UserController {
 			this.verifyParameters(userUpdateAdminDTO.toMap());
 
 			Map response = emailActivatorService.invokeEmailUpdateByAdmin(userUpdateAdminDTO.toMap(), createHeadersWithAction("sendEmailResetPassword"));
+			
 			return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
 
 		} catch (Exception e) {
