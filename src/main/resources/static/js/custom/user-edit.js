@@ -1,5 +1,5 @@
 jQuery(document).ready(function () {
-
+	KTWizard3.init();
 });
 var KTWizard3 = function () {
     var form;
@@ -66,6 +66,7 @@ var KTWizard3 = function () {
     return {
         // public functions
         init: function () {
+        	formElExcel = $('#edit-user');
             initSearch();
             initEdit();
             initValidation();
