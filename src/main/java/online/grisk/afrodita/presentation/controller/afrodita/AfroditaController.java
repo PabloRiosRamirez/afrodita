@@ -105,6 +105,7 @@ public class AfroditaController {
         return "indicator_score/indicator_score";
     }
 
+    @RequestMapping(value = "/indicators/score/setting", method = GET)
     public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");

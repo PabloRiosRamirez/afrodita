@@ -116,30 +116,30 @@ var KTWizard3 = function () {
 
                 //= Step 2
                 '[0][lim_score_down]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[0][lim_score_up]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[0][score_range_color]': {
                     required: true
                 },
                 '[1][lim_score_down]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[1][lim_score_up]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[1][score_range_color]': {
                     required: true
                 },
                 '[2][lim_score_down]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[2][lim_score_up]': {
                     digits: true,
@@ -149,23 +149,23 @@ var KTWizard3 = function () {
                     required: true
                 },
                 '[3][lim_score_down]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[3][lim_score_up]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[3][score_range_color]': {
                     required: true
                 },
                 '[4][lim_score_down]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[4][lim_score_up]': {
-                    digits: true,
-                    required: true
+                    required: true,
+                    digits: true
                 },
                 '[4][score_range_color]': {
                     required: true
@@ -310,8 +310,120 @@ function resumen() {
             template = template += $($('[name*="[score_range_color]"]')[i]).val() + "\"></div></div></div>";
         }
         $('#content_ranges').html(template);
+
     });
 }
+
+var ranges = [];
+
+var cant = $('[name*="[lim_score_down]"]').length;
+var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant-1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
+
+$($('[name*="[lim_score_up]"]')[i]).val();
+for (var i = 0; i < cant; i++) {
+    ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val())/sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
+}
+
+
+var gaugeOptions = {
+
+    chart: {
+        type: 'solidgauge'
+    },
+
+    title: null,
+
+    pane: {
+        center: ['50%', '85%'],
+        size: '140%',
+        startAngle: -90,
+        endAngle: 90,
+        background: {
+            backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+            innerRadius: '60%',
+            outerRadius: '100%',
+            shape: 'arc'
+        }
+    },
+
+    tooltip: {
+        enabled: false
+    },
+
+    // the value axis
+    yAxis: {
+        stops: ranges,
+        lineWidth: 0,
+        minorTickInterval: null,
+        tickAmount: 2,
+        title: {
+            y: -70
+        },
+        labels: {
+            y: 16
+        }
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                y: 5,
+                borderWidth: 0,
+                useHTML: true
+            }
+        }
+    }
+};
+
+// The speed gauge
+var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(gaugeOptions, {
+    yAxis: {
+        min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
+        max: parseInt($($('[name*="[lim_score_down]"]')[cant-1]).val()),
+        title: {
+            text: $('[name=score_titule]').val()
+        }
+    },
+
+    credits: {
+        enabled: false
+    },
+
+    series: [{
+        name: 'Score',
+        data: [sizeGraphic],
+        dataLabels: {
+            format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                '<span style="font-size:12px;color:silver"></span></div>'
+        },
+        tooltip: {
+            valueSuffix: ''
+        }
+    }]
+
+}));
+
+// Bring life to the dials
+setInterval(function () {
+    // Speed
+    var point,
+        newVal,
+        inc;
+
+    if (chartSpeed) {
+        point = chartSpeed.series[0].points[0];
+        inc = Math.round((Math.random() - 0.5) * sizeGraphic);
+        newVal = point.y + inc;
+
+        if (newVal < 0 || newVal > sizeGraphic) {
+            newVal = point.y - inc;
+        }
+
+        point.update(newVal);
+    }
+}, 2000);
+
 
 jQuery(document).ready(function () {
     onClickDeletedRange();
