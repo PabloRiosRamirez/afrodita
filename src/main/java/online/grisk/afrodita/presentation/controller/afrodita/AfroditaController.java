@@ -173,7 +173,7 @@ public class AfroditaController {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
         model.addAttribute("module", "user");
-//        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        model.addAttribute("roles", afroditaActivatorService.getRoles());
         return "users/user-create";
     }
 
@@ -182,6 +182,7 @@ public class AfroditaController {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
+        model.addAttribute("roles", afroditaActivatorService.getRoles());
 //        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return "users/user-edit";
     }

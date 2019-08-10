@@ -1,6 +1,8 @@
 package online.grisk.afrodita.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -48,6 +50,7 @@ public class Role implements Serializable {
     private String code;
 
     @JsonBackReference
+    @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
     private Collection<User> users;
 
