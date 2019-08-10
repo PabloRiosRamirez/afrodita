@@ -55,22 +55,22 @@
                                                             </div>
                                                         </div>
                                                         <input id="organization" hidden th:value="${id_organization}">
-                                                        <div class="form-group row">
-                                                            <label for="example-search-input" class="col-3 col-form-label">Usuario a buscar:</label>
+                                                        <div class="form-group row"  id="form_search_edit_user">
+                                                            <label for="username_search_edit_user" class="col-3 col-form-label">Usuario a buscar:</label>
                                                             <div class="col-6">
-                                                                <input class="form-control" type="search" value="Nombre de usuario a buscar" id="example-search-input">
+                                                                <input class="form-control" type="search" value="Nombre de usuario a buscar" name="username_search_edit_user" id="username_search_edit_user">
                                                             </div>
                                                             <div class="col-3">
-                                                                <button type="reset" class="btn btn-primary">Buscar</button>
+                                                                <button type="reset" class="btn btn-primary" id="btn_search_edit_user">Buscar</button>
                                                             </div>
+                                                            <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
                                                         </div>
                                                     </div>
-                                                    <div class="kt-separator kt-separator--border-dashed kt-separator--space-lg"></div>
-                                                    <div class="kt-section__body">
+                                                    <div class="kt-section__body" id="form_edit_user" hidden>
                                                         <div class="form-group row">
                                                             <label class="col-xl-3 col-lg-3 col-form-label">Rol:</label>
                                                             <select class="custom-select col-xl-6 col-lg-9" id="rol"
-                                                                    name="rol" disabled>
+                                                                    name="rol">
                                                                 <option th:each="role : ${roles}"
                                                                         th:text="${role.name}"
                                                                         th:value="${role.code}">
@@ -81,7 +81,7 @@
                                                             <label class="col-xl-3 col-lg-3 col-form-label">Usuario</label>
                                                             <div class="col-xl-6 col-lg-9">
                                                                 <div class="kt-spinner kt-spinner--sm kt-spinner--success kt-spinner--right kt-spinner--input">
-                                                                    <input class="form-control" type="text" disabled>
+                                                                    <input class="form-control" type="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -90,7 +90,7 @@
                                                                 electrónico</label>
                                                             <div class="col-xl-6 col-lg-9">
                                                                 <div class="kt-spinner kt-spinner--sm kt-spinner--success kt-spinner--right kt-spinner--input">
-                                                                    <input class="form-control" type="text" disabled>
+                                                                    <input class="form-control" type="text">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -98,7 +98,7 @@
                                                             <label class="col-xl-3 col-lg-3 col-form-label"></label>
                                                             <div class="col-lg-9 col-xl-6">
                                                                 <button class="btn btn-label-danger btn-bold btn-sm kt-margin-t-5 kt-margin-b-5"
-                                                                        type="button" disabled>
+                                                                        type="button">
                                                                     ¿Desea desactivar esta cuenta?
                                                                 </button>
                                                             </div>
@@ -113,7 +113,7 @@
                                                         </div>
                                                         <div class="col-lg-9 col-xl-9">
                                                             <button class="btn btn-success" type="primary"
-                                                                    id="btn_edit_user" disabled>Guardar
+                                                                    id="btn_edit_user">Guardar
                                                             </button>&nbsp;
                                                             <button class="btn btn-secondary" type="reset">Cancelar
                                                             </button>
