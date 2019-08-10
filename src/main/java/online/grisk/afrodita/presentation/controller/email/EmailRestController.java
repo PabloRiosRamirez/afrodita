@@ -39,6 +39,7 @@ public class EmailRestController extends BasicRestController {
     @PostMapping(value = "/v1/rest/user/reset-by-login")
     public HttpEntity<?> resetPassByLogin(@NotEmpty @Payload @RequestBody Map payload, @NotEmpty @Headers @RequestHeader Map headers) throws Exception {
         this.verifyParameters(payload);
+        
         Map response = emailActivatorService.invokeEmailResetPassByLogin(payload, createHeadersWithAction("sendEmailResetPassword"));
         return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
 

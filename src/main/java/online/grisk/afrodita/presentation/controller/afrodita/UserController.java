@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
+import online.grisk.afrodita.domain.dto.UserUpdateAdminDTO;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
@@ -50,25 +51,37 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PUT)
-	public ResponseEntity<?> updateUser(@Valid @RequestBody User user) {
+	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateAdminDTO userUpdateAdminDTO, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		try {
-			return new ResponseEntity<User>(userService.update(user), HttpStatus.OK);
+
+			this.verifyParameters(userUpdateAdminDTO.toMap());
+
+			Map response = emailActivatorService.invokeEmailUpdateByAdmin(userUpdateAdminDTO.toMap(), createHeadersWithAction("sendEmailResetPassword"));
+			return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
+
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
 	@RequestMapping(value = "/v1/rest/users/search", method = RequestMethod.GET)
-	public ResponseEntity<?> search(@RequestParam(name = "username", required = true) String username,
-			@RequestParam(name = "email", required = true) String email) {
+	public ResponseEntity<?> search(@RequestParam(name = "username", required = true) String username, @RequestParam(name = "email", required = true) String email, @RequestParam(name = "organizationId", required = false) Long organizationId) {
+		User user = null;
 		try {
 			if ((username == null && email == null) || (username.isEmpty() && email.isEmpty())) {
-				return new ResponseEntity<String>("Debe ingresar al menos un parametro de busqueda: [username,email]",
-						HttpStatus.INTERNAL_SERVER_ERROR);
+				return new ResponseEntity<String>("Debe ingresar al menos un parametro de busqueda: [username,email]", HttpStatus.INTERNAL_SERVER_ERROR);
 			}
-			User user = userService.findByUsernameOrEmail(username, email);
-			return user == null ? new ResponseEntity<Object>(HttpStatus.NOT_FOUND)
-					: new ResponseEntity<Object>(user, HttpStatus.OK);
+			
+			if(organizationId != null) {
+				user = userService.findByUsernameOrEmailAndOrganizationId(username, email, organizationId);
+			} else {
+				user = userService.findByUsernameOrEmail(username, email);
+			}
+			
+			return user == null ? new ResponseEntity<Object>(HttpStatus.NOT_FOUND) : new ResponseEntity<Object>(user, HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}

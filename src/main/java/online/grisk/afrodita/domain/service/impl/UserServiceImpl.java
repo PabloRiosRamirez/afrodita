@@ -101,4 +101,13 @@ public class UserServiceImpl implements UserService {
 			throw new Exception(e.getMessage());
 		}
 	}
+
+	@Override
+	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception {
+		try {
+			return userRepository.findByUsernameOrEmailAndOrganizationId(username, email, organizationId);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
 }

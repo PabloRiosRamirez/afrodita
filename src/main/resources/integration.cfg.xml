@@ -32,6 +32,9 @@
 		input-channel="channelRegisterUserAdmin" ref="emailActivatorService"
 		method="invokeEmailRegisterByAdmin" />
 	<int:service-activator
+		input-channel="channelUpdateUserAdmin" ref="emailActivatorService"
+		method="invokeEmailUpdateByAdmin" />
+	<int:service-activator
 		input-channel="channelResetPassword" ref="emailActivatorService"
 		method="invokeEmailResetPassByLogin" />
 	<int:service-activator

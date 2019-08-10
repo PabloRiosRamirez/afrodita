@@ -23,4 +23,6 @@ public interface UserService {
 
 	public User update(User user) throws Exception;
 	
+	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception;
+	
 }

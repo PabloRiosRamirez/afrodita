@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
+import online.grisk.afrodita.domain.dto.UserUpdateAdminDTO;
 import online.grisk.afrodita.domain.entity.Microservice;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.ArtemisaService;
@@ -99,6 +100,57 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 					}
 				} else {
 					return addServiceResponseToResponseMap(buildResponseError("Username Already Exist"), null,
+							HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+				}
+			} else {
+				return addServiceResponseToResponseMap(buildResponseError("Role Doesn't Exist"), null,
+						HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+			}
+		} else {
+			return addServiceResponseToResponseMap(buildResponseError("Organization Doesn't Exist"), null,
+					HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+		}
+	}
+	
+	// Action for 'invokeEmailUpdateByAdmin'
+	public Map<String, Object> invokeEmailUpdateByAdmin(@NotNull @Payload Map<String, Object> payload,
+			@NotNull @Headers Map<String, Object> headers) throws Exception {
+		UserUpdateAdminDTO userUpdateAdminDTO = objectMapper.convertValue(payload, UserUpdateAdminDTO.class);
+		if (organizationService.findOne(userUpdateAdminDTO.getOrganizationId()) != null) {
+			if (roleService.findOne(userUpdateAdminDTO.getRoleId()) != null) {
+				
+				User usrValid = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
+				
+				String messageUsernameValidation = null;
+				if(!usrValid.getUsername().toUpperCase().equals(userUpdateAdminDTO.getUsername().toUpperCase())) {
+					if(userService.findByUsername(userUpdateAdminDTO.getUsername().toUpperCase()) != null) {
+						messageUsernameValidation = "Username Already Exist";
+					}
+				}
+				
+				if (messageUsernameValidation == null) {
+					
+					String messageEmailValidation = null;
+					if(!usrValid.getEmail().equals(userUpdateAdminDTO.getEmail())) {
+						if(userService.findByUsername(userUpdateAdminDTO.getUsername().toUpperCase()) != null) {
+							messageEmailValidation = "Email Already Exist";
+						}
+					}
+					
+					if (messageEmailValidation == null) {
+						User user = artemisaService.registerUserAdmin(userRegistrationAdminDTO);
+						ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email",
+								HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenConfirm()),
+								createHeadersWithAction(headers.getOrDefault("action", "").toString()),
+								microserviceArtemisa);
+						return addServiceResponseToResponseMap(payload, responseEntity.getBody(),
+								responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
+					} else {
+						return addServiceResponseToResponseMap(buildResponseError(messageEmailValidation), null,
+								HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
+					}
+				} else {
+					return addServiceResponseToResponseMap(buildResponseError(messageUsernameValidation), null,
 							HttpStatus.CONFLICT, microserviceArtemisa.getServiceId());
 				}
 			} else {
