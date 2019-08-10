@@ -1,19 +1,27 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.Assert;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import online.grisk.afrodita.domain.dto.UserDTO;
+import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.UserService;
+import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
 
 @RestController
 public class UserController {
@@ -21,10 +29,21 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
+	@Autowired
+	EmailActivatorService emailActivatorService;
+
 	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.POST)
-	public ResponseEntity<?> createUser(@Valid @RequestBody User user) {
+	public ResponseEntity<?> createUser(@Valid @RequestBody UserRegistrationAdminDTO userRegistrationAdminDTO, Errors errors) {
+		if (errors.hasErrors()) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		try {
-			return new ResponseEntity<User>(userService.save(user), HttpStatus.OK);
+
+			this.verifyParameters(userRegistrationAdminDTO.toMap());
+
+			Map response = emailActivatorService.invokeEmailRegisterByAdmin(userRegistrationAdminDTO.toMap(), createHeadersWithAction("sendEmailRegisterUser"));
+			return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
+
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -40,17 +59,28 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/v1/rest/users/search", method = RequestMethod.GET)
-	public ResponseEntity<?> search(@RequestParam(name = "username", required = true) String username, @RequestParam(name = "email", required = true) String email) {
+	public ResponseEntity<?> search(@RequestParam(name = "username", required = true) String username,
+			@RequestParam(name = "email", required = true) String email) {
 		try {
-			if((username == null && email == null) || (username.isEmpty() && email.isEmpty())) {
-				return new ResponseEntity<String>("Debe ingresar al menos un parametro de busqueda: [username,email]", HttpStatus.INTERNAL_SERVER_ERROR);
+			if ((username == null && email == null) || (username.isEmpty() && email.isEmpty())) {
+				return new ResponseEntity<String>("Debe ingresar al menos un parametro de busqueda: [username,email]",
+						HttpStatus.INTERNAL_SERVER_ERROR);
 			}
 			User user = userService.findByUsernameOrEmail(username, email);
-			return user == null ? new ResponseEntity<Object>(HttpStatus.NOT_FOUND) : new ResponseEntity<Object>(user, HttpStatus.OK);		
-		} 
-		catch (Exception e) {
+			return user == null ? new ResponseEntity<Object>(HttpStatus.NOT_FOUND)
+					: new ResponseEntity<Object>(user, HttpStatus.OK);
+		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
+	protected void verifyParameters(Map payload) {
+		Assert.notEmpty(payload, "Payload required");
+	}
+
+	protected Map createHeadersWithAction(String action) {
+		Map<String, Object> headers = new HashMap<>();
+		headers.put("action", action);
+		return headers;
+	}
 }

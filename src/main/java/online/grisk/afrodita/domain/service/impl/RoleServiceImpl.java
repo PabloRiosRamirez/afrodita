@@ -24,4 +24,9 @@ public class RoleServiceImpl implements RoleService {
         roleRepository.findAll().forEach(list::add);
         return list;
     }
+
+	@Override
+	public Role findOne(short id) {
+		return roleRepository.findById(id).get();
+	}
 }

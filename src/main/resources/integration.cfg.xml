@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:int="http://www.springframework.org/schema/integration"
-       xmlns="http://www.springframework.org/schema/beans"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	xmlns:int="http://www.springframework.org/schema/integration"
+	xmlns="http://www.springframework.org/schema/beans"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
        http://www.springframework.org/schema/integration http://www.springframework.org/schema/integration/spring-integration.xsd">
 
-    <int:gateway id="gateway"
-                 default-request-channel="channelDefault"
-                 service-interface="online.grisk.afrodita.integration.gateway.GatewayService"/>
+	<int:gateway id="gateway"
+		default-request-channel="channelDefault"
+		service-interface="online.grisk.afrodita.integration.gateway.GatewayService" />
 
-    <int:channel id="channelDefault"/>
+	<int:channel id="channelDefault" />
 
-    <int:recipient-list-router
-            input-channel="channelDefault">
-        <int:recipient channel="channelRegisterUser"
-                       selector-expression="headers.action.equals('sendEmailRegisterUser')"/>
-        <int:recipient channel="channelResetPassword"
-                       selector-expression="headers.action.equals('sendEmailResetPassword')"/>
-        <int:recipient channel="channelPostResetPassword"
-                       selector-expression="headers.action.equals('postResetPassword')"/>
-    </int:recipient-list-router>
+	<int:recipient-list-router
+		input-channel="channelDefault">
+		<int:recipient channel="channelRegisterUser"
+			selector-expression="headers.action.equals('sendEmailRegisterUser')" />
+		<int:recipient channel="channelResetPassword"
+			selector-expression="headers.action.equals('sendEmailResetPassword')" />
+		<int:recipient channel="channelPostResetPassword"
+			selector-expression="headers.action.equals('postResetPassword')" />
+	</int:recipient-list-router>
 
-    <int:channel id="channelRegisterUser"/>
-    <int:channel id="channelResetPassword"/>
-    <int:channel id="channelPostResetPassword"/>
+	<int:channel id="channelRegisterUser" />
+	<int:channel id="channelResetPassword" />
+	<int:channel id="channelPostResetPassword" />
 
-    <int:service-activator
-            input-channel="channelRegisterUser" ref="emailActivatorService"
-            method="invokeEmailRegisterByLogin"/>
-    <int:service-activator
-            input-channel="channelResetPassword" ref="emailActivatorService"
-            method="invokeEmailResetPassByLogin"/>
-    <int:service-activator
-            input-channel="channelPostResetPassword"
-            ref="emailActivatorService" method="invokePostResetPassByLogin"/>
+	<int:service-activator
+		input-channel="channelRegisterUser" ref="emailActivatorService"
+		method="invokeEmailRegisterByLogin" />
+	<int:service-activator
+		input-channel="channelRegisterUserAdmin" ref="emailActivatorService"
+		method="invokeEmailRegisterByAdmin" />
+	<int:service-activator
+		input-channel="channelResetPassword" ref="emailActivatorService"
+		method="invokeEmailResetPassByLogin" />
+	<int:service-activator
+		input-channel="channelPostResetPassword" ref="emailActivatorService"
+		method="invokePostResetPassByLogin" />
 </beans>

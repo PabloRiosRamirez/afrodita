@@ -19,4 +19,9 @@ public class OrganizationServiceImpl implements OrganizationService {
     public Organization save(Organization organization) {
         return organizationRepository.save(organization);
     }
+
+	@Override
+	public Organization findOne(long id) {
+		return organizationRepository.findById(id).get();
+	}
 }
