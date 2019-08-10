@@ -311,19 +311,24 @@ function resumen() {
         }
         $('#content_ranges').html(template);
 
+    });
+}
 
-        var ranges = [];
+function resumenGraphic() {
 
-        var cant = $('[name*="[lim_score_down]"]').length;
-        var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
+    var ranges = [];
 
-        $($('[name*="[lim_score_up]"]')[i]).val();
-        for (var i = 0; i < cant; i++) {
-            ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
-        }
+    var cant = $('[name*="[lim_score_down]"]').length;
+    var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
 
+    $($('[name*="[lim_score_up]"]')[i]).val();
+    for (var i = 0; i < cant; i++) {
+        ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
+    }
 
-        var gaugeOptions = {
+// The speed gauge
+    var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(
+        {
 
             chart: {
                 type: 'solidgauge'
@@ -371,60 +376,55 @@ function resumen() {
                     }
                 }
             }
-        };
+        },
+        {
+        yAxis: {
+            min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
+            max: parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()),
+            title: {
+                text: $('[name=score_titule]').val()
+            }
+        },
 
-// The speed gauge
-        var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(gaugeOptions, {
-            yAxis: {
-                min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
-                max: parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()),
-                title: {
-                    text: $('[name=score_titule]').val()
-                }
+        credits: {
+            enabled: false
+        },
+
+        series: [{
+            name: 'Score',
+            data: [sizeGraphic],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                    '<span style="font-size:12px;color:silver"></span></div>'
             },
+            tooltip: {
+                valueSuffix: ''
+            }
+        }]
 
-            credits: {
-                enabled: false
-            },
-
-            series: [{
-                name: 'Score',
-                data: [sizeGraphic],
-                dataLabels: {
-                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                        '<span style="font-size:12px;color:silver"></span></div>'
-                },
-                tooltip: {
-                    valueSuffix: ''
-                }
-            }]
-
-        }));
+    }));
 
 // Bring life to the dials
-        setInterval(function () {
-            // Speed
-            var point,
-                newVal,
-                inc;
+    setInterval(function () {
+        // Speed
+        var point,
+            newVal,
+            inc;
 
-            if (chartSpeed) {
-                point = chartSpeed.series[0].points[0];
-                inc = Math.round((Math.random() - 0.5) * sizeGraphic);
-                newVal = point.y + inc;
+        if (chartSpeed) {
+            point = chartSpeed.series[0].points[0];
+            inc = Math.round((Math.random() - 0.5) * sizeGraphic);
+            newVal = point.y + inc;
 
-                if (newVal < 0 || newVal > sizeGraphic) {
-                    newVal = point.y - inc;
-                }
-
-                point.update(newVal);
+            if (newVal < 0 || newVal > sizeGraphic) {
+                newVal = point.y - inc;
             }
-        }, 2000);
 
-    });
+            point.update(newVal);
+        }
+    }, 2000);
 }
-
 
 jQuery(document).ready(function () {
     onClickDeletedRange();
