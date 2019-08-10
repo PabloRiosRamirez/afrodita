@@ -66,8 +66,7 @@
                                                         <div class="form-group row">
                                                             <label class="col-xl-3 col-lg-3 col-form-label">Rol:</label>
                                                             <select class="custom-select col-xl-6 col-lg-9"
-                                                                    name="rol_create_user" id="rol_create_user"
-                                                                    name="rol">
+                                                                    name="rol_create_user" id="rol_create_user">
                                                                 <option th:each="role : ${roles}"
                                                                         th:text="${role.name}"
                                                                         th:value="${role.code}">

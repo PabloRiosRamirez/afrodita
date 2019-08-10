@@ -1,6 +1,8 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
+import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.TypeVariable;
+import online.grisk.afrodita.domain.service.RoleService;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.AfroditaActivatorService;
 import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
@@ -25,6 +27,9 @@ public class AfroditaController {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+	private RoleService roleService;
 
     @Autowired
     EmailActivatorService emailActivatorService;
@@ -173,7 +178,11 @@ public class AfroditaController {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
         model.addAttribute("module", "user");
-        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        List<Role> roles = afroditaActivatorService.getRoles();
+        for (int i = 0; i < roles.size(); i++) {
+			roles.get(i).setUsers(null);
+		}
+        model.addAttribute("roles", roles);
         return "users/user-create";
     }
 
@@ -182,7 +191,11 @@ public class AfroditaController {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
-        model.addAttribute("roles", afroditaActivatorService.getRoles());
+        List<Role> roles = afroditaActivatorService.getRoles();
+        for (int i = 0; i < roles.size(); i++) {
+			roles.get(i).setUsers(null);
+		}
+        model.addAttribute("roles", roles);
 //        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return "users/user-edit";
     }
