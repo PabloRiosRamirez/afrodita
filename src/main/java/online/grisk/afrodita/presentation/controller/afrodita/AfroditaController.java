@@ -180,11 +180,11 @@ public class AfroditaController {
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
         model.addAttribute("id_organization", idOrganization);
         model.addAttribute("module", "user");
-        List<Role> roles = afroditaActivatorService.getRoles();
-        for (int i = 0; i < roles.size(); i++) {
-			roles.get(i).setUsers(null);
-		}
-        model.addAttribute("roles", roles);
+//        List<Role> roles = afroditaActivatorService.getRoles();
+//        for (int i = 0; i < roles.size(); i++) {
+//			roles.get(i).setUsers(null);
+//		}
+        model.addAttribute(afroditaActivatorService.getRoles());
         return "users/user-create";
     }
 
@@ -193,11 +193,11 @@ public class AfroditaController {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
-        List<Role> roles = afroditaActivatorService.getRoles();
-        for (int i = 0; i < roles.size(); i++) {
-			roles.get(i).setUsers(null);
-		}
-        model.addAttribute("roles", roles);
+//      List<Role> roles = afroditaActivatorService.getRoles();
+//      for (int i = 0; i < roles.size(); i++) {
+//			roles.get(i).setUsers(null);
+//		}
+      model.addAttribute(afroditaActivatorService.getRoles());
 //        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return "users/user-edit";
     }
