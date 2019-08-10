@@ -34,7 +34,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/users/edit", method = GET)
+	@RequestMapping(value = "/users/edit", method = RequestMethod.PUT)
 	public ResponseEntity<?> editUserPage(@Valid @RequestBody User user) {
 		try {
 			return new ResponseEntity<User>(userService.update(user), HttpStatus.OK);

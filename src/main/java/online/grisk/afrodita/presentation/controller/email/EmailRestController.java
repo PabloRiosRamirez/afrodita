@@ -60,7 +60,7 @@ public class EmailRestController extends BasicRestController {
     @PostMapping(value = "/v1/rest/user/{id_user}/edit")
     public HttpEntity<?> resetUser(@PathVariable Long idUser, @NotEmpty @Payload @RequestBody Map payload, @NotEmpty @Headers @RequestHeader Map headers) throws Exception {
         this.verifyParameters(payload);
-        User byIdUser = userService.findByIdUser(idUser);
+        User byIdUser = userService.findByIdUser(idUser).get();
         byIdUser.setUsername(payload.get("username").toString().toUpperCase());
         byIdUser.setEmail(payload.get("email").toString());
         userService.save(byIdUser);
@@ -76,7 +76,7 @@ public class EmailRestController extends BasicRestController {
     @PostMapping(value = "/v1/rest/user/{id_user}/blocked")
     public HttpEntity<?> blockedUser(@PathVariable Long idUser, @NotEmpty @Payload @RequestBody Map payload, @NotEmpty @Headers @RequestHeader Map headers) throws Exception {
         this.verifyParameters(payload);
-        User byIdUser = userService.findByIdUser(idUser);
+        User byIdUser = userService.findByIdUser(idUser).get();
         byIdUser.setNonLocked(false);
         userService.save(byIdUser);
         Map response = new HashMap();
@@ -86,7 +86,7 @@ public class EmailRestController extends BasicRestController {
 
     @GetMapping(value = "/v1/rest/user/{id_user}")
     public HttpEntity<?> getUser(@PathVariable Long idUser, @NotEmpty @Headers @RequestHeader Map headers) throws Exception {
-        User byIdUser = userService.findByIdUser(idUser);
+        User byIdUser = userService.findByIdUser(idUser).get();
         Map response = new HashMap();
         response.put("status", "200");
         response.put("data", "byIdUser");
