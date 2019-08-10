@@ -64,7 +64,7 @@ public class AfroditaController {
     }
 
     @RequestMapping(value = "/login/reset/{token}", method = GET)
-    public String resetPassByLogin(@NotBlank @PathVariable("token") String token, Model model) {
+    public String resetPassByLogin(@NotBlank @PathVariable("token") String token, Model model) throws Exception {
         online.grisk.afrodita.domain.entity.User userByToken = userService.findByTokenRestart(token);
         if (userByToken == null) {
             model.addAttribute("errors", "confirm_by_email_token_failed");

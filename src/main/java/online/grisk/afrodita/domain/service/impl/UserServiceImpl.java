@@ -88,9 +88,21 @@ public class UserServiceImpl implements UserService {
 		try {
 			Optional<User> usr =  userRepository.findById(user.getIdUser());
 			User uf = usr.get();
-			
+			uf.setCreateAt(user.getCreateAt());
+			uf.setEmail(user.getEmail());
+			uf.setEnabled(user.isEnabled());
+			uf.setIdUser(user.getIdUser());
+			uf.setNonLocked(user.isNonLocked());
+			uf.setOrganization(user.getOrganization());
+			uf.setPass(user.getPass());
+			uf.setRole(user.getRole());
+			uf.setTokenConfirm(user.getTokenConfirm());
+			uf.setTokenRestart(user.getTokenRestart());
+			uf.setUpdateAt(user.getUpdateAt());
+			uf.setUsername(user.getUsername());
+			return userRepository.save(uf);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
-	}
+	} 
 }

@@ -35,9 +35,9 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/users/edit", method = GET)
-	public ResponseEntity<?> editUserPage(HttpSession session, Model model, Principal principal) {
+	public ResponseEntity<?> editUserPage(@Valid @RequestBody User user) {
 		try {
-			return new ResponseEntity<User>(userService.up(user), HttpStatus.OK);
+			return new ResponseEntity<User>(userService.update(user), HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
