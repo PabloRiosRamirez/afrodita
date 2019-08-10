@@ -15,7 +15,7 @@ public class ResetPassDTO {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 50)
     private String email;
 
     @Basic(optional = false)
@@ -25,7 +25,7 @@ public class ResetPassDTO {
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 50)
     private String pass;
     
     public Map toMap() {

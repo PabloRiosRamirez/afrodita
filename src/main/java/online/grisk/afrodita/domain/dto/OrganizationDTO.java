@@ -12,11 +12,11 @@ import javax.validation.constraints.Size;
 public class OrganizationDTO {
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 50)
     private String name;
 
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 2147483647)
+    @Size(min = 1, max = 50)
     private String rut;
 }
