@@ -37,7 +37,10 @@
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-label">
-                                                <h3 class="kt-portlet__head-title">Análisis
+                                                <h3 class="kt-portlet__head-title" th:if="${dataintegration != null or score == null}">Detalles de la configuración de actual:
+                                                    <small>Descripción de las configuraciones actuales del sistema</small>
+                                                </h3>
+                                                <h3 class="kt-portlet__head-title" th:if="${dataintegration != null and score != null}">Análisis
                                                     <small>--</small>
                                                 </h3>
                                             </div>
@@ -144,7 +147,7 @@
                                                             <strong>Data Integration y todos los
                                                                 indicadores</strong> sean configurados.
                                                         </h1>
-                                                        <div th:if="${dataintegration == null and ${score == null or score == null}}">
+                                                        <div th:if="${dataintegration == null and (score == null or score == null)}">
                                                             <h1 class="text-danger">
                                                                 <strong style="margin-right: 8px;">Problemas!</strong>No
                                                                 podrás realizar análisis de riesgo mientras el
@@ -152,16 +155,16 @@
                                                                     indicadores</strong> sean configurados.
                                                             </h1>
                                                             <div class="col-12">
-
                                                                 <div class="col-12">
                                                                     <div class="col-12">
                                                                         <h3 class="kt-portlet__head-title">
-                                                                            <small>Detalles:</small>
+                                                                            <small>Detalles con la configuración actual de indicadores:</small>
                                                                         </h3>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12">
-                                                                    <div class="col-12 alert alert-success" role="alert">
+                                                                    <div class="col-12 alert alert-success"
+                                                                         role="alert">
                                                                         <label>
                                                                             <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                             Actualmente no está configurado el <strong>indicador
@@ -175,7 +178,6 @@
                                                                         </label>
                                                                     </div>
                                                                 </div>
-
                                                             </div>
                                                         </div>
                                                     </div>
@@ -216,45 +218,6 @@
                                                 </div>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-xl-12">
-                                    <div class="row" th:if="${dataintegration == null}">
-                                        <div class="col-12">
-
-                                        </div>
-                                        <div class="col-12">
-                                            <div class="col-12">
-                                                <h3 class="kt-portlet__head-title">
-                                                    <small>Detalles:</small>
-                                                </h3>
-                                            </div>
-                                        </div>
-                                        <div class="col-12" th:if="${score == null}">
-                                            <div class="col-12 alert alert-warning" role="alert">
-                                                <label>
-                                                    <strong style="margin-right: 8px;">Cuidado!</strong>
-                                                    Actualmente no está configurado el <strong>indicador
-                                                    Risk Score</strong>. Por favor dirigase a
-                                                    Indicadores > Risk Score >
-                                                    <strong>
-                                                        <a style="color: #ffffff;"
-                                                           th:href="@{/indicators/score/setting}">Nueva
-                                                            configuración</a>
-                                                    </strong>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!--
-                                        <div class="kt-portlet__foot">
-                                            <div class="kt-form__actions">
-                                            </div>
-                                        </div>
-                                        -->
                                     </div>
                                 </div>
                             </div>
