@@ -14,7 +14,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
 
     User findByUsernameOrEmail(String username, String email);
     
-    @Query("select u from user u where (u.username = ?1 or u.email = ?2) and u.organization.idOrganization = ?3")
+    @Query("select u from User u where (u.username = ?1 or u.email = ?2) and u.organization.idOrganization = ?3")
     User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId);
     
     User findByEmailAndTokenRestart(String email, String tokenRestart);

@@ -4,6 +4,7 @@ import lombok.Setter;
 import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
+import online.grisk.afrodita.domain.dto.UserUpdateAdminDTO;
 import online.grisk.afrodita.domain.entity.Organization;
 import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.User;
@@ -70,6 +71,13 @@ public class ArtemisaService {
 		return userService.save(new User(userRegistrationAdminDTO.getUsername().toUpperCase(), userRegistrationAdminDTO.getEmail(),
 				organizationService.findOne(userRegistrationAdminDTO.getOrganizationId()),
 				encryte(userRegistrationAdminDTO.getPass()), null, token, false, true, new Date(), new Date(), roleService.findOne(userRegistrationAdminDTO.getRoleId())));
+	}
+	
+	public User updateUserAdmin(UserUpdateAdminDTO userUpdateAdminDTO) throws Exception {
+		User usr = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
+		usr.setUsername(userUpdateAdminDTO.getUsername());
+		usr.setEmail(userUpdateAdminDTO.getEmail());
+		return userService.save(usr);
 	}
 
 	public User registerUserWithNewPassword(@Valid User user) throws Exception {
