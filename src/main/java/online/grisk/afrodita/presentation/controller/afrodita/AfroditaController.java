@@ -174,9 +174,11 @@ public class AfroditaController {
     }
 
     @RequestMapping(value = "/users/create", method = GET)
-    public String createUserPage(HttpSession session, Model model, Principal principal) {
+    public String createUserPage(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
         model.addAttribute("module", "user");
         List<Role> roles = afroditaActivatorService.getRoles();
         for (int i = 0; i < roles.size(); i++) {
