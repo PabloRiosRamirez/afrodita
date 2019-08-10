@@ -8,3 +8,15 @@ spring:
       max-request-size: 10MB
 #server:
 #  port: 8090
+
+  application:
+    name: afrodita
+  datasource:
+    hikari:
+      maximum-pool-size: 2
+      minimum-idle: 1
+    tomcat:
+      initial-size: 2
+      max-active: 2
+    dbcp2:
+      max-idle: 2

@@ -1,21 +1,25 @@
 package online.grisk.afrodita.domain.service;
 
+import java.util.Optional;
+
 import online.grisk.afrodita.domain.entity.User;
 
 public interface UserService {
-    public User findByIdUser(Long user);
+	public Optional<User> findByIdUser(Long user) throws Exception;
 
-    public User findByUsername(String username);
+	public User findByUsername(String username) throws Exception;
 
-    public User findByEmail(String email);
+	public User findByEmail(String email) throws Exception;
 
-    public User findByUsernameOrEmail(String username, String email);
+	public User findByUsernameOrEmail(String username, String email) throws Exception;
 
-    public User findByEmailAndTokenRestart(String email, String tokenRestart);
+	public User findByEmailAndTokenRestart(String email, String tokenRestart) throws Exception;
 
-    public User save(User user);
+	public User save(User user) throws Exception;
 
-    public User findByTokenConfirm(String tokenConfirm);
+	public User findByTokenConfirm(String tokenConfirm) throws Exception;
 
-    public User findByTokenRestart(String tokenRestart);
+	public User findByTokenRestart(String tokenRestart) throws Exception;
+
+	public User update(User user) throws Exception;
 }
