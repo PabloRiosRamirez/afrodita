@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -104,7 +105,6 @@ public class AfroditaController {
         return "indicator_score/indicator_score";
     }
 
-    @RequestMapping(value = "/indicators/score/setting", method = GET)
     public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Score");
         model.addAttribute("description", "Risk Score");
@@ -114,6 +114,12 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+            List<Map> variablesNumeric = new ArrayList<>();
+            for (Map<String, Object> variable : (List<Map>) ((Map<String, Object>) getDataIntegration.get("current_response")).getOrDefault("variablesCollection", new ArrayList<>())) {
+                if ((boolean) variable.getOrDefault("bureau", false))
+                    variablesNumeric.add(variable);
+            }
+            model.addAttribute("variables", variablesNumeric);
         }
         return "indicator_score/indicator_score-setting";
     }

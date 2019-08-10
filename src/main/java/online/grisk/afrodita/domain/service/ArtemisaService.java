@@ -35,15 +35,15 @@ public class ArtemisaService {
     @Autowired
     private BCryptPasswordEncoder encoderPassword;
 
-    public boolean isUserValidForRegister(@Valid UserDTO userDTO) {
+    public boolean isUserValidForRegister(@Valid UserDTO userDTO) throws Exception {
         return userService.findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail()) == null;
     }
     
-    public boolean isUsernameValidForRegister(@Valid UserDTO userDTO) {
+    public boolean isUsernameValidForRegister(@Valid UserDTO userDTO) throws Exception {
         return userService.findByUsername(userDTO.getUsername()) == null;
     }
     
-    public boolean isEmailValidForRegister(@Valid UserDTO userDTO) {
+    public boolean isEmailValidForRegister(@Valid UserDTO userDTO) throws Exception {
         return userService.findByEmail(userDTO.getEmail()) == null;
     }
 
@@ -51,23 +51,23 @@ public class ArtemisaService {
         return organizationService.findByRut(userDTO.getOrganization().getRut()) == null;
     }
 
-    public User isUserValidForPostResetPass(@Valid ResetPassDTO resetPassDTO) {
+    public User isUserValidForPostResetPass(@Valid ResetPassDTO resetPassDTO) throws Exception {
         return userService.findByUsernameOrEmail(resetPassDTO.getToken(), resetPassDTO.getEmail());
     }
 
-    public User registerUserAndOrganization(@Valid UserDTO userDTO) {
+    public User registerUserAndOrganization(@Valid UserDTO userDTO) throws Exception {
         return userService
                 .save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail(), organizationService.save(new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())), encryte(userDTO.getPass()), null, token,
                         false, true, new Date(), new Date(), roleWithCodeAdmin));
     }
 
-    public User registerUserWithNewPassword(@Valid User user) {
+    public User registerUserWithNewPassword(@Valid User user) throws Exception {
         user.setTokenRestart(null);
         user.setEnabled(true);
         return userService.save(user);
     }
 
-    public User registerTokenForPostReset(@NotNull User user) {
+    public User registerTokenForPostReset(@NotNull User user) throws Exception {
         user.setTokenRestart(token);
         return userService.save(user);
     }
@@ -76,7 +76,7 @@ public class ArtemisaService {
         return encoderPassword.encode(key);
     }
 
-    public User isUserValidForResetPass(@NotEmpty Map mapEmail) {
+    public User isUserValidForResetPass(@NotEmpty Map mapEmail) throws Exception {
         String email = mapEmail.getOrDefault("email", "").toString();
         if (!email.equals("")) {
             return userService.findByEmail(email);

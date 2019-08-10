@@ -5,7 +5,7 @@ import java.util.Optional;
 import online.grisk.afrodita.domain.entity.User;
 
 public interface UserService {
-	public Optional<User> findByIdUser(Long user) throws Exception;
+	public User findByIdUser(Long user) throws Exception;
 
 	public User findByUsername(String username) throws Exception;
 

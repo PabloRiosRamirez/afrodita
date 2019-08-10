@@ -15,9 +15,9 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRepository userRepository;
 
-	public Optional<User> findByIdUser(Long user) throws Exception {
+	public User findByIdUser(Long user) throws Exception {
 		try {
-			return userRepository.findById(user);
+			return userRepository.findById(user).get();
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
