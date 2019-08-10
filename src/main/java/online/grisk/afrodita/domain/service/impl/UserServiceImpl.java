@@ -105,7 +105,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception {
 		try {
-			return userRepository.findByUsernameOrEmailAndOrganizationId(username, email, organizationId);
+			return userRepository.findByUsernameOrEmailAndOrganizationId(username.toUpperCase(), email, organizationId);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

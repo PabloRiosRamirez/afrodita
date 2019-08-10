@@ -50,9 +50,9 @@ public class Organization implements Serializable {
     @Column(name = "rut", nullable = false)
     private String rut;
 
-    @JsonBackReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
-    private Collection<User> users;
+//    @JsonBackReference
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "organization")
+//    private Collection<User> users;
 
     public Organization(@NotNull @Size(min = 1, max = 100) String name, @NotNull @Size(min = 1, max = 25) String rut) {
         this.name = name;
