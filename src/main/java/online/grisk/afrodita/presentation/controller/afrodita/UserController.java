@@ -53,16 +53,26 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PATCH)
-	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateAdminDTO userUpdateAdminDTO, Errors errors) {
+	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateAdminDTO userUpdateAdminDTO, Errors errors, Principal principal) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		try {
-
+			
+			boolean autoUpdate = false;
+			
+			String usernameLogged = principal.getName();
+			
+			String currentUsername = userService.findByIdUser(userUpdateAdminDTO.getIdUser()).getUsername();
+			
+			if(usernameLogged.equalsIgnoreCase(currentUsername)) {
+				autoUpdate = true;
+			}
+			
 			this.verifyParameters(userUpdateAdminDTO.toMap());
 
 			Map response = emailActivatorService.invokeEmailUpdateByAdmin(userUpdateAdminDTO.toMap(), createHeadersWithAction("sendEmailResetPassword"));
-			
+			response.put("autoUpdate", autoUpdate);
 			return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
 
 		} catch (Exception e) {
@@ -91,8 +101,17 @@ public class UserController {
 	}
 
 //	@RequestMapping(value = "/v1/rest/users/{id}/cancel", method = RequestMethod.POST)
-//	public ResponseEntity<?> cancelUser(@PathVariable("id") long id) {
-//		
+//	public ResponseEntity<?> cancelUser(@PathVariable("id") long id, Errors errors) {
+//		if (errors.hasErrors()) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		try {
+//			
+//			userService.cancelUser(id);
+//			
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+//		}
 //	}
 	
 	protected void verifyParameters(Map payload) {

@@ -25,6 +25,6 @@ public interface UserService {
 	
 	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception;
 	
-	public boolean cancelUser(long id) throws Exception;
+	public User cancelUser(long id) throws Exception;
 	
 }

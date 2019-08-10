@@ -112,8 +112,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean cancelUser(long id) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+	public User cancelUser(long id) throws Exception {
+		try {
+			User user = userRepository.findById(id).get();
+			user.setNonLocked(false);
+			return userRepository.save(user);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
 	}
 }
