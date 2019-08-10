@@ -66,7 +66,7 @@ var KTWizard3 = function () {
     return {
         // public functions
         init: function () {
-        	formElExcel = $('#edit-user');
+        	form = $('#edit-user');
             initSearch();
             initEdit();
             initValidation();
