@@ -30,11 +30,6 @@ public class UserUpdateAdminDTO {
 
 	@Basic(optional = false)
 	@NotNull
-	@Size(min = 1, max = 2147483647)
-	private String pass;
-
-	@Basic(optional = false)
-	@NotNull
 	private long organizationId;
 
 	@Basic(optional = false)
@@ -49,7 +44,6 @@ public class UserUpdateAdminDTO {
 		Map<String, Object> objectMap = new HashMap<>();
 		objectMap.put("username", username);
 		objectMap.put("email", email);
-		objectMap.put("pass", pass);
 		objectMap.put("organizationId", organizationId);
 		objectMap.put("roleId", roleId);
 		objectMap.put("resetPassword", resetPassword);

@@ -87,6 +87,11 @@ public class UserController {
 		}
 	}
 
+	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PUT)
+	public void cancel() {
+		
+	}
+	
 	protected void verifyParameters(Map payload) {
 		Assert.notEmpty(payload, "Payload required");
 	}
