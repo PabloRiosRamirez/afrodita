@@ -110,4 +110,10 @@ public class UserServiceImpl implements UserService {
 			throw new Exception(e.getMessage());
 		}
 	}
+
+	@Override
+	public boolean cancelUser(long id) throws Exception {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

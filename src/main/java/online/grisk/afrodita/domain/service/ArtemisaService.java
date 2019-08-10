@@ -75,7 +75,7 @@ public class ArtemisaService {
 	
 	public User updateUserAdmin(UserUpdateAdminDTO userUpdateAdminDTO) throws Exception {
 		User usr = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
-		usr.setUsername(userUpdateAdminDTO.getUsername());
+		usr.setUsername(userUpdateAdminDTO.getUsername().toUpperCase());
 		usr.setEmail(userUpdateAdminDTO.getEmail());
 		return userService.save(usr);
 	}

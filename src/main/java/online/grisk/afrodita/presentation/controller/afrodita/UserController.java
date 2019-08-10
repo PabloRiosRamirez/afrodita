@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.Assert;
 import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -50,7 +51,7 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PUT)
+	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PATCH)
 	public ResponseEntity<?> updateUser(@Valid @RequestBody UserUpdateAdminDTO userUpdateAdminDTO, Errors errors) {
 		if (errors.hasErrors()) {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -87,10 +88,10 @@ public class UserController {
 		}
 	}
 
-	@RequestMapping(value = "/v1/rest/users", method = RequestMethod.PUT)
-	public void cancel() {
-		
-	}
+//	@RequestMapping(value = "/v1/rest/users/{id}/cancel", method = RequestMethod.POST)
+//	public ResponseEntity<?> cancelUser(@PathVariable("id") long id) {
+//		
+//	}
 	
 	protected void verifyParameters(Map payload) {
 		Assert.notEmpty(payload, "Payload required");

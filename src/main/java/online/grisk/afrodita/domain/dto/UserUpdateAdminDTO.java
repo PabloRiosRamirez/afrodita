@@ -42,12 +42,12 @@ public class UserUpdateAdminDTO {
 
 	public Map<String, Object> toMap() {
 		Map<String, Object> objectMap = new HashMap<>();
+		objectMap.put("idUser", idUser);
 		objectMap.put("username", username);
 		objectMap.put("email", email);
 		objectMap.put("organizationId", organizationId);
 		objectMap.put("roleId", roleId);
 		objectMap.put("resetPassword", resetPassword);
-		objectMap.put("idUser", idUser);
 		return objectMap;
 	}
 }
