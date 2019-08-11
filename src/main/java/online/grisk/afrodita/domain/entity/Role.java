@@ -48,7 +48,7 @@ public class Role implements Serializable {
     @Size(min = 1, max = 25)
     @Column(name = "code", nullable = false)
     private String code;
-
+ 
 //    @JsonBackReference
 //    @JsonIgnore
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "role")
