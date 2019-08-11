@@ -23,7 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
 import online.grisk.afrodita.domain.dto.UserUpdateAdminDTO;
+import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.User;
+import online.grisk.afrodita.domain.service.RoleService;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
 
@@ -32,6 +34,9 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 
 	@Autowired
 	EmailActivatorService emailActivatorService;
@@ -65,7 +70,9 @@ public class UserController {
 			
 			List<User> usersAdmins = userService.findAdminsByOrganizationId(user.getOrganization().getIdOrganization());
 			
-			if(usersAdmins.size() <= 1) {
+			Role role = roleService.findOne(userUpdateAdminDTO.getRoleId());
+			
+			if(usersAdmins.size() <= 1 && user.getRole().getCode().equalsIgnoreCase("ADMIN") && !user.getRole().getCode().equalsIgnoreCase(role.getCode())) {
 				//return 409 confict
 				return new ResponseEntity<String>("You are last admin of organization, impossible disable you!!!", HttpStatus.CONFLICT);
 			}
