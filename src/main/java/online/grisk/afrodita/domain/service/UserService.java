@@ -1,5 +1,6 @@
 package online.grisk.afrodita.domain.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import online.grisk.afrodita.domain.entity.User;
@@ -22,11 +23,13 @@ public interface UserService {
 	public User findByTokenRestart(String tokenRestart) throws Exception;
 
 	public User update(User user) throws Exception;
-	
+
 	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception;
-	
+
 	public User activation(long id, boolean target) throws Exception;
-	
+
 	public User findByOrganizationId(long organizationId) throws Exception;
-	
+
+	public List<User> findAdminsByOrganizationId(long organizationId) throws Exception;
+
 }

@@ -2,6 +2,8 @@ package online.grisk.afrodita.persistence.repository;
 
 import online.grisk.afrodita.domain.entity.User;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
@@ -25,4 +27,7 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     
     @Query("select u from User u where u.organization.idOrganization = ?1")
     User findByOrganizationId(long organizationId);
+    
+    @Query("select u from User u where u.role.code = 'ADMIN' and u.organization.idOrganization = ?1")
+    List<User> findAdminsByOrganizationId(long organizationId);
 }

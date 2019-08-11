@@ -4,6 +4,8 @@ import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.persistence.repository.UserRepository;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -126,6 +128,15 @@ public class UserServiceImpl implements UserService {
 	public User findByOrganizationId(long organizationId) throws Exception {
 		try {
 			return userRepository.findByOrganizationId(organizationId);
+		} catch (Exception e) {
+			throw new Exception(e.getMessage());
+		}
+	}
+
+	@Override
+	public List<User> findAdminsByOrganizationId(long organizationId) throws Exception {
+		try {
+			return userRepository.findAdminsByOrganizationId(organizationId);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}

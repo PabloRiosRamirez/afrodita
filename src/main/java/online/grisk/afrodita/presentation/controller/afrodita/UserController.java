@@ -2,6 +2,7 @@ package online.grisk.afrodita.presentation.controller.afrodita;
 
 import java.security.Principal;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.validation.Valid;
@@ -107,13 +108,23 @@ public class UserController {
 		}
 		try {
 			
+			//validate if role is admin and is last supperuser, can't disable it
+			User user = userService.findByIdUser(id);
+			
+			List<User> usersAdmins = userService.findAdminsByOrganizationId(user.getOrganization().getIdOrganization());
+			
+			if(usersAdmins.size() <= 1) {
+				//return 409 confict
+				return new ResponseEntity<String>("You are last admin of organization, impossible disable you!!!", HttpStatus.CONFLICT);
+			}
+			
 			boolean target = Boolean.parseBoolean(body.get("target").toString());
 			
 			boolean autoUpdate = false;
 			
 			String usernameLogged = principal.getName();
 			
-			String currentUsername = userService.findByIdUser(id).getUsername();
+			String currentUsername = user.getUsername();
 			
 			if(usernameLogged.equalsIgnoreCase(currentUsername)) {
 				autoUpdate = true;
