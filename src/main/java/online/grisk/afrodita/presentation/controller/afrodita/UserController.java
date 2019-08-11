@@ -73,7 +73,7 @@ public class UserController {
 			Role role = roleService.findOne(userUpdateAdminDTO.getRoleId());
 			
 			if(usersAdmins.size() <= 1 && user.getRole().getCode().equalsIgnoreCase("ADMIN") && !user.getRole().getCode().equalsIgnoreCase(role.getCode())) {
-				//return 409 confict
+				//return 409 confict .
 				return new ResponseEntity<String>("You are last admin of organization, impossible disable you!!!", HttpStatus.CONFLICT);
 			}
 			
