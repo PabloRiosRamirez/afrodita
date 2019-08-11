@@ -166,13 +166,6 @@ public class AfroditaController {
         return "indicators_tree/indicator_tree-setting";
     }
 
-    @RequestMapping(value = "/account", method = GET)
-    public String accountPage(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Información de cuenta");
-        model.addAttribute("description", "Información de cuenta");
-        return "account";
-    }
-
     @RequestMapping(value = "/users/create", method = GET)
     public String createUserPage(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Crear usuario");
@@ -184,20 +177,22 @@ public class AfroditaController {
 //        for (int i = 0; i < roles.size(); i++) {
 //			roles.get(i).setUsers(null);
 //		}
-        model.addAttribute(afroditaActivatorService.getRoles());
+        model.addAttribute("roles", afroditaActivatorService.getRoles());
         return "users/user-create";
     }
 
     @RequestMapping(value = "/users/edit", method = GET)
-    public String editUserPage(HttpSession session, Model model, Principal principal) {
+    public String editUserPage(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Editar usuario");
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
 //      List<Role> roles = afroditaActivatorService.getRoles();
 //      for (int i = 0; i < roles.size(); i++) {
 //			roles.get(i).setUsers(null);
 //		}
-      model.addAttribute(afroditaActivatorService.getRoles());
+      model.addAttribute("roles", afroditaActivatorService.getRoles());
 //        model.addAttribute("user", userService.findByUsername(principal.getName()));
         return "users/user-edit";
     }

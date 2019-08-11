@@ -67,12 +67,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="kt-section__body" id="form_edit_user" hidden>
+                                                        <input class="form-control" type="text"  name="id_edit_user" id="id_edit_user" hidden>
                                                         <div class="form-group row">
                                                             <label class="col-xl-3 col-lg-3 col-form-label">Rol:</label>
                                                             <select class="custom-select col-xl-6 col-lg-9"  name="rol_edit_user" id="rol_edit_user">
                                                                 <option th:each="role : ${roles}"
                                                                         th:text="${role.name}"
-                                                                        th:value="${role.code}">
+                                                                        th:value="${role.idRole}">
                                                                 </option>
                                                             </select>
                                                         </div>
@@ -114,8 +115,17 @@
                                                             <label class="col-xl-3 col-lg-3 col-form-label"></label>
                                                             <div class="col-lg-9 col-xl-6">
                                                                 <button class="btn btn-label-danger btn-bold btn-sm kt-margin-t-5 kt-margin-b-5"
-                                                                        type="button">
+                                                                        type="button" id="btn_disabled">
                                                                     ¿Desea desactivar esta cuenta?
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row kt-margin-t-10 kt-margin-b-10">
+                                                            <label class="col-xl-3 col-lg-3 col-form-label"></label>
+                                                            <div class="col-lg-9 col-xl-6">
+                                                                <button class="btn btn-label-info btn-bold btn-sm kt-margin-t-5 kt-margin-b-5"
+                                                                        type="button" id="btn_enabled">
+                                                                    ¿Desea habilitar esta cuenta?
                                                                 </button>
                                                             </div>
                                                         </div>
