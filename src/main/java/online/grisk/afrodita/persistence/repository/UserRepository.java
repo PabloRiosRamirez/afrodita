@@ -28,6 +28,6 @@ public interface UserRepository extends PagingAndSortingRepository<User, Long> {
     @Query("select u from User u where u.organization.idOrganization = ?1")
     User findByOrganizationId(long organizationId);
     
-    @Query("select u from User u where u.role.code = 'ADMIN' and u.organization.idOrganization = ?1")
+    @Query("select u from User u where u.role.code = 'ADMIN' and u.nonLocked = true and u.organization.idOrganization = ?1")
     List<User> findAdminsByOrganizationId(long organizationId);
 }
