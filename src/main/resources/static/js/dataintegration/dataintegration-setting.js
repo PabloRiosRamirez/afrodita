@@ -22,16 +22,17 @@ var KTWizard3 = function () {
             if (validatorExcel.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
+
             $('#content_file_name').append($('.custom-file-label').html());
 
             var templateVariables = "";
             var length = $('input[name*="[default_variable]"]').length;
             for (var i = 0; i < length; i++) {
                 templateVariables = templateVariables.concat("<div class=\"form-group row\">");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Nombre:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" +$('input[name*="[name_variable]"]')[i].value +"</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Tipo:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" +$('select[name*="[type_variable]"]')[i].value +"</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenas:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" +$('input[name*="[coordenate_variable]"]')[i].value +"</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" +$('input[name*="[default_variable]"]')[i].value +"</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Nombre:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[name_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Tipo:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('select[name*="[type_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenadas:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[coordenate_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[default_variable]"]')[i].value + "</strong></label>");
                 templateVariables = templateVariables.concat("</div>");
             }
             $('#content_details_variables').append(templateVariables);
@@ -54,15 +55,33 @@ var KTWizard3 = function () {
             if (validatorBureau.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
-            var length = $('input[type="checkbox"]:checked').length
-            for (var i = 0; i < length; i++) {
-                $('#group_details_variable_'+ $('input[type="checkbox"]:checked')[i].value).removeAttr('hidden');
+            if ($('[type="checkbox"]:checked').length <= 1) {
+                Swal.fire({
+                    "title": "",
+                    "text": "Como minino debe seleccionar dos variables!",
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+                wizardObj.stop();
+            } else if ($('[type="checkbox"]:checked').length > 35) {
+                Swal.fire({
+                    "title": "",
+                    "text": "Como máximo puede seleccionar 35 variables!",
+                    "type": "error",
+                    "confirmButtonClass": "btn btn-secondary"
+                });
+                wizardObj.stop();
+            } else {
+                var length = $('input[type="checkbox"]:checked').length
+                for (var i = 0; i < length; i++) {
+                    $('#group_details_variable_' + $('input[type="checkbox"]:checked')[i].value).removeAttr('hidden');
+                }
             }
         })
         wizardBureau.on('beforePrev', function (wizardObj) {
             var length = $('input[type="checkbox"]:checked').length
             for (var i = 0; i < length; i++) {
-                $('#group_details_variable_'+ $('input[type="checkbox"]:checked')[i].value).attr('hidden', 'hidden');
+                $('#group_details_variable_' + $('input[type="checkbox"]:checked')[i].value).attr('hidden', 'hidden');
             }
         })
 
@@ -73,6 +92,10 @@ var KTWizard3 = function () {
     }
 
     var initValidationExcel = function () {
+        $.validator.addMethod('cellExcel', function (value, element, param) {
+            //Your Validation Here
+            return /^[A-Z]+[0-9]+$/.test(value);
+        }, 'Formato para celda de excel no valido, debe ingresar una letra junto con el número de celda. Ejemplo: A12');
         validatorExcel = formElExcel.validate({
             // Validate only visible fields
             ignore: ":hidden",
@@ -93,12 +116,11 @@ var KTWizard3 = function () {
                     required: true
                 },
                 '[0][coordenate_variable]': {
-                    required: true
+                    required: true,
+                    cellExcel: true
                 },
                 '[0][default_variable]': {
-                    required: true,
-                    digits: validateInputVariable(0, "NE"),
-                    number: validateInputVariable(0, "ND")
+                    required: true
                 },
 
                 '[1][name_variable]': {
@@ -108,12 +130,480 @@ var KTWizard3 = function () {
                     required: true
                 },
                 '[1][coordenate_variable]': {
-                    required: true
+                    required: true,
+                    cellExcel: true
                 },
                 '[1][default_variable]': {
                     required: true
                 },
+                '[2][name_variable]': {
+                    required: true
+                },
+                '[2][type_variable]': {
+                    required: true
+                },
+                '[2][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[2][default_variable]': {
+                    required: true
+                },
+                '[3][name_variable]': {
+                    required: true
+                },
+                '[3][type_variable]': {
+                    required: true
+                },
+                '[3][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[3][default_variable]': {
+                    required: true
+                },
 
+                '[4][name_variable]': {
+                    required: true
+                },
+                '[4][type_variable]': {
+                    required: true
+                },
+                '[4][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[4][default_variable]': {
+                    required: true
+                },
+
+                '[5][name_variable]': {
+                    required: true
+                },
+                '[5][type_variable]': {
+                    required: true
+                },
+                '[5][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[5][default_variable]': {
+                    required: true
+                },
+
+                '[6][name_variable]': {
+                    required: true
+                },
+                '[6][type_variable]': {
+                    required: true
+                },
+                '[6][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[6][default_variable]': {
+                    required: true
+                },
+
+                '[7][name_variable]': {
+                    required: true
+                },
+                '[7][type_variable]': {
+                    required: true
+                },
+                '[7][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[7][default_variable]': {
+                    required: true
+                },
+
+                '[8][name_variable]': {
+                    required: true
+                },
+                '[8][type_variable]': {
+                    required: true
+                },
+                '[8][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[8][default_variable]': {
+                    required: true
+                },
+
+                '[9][name_variable]': {
+                    required: true
+                },
+                '[9][type_variable]': {
+                    required: true
+                },
+                '[9][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[9][default_variable]': {
+                    required: true
+                },
+                '[10][name_variable]': {
+                    required: true
+                },
+                '[10][type_variable]': {
+                    required: true
+                },
+                '[10][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[10][default_variable]': {
+                    required: true
+                },
+
+                '[11][name_variable]': {
+                    required: true
+                },
+                '[11][type_variable]': {
+                    required: true
+                },
+                '[11][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[11][default_variable]': {
+                    required: true
+                },
+                '[12][name_variable]': {
+                    required: true
+                },
+                '[12][type_variable]': {
+                    required: true
+                },
+                '[12][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[12][default_variable]': {
+                    required: true
+                },
+                '[13][name_variable]': {
+                    required: true
+                },
+                '[13][type_variable]': {
+                    required: true
+                },
+                '[13][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[13][default_variable]': {
+                    required: true
+                },
+
+                '[14][name_variable]': {
+                    required: true
+                },
+                '[14][type_variable]': {
+                    required: true
+                },
+                '[14][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[14][default_variable]': {
+                    required: true
+                },
+
+                '[15][name_variable]': {
+                    required: true
+                },
+                '[15][type_variable]': {
+                    required: true
+                },
+                '[15][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[15][default_variable]': {
+                    required: true
+                },
+
+                '[16][name_variable]': {
+                    required: true
+                },
+                '[16][type_variable]': {
+                    required: true
+                },
+                '[16][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[16][default_variable]': {
+                    required: true
+                },
+
+                '[17][name_variable]': {
+                    required: true
+                },
+                '[17][type_variable]': {
+                    required: true
+                },
+                '[17][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[17][default_variable]': {
+                    required: true
+                },
+
+                '[18][name_variable]': {
+                    required: true
+                },
+                '[18][type_variable]': {
+                    required: true
+                },
+                '[18][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[18][default_variable]': {
+                    required: true
+                },
+
+                '[19][name_variable]': {
+                    required: true
+                },
+                '[19][type_variable]': {
+                    required: true
+                },
+                '[19][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[19][default_variable]': {
+                    required: true
+                },
+
+                '[20][name_variable]': {
+                    required: true
+                },
+                '[20][type_variable]': {
+                    required: true
+                },
+                '[20][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[20][default_variable]': {
+                    required: true
+                },
+
+                '[21][name_variable]': {
+                    required: true
+                },
+                '[21][type_variable]': {
+                    required: true
+                },
+                '[21][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[21][default_variable]': {
+                    required: true
+                },
+                '[22][name_variable]': {
+                    required: true
+                },
+                '[22][type_variable]': {
+                    required: true
+                },
+                '[22][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[22][default_variable]': {
+                    required: true
+                },
+                '[23][name_variable]': {
+                    required: true
+                },
+                '[23][type_variable]': {
+                    required: true
+                },
+                '[23][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[23][default_variable]': {
+                    required: true
+                },
+
+                '[24][name_variable]': {
+                    required: true
+                },
+                '[24][type_variable]': {
+                    required: true
+                },
+                '[24][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[24][default_variable]': {
+                    required: true
+                },
+
+                '[25][name_variable]': {
+                    required: true
+                },
+                '[25][type_variable]': {
+                    required: true
+                },
+                '[25][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[25][default_variable]': {
+                    required: true
+                },
+
+                '[26][name_variable]': {
+                    required: true
+                },
+                '[26][type_variable]': {
+                    required: true
+                },
+                '[26][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[26][default_variable]': {
+                    required: true
+                },
+
+                '[27][name_variable]': {
+                    required: true
+                },
+                '[27][type_variable]': {
+                    required: true
+                },
+                '[27][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[27][default_variable]': {
+                    required: true
+                },
+
+                '[28][name_variable]': {
+                    required: true
+                },
+                '[28][type_variable]': {
+                    required: true
+                },
+                '[28][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[28][default_variable]': {
+                    required: true
+                },
+
+                '[29][name_variable]': {
+                    required: true
+                },
+                '[29][type_variable]': {
+                    required: true
+                },
+                '[29][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[29][default_variable]': {
+                    required: true
+                },
+
+
+                '[30][name_variable]': {
+                    required: true
+                },
+                '[30][type_variable]': {
+                    required: true
+                },
+                '[30][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[30][default_variable]': {
+                    required: true
+                },
+
+                '[31][name_variable]': {
+                    required: true
+                },
+                '[31][type_variable]': {
+                    required: true
+                },
+                '[31][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[31][default_variable]': {
+                    required: true
+                },
+                '[32][name_variable]': {
+                    required: true
+                },
+                '[32][type_variable]': {
+                    required: true
+                },
+                '[32][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[32][default_variable]': {
+                    required: true
+                },
+                '[33][name_variable]': {
+                    required: true
+                },
+                '[33][type_variable]': {
+                    required: true
+                },
+                '[33][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[33][default_variable]': {
+                    required: true
+                },
+
+                '[34][name_variable]': {
+                    required: true
+                },
+                '[34][type_variable]': {
+                    required: true
+                },
+                '[34][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[34][default_variable]': {
+                    required: true
+                },
+
+                '[35][name_variable]': {
+                    required: true
+                },
+                '[35][type_variable]': {
+                    required: true
+                },
+                '[35][coordenate_variable]': {
+                    required: true,
+                    cellExcel: true
+                },
+                '[35][default_variable]': {
+                    required: true
+                }
             },
 
             // Display error
@@ -132,6 +622,8 @@ var KTWizard3 = function () {
 
             }
         });
+
+
     }
 
     var initValidationBureau = function () {
@@ -325,6 +817,7 @@ var KTWizard3 = function () {
             initWizardExcel();
             initValidationExcel();
             initSubmitExcel();
+            onChangeType();
         },
         // public functions
         init2: function () {
@@ -357,9 +850,72 @@ jQuery(document).ready(function () {
             $('#row_wizard_bureau').removeAttr('hidden');
         }
     });
+    onChangeType();
+    onClickBtnCreateVariable();
 });
 
 function validateInputVariable(i, value) {
     return $('[name="[' + i + '][type_variable]"]').val() == value;
 }
 
+function onChangeType() {
+    $('[name*="[type_variable]"]').on('change', function () {
+        if ($(this).val() == 'NE') {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
+                number: false,
+                digits: true,
+                messages: {
+                    required: "Este campo debe ser números entero."
+                }
+            });
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'number');
+        } else if ($(this).val() == 'ND') {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
+                number: true,
+                digits: false,
+                messages: {
+                    required: "Este campo debe ser números decimal."
+                }
+            });
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'number');
+        } else {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
+                number: false,
+                digits: false,
+                messages: {
+                    required: "Este campo debe ser solo de caracteres."
+                }
+            });
+
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'text');
+        }
+    });
+}
+
+function onClickBtnCreateVariable() {
+    $('[data-repeater-create]').on('click', function () {
+        onClickSelectTipo();
+        onClickBtnDeleteVariable();
+        if ($('[data-repeater-delete]').length >= 34) {
+            $(this).attr('hidden', 'hidden');
+        }
+        onChangeType();
+
+    });
+}
+
+function onClickBtnDeleteVariable() {
+    $('[data-repeater-delete]').on('click', function () {
+        if ($('[data-repeater-delete]').length < 34) {
+            $(this).removeAttr('hidden');
+        }
+        onChangeType();
+    });
+}
+
+function onClickSelectTipo() {
+    $($('.custom-select')[$('.custom-select').length]).val('NE')
+}

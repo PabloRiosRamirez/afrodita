@@ -37,7 +37,7 @@ public class DataintegrationRestController extends BasicRestController {
         FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(idDataIntegration, file);
         this.verifyParameters(fileDataIntegrationDTO.toMap());
         Map response = dataIntegrationActivatorService.invokeUpdateDataIntegrationExcel(fileDataIntegrationDTO.toMap(), new HashMap());
-        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
+        return new ResponseEntity<>(null, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 
     @PostMapping(value = "/v1/rest/dataintegration/bureau")
