@@ -22,22 +22,28 @@ var KTWizard3 = function () {
             if (validatorExcel.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
+                $('.back-dataintegration').attr('hidden', 'hidden');
 
-            $('#content_file_name').append($('.custom-file-label').html());
+            $('#content_file_name').text($('.custom-file-label').html());
 
             var templateVariables = "";
             var length = $('input[name*="[default_variable]"]').length;
             for (var i = 0; i < length; i++) {
                 templateVariables = templateVariables.concat("<div class=\"form-group row\">");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Nombre:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[name_variable]"]')[i].value + "</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Tipo:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('select[name*="[type_variable]"]')[i].value + "</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenadas:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[coordenate_variable]"]')[i].value + "</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label\"><strong>" + $('input[name*="[default_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Nombre:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[name_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Tipo:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('select[name*="[type_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenadas:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[coordenate_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[default_variable]"]')[i].value + "</strong></label>");
                 templateVariables = templateVariables.concat("</div>");
             }
-            $('#content_details_variables').append(templateVariables);
+            $('#content_details_variables').html(templateVariables);
 
         })
+        wizardExcel.on('beforePrev', function (wizardObj) {
+            if (wizardObj.currentStep == 2) {
+                $('.back-dataintegration').removeAttr('hidden');
+            }
+        });
 
         // Change event
         wizardExcel.on('change', function (wizard) {
@@ -55,6 +61,7 @@ var KTWizard3 = function () {
             if (validatorBureau.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
+                $('.back-dataintegration').attr('hidden', 'hidden');
             if ($('[type="checkbox"]:checked').length <= 1) {
                 Swal.fire({
                     "title": "",
@@ -79,6 +86,9 @@ var KTWizard3 = function () {
             }
         })
         wizardBureau.on('beforePrev', function (wizardObj) {
+            if (wizardObj.currentStep == 2) {
+                $('.back-dataintegration').removeAttr('hidden');
+            }
             var length = $('input[type="checkbox"]:checked').length
             for (var i = 0; i < length; i++) {
                 $('#group_details_variable_' + $('input[type="checkbox"]:checked')[i].value).attr('hidden', 'hidden');
@@ -615,6 +625,12 @@ var KTWizard3 = function () {
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary"
                 });
+                if (wizardObj.currentStep == 2) {
+                    $('.back-dataintegration').removeAttr('hidden');
+                }
+                if (wizardObj.currentStep == 1) {
+                    $('.back-dataintegration').attr('hidden', 'hidden');
+                }
             },
 
             // Submit valid form
@@ -651,6 +667,12 @@ var KTWizard3 = function () {
                     "type": "error",
                     "confirmButtonClass": "btn btn-secondary"
                 });
+                if (wizardObj.currentStep == 2) {
+                    $('.back-dataintegration').removeAttr('hidden');
+                }
+                if (wizardObj.currentStep == 1) {
+                    $('.back-dataintegration').attr('hidden', 'hidden');
+                }
             },
 
             // Submit valid form
@@ -839,6 +861,14 @@ jQuery(document).ready(function () {
         KTWizard3.init2();
         $($($(this).parent().parent()[0]).children()[3]).children('input').removeClass('is-invalid').val('');
     });
+
+    $('.back-dataintegration').on('click', function (e) {
+        $('#first_dataintegration').removeAttr('hidden');
+        $('#row_wizard_excel').attr('hidden', 'hidden');
+        $('#row_wizard_bureau').attr('hidden', 'hidden');
+        $('form').trigger("reset");
+    });
+
     $('#btn-type-dataintegration').on('click', function (e) {
         var checked = $('input[name=option_type_dataintegration]:checked').val();
         $('#first_dataintegration').attr('hidden', 'hidden');
@@ -849,14 +879,12 @@ jQuery(document).ready(function () {
             $('#row_wizard_excel').attr('hidden', 'hidden');
             $('#row_wizard_bureau').removeAttr('hidden');
         }
+        $('form').trigger("reset");
+        $('input').removeClass('is-invalid');
     });
     onChangeType();
     onClickBtnCreateVariable();
 });
-
-function validateInputVariable(i, value) {
-    return $('[name="[' + i + '][type_variable]"]').val() == value;
-}
 
 function onChangeType() {
     $('[name*="[type_variable]"]').on('change', function () {
@@ -897,25 +925,19 @@ function onChangeType() {
 
 function onClickBtnCreateVariable() {
     $('[data-repeater-create]').on('click', function () {
-        onClickSelectTipo();
         onClickBtnDeleteVariable();
         if ($('[data-repeater-delete]').length >= 34) {
             $(this).attr('hidden', 'hidden');
         }
         onChangeType();
-
     });
 }
 
 function onClickBtnDeleteVariable() {
     $('[data-repeater-delete]').on('click', function () {
         if ($('[data-repeater-delete]').length < 34) {
-            $(this).removeAttr('hidden');
+            $('[data-repeater-create]').removeAttr('hidden');
         }
         onChangeType();
     });
-}
-
-function onClickSelectTipo() {
-    $($('.custom-select')[$('.custom-select').length]).val('NE')
 }

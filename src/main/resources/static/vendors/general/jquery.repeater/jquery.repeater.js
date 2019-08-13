@@ -973,6 +973,9 @@
 
             $filterNested($self.find('[data-repeater-create]'), fig.repeaters).click(function () {
                 addItem();
+                if($($('.custom-select')[$('.custom-select').length])){
+                    $($('.custom-select')[$('.custom-select').length]).val($($($('.custom-select')[$('.custom-select').length-1]).children()[0]).val());
+                }
                 $($('[data-repeater-delete]')).removeAttr('hidden');
                 $($('[data-repeater-delete]')[0]).attr('hidden', 'hidden');
                 $($('[data-repeater-delete]')[1]).attr('hidden', 'hidden');

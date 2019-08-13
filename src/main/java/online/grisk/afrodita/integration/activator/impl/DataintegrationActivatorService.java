@@ -22,9 +22,6 @@ public class DataintegrationActivatorService extends BasicRestServiceActivator {
     @Autowired
     Microservice microserviceArtemisa;
 
-    @Autowired
-    DataintegrationActivatorService dataintegrationActivatorService;
-
     //    Action for 'variableBureau'
     public List<Variable> getVariableBureau() throws Exception {
         ResponseEntity<Map<String, Object>> responseEntity = this.executeRequest("/api/artemisa/variables/bureau", HttpMethod.GET, microserviceArtemisa, this.buildHttpEntity(new HashMap<>(), new HashMap<>(), microserviceArtemisa));

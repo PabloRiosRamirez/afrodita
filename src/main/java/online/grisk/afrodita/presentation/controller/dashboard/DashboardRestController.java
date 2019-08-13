@@ -6,6 +6,8 @@ import online.grisk.afrodita.integration.activator.impl.DashboardActivatorServic
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
 import online.grisk.afrodita.integration.gateway.GatewayService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Controller;
@@ -37,35 +39,20 @@ public class DashboardRestController {
     DashboardActivatorService dashboardActivatorService;
 
     @RequestMapping(value = "/analysis/{idOrganization}/excel", method = POST)
-    public String analysisByExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idOrganization,
-                                  Model model, Principal principal) throws Exception {
-        try {
-            model.addAttribute("title", "Dashboard");
-            model.addAttribute("description", "Resultado de análisis");
-            model.addAttribute("module", "analysis");
-        } catch (Exception e) {
-            model.addAttribute("errors", "analisysError500ByExcel");
-        }
-
+    public ResponseEntity<?> analysisByExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idOrganization, Principal principal) throws Exception {
         FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(idOrganization, file);
         this.verifyParameters(fileDataIntegrationDTO.toMap());
         Map response = dashboardActivatorService.invokeAnalysisByExcel(fileDataIntegrationDTO.toMap(), new HashMap());
-        return "dashboard/dashboard-excel";
+        response.remove("file");
+        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 
     @RequestMapping(value = "/analysis/{idOrganization}/bureau", method = POST)
-    public String analysisByBureau(@PathVariable Long idOrganization, @RequestBody Map payload, Model model, Principal principal) throws Exception {
-        try {
-            model.addAttribute("title", "Dashboard");
-            model.addAttribute("description", "Resultado de análisis");
-            model.addAttribute("module", "analysis");
-        } catch (Exception e) {
-            model.addAttribute("errors", "analisysError500ByExcel");
-        }
+    public ResponseEntity<?> analysisByBureau(@PathVariable Long idOrganization, @RequestBody Map payload, Principal principal) throws Exception {
         payload.put("organization", idOrganization);
         this.verifyParameters(payload);
         Map response = dashboardActivatorService.invokeAnalysisByBureau(payload, new HashMap<>());
-        return "dashboard/dashboard-bureau";
+        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 
     private void verifyParameters(Map payload) {

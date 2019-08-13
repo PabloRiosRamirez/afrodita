@@ -43,10 +43,10 @@ function changeRanges() {
     $('.lim_score').on('change', function () {
         var limites = $('.lim_score');
         var i = $(this).attr('name').replace('][lim_score_down]', '').replace('][lim_score_up]', '').replace('[', '');
-        if ($($("input[name*='[lim_score_up]']")[i]).attr('name') != $(this).attr('name')) {
-            $($("input[name*='[lim_score_up]']")[i]).val('');
-        }
-        resetRanges(++i, limites.length);
+        // if ($($("input[name*='[lim_score_up]']")[i]).attr('name') != $(this).attr('name')) {
+        //     $($("input[name*='[lim_score_up]']")[i]).val('');
+        // }
+        resetRanges(++i, $("input[name*='[lim_score_down]']").length);
         errorInRange(--i);
     });
 }
@@ -63,7 +63,7 @@ function disabledDownRange() {
 }
 
 function errorInRange(i) {
-    if ($($("[name*='[lim_score_up]']")[i]).val() <= $($("[name*='[lim_score_down]']")[i]).val()) {
+    if (parseInt($($("[name*='[lim_score_up]']")[i]).val()) <= parseInt($($("[name*='[lim_score_down]']")[i]).val())) {
         $($("[name*='[lim_score_up]']")[i]).val(parseInt($($("[name*='[lim_score_down]']")[i]).val()) + 1);
         $($("[name*='[lim_score_down]']")[i + 1]).val(parseInt($($("[name*='[lim_score_up]']")[i]).val()) + 1);
     }
@@ -196,7 +196,7 @@ var KTWizard3 = function () {
         btn.on('click', function (e) {
             Swal.fire({
                 title: '¿Está seguro de guardar esta configuración?',
-                text: "Si guarda esto, se borrará toda configuración anterior de Risk Score.",
+                text: "Si guarda esto, si es que existe una configuración anterior de Risk Score está se borrará para siempre.",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonText: "Atrás",
@@ -204,14 +204,15 @@ var KTWizard3 = function () {
             })
                 .then(function (result) {
                         if (result.value) {
-                            if (validatorExcel.form()) {
+                            if (validator.form()) {
                                 KTApp.progress(btn);
                                 var score = {};
                                 score['titulo'] = $('#score_titule').val();
                                 score['variable'] = $('#score_variable').val();
+                                score['organization'] = $('#organization').val();
                                 var cant = $('[name*="[lim_score_down]"]').length;
                                 var listRanges = [];
-                                for (var i; i < cant; i++) {
+                                for (var i = 0; i < cant; i++) {
                                     var range = {};
                                     range['limitDown'] = $($('[name*="[lim_score_down]"]')[i]).val();
                                     range['limitUp'] = $($('[name*="[lim_score_up]"]')[i]).val();
@@ -219,8 +220,6 @@ var KTWizard3 = function () {
                                     listRanges.push(range);
                                 }
                                 score['ranges'] = listRanges;
-
-
                                 $.ajax({
                                     type: "POST",
                                     contentType: "application/json",
@@ -232,10 +231,10 @@ var KTWizard3 = function () {
                                     success: function (data, textStatus, jqXHR) {
                                         Swal.fire({
                                             title: "",
-                                            text: "La configuración de Data Integration ha sido guardado correctamente!",
+                                            text: "La configuración de Risk Score ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/dataintegration"
+                                                window.location = "/score"
                                             }
                                         });
                                     },
@@ -288,7 +287,7 @@ function resumen() {
     });
 }
 
-function resumenGraphic() {
+/*function resumenGraphic() {
 
     var ranges = [];
 
@@ -398,7 +397,7 @@ function resumenGraphic() {
             point.update(newVal);
         }
     }, 2000);
-}
+}*/
 
 jQuery(document).ready(function () {
     onClickDeletedRange();

@@ -4,9 +4,7 @@ import online.grisk.afrodita.domain.entity.Role;
 import online.grisk.afrodita.domain.entity.TypeVariable;
 import online.grisk.afrodita.domain.service.RoleService;
 import online.grisk.afrodita.domain.service.UserService;
-import online.grisk.afrodita.integration.activator.impl.AfroditaActivatorService;
-import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
-import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;
+import online.grisk.afrodita.integration.activator.impl.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +34,15 @@ public class AfroditaController {
 
     @Autowired
     DataintegrationActivatorService dataintegrationActivatorService;
+
+    @Autowired
+    ScoreActivatorService scoreActivatorService;
+
+    @Autowired
+    RatioActivatorService ratioActivatorService;
+
+    @Autowired
+    TreeActivatorService treeActivatorService;
 
     @Autowired
     AfroditaActivatorService afroditaActivatorService;
@@ -93,6 +100,18 @@ public class AfroditaController {
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
+        Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
+        if (getScore.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("score", getScore.get("current_response"));
+        }
+        Map<String, Object> getRatio = ratioActivatorService.invokeGetRatio(idOrganization);
+        if (getRatio.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("ratios", getRatio.get("current_response"));
+        }
+        Map<String, Object> getTree = treeActivatorService.invokeGetTree(idOrganization);
+        if (getTree.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("tree", getTree.get("current_response"));
+        }
         return "analysis";
     }
 
@@ -129,16 +148,49 @@ public class AfroditaController {
         }
         return "indicator_score/indicator_score-setting";
     }
-
     @RequestMapping(value = "/indicators/ratios", method = GET)
+    public String indicatorRatios(HttpSession session, Model model, Principal principal) throws Exception {
+        model.addAttribute("title", "Risk Ratios");
+        model.addAttribute("description", "Risk Ratios");
+        model.addAttribute("module", "indicators");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+        }
+        return "indicator_ratios/indicator_ratios";
+    }
+
+
+    @RequestMapping(value = "/indicators/ratios/setting", method = GET)
+    public String indicatorRatiosSetting(HttpSession session, Model model, Principal principal) throws Exception {
+        model.addAttribute("title", "Risk Ratios");
+        model.addAttribute("description", "Risk Ratios");
+        model.addAttribute("module", "indicators");
+        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+        model.addAttribute("id_organization", idOrganization);
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
+            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+            List<Map> variablesNumeric = new ArrayList<>();
+            for (Map<String, Object> variable : (List<Map>) ((Map<String, Object>) getDataIntegration.get("current_response")).getOrDefault("variablesCollection", new ArrayList<>())) {
+                if ((boolean) variable.getOrDefault("bureau", false))
+                    variablesNumeric.add(variable);
+            }
+            model.addAttribute("variables", variablesNumeric);
+        }
+        return "indicator_ratios/indicator_ratios-setting";
+    }
+
+    /*@RequestMapping(value = "/indicators/ratios", method = GET)
     public String indicatorsRatios(HttpSession session, Model model, Principal principal) {
         model.addAttribute("title", "Risk Ratios");
         model.addAttribute("description", "Configuración de Risk Ratios");
         model.addAttribute("module", "indicators");
         return "indicator_ratios/indicator_ratios";
-    }
+    }*/
 
-    @RequestMapping(value = "/indicators/ratios/setting", method = GET)
+    /*@RequestMapping(value = "/indicators/ratios/setting", method = GET)
     public String indicatorsRatiosSetting(HttpSession session, Model model, Principal principal) throws Exception {
         model.addAttribute("title", "Risk Ratios");
         model.addAttribute("description", "Configuración de Risk Ratios");
@@ -148,7 +200,7 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
         return "indicator_ratios/indicator_ratios-setting";
-    }
+    }*/
 
     @RequestMapping(value = "/indicators/tree", method = GET)
     public String indicatorsTree(HttpSession session, Model model, Principal principal) {
