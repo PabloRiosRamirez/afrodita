@@ -58,10 +58,10 @@ var AnalysisDashboard = function () {
                 var ratio4 = response.artemisa_response.riskRatios.values[3];
                 var score = response.artemisa_response.riskScore.values;
                 handlePulsate(node["label"], node["color"]);
-                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"] + ' ' + ratio1["postResult"], ratio1["color"]);
-                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"] + ' ' + ratio2["postResult"], ratio2["color"]);
-                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"] + ' ' + ratio3["postResult"], ratio3["color"]);
-                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"] + ' ' + ratio4["postResult"], ratio4["color"]);
+                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
+                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
+                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
+                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
                 handleNeuro(listNode);
                 var form = btn.closest('form');
                 form.clearForm();
@@ -106,10 +106,10 @@ var AnalysisDashboard = function () {
                 var ratio3 = response.artemisa_response.riskRatios.values[2];
                 var ratio4 = response.artemisa_response.riskRatios.values[3];
                 handlePulsate(node["label"], node["color"]);
-                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"] + ' ' + ratio1["postResult"], ratio1["color"]);
-                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"] + ' ' + ratio2["postResult"], ratio2["color"]);
-                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"] + ' ' + ratio3["postResult"], ratio3["color"]);
-                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"] + ' ' + ratio4["postResult"], ratio4["color"]);
+                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
+                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
+                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
+                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
                 handleNeuro(listNode);
                 var form = btn.closest('form');
                 form.clearForm();
@@ -141,6 +141,9 @@ var AnalysisDashboard = function () {
     };
 }();
 
+function round(value, decimals) {
+    return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+}
 
 // Class initialization on page load
 jQuery(document).ready(function () {
@@ -323,10 +326,21 @@ function handleNeuro(list) {
     });
 }
 
-function handleRatios(number, titule, operation, result, color) {
+function handleRatios(number, titule, operation, result, abrv, color) {
     $('#background_ratio' + number).attr('style', 'background-color: ' + color);
     $('#titule_ratio' + number).html(titule);
-    $('#result_ratio' + number).html(result);
+    $('#result_ratio' + number).html(ifIsFloatParsed(Number(result)) + (abrv.length > 0 ? (' ' + abrv) : ''));
     $('#operation_ratio' + number).html(operation);
 
 };
+
+function ifIsFloatParsed(n) {
+    var num = Number(n);
+    if (num == 'NaN') {
+        return num;
+    }
+    if (Number(n) === n && n % 1 !== 0 && Number(n).toString().split(".")[1].length > 4) {
+        return Number(Math.round(n + 'e4') + 'e-4');
+    }
+    return n;
+}
