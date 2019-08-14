@@ -258,7 +258,8 @@ function handleNeuro(list) {
         'afterSetOptions',
         function (e) {
             var colors = Highcharts.getOptions().colors,
-                i = 0,
+                i = 25,
+                flag = false,
                 nodes = {};
             e.options.data.forEach(function (link) {
 
@@ -266,22 +267,35 @@ function handleNeuro(list) {
                     nodes[firstname] = {
                         id: firstname,
                         marker: {
-                            radius: 20
-                        }
+                            radius: i
+                        },
+                        color: colors[7]
                     };
+                    i=20;
+                }
+                if (!flag) {
+                    flag = true;
                     nodes[link[1]] = {
                         id: link[1],
                         marker: {
-                            radius: 10
+                            radius: i
                         },
-                        color: colors[i++]
+                        color: colors[5]
                     };
-                } else if (nodes[link[0]] && nodes[link[0]].color) {
+                } else {
+                    flag = false;
                     nodes[link[1]] = {
                         id: link[1],
-                        color: nodes[link[0]].color
+                        marker: {
+                            radius: i
+                        },
+                        color: colors[9]
                     };
+                    if(i>10){
+                        i=i-5;
+                    }
                 }
+
             });
 
             e.options.nodes = Object.keys(nodes).map(function (id) {
