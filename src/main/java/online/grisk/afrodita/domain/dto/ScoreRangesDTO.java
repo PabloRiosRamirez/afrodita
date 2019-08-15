@@ -11,19 +11,17 @@ import java.util.Map;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RiskScoreDTO {
+public class ScoreRangesDTO {
 
-    Long organization;
-    String titule;
-    String variable;
-    Collection<ScoreRangesDTO> ranges;
+    int limitDown;
+    int limitUp;
+    String color;
 
     public Map<String, Object> toMap() {
         Map<String, Object> objectMap = new HashMap<>();
-        objectMap.put("organization", organization);
-        objectMap.put("titule", titule);
-        objectMap.put("variable", variable);
-        objectMap.put("ranges", ranges);
+        objectMap.put("limitDown", limitDown);
+        objectMap.put("limitUp", limitUp);
+        objectMap.put("color", color);
         return objectMap;
     }
 }
