@@ -38,10 +38,10 @@ var KTWizard3 = function () {
                     $('#content_operation_ratio3').html($('#ratio3_expression').val().trim());
                     $('#content_operation_ratio4').html($('#ratio4_expression').val().trim());
                     setInterval(function () {
-                        $('#content_result_ratio1').html((Math.floor(Math.random() * 100000.234) + 1000) + $('#ratio1_fix').val().trim());
-                        $('#content_result_ratio2').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio2_fix').val().trim());
-                        $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio3_fix').val().trim());
-                        $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio4_fix').val().trim());
+                        $('#content_result_ratio1').html((Math.floor(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio1_fix').val().trim());
+                        $('#content_result_ratio2').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio2_fix').val().trim());
+                        $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio3_fix').val().trim());
+                        $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio4_fix').val().trim());
                     }, 2000);
 
                 }
