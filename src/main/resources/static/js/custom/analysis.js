@@ -111,12 +111,16 @@ var AnalysisDashboard = function () {
                 handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
                 handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
                 handleNeuro(listNode);
-                var form = btn.closest('form');
-                form.clearForm();
+                var ranges = [];
+                for (var i = 0; i < score.ranges.length; i++) {
+                    var range = score.ranges[i];
+                    ranges.push([parseInt(range.upperLimit) / score.ranges[score.ranges.length - 1].upperLimit, range.color]);
+                }
                 handleScore(score.score, ranges, score.ranges[0].lowerLimit, score.ranges[score.ranges.length - 1].upperLimit, response.artemisa_response.riskScore.configuration.titule);
                 $("#row_dashboard_analysis").removeAttr('hidden');
                 $("#row_analysis").attr('hidden', 'hidden');
-                $('#analysis_file').change()
+                $('#bureau_rut').val('');
+                $('#bureau_rut').change();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 KTApp.unprogress(btn);

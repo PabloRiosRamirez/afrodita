@@ -43,7 +43,7 @@
                             <div class="kt-portlet">
                                 <div class="kt-portlet__body kt-portlet__body--fit">
                                     <div class="kt-grid kt-wizard-v3 kt-wizard-v3--white" data-ktwizard-state="first"
-                                         id="kt_wizard_score">
+                                         id="kt_wizard_ratios">
                                         <div class="kt-grid__item">
 
                                             <!--begin: Form Wizard Nav -->
@@ -108,18 +108,19 @@
                                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                                             <!--begin: Form Wizard Form-->
-                                            <form class="kt-form" id="kt_form" novalidate="novalidate">
+                                            <form class="kt-form" id="kt_form_ratios" novalidate="novalidate">
 
                                                 <!--begin: Form Wizard Step 1-->
                                                 <div class="kt-wizard-v3__content" data-ktwizard-state="current"
+                                                     style="padding-bottom: 0 !important"
                                                      data-ktwizard-type="step-content">
-                                                    <div class="kt-heading kt-heading--md">Configura el primer ratio a
-                                                        mostrar
+                                                    <div class="kt-heading kt-heading--md">Configura el <strong
+                                                            class="text-success">RATIO #1</strong>:
                                                     </div>
                                                     <div class="kt-form__section kt-form__section--first">
-                                                        <div class="kt-wizard-v3__form" style="margin-bottom: 30px;">
+                                                        <div class="kt-wizard-v3__form">
                                                             <div class="row">
-                                                                <div class="col-5">
+                                                                <div class="col-md-12 col-lg-5">
                                                                     <div class="form-group">
                                                                         <label>Titulo:</label>
                                                                         <input class="form-control" id="ratio1_titule"
@@ -128,16 +129,16 @@
                                                                                type="text">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-5">
+                                                                <div class="col-md-6 col-lg-5">
                                                                     <div class="form-group">
-                                                                        <label>Titulo:</label>
+                                                                        <label>Subfijo:</label>
                                                                         <input class="form-control" id="ratio1_fix"
                                                                                name="ratio1_fix"
                                                                                placeholder="Subfijo del ratio"
                                                                                type="text">
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-2">
+                                                                <div class="col-md-6 col-lg-2">
                                                                     <div class="form-group">
                                                                         <label>Color:</label>
                                                                         <input class="form-control"
@@ -153,416 +154,496 @@
                                                                         <label>Por favor ingrese el ratio a calcular al
                                                                             momento de realizar el análisis
                                                                             financiero:</label>
+                                                                        <input class="form-control expression_ratio"
+                                                                               type="text" id="expression_ratio1"
+                                                                               name="expression_ratio1" readonly
+                                                                               style="height: 50px;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--end: Form Wizard Step 1-->
+
+                                                <!--begin: Form Wizard Step 2-->
+                                                <div class="kt-wizard-v3__content"
+                                                     data-ktwizard-type="step-content">
+                                                    <div class="kt-heading kt-heading--md">Configura el <strong
+                                                            class="text-success">RATIO #2</strong>:
+                                                    </div>
+                                                    <div class="kt-form__section kt-form__section--first">
+                                                        <div class="kt-wizard-v3__form">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Titulo:</label>
+                                                                        <input class="form-control" id="ratio2_titule"
+                                                                               name="ratio2_titule"
+                                                                               placeholder="Titulo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Subfijo:</label>
+                                                                        <input class="form-control" id="ratio2_fix"
+                                                                               name="ratio2_fix"
+                                                                               placeholder="Subfijo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label>Color:</label>
                                                                         <input class="form-control"
-                                                                               type="text" id="ratio1_operation"
-                                                                               name="ratio1_operation" readonly
-                                                                               style="height: 100px;">
+                                                                               type="color"
+                                                                               value="#B8B9C4" id="ratio2_color"
+                                                                               name="ratio2_color">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="row">
-
-                                                                <div class="row col-6">
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                7
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                8
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                9
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                4
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                5
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                6
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                1
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                2
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                3
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-4 offset-4">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                0
-                                                                            </button>
-                                                                        </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label>Por favor ingrese el ratio a calcular al
+                                                                            momento de realizar el análisis
+                                                                            financiero:</label>
+                                                                        <input class="form-control expression_ratio"
+                                                                               type="text" id="expression_ratio2"
+                                                                               name="expression_ratio2" readonly
+                                                                               style="height: 50px;">
                                                                     </div>
                                                                 </div>
-                                                                <div class="row col-6">
-                                                                    <div class="col-md-12 col-lg-7">
-                                                                        <div class="form-group">
-                                                                            <select class="form-control col-12"
-                                                                                    id="ratio1_variable"
-                                                                                    name="ratio1_variable">
-                                                                                <option th:each="variable : ${dataintegration.variableCollection}"
-                                                                                        th:text="${variable.name}"
-                                                                                        th:value="${variable.code}">
-                                                                                </option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-12 col-lg-5">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-primary col-12 btn-calculate">
-                                                                                Agregar
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase"
-                                                                                    style="font-size:14px;">
-                                                                                +
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase">
-                                                                                -
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase"
-                                                                                    style="font-size:14px;">
-                                                                                x
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase"
-                                                                                    style="font-size:14px;">
-                                                                                /
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase">
-                                                                                C
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase">
-                                                                                .
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase"
-                                                                                    style="font-size:14px;">
-                                                                                (
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-3">
-                                                                        <div class="form-group">
-                                                                            <button type="button"
-                                                                                    class="btn btn-outline-primary kt-font-bolder col-12 btn-calculate text-uppercase"
-                                                                                    style="font-size:14px;">
-                                                                                )
-                                                                            </button>
-                                                                        </div>
-                                                                    </div>
-
-                                                                </div>
-
-
-
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <!--end: Form Wizard Step 1-->
+                                                <!--end: Form Wizard Step 2-->
 
-                                                    <!--begin: Form Wizard Step 2-->
-                                                    <div class="kt-wizard-v3__content"
-                                                         data-ktwizard-type="step-content">
-                                                        <div class="kt-heading kt-heading--md">Ingrese los detalles de
-                                                            los
-                                                            rangos
-                                                            del Risk Score
+                                                <!--begin: Form Wizard Step 3-->
+                                                <div class="kt-wizard-v3__content"
+                                                     data-ktwizard-type="step-content">
+                                                    <div class="kt-heading kt-heading--md">Configura el <strong
+                                                            class="text-success">RATIO #3</strong>:
+                                                    </div>
+                                                    <div class="kt-form__section kt-form__section--first">
+                                                        <div class="kt-wizard-v3__form">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Titulo:</label>
+                                                                        <input class="form-control" id="ratio3_titule"
+                                                                               name="ratio3_titule"
+                                                                               placeholder="Titulo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Subfijo:</label>
+                                                                        <input class="form-control" id="ratio3_fix"
+                                                                               name="ratio3_fix"
+                                                                               placeholder="Subfijo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label>Color:</label>
+                                                                        <input class="form-control"
+                                                                               type="color"
+                                                                               value="#B8B9C4" id="ratio3_color"
+                                                                               name="ratio3_color">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label>Por favor ingrese el ratio a calcular al
+                                                                            momento de realizar el análisis
+                                                                            financiero:</label>
+                                                                        <input class="form-control expression_ratio"
+                                                                               type="text" id="expression_ratio3"
+                                                                               name="expression_ratio3" readonly
+                                                                               style="height: 50px;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="kt-form__section kt-form__section--first">
-                                                            <div class="kt-wizard-v3__form">
-                                                                <div id="kt_repeater_1">
-                                                                    <div class="form-group form-group-last row">
-                                                                        <div class="col-lg-12" data-repeater-list="">
-                                                                            <div class="form-group row align-items-center"
-                                                                                 data-repeater-item>
-                                                                                <div class="col-md-4">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Limite inferior
-                                                                                                    del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control lim_score"
-                                                                                                   placeholder="Valor mínimo del rango"
-                                                                                                   type="number"
-                                                                                                   name="[0][lim_score_down]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-4">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Limite superior
-                                                                                                    del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control lim_score"
-                                                                                                   placeholder="Valor máximo del rango"
-                                                                                                   type="number"
-                                                                                                   name="[0][lim_score_up]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-2">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Color del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control"
-                                                                                                   type="color"
-                                                                                                   value="#B8B9C4"
-                                                                                                   name="[0][score_range_color]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-2">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <a class="btn-xl btn btn-label-danger"
-                                                                                           data-repeater-delete=""
-                                                                                           href="javascript:;"
-                                                                                           style="font-weight: 900;"
-                                                                                           hidden="hidden"
-                                                                                           name="[0][btn-delete]">
-                                                                                            <i class="flaticon2-trash"></i>
-                                                                                            Eliminar
-                                                                                        </a>
-                                                                                    </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--end: Form Wizard Step 3-->
+                                                <!--begin: Form Wizard Step 4-->
+                                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+                                                    <div class="kt-heading kt-heading--md">Configura el <strong
+                                                            class="text-success">RATIO #4</strong>:
+                                                    </div>
+                                                    <div class="kt-form__section kt-form__section--first">
+                                                        <div class="kt-wizard-v3__form">
+                                                            <div class="row">
+                                                                <div class="col-md-12 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Titulo:</label>
+                                                                        <input class="form-control" id="ratio4_titule"
+                                                                               name="ratio4_titule"
+                                                                               placeholder="Titulo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-5">
+                                                                    <div class="form-group">
+                                                                        <label>Subfijo:</label>
+                                                                        <input class="form-control" id="ratio4_fix"
+                                                                               name="ratio4_fix"
+                                                                               placeholder="Subfijo del ratio"
+                                                                               type="text">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6 col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label>Color:</label>
+                                                                        <input class="form-control"
+                                                                               type="color"
+                                                                               value="#B8B9C4" id="ratio4_color"
+                                                                               name="ratio4_color">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label>Por favor ingrese el ratio a calcular al
+                                                                            momento de realizar el análisis
+                                                                            financiero:</label>
+                                                                        <input class="form-control expression_ratio"
+                                                                               type="text" id="expression_ratio4"
+                                                                               name="expression_ratio1" readonly
+                                                                               style="height: 50px;">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--end: Form Wizard Step 4-->
+
+                                                <!--begin: Form Wizard Step 5-->
+                                                <div class="kt-wizard-v3__content" data-ktwizard-type="step-content">
+                                                    <div class="kt-heading kt-heading--md">Resumen de los detalles y
+                                                        guardar
+                                                    </div>
+                                                    <div class="kt-form__section kt-form__section--first">
+                                                        <div class="kt-wizard-v3__review">
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title">
+                                                                    Ratio #1
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                             id="content_background_ratio1">
+                                                                            <div class="kt-portlet__head">
+                                                                                <div class="kt-portlet__head-label">
+                                                                                    <span class="kt-portlet__head-icon">
+                                                                                        <i class="flaticon-star"></i>
+                                                                                    </span>
+                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                        id="content_titule_ratio1">
+                                                                                    </h1>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="form-group row align-items-center"
-                                                                                 data-repeater-item>
-                                                                                <div class="col-md-4">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Limite inferior
-                                                                                                    del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control lim_score"
-                                                                                                   placeholder="Valor mínimo del rango"
-                                                                                                   type="number"
-                                                                                                   name="[1][lim_score_down]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-4">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Limite superior
-                                                                                                    del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control lim_score"
-                                                                                                   placeholder="Valor máximo del rango"
-                                                                                                   type="number"
-                                                                                                   name="[1][lim_score_up]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-2">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <div class="kt-form__control">
-                                                                                            <div class="kt-form__label">
-                                                                                                <label>Color del
-                                                                                                    rango</label>
-                                                                                            </div>
-                                                                                            <input class="form-control"
-                                                                                                   type="color"
-                                                                                                   value="#B8B9C4"
-                                                                                                   name="[1][score_range_color]">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="col-md-2">
-                                                                                    <div class="kt-form__group--inline">
-                                                                                        <a class="btn-xl btn btn-label-danger"
-                                                                                           data-repeater-delete=""
-                                                                                           href="javascript:;"
-                                                                                           style="font-weight: 900;"
-                                                                                           hidden="hidden"
-                                                                                           name="[1][btn-delete]">
-                                                                                            <i class="flaticon2-trash"></i>
-                                                                                            Eliminar
-                                                                                        </a>
-                                                                                    </div>
-                                                                                </div>
+                                                                            <div class="kt-portlet__body">
+                                                                                <h1 class="text-right" id="content_result_ratio1" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                    --</h1>
+                                                                                <small id="content_operation_ratio1">--</small>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group form-group-last row">
-                                                                        <div class="col-12">
-                                                                            <a class="btn btn-bold btn-sm btn-label-brand col-12"
-                                                                               data-repeater-create=""
-                                                                               href="javascript:;"
-                                                                               style="font-weight: 900;">
-                                                                                <i class="flaticon2-add-1"></i> Agregar
-                                                                            </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title">
+                                                                    Ratio #2
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                             id="content_background_ratio2">
+                                                                            <div class="kt-portlet__head">
+                                                                                <div class="kt-portlet__head-label">
+                                                                                    <span class="kt-portlet__head-icon">
+                                                                                        <i class="flaticon-star"></i>
+                                                                                    </span>
+                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                        id="content_titule_ratio2">
+                                                                                    </h1>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="kt-portlet__body">
+                                                                                <h1 class="text-right" id="content_result_ratio2" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                    --</h1>
+                                                                                <small id="content_operation_ratio2">--</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title">
+                                                                    Ratio #3
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                             id="content_background_ratio3">
+                                                                            <div class="kt-portlet__head">
+                                                                                <div class="kt-portlet__head-label">
+                                                                                    <span class="kt-portlet__head-icon">
+                                                                                        <i class="flaticon-star"></i>
+                                                                                    </span>
+                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                        id="content_titule_ratio3">
+                                                                                    </h1>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="kt-portlet__body">
+                                                                                <h1 class="text-right" id="content_result_ratio3" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                    --</h1>
+                                                                                <small id="content_operation_ratio3">--</small>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="kt-wizard-v3__review-item">
+                                                                <div class="kt-wizard-v3__review-title">
+                                                                    Ratio #4
+                                                                </div>
+                                                                <div class="kt-wizard-v3__review-content">
+                                                                    <div class="col-lg-12">
+                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                             id="content_background_ratio4">
+                                                                            <div class="kt-portlet__head">
+                                                                                <div class="kt-portlet__head-label">
+                                                                                    <span class="kt-portlet__head-icon">
+                                                                                        <i class="flaticon-star"></i>
+                                                                                    </span>
+                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                        id="content_titule_ratio4">
+                                                                                    </h1>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="kt-portlet__body">
+                                                                                <h1 class="text-right" id="content_result_ratio4" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                    --</h1>
+                                                                                <small id="content_operation_ratio4">--</small>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
+                                                </div>
 
-                                                    <!--end: Form Wizard Step 2-->
+                                                <!--end: Form Wizard Step 5-->
 
-                                                    <!--begin: Form Wizard Step 3-->
-                                                    <div class="kt-wizard-v3__content"
-                                                         data-ktwizard-type="step-content">
-                                                        <div class="kt-heading kt-heading--md">Resumen de los detalles y
-                                                            guardar
+                                                <!--begin: Form Actions -->
+                                                <div class="kt-form__actions">
+                                                    <div class="row">
+                                                        <div class="row col-md-12 col-lg-6">
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        7
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        8
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        9
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        4
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        5
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        6
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        1
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        2
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 num-calculate">
+                                                                        3
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-4 offset-4">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 zero-calculate">
+                                                                        0
+                                                                    </button>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="kt-form__section kt-form__section--first">
-                                                            <div class="kt-wizard-v3__review">
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title">
-                                                                        Titulo a mostrar en el gráfico de Risk Score
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <label id="content_titule"
-                                                                               class="text-info"></label>
-                                                                    </div>
+                                                        <div class="row col-md-12 col-lg-6">
+                                                            <div class="col-md-12 col-lg-7">
+                                                                <div class="form-group">
+                                                                    <select class="form-control col-12 variable_calculate"
+                                                                            id="ratio1_variable"
+                                                                            name="ratio1_variable">
+                                                                        <option th:each="variable : ${dataintegration.variableCollection}"
+                                                                                th:text="${variable.name}"
+                                                                                th:value="${variable.code}">
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title">
-                                                                        Variable con el valor para el indicador
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <label id="content_variable"
-                                                                               class="text-info"></label>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-md-12 col-lg-5">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-primary col-12 btn-variable-calculate">
+                                                                        Agregar
+                                                                    </button>
                                                                 </div>
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title"
-                                                                         style="margin-bottom: 15px;">
-                                                                        Detalles de los rangos de Risk Score
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content"
-                                                                         id="content_ranges">
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 simbol-calculate text-uppercase"
+                                                                            style="font-size:14px;">
+                                                                        +
+                                                                    </button>
                                                                 </div>
-                                                                <div class="kt-wizard-v3__review-item">
-                                                                    <div class="kt-wizard-v3__review-title">
-                                                                        Vista previa del gráfico del indicador
-                                                                    </div>
-                                                                    <div class="kt-wizard-v3__review-content">
-                                                                        <div class="outer">
-                                                                            <div class="chart-container"
-                                                                                 id="container-graphic_score"></div>
-                                                                        </div>
-                                                                    </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 simbol-calculate text-uppercase">
+                                                                        -
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 simbol-calculate text-uppercase"
+                                                                            style="font-size:14px;">
+                                                                        x
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 simbol-calculate text-uppercase"
+                                                                            style="font-size:14px;">
+                                                                        /
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 clear-calculate text-uppercase">
+                                                                        C
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 point-calculate text-uppercase">
+                                                                        .
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 parentesis-calculate text-uppercase"
+                                                                            style="font-size:14px;">
+                                                                        (
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <div class="form-group">
+                                                                    <button type="button"
+                                                                            class="btn btn-outline-primary kt-font-bolder col-12 parentesis-calculate text-uppercase"
+                                                                            style="font-size:14px;">
+                                                                        )
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-
-                                                    <!--end: Form Wizard Step 3-->
-
-                                                    <!--begin: Form Actions -->
-                                                    <div class="kt-form__actions">
-                                                        <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
-                                                             data-ktwizard-type="action-prev">
-                                                            Atrás
-                                                        </div>
-                                                        <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
-                                                             data-ktwizard-type="action-submit">
-                                                            Guardar
-                                                        </div>
-                                                        <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
-                                                             data-ktwizard-type="action-next">
-                                                            Siguiente
-                                                        </div>
+                                                </div>
+                                                <div class="kt-form__actions">
+                                                    <div class="btn btn-secondary btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                         data-ktwizard-type="action-prev">
+                                                        Atrás
+                                                    </div>
+                                                    <div class="btn btn-success btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                         data-ktwizard-type="action-submit">
+                                                        Guardar
+                                                    </div>
+                                                    <div class="btn btn-brand btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u"
+                                                         data-ktwizard-type="action-next">
+                                                        Siguiente
                                                     </div>
                                                 </div>
                                                 <!--end: Form Actions -->
