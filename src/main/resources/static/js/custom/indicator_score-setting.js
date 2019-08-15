@@ -90,6 +90,9 @@ var KTWizard3 = function () {
         wizard.on('beforeNext', function (wizardObj) {
             if (validator.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
+            } else {
+                if (wizardObj.currentStep == 2)
+                    resumenGraphic();
             }
         })
 
@@ -262,10 +265,10 @@ var KTWizard3 = function () {
         init: function () {
             wizardEl = KTUtil.get('kt_wizard_score');
             formEl = $('#kt_form');
-
             initWizard();
             initValidation();
             initSubmit();
+            handleScore('', 0, 100, []);
         }
     };
 }();
@@ -287,59 +290,60 @@ function resumen() {
     });
 }
 
-/*function resumenGraphic() {
-
-    var ranges = [];
-
+function resumenGraphic() {
+    var titulo = $('#score_titule').val();
     var cant = $('[name*="[lim_score_down]"]').length;
-    var sizeGraphic = parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()) - parseInt($($('[name*="[lim_score_down]"]')[0]).val());
-
-    $($('[name*="[lim_score_up]"]')[i]).val();
+    var ranges = [];
     for (var i = 0; i < cant; i++) {
-        ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / sizeGraphic, $($('[name*="[score_range_color]"]')[i]).val()]);
+        ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), $($('[name*="[score_range_color]"]')[i]).val()]);
     }
+    handleScore(titulo, parseInt($($('[name*="[lim_score_down]"]')[0]).val()), parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), ranges);
+}
 
-// The speed gauge
-    var chartSpeed = Highcharts.chart('container-graphic_score', Highcharts.merge(
+var chartSpeed;
+
+function handleScore(titule, min, max, ranges) {
+    chartSpeed = Highcharts.chart('content_score_graphic',
         {
-
             chart: {
-                type: 'solidgauge'
+                type: 'solidgauge',
+                alignTicks: false,
+                height: '300px'
             },
-
-            title: null,
-
+            title: {
+                text: '',
+                floating: true
+            },
             pane: {
                 center: ['50%', '85%'],
                 size: '140%',
                 startAngle: -90,
                 endAngle: 90,
                 background: {
-                    backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                    backgroundColor: '#EEE',
                     innerRadius: '60%',
                     outerRadius: '100%',
                     shape: 'arc'
                 }
             },
-
             tooltip: {
                 enabled: false
             },
-
-            // the value axis
             yAxis: {
+                min: min,
+                max: max,
+                title: {
+                    text: titulo,
+                    y: 30
+                },
                 stops: ranges,
                 lineWidth: 0,
                 minorTickInterval: null,
-                tickAmount: 2,
-                title: {
-                    y: -70
-                },
+                tickAmount: 5,
                 labels: {
                     y: 16
                 }
             },
-
             plotOptions: {
                 solidgauge: {
                     dataLabels: {
@@ -348,56 +352,17 @@ function resumen() {
                         useHTML: true
                     }
                 }
-            }
-        },
-        {
-        yAxis: {
-            min: parseInt($($('[name*="[lim_score_down]"]')[0]).val()),
-            max: parseInt($($('[name*="[lim_score_down]"]')[cant - 1]).val()),
-            title: {
-                text: $('[name=score_titule]').val()
-            }
-        },
-
-        credits: {
-            enabled: false
-        },
-
-        series: [{
-            name: 'Score',
-            data: [sizeGraphic],
-            dataLabels: {
-                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                    '<span style="font-size:12px;color:silver"></span></div>'
             },
-            tooltip: {
-                valueSuffix: ''
-            }
-        }]
-
-    }));
-
-// Bring life to the dials
-    setInterval(function () {
-        // Speed
-        var point,
-            newVal,
-            inc;
-
-        if (chartSpeed) {
-            point = chartSpeed.series[0].points[0];
-            inc = Math.round((Math.random() - 0.5) * sizeGraphic);
-            newVal = point.y + inc;
-
-            if (newVal < 0 || newVal > sizeGraphic) {
-                newVal = point.y - inc;
-            }
-
-            point.update(newVal);
-        }
-    }, 2000);
-}*/
+            credits: {
+                enabled: false
+            },
+            series: [{
+                tooltip: {
+                    enabled: false
+                }
+            }]
+        });
+}
 
 jQuery(document).ready(function () {
     onClickDeletedRange();
