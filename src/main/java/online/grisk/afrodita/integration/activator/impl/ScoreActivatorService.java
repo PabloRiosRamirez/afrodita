@@ -24,6 +24,7 @@ public class ScoreActivatorService extends BasicRestServiceActivator {
 
     //    Action for 'invokeRegisterScore'
     public Map<String, Object> invokeRegisterScore(@NotNull @Payload Map<String, Object> payload, @NotNull @Headers Map<String, Object> headers) throws Exception {
+    	String a = "";
         ResponseEntity<Map<String, Object>> responseEntity = consumerRestServiceActivator("/api/artemisa/score", HttpMethod.POST, payload, createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
         return addServiceResponseToResponseMap(payload, responseEntity.getBody().get("current_response"), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
     }
