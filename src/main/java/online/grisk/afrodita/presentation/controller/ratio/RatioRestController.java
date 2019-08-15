@@ -22,14 +22,14 @@ import online.grisk.afrodita.presentation.controller.BasicRestController;
 @RestController
 public class RatioRestController extends BasicRestController {
 
-	@PostMapping(value = "/v1/rest/ratio")
-	public ResponseEntity<?> registerRiskRatio(@Valid @RequestBody Map payload, Errors errors) throws Exception {
-		if (errors.hasErrors()) {
-			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-		}
-		this.verifyParameters(payload);
-		 Map response = scoreActivatorService.invokeRegisterScore(payload, new HashMap());
-		 
-	        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
-	}
+//	@PostMapping(value = "/v1/rest/ratio")
+//	public ResponseEntity<?> registerRiskRatio(@Valid @RequestBody Map payload, Errors errors) throws Exception {
+//		if (errors.hasErrors()) {
+//			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//		}
+//		this.verifyParameters(payload);
+//		 Map response = scoreActivatorService.invokeRegisterScore(payload, new HashMap());
+//		 
+//	        return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
+//	}
 }
