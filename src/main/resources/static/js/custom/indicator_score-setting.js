@@ -297,13 +297,18 @@ function resumenGraphic() {
     for (var i = 0; i < cant; i++) {
         ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), $($('[name*="[score_range_color]"]')[i]).val()]);
     }
-    handleScore(titulo, parseInt($($('[name*="[lim_score_down]"]')[0]).val()), parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), ranges);
+    handleScore(titulo, parseInt($($('[name*="[lim_score_down]"]')[0]).val()), parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), ranges, Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val())));
+    setInterval(function () {
+        $('#content_score_graphic').series[0] = [Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()))];
+    });
+
 }
 
 var chartSpeed;
 
-function handleScore(titule, min, max, ranges) {
-    chartSpeed = Highcharts.chart('content_score_graphic',
+function handleScore(title, min, max, ranges, value) {
+// The speed gauge
+    var chartSpeed = Highcharts.chart('content_score_graphic', Highcharts.merge(
         {
             chart: {
                 type: 'solidgauge',
@@ -326,24 +331,25 @@ function handleScore(titule, min, max, ranges) {
                     shape: 'arc'
                 }
             },
+
             tooltip: {
                 enabled: false
             },
+
+            // the value axis
             yAxis: {
-                min: min,
-                max: max,
-                title: {
-                    text: titulo,
-                    y: 30
-                },
                 stops: ranges,
                 lineWidth: 0,
                 minorTickInterval: null,
                 tickAmount: 5,
+                title: {
+                    y: 30
+                },
                 labels: {
                     y: 16
                 }
             },
+
             plotOptions: {
                 solidgauge: {
                     dataLabels: {
@@ -352,16 +358,35 @@ function handleScore(titule, min, max, ranges) {
                         useHTML: true
                     }
                 }
+            }
+        },
+        {
+            yAxis: {
+                min: min,
+                max: max,
+                title: {
+                    text: title
+                }
             },
+
             credits: {
                 enabled: false
             },
+
             series: [{
+                name: 'Score',
+                data: [value],
+                dataLabels: {
+                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                        '<span style="font-size:12px;color:silver"></span></div>'
+                },
                 tooltip: {
                     enabled: false
                 }
             }]
-        });
+
+        }));
 }
 
 jQuery(document).ready(function () {
