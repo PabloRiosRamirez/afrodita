@@ -290,7 +290,6 @@ function resumen() {
 }
 
 var interval;
-
 function resumenGraphic() {
     var titulo = $('#score_titule').val();
     var cant = $('[name*="[lim_score_down]"]').length;
