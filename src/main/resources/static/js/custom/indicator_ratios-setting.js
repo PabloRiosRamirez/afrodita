@@ -25,24 +25,23 @@ var KTWizard3 = function () {
             } else {
                 if (wizardObj.currentStep == 4) {
                     $($('.kt-form__actions').get(0)).attr('hidden', 'hidden');
-                    $('#content_background_ratio1').attr('style', "background-color: "+$('#ratio1_color').val().trim());
-                    $('#content_background_ratio2').attr('style', "background-color: "+$('#ratio2_color').val().trim());
-                    $('#content_background_ratio3').attr('style', "background-color: "+$('#ratio3_color').val().trim());
-                    $('#content_background_ratio4').attr('style', "background-color: "+$('#ratio4_color').val().trim());
+                    $('#content_background_ratio1').attr('style', "background-color: " + $('#ratio1_color').val().trim());
+                    $('#content_background_ratio2').attr('style', "background-color: " + $('#ratio2_color').val().trim());
+                    $('#content_background_ratio3').attr('style', "background-color: " + $('#ratio3_color').val().trim());
+                    $('#content_background_ratio4').attr('style', "background-color: " + $('#ratio4_color').val().trim());
                     $('#content_titule_ratio1').html($('#ratio1_titule').val().trim());
                     $('#content_titule_ratio2').html($('#ratio2_titule').val().trim());
                     $('#content_titule_ratio3').html($('#ratio3_titule').val().trim());
                     $('#content_titule_ratio4').html($('#ratio4_titule').val().trim());
-                    $('#content_operation_ratio1').html($('#expression_ratio1').val().trim());
-                    $('#content_operation_ratio2').html($('#expression_ratio2').val().trim());
-                    $('#content_operation_ratio3').html($('#expression_ratio3').val().trim());
-                    $('#content_operation_ratio4').html($('#expression_ratio4').val().trim());
-
+                    $('#content_operation_ratio1').html($('#ratio1_expression').val().trim());
+                    $('#content_operation_ratio2').html($('#ratio2_expression').val().trim());
+                    $('#content_operation_ratio3').html($('#ratio3_expression').val().trim());
+                    $('#content_operation_ratio4').html($('#ratio4_expression').val().trim());
                     setInterval(function () {
-                        $('#content_result_ratio1').html(Math.floor(Math.random() * 100000.234) + 100000);
-                        $('#content_result_ratio2').html(Math.round(Math.random() * 100000.234) + 100000);
-                        $('#content_result_ratio3').html(Math.round(Math.random() * 100000.234) + 100000);
-                        $('#content_result_ratio4').html(Math.round(Math.random() * 100000.234) + 100000);
+                        $('#content_result_ratio1').html((Math.floor(Math.random() * 100000.234) + 1000) + $('#ratio1_fix').val().trim());
+                        $('#content_result_ratio2').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio2_fix').val().trim());
+                        $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio3_fix').val().trim());
+                        $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + $('#ratio4_fix').val().trim());
                     }, 2000);
 
                 }
@@ -77,19 +76,55 @@ var KTWizard3 = function () {
             // Validation rules
             rules: {
                 //= Step 1
-                expression_ratio1: {
+                ratio1_titule: {
+                    required: true
+                },
+                ratio1_fix: {
+                    required: true
+                },
+                ratio1_color: {
+                    required: true
+                },
+                ratio1_expression: {
                     required: true,
                     sintaxisMath: true
                 },
-                expression_ratio2: {
+                ratio2_titule: {
+                    required: true
+                },
+                ratio2_fix: {
+                    required: true
+                },
+                ratio2_color: {
+                    required: true
+                },
+                ratio2_expression: {
                     required: true,
                     sintaxisMath: true
                 },
-                expression_ratio3: {
+                ratio3_titule: {
+                    required: true
+                },
+                ratio3_fix: {
+                    required: true
+                },
+                ratio3_color: {
+                    required: true
+                },
+                ratio3_expression: {
                     required: true,
                     sintaxisMath: true
                 },
-                expression_ratio4: {
+                ratio4_titule: {
+                    required: true
+                },
+                ratio4_fix: {
+                    required: true
+                },
+                ratio4_color: {
+                    required: true
+                },
+                ratio4_expression: {
                     required: true,
                     sintaxisMath: true
                 }
@@ -119,7 +154,7 @@ var KTWizard3 = function () {
         btn.on('click', function (e) {
             Swal.fire({
                 title: '¿Está seguro de guardar esta configuración?',
-                text: "Si guarda esto, si es que existe una configuración anterior de Risk Score está se borrará para siempre.",
+                text: "Si guarda esto, si es que existe una configuración anterior de Risk Ratios está se borrará para siempre.",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonText: "Atrás",
@@ -129,35 +164,33 @@ var KTWizard3 = function () {
                         if (result.value) {
                             if (validator.form()) {
                                 KTApp.progress(btn);
-                                var score = {};
-                                score['titulo'] = $('#score_titule').val();
-                                score['variable'] = $('#score_variable').val();
-                                score['organization'] = $('#organization').val();
-                                var cant = $('[name*="[lim_score_down]"]').length;
-                                var listRanges = [];
-                                for (var i = 0; i < cant; i++) {
-                                    var range = {};
-                                    range['limitDown'] = $($('[name*="[lim_score_down]"]')[i]).val();
-                                    range['limitUp'] = $($('[name*="[lim_score_up]"]')[i]).val();
-                                    range['color'] = $($('[name*="[score_range_color]"]')[i]).val();
-                                    listRanges.push(range);
+                                var riskRatio = {};
+                                riskRatio['organization'] = $('#organization').val();
+                                var ratios = [];
+                                for (var i = 0; i < 4; i++) {
+                                    var ratio = {};
+                                    ratio["color"] = $('#ratio' + i + '_color').val().trim()
+                                    ratio["titule"] = $('#ratio' + i + '_titule').val().trim()
+                                    ratio["fix"] = $('#ratio' + i + '_fix').val().trim()
+                                    ratio["expression"] = $('#ratio' + i + '_expression').val().trim()
+                                    ratios.push(ratio);
                                 }
-                                score['ranges'] = listRanges;
+                                riskRatio['ratios'] = ratios;
                                 $.ajax({
                                     type: "POST",
                                     contentType: "application/json",
-                                    url: "/v1/rest/score",
-                                    data: JSON.stringify(score),
+                                    url: "/v1/rest/ratios",
+                                    data: JSON.stringify(riskRatio),
                                     dataType: 'json',
                                     cache: false,
                                     timeout: 60000,
                                     success: function (data, textStatus, jqXHR) {
                                         Swal.fire({
                                             title: "",
-                                            text: "La configuración de Risk Score ha sido guardado correctamente!",
+                                            text: "La configuración de Risk Ratios ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/score"
+                                                window.location = "/ratios"
                                             }
                                         });
                                     },
