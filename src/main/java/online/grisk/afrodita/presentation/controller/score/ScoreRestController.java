@@ -37,4 +37,5 @@ public class ScoreRestController extends BasicRestController {
         Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
         return new ResponseEntity(getScore, HttpStatus.OK);
     }
+    
 }
