@@ -268,7 +268,6 @@ var KTWizard3 = function () {
             initWizard();
             initValidation();
             initSubmit();
-            handleScore('', 0, 100, []);
         }
     };
 }();
@@ -290,6 +289,8 @@ function resumen() {
     });
 }
 
+var interval;
+
 function resumenGraphic() {
     var titulo = $('#score_titule').val();
     var cant = $('[name*="[lim_score_down]"]').length;
@@ -298,16 +299,21 @@ function resumenGraphic() {
         ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), $($('[name*="[score_range_color]"]')[i]).val()]);
     }
     handleScore(titulo, parseInt($($('[name*="[lim_score_down]"]')[0]).val()), parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), ranges, Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val())));
-    setInterval(function () {
-        $('#content_score_graphic').series[0] = [Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()))];
-    });
-
+    if (interval != undefined) {
+        clearInterval(interval);
+    }
+    interval = setInterval(function () {
+        var chart = $('#content_score_graphic').highcharts();
+        if (typeof chart === 'undefined') {
+            return;
+        }
+        var series = chart.series[0];
+        series.setData([parseInt(Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val())))], false, undefined, true);
+        chart.redraw();
+    }, 2000);
 }
 
-var chartSpeed;
-
-function handleScore(title, min, max, ranges, value) {
-// The speed gauge
+function handleScore(title, min, max, ranges) {
     var chartSpeed = Highcharts.chart('content_score_graphic', Highcharts.merge(
         {
             chart: {
@@ -374,13 +380,7 @@ function handleScore(title, min, max, ranges, value) {
             },
 
             series: [{
-                name: 'Score',
-                data: [value],
-                dataLabels: {
-                    format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                        '<span style="font-size:12px;color:silver"></span></div>'
-                },
+                data: [2],
                 tooltip: {
                     enabled: false
                 }
