@@ -125,6 +125,10 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
+            Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
+            if (getScore.get("status").toString().equalsIgnoreCase("200")) {
+            	model.addAttribute("score", getDataIntegration.get("current_response"));
+            }
         }
         return "indicator_score/indicator_score";
     }
