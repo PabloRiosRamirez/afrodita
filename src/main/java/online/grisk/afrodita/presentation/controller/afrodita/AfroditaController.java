@@ -232,7 +232,7 @@ public class AfroditaController {
         model.addAttribute("title", "Business Tree");
         model.addAttribute("description", "Configuración de Business Tree");
         model.addAttribute("module", "indicators");
-        return "indicators_tree/indicator_tree-setting";
+        return "indicator_tree/indicator_tree-setting";
     }
 
     @RequestMapping(value = "/users/create", method = GET)
