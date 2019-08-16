@@ -236,7 +236,8 @@ var KTWizard3 = function () {
             var value = $(this).text().trim();
             var lastChar = $('.expression_ratio:not(:hidden)').val().substring($('.expression_ratio:not(:hidden)').val().length - 1, $('.expression_ratio:not(:hidden)').val().length);
             if (lastChar != '(' && lastChar != '.') {
-                if ((lastChar == '}' || !isNaN(lastChar)) && value == '(')
+                if ((lastChar == '}' || !isNaN(lastChar))
+                    && (value == '(' && $('.expression_ratio:not(:hidden)').val().length > 0))
                     $('.expression_ratio:not(:hidden)').val($('.expression_ratio:not(:hidden)').val() + '*' + value);
                 else if (isSimbol(lastChar) && value == ')')
                     return;
