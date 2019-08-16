@@ -17,13 +17,14 @@ var KTWizard3 = function () {
 
         // Validation before going to next page
         wizard.on('beforeNext', function (wizardObj) {
-            if (validator.form() !== true) {
-                wizardObj.stop();  // don't go to the next step
-            } else {
-                /*if (wizardObj.currentStep == 2)
-                    resumenGraphic();*/
+            // if (validator.form() !== true) {
+            //     wizardObj.stop();  // don't go to the next step
+            // } else {
+            if (wizardObj.currentStep == 2) {
+
             }
-        })
+            // }
+        });
 
         // Change event
         wizard.on('change', function (wizard) {
@@ -32,27 +33,34 @@ var KTWizard3 = function () {
     }
 
     var initValidation = function () {
+        // $.validator.addMethod('sintaxisMath', function (value, element, param) {
+        //     return false;
+        // }, 'Problemas de sintaxis en la operación matemática, por favor revisar');
         validator = formEl.validate({
-            // Validate only visible fields
             ignore: ":hidden",
-
-            // Validation rules
             rules: {
-                //= Step 1
-                score_titule: {
+                tree_variable: {
                     required: true
+                },
+                tree_operation: {
+                    required: true
+                },
+                tree_value_comparator: {
+                    required: true,
+                    number: true
+                },
+                tree_label_output: {
+                    required: true,
+                    number: true
+                },
+                tree_color_output: {
+                    required: true,
+                    number: true
                 }
             },
 
             // Display error
             invalidHandler: function (event, validator) {
-                KTUtil.scrollTop();
-                swal.fire({
-                    "title": "",
-                    "text": "Hay algunos errores por favor corríjalos.",
-                    "type": "error",
-                    "confirmButtonClass": "btn btn-secondary"
-                });
             },
 
             // Submit valid form
@@ -64,11 +72,10 @@ var KTWizard3 = function () {
 
     var initSubmit = function () {
         var btn = formEl.find('[data-ktwizard-type="action-submit"]');
-
         btn.on('click', function (e) {
             Swal.fire({
                 title: '¿Está seguro de guardar esta configuración?',
-                text: "Si guarda esto, si es que existe una configuración anterior de Business Tree está se borrará para siempre.",
+                text: "Si guarda esto, si es que existe una configuración anterior de Risk Ratios está se borrará para siempre.",
                 type: 'warning',
                 showCancelButton: true,
                 cancelButtonText: "Atrás",
@@ -78,35 +85,33 @@ var KTWizard3 = function () {
                         if (result.value) {
                             if (validator.form()) {
                                 KTApp.progress(btn);
-                                var score = {};
-                                score['titulo'] = $('#score_titule').val();
-                                score['variable'] = $('#score_variable').val();
-                                score['organization'] = $('#organization').val();
-                                var cant = $('[name*="[lim_score_down]"]').length;
-                                var listRanges = [];
-                                for (var i = 0; i < cant; i++) {
-                                    var range = {};
-                                    range['limitDown'] = $($('[name*="[lim_score_down]"]')[i]).val();
-                                    range['limitUp'] = $($('[name*="[lim_score_up]"]')[i]).val();
-                                    range['color'] = $($('[name*="[score_range_color]"]')[i]).val();
-                                    listRanges.push(range);
+                                var riskRatio = {};
+                                riskRatio['organization'] = $('#organization').val();
+                                var ratios = [];
+                                for (var i = 1; i < 5; i++) {
+                                    var ratio = {};
+                                    ratio["color"] = $('#ratio' + i + '_color').val().trim()
+                                    ratio["titule"] = $('#ratio' + i + '_titule').val().trim()
+                                    ratio["fix"] = $('#ratio' + i + '_fix').val().trim()
+                                    ratio["expression"] = $('#ratio' + i + '_expression').val().trim()
+                                    ratios.push(ratio);
                                 }
-                                score['ranges'] = listRanges;
+                                riskRatio['ratios'] = ratios;
                                 $.ajax({
                                     type: "POST",
                                     contentType: "application/json",
-                                    url: "/v1/rest/score",
-                                    data: JSON.stringify(score),
+                                    url: "/v1/rest/ratios",
+                                    data: JSON.stringify(riskRatio),
                                     dataType: 'json',
                                     cache: false,
                                     timeout: 60000,
                                     success: function (data, textStatus, jqXHR) {
                                         Swal.fire({
                                             title: "",
-                                            text: "La configuración de Risk Score ha sido guardado correctamente!",
+                                            text: "La configuración de Risk Ratios ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/indicators/score"
+                                                window.location = "/ratios"
                                             }
                                         });
                                     },
@@ -129,6 +134,10 @@ var KTWizard3 = function () {
         });
     }
 
+    var initTree = function () {
+
+    }
+
     return {
         // public functions
         init: function () {
@@ -137,6 +146,7 @@ var KTWizard3 = function () {
             initWizard();
             initValidation();
             initSubmit();
+            initTree();
         }
     };
 }();
