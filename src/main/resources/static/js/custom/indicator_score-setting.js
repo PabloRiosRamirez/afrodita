@@ -237,7 +237,7 @@ var KTWizard3 = function () {
                                             text: "La configuración de Risk Score ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/score"
+                                                window.location = "/indicators/score"
                                             }
                                         });
                                     },
