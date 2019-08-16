@@ -17,9 +17,6 @@ import java.util.Map;
 public class ScoreRestController extends BasicRestController {
 
     @Autowired
-    DataintegrationActivatorService dataIntegrationActivatorService;
-
-    @Autowired
     ScoreActivatorService scoreActivatorService;
 
     @PostMapping(value = "/v1/rest/score")
@@ -32,10 +29,10 @@ public class ScoreRestController extends BasicRestController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 
-    @GetMapping("/v1/rest/score/organization/{id_organization}")
-    public ResponseEntity<?> getScoreByOrganization(@PathVariable long idOrganization) throws Exception {
-        Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
-        return new ResponseEntity(getScore, HttpStatus.OK);
-    }
+//    @GetMapping("/v1/rest/score/organization/{id_organization}")
+//    public ResponseEntity<?> getScoreByOrganization(@PathVariable long idOrganization) throws Exception {
+//        Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
+//        return new ResponseEntity(getScore, HttpStatus.OK);
+//    }
     
 }
