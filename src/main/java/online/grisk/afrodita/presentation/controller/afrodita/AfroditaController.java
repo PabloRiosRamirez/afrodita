@@ -224,7 +224,7 @@ public class AfroditaController {
                 model.addAttribute("tree", getTree.get("current_response"));
             }
         }
-        return "indicators_tree/indicator_tree";
+        return "indicator_tree/indicator_tree";
     }
 
     @RequestMapping(value = "/indicators/tree/setting", method = GET)
