@@ -232,7 +232,7 @@ public class AfroditaController {
         model.addAttribute("title", "Business Tree");
         model.addAttribute("description", "Configuración de Business Tree");
         model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
+       /* Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
@@ -240,7 +240,7 @@ public class AfroditaController {
             if (getTree.get("status").toString().equalsIgnoreCase("200")) {
                 model.addAttribute("tree", getTree.get("current_response"));
             }
-        }
+        }*/
         return "indicator_tree/indicator_tree-setting";
     }
 

@@ -12,13 +12,6 @@
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
     <style>
         @media (min-width: 752px) {
-            #kt_footer {
-                width: 100%;
-                bottom: 0;
-                background-color: white;
-                position: fixed;
-            }
-
             #li_dataintegration {
                 width: 141px;
             }
@@ -44,7 +37,7 @@
                           th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"
                           th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')} ?'Administrador':'Básico'"></span>
                 </div>
-                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-md-right">
                     <!-- begin: Head -->
                     <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
                         <div class="kt-user-card__avatar">
@@ -60,19 +53,6 @@
                     <!-- end: Head -->
                     <!--begin: Navigation -->
                     <div class="kt-notification">
-                        <a class="kt-notification__item" th:href="@{/account}">
-                            <div class="kt-notification__item-icon">
-                                <i class="flaticon2-calendar-3 kt-font-success"></i>
-                            </div>
-                            <div class="kt-notification__item-details">
-                                <div class="kt-notification__item-title kt-font-bold">
-                                    Mi perfil
-                                </div>
-                                <div class="kt-notification__item-time">
-                                    Configuración de cuenta
-                                </div>
-                            </div>
-                        </a>
                         <div class="kt-notification__custom kt-space-between">
                             <a class="btn btn-label btn-label-brand btn-sm btn-bold" th:href="@{/logout}">
                                 <i class="flaticon-logout"></i>
@@ -120,7 +100,8 @@
                         </li>
                         <li aria-haspopup="true"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            data-ktmenu-submenu-toggle="click" th:classappend="${module == 'user' ? 'kt-menu__'+'item--here' : ''}">
+                            data-ktmenu-submenu-toggle="click"
+                            th:classappend="${module == 'user' ? 'kt-menu__'+'item--here' : ''}">
                             <a class="kt-menu__link kt-menu__toggle"
                                href="javascript:;">
                                         <span
@@ -173,7 +154,8 @@
                         </li>
                         <li aria-haspopup="true"
                             class="kt-menu__item  kt-menu__item--submenu kt-menu__item--rel"
-                            data-ktmenu-submenu-toggle="click" th:classappend="${module == 'indicators' ? 'kt-menu__'+'item--here' : ''}">
+                            data-ktmenu-submenu-toggle="click"
+                            th:classappend="${module == 'indicators' ? 'kt-menu__'+'item--here' : ''}">
                             <a class="kt-menu__link kt-menu__toggle" href="javascript:;">
                                 <span class="kt-menu__link-text">Indicadores</span>
                                 <i class="kt-menu__ver-arrow la la-angle-right"></i>
@@ -241,7 +223,7 @@
                               th:styleappend="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'width:110px;color: #1930d2;background: rgba(29, 76, 201, 0.49);;':'width:80px;'"
                               th:text="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}?'Administrador':'Básico'"></span>
                     </div>
-                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-xl">
+                    <div class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-md-right">
 
                         <!--begin: Head -->
                         <div class="kt-user-card kt-user-card--skin-light kt-notification-item-padding-x">
