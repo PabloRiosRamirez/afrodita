@@ -32,9 +32,9 @@ public class DataintegrationRestController extends BasicRestController {
         return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 
-    @PutMapping(value = "/v1/rest/dataintegration/{idDataIntegration}/excel")
-    public HttpEntity<?> updateDataIntegrationExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idDataIntegration) throws Exception {
-        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(idDataIntegration, file);
+    @PutMapping(value = "/v1/rest/dataintegration/{idDataintegration}/excel")
+    public HttpEntity<?> updateDataIntegrationExcel(@RequestParam("file") MultipartFile file, @PathVariable Long idDataintegration) throws Exception {
+        FileDataIntegrationDTO fileDataIntegrationDTO = new FileDataIntegrationDTO(idDataintegration, file);
         this.verifyParameters(fileDataIntegrationDTO.toMap());
         Map response = dataIntegrationActivatorService.invokeUpdateDataIntegrationExcel(fileDataIntegrationDTO.toMap(), new HashMap());
         return new ResponseEntity<>(null, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));

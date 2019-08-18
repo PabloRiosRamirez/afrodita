@@ -22,18 +22,18 @@ var KTWizard3 = function () {
             if (validatorExcel.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
-                $('.back-dataintegration').attr('hidden', 'hidden');
+            $('.back-dataintegration').attr('hidden', 'hidden');
 
             $('#content_file_name').text($('.custom-file-label').html());
 
             var templateVariables = "";
-            var length = $('input[name*="[default_variable]"]').length;
+            var length = $('input[name*="[default_value_variable]"]').length;
             for (var i = 0; i < length; i++) {
                 templateVariables = templateVariables.concat("<div class=\"form-group row\">");
                 templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Nombre:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[name_variable]"]')[i].value + "</strong></label>");
                 templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Tipo:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('select[name*="[type_variable]"]')[i].value + "</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenadas:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[coordenate_variable]"]')[i].value + "</strong></label>");
-                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[default_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Coordenadas:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[coordinate_variable]"]')[i].value + "</strong></label>");
+                templateVariables = templateVariables.concat("<label class=\"col-xl-3 col-lg-3 col-form-label\">Valor por defecto:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>" + $('input[name*="[default_value_variable]"]')[i].value + "</strong></label>");
                 templateVariables = templateVariables.concat("</div>");
             }
             $('#content_details_variables').html(templateVariables);
@@ -61,7 +61,7 @@ var KTWizard3 = function () {
             if (validatorBureau.form() !== true) {
                 wizardObj.stop();  // don't go to the next step
             }
-                $('.back-dataintegration').attr('hidden', 'hidden');
+            $('.back-dataintegration').attr('hidden', 'hidden');
             if ($('[type="checkbox"]:checked').length <= 1) {
                 Swal.fire({
                     "title": "",
@@ -125,11 +125,11 @@ var KTWizard3 = function () {
                 '[0][type_variable]': {
                     required: true
                 },
-                '[0][coordenate_variable]': {
+                '[0][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[0][default_variable]': {
+                '[0][default_value_variable]': {
                     required: true
                 },
 
@@ -139,11 +139,11 @@ var KTWizard3 = function () {
                 '[1][type_variable]': {
                     required: true
                 },
-                '[1][coordenate_variable]': {
+                '[1][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[1][default_variable]': {
+                '[1][default_value_variable]': {
                     required: true
                 },
                 '[2][name_variable]': {
@@ -152,11 +152,11 @@ var KTWizard3 = function () {
                 '[2][type_variable]': {
                     required: true
                 },
-                '[2][coordenate_variable]': {
+                '[2][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[2][default_variable]': {
+                '[2][default_value_variable]': {
                     required: true
                 },
                 '[3][name_variable]': {
@@ -165,11 +165,11 @@ var KTWizard3 = function () {
                 '[3][type_variable]': {
                     required: true
                 },
-                '[3][coordenate_variable]': {
+                '[3][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[3][default_variable]': {
+                '[3][default_value_variable]': {
                     required: true
                 },
 
@@ -179,11 +179,11 @@ var KTWizard3 = function () {
                 '[4][type_variable]': {
                     required: true
                 },
-                '[4][coordenate_variable]': {
+                '[4][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[4][default_variable]': {
+                '[4][default_value_variable]': {
                     required: true
                 },
 
@@ -193,11 +193,11 @@ var KTWizard3 = function () {
                 '[5][type_variable]': {
                     required: true
                 },
-                '[5][coordenate_variable]': {
+                '[5][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[5][default_variable]': {
+                '[5][default_value_variable]': {
                     required: true
                 },
 
@@ -207,11 +207,11 @@ var KTWizard3 = function () {
                 '[6][type_variable]': {
                     required: true
                 },
-                '[6][coordenate_variable]': {
+                '[6][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[6][default_variable]': {
+                '[6][default_value_variable]': {
                     required: true
                 },
 
@@ -221,11 +221,11 @@ var KTWizard3 = function () {
                 '[7][type_variable]': {
                     required: true
                 },
-                '[7][coordenate_variable]': {
+                '[7][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[7][default_variable]': {
+                '[7][default_value_variable]': {
                     required: true
                 },
 
@@ -235,11 +235,11 @@ var KTWizard3 = function () {
                 '[8][type_variable]': {
                     required: true
                 },
-                '[8][coordenate_variable]': {
+                '[8][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[8][default_variable]': {
+                '[8][default_value_variable]': {
                     required: true
                 },
 
@@ -249,11 +249,11 @@ var KTWizard3 = function () {
                 '[9][type_variable]': {
                     required: true
                 },
-                '[9][coordenate_variable]': {
+                '[9][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[9][default_variable]': {
+                '[9][default_value_variable]': {
                     required: true
                 },
                 '[10][name_variable]': {
@@ -262,11 +262,11 @@ var KTWizard3 = function () {
                 '[10][type_variable]': {
                     required: true
                 },
-                '[10][coordenate_variable]': {
+                '[10][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[10][default_variable]': {
+                '[10][default_value_variable]': {
                     required: true
                 },
 
@@ -276,11 +276,11 @@ var KTWizard3 = function () {
                 '[11][type_variable]': {
                     required: true
                 },
-                '[11][coordenate_variable]': {
+                '[11][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[11][default_variable]': {
+                '[11][default_value_variable]': {
                     required: true
                 },
                 '[12][name_variable]': {
@@ -289,11 +289,11 @@ var KTWizard3 = function () {
                 '[12][type_variable]': {
                     required: true
                 },
-                '[12][coordenate_variable]': {
+                '[12][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[12][default_variable]': {
+                '[12][default_value_variable]': {
                     required: true
                 },
                 '[13][name_variable]': {
@@ -302,11 +302,11 @@ var KTWizard3 = function () {
                 '[13][type_variable]': {
                     required: true
                 },
-                '[13][coordenate_variable]': {
+                '[13][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[13][default_variable]': {
+                '[13][default_value_variable]': {
                     required: true
                 },
 
@@ -316,11 +316,11 @@ var KTWizard3 = function () {
                 '[14][type_variable]': {
                     required: true
                 },
-                '[14][coordenate_variable]': {
+                '[14][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[14][default_variable]': {
+                '[14][default_value_variable]': {
                     required: true
                 },
 
@@ -330,11 +330,11 @@ var KTWizard3 = function () {
                 '[15][type_variable]': {
                     required: true
                 },
-                '[15][coordenate_variable]': {
+                '[15][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[15][default_variable]': {
+                '[15][default_value_variable]': {
                     required: true
                 },
 
@@ -344,11 +344,11 @@ var KTWizard3 = function () {
                 '[16][type_variable]': {
                     required: true
                 },
-                '[16][coordenate_variable]': {
+                '[16][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[16][default_variable]': {
+                '[16][default_value_variable]': {
                     required: true
                 },
 
@@ -358,11 +358,11 @@ var KTWizard3 = function () {
                 '[17][type_variable]': {
                     required: true
                 },
-                '[17][coordenate_variable]': {
+                '[17][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[17][default_variable]': {
+                '[17][default_value_variable]': {
                     required: true
                 },
 
@@ -372,11 +372,11 @@ var KTWizard3 = function () {
                 '[18][type_variable]': {
                     required: true
                 },
-                '[18][coordenate_variable]': {
+                '[18][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[18][default_variable]': {
+                '[18][default_value_variable]': {
                     required: true
                 },
 
@@ -386,11 +386,11 @@ var KTWizard3 = function () {
                 '[19][type_variable]': {
                     required: true
                 },
-                '[19][coordenate_variable]': {
+                '[19][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[19][default_variable]': {
+                '[19][default_value_variable]': {
                     required: true
                 },
 
@@ -400,11 +400,11 @@ var KTWizard3 = function () {
                 '[20][type_variable]': {
                     required: true
                 },
-                '[20][coordenate_variable]': {
+                '[20][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[20][default_variable]': {
+                '[20][default_value_variable]': {
                     required: true
                 },
 
@@ -414,11 +414,11 @@ var KTWizard3 = function () {
                 '[21][type_variable]': {
                     required: true
                 },
-                '[21][coordenate_variable]': {
+                '[21][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[21][default_variable]': {
+                '[21][default_value_variable]': {
                     required: true
                 },
                 '[22][name_variable]': {
@@ -427,11 +427,11 @@ var KTWizard3 = function () {
                 '[22][type_variable]': {
                     required: true
                 },
-                '[22][coordenate_variable]': {
+                '[22][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[22][default_variable]': {
+                '[22][default_value_variable]': {
                     required: true
                 },
                 '[23][name_variable]': {
@@ -440,11 +440,11 @@ var KTWizard3 = function () {
                 '[23][type_variable]': {
                     required: true
                 },
-                '[23][coordenate_variable]': {
+                '[23][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[23][default_variable]': {
+                '[23][default_value_variable]': {
                     required: true
                 },
 
@@ -454,11 +454,11 @@ var KTWizard3 = function () {
                 '[24][type_variable]': {
                     required: true
                 },
-                '[24][coordenate_variable]': {
+                '[24][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[24][default_variable]': {
+                '[24][default_value_variable]': {
                     required: true
                 },
 
@@ -468,11 +468,11 @@ var KTWizard3 = function () {
                 '[25][type_variable]': {
                     required: true
                 },
-                '[25][coordenate_variable]': {
+                '[25][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[25][default_variable]': {
+                '[25][default_value_variable]': {
                     required: true
                 },
 
@@ -482,11 +482,11 @@ var KTWizard3 = function () {
                 '[26][type_variable]': {
                     required: true
                 },
-                '[26][coordenate_variable]': {
+                '[26][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[26][default_variable]': {
+                '[26][default_value_variable]': {
                     required: true
                 },
 
@@ -496,11 +496,11 @@ var KTWizard3 = function () {
                 '[27][type_variable]': {
                     required: true
                 },
-                '[27][coordenate_variable]': {
+                '[27][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[27][default_variable]': {
+                '[27][default_value_variable]': {
                     required: true
                 },
 
@@ -510,11 +510,11 @@ var KTWizard3 = function () {
                 '[28][type_variable]': {
                     required: true
                 },
-                '[28][coordenate_variable]': {
+                '[28][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[28][default_variable]': {
+                '[28][default_value_variable]': {
                     required: true
                 },
 
@@ -524,11 +524,11 @@ var KTWizard3 = function () {
                 '[29][type_variable]': {
                     required: true
                 },
-                '[29][coordenate_variable]': {
+                '[29][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[29][default_variable]': {
+                '[29][default_value_variable]': {
                     required: true
                 },
 
@@ -539,11 +539,11 @@ var KTWizard3 = function () {
                 '[30][type_variable]': {
                     required: true
                 },
-                '[30][coordenate_variable]': {
+                '[30][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[30][default_variable]': {
+                '[30][default_value_variable]': {
                     required: true
                 },
 
@@ -553,11 +553,11 @@ var KTWizard3 = function () {
                 '[31][type_variable]': {
                     required: true
                 },
-                '[31][coordenate_variable]': {
+                '[31][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[31][default_variable]': {
+                '[31][default_value_variable]': {
                     required: true
                 },
                 '[32][name_variable]': {
@@ -566,11 +566,11 @@ var KTWizard3 = function () {
                 '[32][type_variable]': {
                     required: true
                 },
-                '[32][coordenate_variable]': {
+                '[32][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[32][default_variable]': {
+                '[32][default_value_variable]': {
                     required: true
                 },
                 '[33][name_variable]': {
@@ -579,11 +579,11 @@ var KTWizard3 = function () {
                 '[33][type_variable]': {
                     required: true
                 },
-                '[33][coordenate_variable]': {
+                '[33][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[33][default_variable]': {
+                '[33][default_value_variable]': {
                     required: true
                 },
 
@@ -593,11 +593,11 @@ var KTWizard3 = function () {
                 '[34][type_variable]': {
                     required: true
                 },
-                '[34][coordenate_variable]': {
+                '[34][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[34][default_variable]': {
+                '[34][default_value_variable]': {
                     required: true
                 },
 
@@ -607,11 +607,11 @@ var KTWizard3 = function () {
                 '[35][type_variable]': {
                     required: true
                 },
-                '[35][coordenate_variable]': {
+                '[35][coordinate_variable]': {
                     required: true,
                     cellExcel: true
                 },
-                '[35][default_variable]': {
+                '[35][default_value_variable]': {
                     required: true
                 }
             },
@@ -697,22 +697,19 @@ var KTWizard3 = function () {
                     if (result.value) {
                         if (validatorExcel.form()) {
                             KTApp.progress(btn);
-                            //KTApp.block(formEl);
-
                             var dataIntegration = {};
                             dataIntegration["organization"] = $('#organization').val();
                             var list_variable = [];
-                            var length = $('input[name*="[default_variable]"]').length;
+                            var length = $('input[name*="[default_value_variable]"]').length;
                             for (var i = 0; i < length; i++) {
                                 var variable = {};
                                 variable["name"] = $('input[name*="[name_variable]"]')[i].value;
                                 variable["type"] = $('select[name*="[type_variable]"]')[i].value;
-                                variable["coordenate"] = $('input[name*="[coordenate_variable]"]')[i].value;
-                                variable["valueDefault"] = $('input[name*="[default_variable]"]')[i].value;
+                                variable["coordinate"] = $('input[name*="[coordinate_variable]"]')[i].value;
+                                variable["defaultValue"] = $('input[name*="[default_value_variable]"]')[i].value;
                                 list_variable.push(variable);
                             }
                             dataIntegration["variables"] = list_variable;
-
                             $.ajax({
                                 type: "POST",
                                 contentType: "application/json",
@@ -725,9 +722,8 @@ var KTWizard3 = function () {
                                     var files = document.querySelector("#file_dataintegration").files;
                                     var formData = new FormData();
                                     formData.append("file", files[0]);
-
                                     var xhr = new XMLHttpRequest();
-                                    xhr.open("PUT", "/v1/rest/dataintegration/" + data.current_response.idDataIntegration + "/excel");
+                                    xhr.open("PUT", "/v1/rest/dataintegration/" + data.current_response.idDataintegration + "/excel");
                                     xhr.onload = function () {
                                         KTApp.unprogress(btn);
                                         if (xhr.status == 200) {
@@ -889,36 +885,25 @@ jQuery(document).ready(function () {
 function onChangeType() {
     $('[name*="[type_variable]"]').on('change', function () {
         if ($(this).val() == 'NE') {
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').rules("add", {
                 number: false,
                 digits: true,
                 messages: {
                     required: "Este campo debe ser números entero."
                 }
             });
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'number');
-        } else if ($(this).val() == 'ND') {
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').val('');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').attr('type', 'number');
+        } else {
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').rules("add", {
                 number: true,
                 digits: false,
                 messages: {
                     required: "Este campo debe ser números decimal."
                 }
             });
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'number');
-        } else {
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').rules("add", {
-                number: false,
-                digits: false,
-                messages: {
-                    required: "Este campo debe ser solo de caracteres."
-                }
-            });
-
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').val('');
-            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_variable]"').attr('type', 'text');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').val('');
+            $('[name="' + $(this).attr('name').replace('[type_variable]', '') + '[default_value_variable]"').attr('type', 'number');
         }
     });
 }
@@ -941,3 +926,33 @@ function onClickBtnDeleteVariable() {
         onChangeType();
     });
 }
+
+
+var KTFormRepeater = function () {
+    var repeaterBureau = function () {
+        $('#kt_repeater_bureau').repeater({
+            initEmpty: false,
+
+            defaultValues: {
+                'text-input': 'foo'
+            },
+
+            show: function () {
+                $(this).slideDown();
+            },
+
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
+        });
+    }
+    return {
+        init: function () {
+            repeaterBureau();
+        }
+    };
+}();
+
+jQuery(document).ready(function () {
+    KTFormRepeater.init();
+});

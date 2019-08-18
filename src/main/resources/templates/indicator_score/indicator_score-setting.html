@@ -29,7 +29,7 @@
                                     <!--<a href="" class="kt-subheader__breadcrumbs-link">
                                         Cuenta </a>-->
 
-                                    <a class="kt-subheader__breadcrumbs-link" th:href="@{/indicators/score}">Indicador
+                                    <a class="kt-subheader__breadcrumbs-link" th:href="@{/indicators/riskscore}">Indicador
                                         Risk Score</a>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Configuración</span>
@@ -84,7 +84,7 @@
 
                                             <!--end: Form Wizard Nav -->
                                         </div>
-                                        <input id="organization" type="text" hidden th:value="${id_organization}">
+                                        <input id="organization" type="text" hidden th:value="${dataintegration.organization}">
                                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                                             <!--begin: Form Wizard Form-->
@@ -152,7 +152,7 @@
                                                                                         <input class="form-control lim_score"
                                                                                                placeholder="Valor mínimo del rango"
                                                                                                type="number"
-                                                                                               name="[0][lim_score_down]">
+                                                                                               name="[0][lowerLimit]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -166,7 +166,7 @@
                                                                                         <input class="form-control lim_score"
                                                                                                placeholder="Valor máximo del rango"
                                                                                                type="number"
-                                                                                               name="[0][lim_score_up]">
+                                                                                               name="[0][upperLimit]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -179,7 +179,7 @@
                                                                                         </div>
                                                                                         <input class="form-control"
                                                                                                type="color"
-                                                                                               value="#B8B9C4" name="[0][score_range_color]">
+                                                                                               value="#B8B9C4" name="[0][color]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -209,7 +209,7 @@
                                                                                         <input class="form-control lim_score"
                                                                                                placeholder="Valor mínimo del rango"
                                                                                                type="number"
-                                                                                               name="[1][lim_score_down]">
+                                                                                               name="[1][lowerLimit]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -223,7 +223,7 @@
                                                                                         <input class="form-control lim_score"
                                                                                                placeholder="Valor máximo del rango"
                                                                                                type="number"
-                                                                                               name="[1][lim_score_up]">
+                                                                                               name="[1][upperLimit]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
@@ -236,7 +236,7 @@
                                                                                         </div>
                                                                                         <input class="form-control"
                                                                                                type="color"
-                                                                                               value="#B8B9C4" name="[1][score_range_color]">
+                                                                                               value="#B8B9C4" name="[1][color]">
                                                                                     </div>
                                                                                 </div>
                                                                             </div>

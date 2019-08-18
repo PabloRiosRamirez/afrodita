@@ -36,9 +36,7 @@ public class DataintegrationController {
         model.addAttribute("title", "Data Integration");
         model.addAttribute("description", "Data Integration");
         model.addAttribute("module", "dataintegration");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
+        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(userService.findByUsername(principal.getName()).getOrganization().getIdOrganization());
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
@@ -50,15 +48,9 @@ public class DataintegrationController {
         model.addAttribute("title", "Data Integration");
         model.addAttribute("description", "Configuración de Data Integration");
         model.addAttribute("module", "dataintegration");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-        }
-        model.addAttribute("variables", dataintegrationActivatorService.getVariableBureau());
-        model.addAttribute("types_variables", getTypesVariables);
+        model.addAttribute("organization", userService.findByUsername(principal.getName()).getOrganization().getIdOrganization());
+        model.addAttribute("typesVariables", getTypesVariables);
+        model.addAttribute("variablesBureau", dataintegrationActivatorService.getVariableBureau());
         return "dataintegration/dataintegration-setting";
     }
 }

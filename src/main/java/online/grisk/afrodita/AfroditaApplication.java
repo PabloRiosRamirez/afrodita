@@ -79,10 +79,10 @@ public class AfroditaApplication {
         return messageSource;
     }
 
-    @Value("ARTEMISA_USER")
+    @Value("${ARTEMISA_USER}")
     String artemisaUser;
 
-    @Value("ARTEMISA_PASS")
+    @Value("${ARTEMISA_PASS}")
     String artemisaPass;
 
     @Bean

@@ -38,22 +38,25 @@
                                         <div class="kt-portlet__head">
                                             <div class="kt-portlet__head-label">
                                                 <h3 class="kt-portlet__head-title"
-                                                    th:if="${dataintegration == null or score == null or ratios == null or tree == null}">
+                                                    th:if="${dataintegration == null or riskscore == null or riskratio == null or businesstree == null}">
                                                     Detalles de la
                                                     configuración de actual:
                                                     <small>Descripción de las configuraciones actuales del
                                                         sistema</small>
                                                 </h3>
                                                 <h3 class="kt-portlet__head-title"
-                                                    th:if="${dataintegration != null and score != null and ratios != null and tree != null}">
+                                                    th:if="${dataintegration != null and riskscore != null and riskratio != null and businesstree != null}">
                                                     Análisis
                                                     <small>Realiza un análisis financiero</small>
                                                 </h3>
                                             </div>
                                         </div>
-                                        <input id="organization" type="text" hidden th:value="${id_organization}">
+                                        <!--/*@thymesVar id="organization" type="java.lang.Long"*/-->
+                                        <input id="organization" type="text" hidden
+                                               th:value="${dataintegration != null ? dataintegration.organization : ''}">
+                                        <!--/*@thymesVar id="bureau" type="java.lang.Boolean"*/-->
                                         <form class="kt-form" id="kt_form_excel"
-                                              th:if="${dataintegration != null and dataintegration.bureau == false and score != null and ratios != null and tree != null}">
+                                              th:if="${dataintegration != null and dataintegration.bureau == false and riskscore != null and riskratio != null and businesstree != null}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -104,8 +107,9 @@
                                                 </div>
                                             </div>
                                         </form>
+                                        <!--/*@thymesVar id="bureau" type="java.lang.Boolean"*/-->
                                         <form class="kt-form" id="kt_form_bureau"
-                                              th:if="${dataintegration != null and dataintegration.bureau == true and score != null and ratios != null and tree != null}">
+                                              th:if="${dataintegration != null and dataintegration.bureau == true and riskscore != null and riskratio != null and businesstree != null}">
                                             <div class="kt-portlet__body">
                                                 <div class="kt-section kt-section--first">
                                                     <div class="kt-section__body">
@@ -155,7 +159,7 @@
                                                                     indicadores</strong> sean configurados.
                                                             </h4>
                                                         </div>
-                                                        <div th:if="${dataintegration != null and (score == null or ratios == null or tree == null)}">
+                                                        <div th:if="${dataintegration != null and (riskscore == null or riskratio == null or businesstree == null)}">
                                                             <div class="col-12">
                                                                 <div class="form-group"><h4 class="text-danger">
                                                                     <strong style="margin-right: 8px;">Problemas!</strong>No
@@ -165,51 +169,51 @@
                                                                 </h4></div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and score == null}">
+                                                                 th:if="${dataintegration != null and riskscore == null}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Risk Score</strong>. Por favor dirigase a
+                                                                        Risk Score</strong>. Por favor ir a
                                                                         Indicadores > Risk Score >
                                                                         <strong>
                                                                             <a style="color: #ffffff;"
-                                                                               th:href="@{/indicators/score/setting}">Nueva
+                                                                               th:href="@{/indicators/riskscore/setting}">Nueva
                                                                                 configuración</a>
                                                                         </strong>
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and ratios == null}">
+                                                                 th:if="${dataintegration != null and riskratio == null}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Risk Score</strong>. Por favor dirigase a
+                                                                        Risk Ratios</strong>. Por favor ir a
                                                                         Indicadores > Risk Ratios >
                                                                         <strong>
                                                                             <a style="color: #ffffff;"
-                                                                               th:href="@{/indicators/ratios/setting}">Nueva
+                                                                               th:href="@{/indicators/riskratios/setting}">Nueva
                                                                                 configuración</a>
                                                                         </strong>
                                                                     </label>
                                                                 </div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and tree == null}">
+                                                                 th:if="${dataintegration != null and businesstree == null}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Risk Score</strong>. Por favor dirigase a
+                                                                        Business Tree</strong>. Por favor ir a
                                                                         Indicadores > Business Tree >
                                                                         <strong>
                                                                             <a style="color: #ffffff;"
-                                                                               th:href="@{/indicators/tree/setting}">Nueva
+                                                                               th:href="@{/indicators/businesstree/setting}">Nueva
                                                                                 configuración</a>
                                                                         </strong>
                                                                     </label>
@@ -254,13 +258,15 @@
                                                                             <span class="kt-portlet__head-icon">
                                                                                 <i class="flaticon-star"></i>
                                                                             </span>
-                                                                            <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                            <h1 class="kt-portlet__head-title"
+                                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                                                                                 id="titule_ratio1">
                                                                             </h1>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-portlet__body">
-                                                                        <h1 class="text-right" id="result_ratio1" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                        <h1 class="text-right" id="result_ratio1"
+                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                                                             --</h1>
                                                                         <small id="operation_ratio1">--</small>
                                                                     </div>
@@ -274,13 +280,15 @@
                                                                             <span class="kt-portlet__head-icon">
                                                                                 <i class="flaticon-star"></i>
                                                                             </span>
-                                                                            <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                            <h1 class="kt-portlet__head-title"
+                                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                                                                                 id="titule_ratio2">
                                                                             </h1>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-portlet__body">
-                                                                        <h1 class="text-right" id="result_ratio2" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                        <h1 class="text-right" id="result_ratio2"
+                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                                                             --</h1>
                                                                         <small id="operation_ratio2">--</small>
                                                                     </div>
@@ -294,13 +302,15 @@
                                                                             <span class="kt-portlet__head-icon">
                                                                                 <i class="flaticon-star"></i>
                                                                             </span>
-                                                                            <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                            <h1 class="kt-portlet__head-title"
+                                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                                                                                 id="titule_ratio3">
                                                                             </h1>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-portlet__body">
-                                                                        <h1 class="text-right" id="result_ratio3" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                        <h1 class="text-right" id="result_ratio3"
+                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                                                             --</h1>
                                                                         <small id="operation_ratio3">--</small>
                                                                     </div>
@@ -314,13 +324,15 @@
                                                                             <span class="kt-portlet__head-icon">
                                                                                 <i class="flaticon-star"></i>
                                                                             </span>
-                                                                            <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                            <h1 class="kt-portlet__head-title"
+                                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
                                                                                 id="titule_ratio4">
                                                                             </h1>
                                                                         </div>
                                                                     </div>
                                                                     <div class="kt-portlet__body">
-                                                                        <h1 class="text-right" id="result_ratio4" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                        <h1 class="text-right" id="result_ratio4"
+                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
                                                                             --</h1>
                                                                         <small id="operation_ratio4">--</small>
                                                                     </div>
@@ -354,7 +366,8 @@
                                                                          style="margin-top: 50px;">
                                                                         <div class="kt-portlet__body">
                                                                             <h1 class="text-center kt-font-bolder"
-                                                                                id="content_label_tree" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></h1>
+                                                                                id="content_label_tree"
+                                                                                style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"></h1>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -388,7 +401,6 @@
 <div th:replace="common :: footer"></div>
 
 <!--/*/ <th:block th:include="common :: scripts"></th:block> /*/-->
-<script th:src="@{/js/custom/analysis.js}" type="text/javascript"></script>
 <script th:src="@{/vendors/general/jquery.pulsate/jquery.pulsate.js}" type="text/javascript"></script>
 <script th:src="@{/vendors/general/waypoints/lib/jquery.waypoints.js}" type="text/javascript"></script>
 <script th:src="@{/vendors/general/counterup/jquery.counterup.js}" type="text/javascript"></script>
@@ -396,5 +408,6 @@
 <script th:src="@{/vendors/custom/highcharts/highcharts-more.js}" type="text/javascript"></script>
 <script th:src="@{/vendors/custom/highcharts/modules/solid-gauge.js}" type="text/javascript"></script>
 <script src="https://code.highcharts.com/modules/networkgraph.js"></script>
+<!--<script th:src="@{/js/custom/analysis.js}" type="text/javascript"></script>-->
 </body>
 </html>

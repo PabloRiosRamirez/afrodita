@@ -50,7 +50,7 @@
                                                     role="tablist">
                                                     <li class="nav-item">
                                                         <a class="nav-link active"
-                                                           role="tab" th:href="@{/indicators/ratios/setting}"
+                                                           role="tab" th:href="@{/indicators/riskratios/setting}"
                                                            style="font-weight: 900 !important;" ;>
                                                             <i class="flaticon2-gear"></i>
                                                             Nueva configuración
@@ -70,7 +70,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="row"
-                                                             th:if="${dataintegration != null and ratios != null}">
+                                                             th:if="${dataintegration != null and riskratio != null}">
                                                             <div class="col-lg-12">
                                                                 <form class="kt-form" id="kt_form"
                                                                       novalidate="novalidate">
@@ -198,17 +198,17 @@
                                                             </div>
                                                         </div>
                                                         <div class="row"
-                                                             th:if="${dataintegration != null and ratios == null}">
+                                                             th:if="${dataintegration != null and riskratio == null}">
                                                             <div class="col-12 alert alert-warning" role="alert"
                                                                  style="margin-top: 30px">
                                                                 <label>
                                                                     <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                     Actualmente no está configurado el <strong>indicador
-                                                                    Risk Ratios</strong>. Por favor dirigase a
+                                                                    Risk Ratios</strong>. Por favor ir a
                                                                     Indicadores > Risk Ratios >
                                                                     <strong>
                                                                         <a style="color: #ffffff;"
-                                                                           th:href="@{/indicators/ratios/setting}">Nueva
+                                                                           th:href="@{/indicators/riskratios/setting}">Nueva
                                                                             configuración</a>
                                                                     </strong>
                                                                 </label>
@@ -220,7 +220,7 @@
                                                                 <label>
                                                                     <strong style="margin-right: 8px;">Problemas!</strong>
                                                                     Actualmente no está configurado <strong>Data
-                                                                    Integration</strong>. Por favor dirigase a
+                                                                    Integration</strong>. Por favor ir a
                                                                     Data Integration >
                                                                     <strong>
                                                                         <a style="color: #ffffff;"

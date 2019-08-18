@@ -1,7 +1,7 @@
 function resetRanges(i, length) {
     for (; i < length; i++) {
-        $($("input[name*='[lim_score_down]']")[i]).val('');
-        $($("input[name*='[lim_score_up]']")[i]).val('');
+        $($("input[name*='[lowerLimit]']")[i]).val('');
+        $($("input[name*='[upperLimit]']")[i]).val('');
     }
     disabledDownRange();
 }
@@ -42,30 +42,30 @@ function onClickDeletedRange() {
 function changeRanges() {
     $('.lim_score').on('change', function () {
         var limites = $('.lim_score');
-        var i = $(this).attr('name').replace('][lim_score_down]', '').replace('][lim_score_up]', '').replace('[', '');
-        // if ($($("input[name*='[lim_score_up]']")[i]).attr('name') != $(this).attr('name')) {
-        //     $($("input[name*='[lim_score_up]']")[i]).val('');
+        var i = $(this).attr('name').replace('][lowerLimit]', '').replace('][upperLimit]', '').replace('[', '');
+        // if ($($("input[name*='[upperLimit]']")[i]).attr('name') != $(this).attr('name')) {
+        //     $($("input[name*='[upperLimit]']")[i]).val('');
         // }
-        resetRanges(++i, $("input[name*='[lim_score_down]']").length);
+        resetRanges(++i, $("input[name*='[lowerLimit]']").length);
         errorInRange(--i);
     });
 }
 
 function disabledDownRange() {
-    $("input[name*='[lim_score_down]']").attr('disabled', true);
-    $("input[name='[0][lim_score_down]']").removeAttr('disabled');
-    var length = $("input[name*='[lim_score_down]']").length;
+    $("input[name*='[lowerLimit]']").attr('disabled', true);
+    $("input[name='[0][lowerLimit]']").removeAttr('disabled');
+    var length = $("input[name*='[lowerLimit]']").length;
     for (var i = 1; i < length; i++) {
-        if ($($("input[name*='[lim_score_up]']")[i - 1]).val() != undefined && $($("input[name*='[lim_score_up]']")[i - 1]).val().trim().length > 0) {
-            $($("input[name*='[lim_score_down]']")[i]).val(parseInt($($("input[name*='[lim_score_up]']")[i - 1]).val()) + 1);
+        if ($($("input[name*='[upperLimit]']")[i - 1]).val() != undefined && $($("input[name*='[upperLimit]']")[i - 1]).val().trim().length > 0) {
+            $($("input[name*='[lowerLimit]']")[i]).val(parseInt($($("input[name*='[upperLimit]']")[i - 1]).val()) + 1);
         }
     }
 }
 
 function errorInRange(i) {
-    if (parseInt($($("[name*='[lim_score_up]']")[i]).val()) <= parseInt($($("[name*='[lim_score_down]']")[i]).val())) {
-        $($("[name*='[lim_score_up]']")[i]).val(parseInt($($("[name*='[lim_score_down]']")[i]).val()) + 1);
-        $($("[name*='[lim_score_down]']")[i + 1]).val(parseInt($($("[name*='[lim_score_up]']")[i]).val()) + 1);
+    if (parseInt($($("[name*='[upperLimit]']")[i]).val()) <= parseInt($($("[name*='[lowerLimit]']")[i]).val())) {
+        $($("[name*='[upperLimit]']")[i]).val(parseInt($($("[name*='[lowerLimit]']")[i]).val()) + 1);
+        $($("[name*='[lowerLimit]']")[i + 1]).val(parseInt($($("[name*='[upperLimit]']")[i]).val()) + 1);
     }
 }
 
@@ -118,59 +118,59 @@ var KTWizard3 = function () {
                 },
 
                 //= Step 2
-                '[0][lim_score_down]': {
+                '[0][lowerLimit]': {
                     required: true,
                     digits: true
                 },
-                '[0][lim_score_up]': {
+                '[0][upperLimit]': {
                     required: true,
                     digits: true
                 },
-                '[0][score_range_color]': {
+                '[0][color]': {
                     required: true
                 },
-                '[1][lim_score_down]': {
+                '[1][lowerLimit]': {
                     required: true,
                     digits: true
                 },
-                '[1][lim_score_up]': {
+                '[1][upperLimit]': {
                     required: true,
                     digits: true
                 },
-                '[1][score_range_color]': {
+                '[1][color]': {
                     required: true
                 },
-                '[2][lim_score_down]': {
+                '[2][lowerLimit]': {
                     required: true,
                     digits: true
                 },
-                '[2][lim_score_up]': {
+                '[2][upperLimit]': {
                     digits: true,
                     required: true
                 },
-                '[2][score_range_color]': {
+                '[2][color]': {
                     required: true
                 },
-                '[3][lim_score_down]': {
+                '[3][lowerLimit]': {
                     required: true,
                     digits: true
                 },
-                '[3][lim_score_up]': {
+                '[3][upperLimit]': {
                     required: true,
                     digits: true
                 },
-                '[3][score_range_color]': {
+                '[3][color]': {
                     required: true
                 },
-                '[4][lim_score_down]': {
+                '[4][lowerLimit]': {
                     required: true,
                     digits: true
                 },
-                '[4][lim_score_up]': {
+                '[4][upperLimit]': {
                     required: true,
                     digits: true
                 },
-                '[4][score_range_color]': {
+                '[4][color]': {
                     required: true
                 }
             },
@@ -213,13 +213,13 @@ var KTWizard3 = function () {
                                 score['titulo'] = $('#score_titule').val();
                                 score['variable'] = $('#score_variable').val();
                                 score['organization'] = $('#organization').val();
-                                var cant = $('[name*="[lim_score_down]"]').length;
+                                var cant = $('[name*="[lowerLimit]"]').length;
                                 var listRanges = [];
                                 for (var i = 0; i < cant; i++) {
                                     var range = {};
-                                    range['limitDown'] = $($('[name*="[lim_score_down]"]')[i]).val();
-                                    range['limitUp'] = $($('[name*="[lim_score_up]"]')[i]).val();
-                                    range['color'] = $($('[name*="[score_range_color]"]')[i]).val();
+                                    range['lowerLimit'] = $($('[name*="[lowerLimit]"]')[i]).val();
+                                    range['upperLimit'] = $($('[name*="[upperLimit]"]')[i]).val();
+                                    range['color'] = $($('[name*="[color]"]')[i]).val();
                                     listRanges.push(range);
                                 }
                                 score['ranges'] = listRanges;
@@ -237,7 +237,7 @@ var KTWizard3 = function () {
                                             text: "La configuración de Risk Score ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/indicators/score"
+                                                window.location = "/indicators/riskscore"
                                             }
                                         });
                                     },
@@ -276,13 +276,13 @@ function resumen() {
     $('[data-ktwizard-type="action-next"]').on('click', function () {
         $('#content_titule').html($('[name=score_titule]').val());
         $('#content_variable').html($('option[value=' + $('[name="score_variable"]').val() + ']').text());
-        var cant = $('[name*="[lim_score_down]"]').length;
+        var cant = $('[name*="[lowerLimit]"]').length;
         var template = "";
         for (var i = 0; i < cant; i++) {
             template = template += "<div class=\"form-group row\"><label class=\"col-xl-3 col-lg-3 col-form-label\">Rango:</label><label class=\"col-xl-3 col-lg-3 col-form-label text-info\"><strong>"
-            template = template += $($('[name*="[lim_score_down]"]')[i]).val() + " a " + $($('[name*="[lim_score_up]"]')[i]).val();
+            template = template += $($('[name*="[lowerLimit]"]')[i]).val() + " a " + $($('[name*="[upperLimit]"]')[i]).val();
             template = template += "</strong></label><label class=\"col-xl-3 col-lg-3 col-form-label\">Color:</label><div class=\"col-lg-3 col-xl-3\"><input class=\"form-control\" disabled type=\"color\" value=\"";
-            template = template += $($('[name*="[score_range_color]"]')[i]).val() + "\"></div></div></div>";
+            template = template += $($('[name*="[color]"]')[i]).val() + "\"></div></div></div>";
         }
         $('#content_ranges').html(template);
 
@@ -292,12 +292,12 @@ function resumen() {
 var interval;
 function resumenGraphic() {
     var titulo = $('#score_titule').val();
-    var cant = $('[name*="[lim_score_down]"]').length;
+    var cant = $('[name*="[lowerLimit]"]').length;
     var ranges = [];
     for (var i = 0; i < cant; i++) {
-        ranges.push([parseInt($($('[name*="[lim_score_up]"]')[i]).val()) / parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), $($('[name*="[score_range_color]"]')[i]).val()]);
+        ranges.push([parseInt($($('[name*="[upperLimit]"]')[i]).val()) / parseInt($($('[name*="[upperLimit]"]')[cant - 1]).val()), $($('[name*="[color]"]')[i]).val()]);
     }
-    handleScore(titulo, parseInt($($('[name*="[lim_score_down]"]')[0]).val()), parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val()), ranges, Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val())));
+    handleScore(titulo, parseInt($($('[name*="[lowerLimit]"]')[0]).val()), parseInt($($('[name*="[upperLimit]"]')[cant - 1]).val()), ranges, Math.round(Math.random() * parseInt($($('[name*="[upperLimit]"]')[cant - 1]).val())));
     if (interval != undefined) {
         clearInterval(interval);
     }
@@ -307,7 +307,7 @@ function resumenGraphic() {
             return;
         }
         var series = chart.series[0];
-        series.setData([parseInt(Math.round(Math.random() * parseInt($($('[name*="[lim_score_up]"]')[cant - 1]).val())))], false, undefined, true);
+        series.setData([parseInt(Math.round(Math.random() * parseInt($($('[name*="[upperLimit]"]')[cant - 1]).val())))], false, undefined, true);
         chart.redraw();
     }, 2000);
 }

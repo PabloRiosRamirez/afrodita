@@ -29,7 +29,7 @@
                                     <!--<a href="" class="kt-subheader__breadcrumbs-link">
                                         Cuenta </a>-->
 
-                                    <a class="kt-subheader__breadcrumbs-link" th:href="@{/indicators/ratios}">Indicador
+                                    <a class="kt-subheader__breadcrumbs-link" th:href="@{/indicators/riskratios}">Indicador
                                         Risk Ratios</a>
                                     <span class="kt-subheader__breadcrumbs-separator"></span>
                                     <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Configuración</span>
@@ -104,7 +104,7 @@
 
                                             <!--end: Form Wizard Nav -->
                                         </div>
-                                        <input id="organization" type="text" hidden th:value="${id_organization}">
+                                        <input id="organization" type="text" hidden th:value="${dataintegration.organization}">
                                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                                             <!--begin: Form Wizard Form-->

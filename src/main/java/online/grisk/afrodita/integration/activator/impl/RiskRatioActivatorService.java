@@ -48,7 +48,7 @@ public class RiskRatioActivatorService extends BasicRestServiceActivator {
 
 	public Map<String, Object> invokeGetRatio(@NotNull Long idOrganization) throws Exception {
 		ResponseEntity<Map<String, Object>> responseEntity = consumerRestServiceActivator(
-				"/api/artemisa/score/organization/" + idOrganization, HttpMethod.GET, new HashMap<>(), new HashMap<>(),
+				"/api/artemisa/ratios/organization/" + idOrganization, HttpMethod.GET, new HashMap<>(), new HashMap<>(),
 				microserviceArtemisa);
 		return addServiceResponseToResponseMap(new HashMap<>(), responseEntity.getBody(),
 				responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());

@@ -33,11 +33,11 @@ public class VariableDTO {
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 50)
-	String coordenate;
+	String coordinate;
 
 	@Basic(optional = false)
 	@NotNull
 	@Size(min = 1, max = 50)
-	String valueDefault;
+	String defaultValue;
 
 }

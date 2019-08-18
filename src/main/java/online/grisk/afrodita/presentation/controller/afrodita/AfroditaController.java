@@ -21,25 +21,18 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @Controller
 public class AfroditaController {
-
     @Autowired
     UserService userService;
-    
     @Autowired
-	private RoleService roleService;
-
+    private RoleService roleService;
     @Autowired
     EmailActivatorService emailActivatorService;
-
     @Autowired
     DataintegrationActivatorService dataintegrationActivatorService;
-
     @Autowired
     RiskScoreActivatorService riskScoreActivatorService;
-
     @Autowired
     RiskRatioActivatorService riskRatioActivatorService;
-
     @Autowired
     BusinessTreeActivatorService businessTreeActivatorService;
 
@@ -94,153 +87,23 @@ public class AfroditaController {
         model.addAttribute("description", "Análisis de riesgo");
         model.addAttribute("module", "analysis");
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
         Map<String, Object> getScore = riskScoreActivatorService.invokeGetScore(idOrganization);
         if (getScore.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("score", getScore.get("current_response"));
+            model.addAttribute("riskscore", getScore.get("current_response"));
         }
         Map<String, Object> getRatio = riskRatioActivatorService.invokeGetRatio(idOrganization);
         if (getRatio.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("ratios", getRatio.get("current_response"));
+            model.addAttribute("riskratio", getRatio.get("current_response"));
         }
         Map<String, Object> getTree = businessTreeActivatorService.invokeGetTree(idOrganization);
         if (getTree.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("tree", getTree.get("current_response"));
+            model.addAttribute("businesstree", getTree.get("current_response"));
         }
         return "analysis";
-    }
-
-
-    @RequestMapping(value = "/indicators/score", method = GET)
-    public String indicatorScore(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Risk Score");
-        model.addAttribute("description", "Risk Score");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getScore = riskScoreActivatorService.invokeGetScore(idOrganization);
-            if (getScore.get("status").toString().equalsIgnoreCase("200")) {
-            	model.addAttribute("score", getScore.get("current_response"));
-            }
-        }
-        return "indicator_score/indicator_score";
-    }
-
-    @RequestMapping(value = "/indicators/score/setting", method = GET)
-    public String indicatorScoreSetting(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Risk Score");
-        model.addAttribute("description", "Risk Score");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            List<Map> variablesNumeric = new ArrayList<>();
-            for (Map<String, Object> variable : (List<Map>) ((Map<String, Object>) getDataIntegration.get("current_response")).getOrDefault("variablesCollection", new ArrayList<>())) {
-                if ((boolean) variable.getOrDefault("bureau", false))
-                    variablesNumeric.add(variable);
-            }
-            model.addAttribute("variables", variablesNumeric);
-        }
-        return "indicator_score/indicator_score-setting";
-    }
-    @RequestMapping(value = "/indicators/ratios", method = GET)
-    public String indicatorRatios(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Risk Ratios");
-        model.addAttribute("description", "Risk Ratios");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getRatios = riskRatioActivatorService.invokeGetRatio(idOrganization);
-            if (getRatios.get("status").toString().equalsIgnoreCase("200")) {
-            	model.addAttribute("ratios", getRatios.get("current_response"));
-            }
-        }
-        return "indicator_ratios/indicator_ratios";
-    }
-
-
-    @RequestMapping(value = "/indicators/ratios/setting", method = GET)
-    public String indicatorRatiosSetting(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Risk Ratios");
-        model.addAttribute("description", "Risk Ratios");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            List<Map> variablesNumeric = new ArrayList<>();
-            for (Map<String, Object> variable : (List<Map>) ((Map<String, Object>) getDataIntegration.get("current_response")).getOrDefault("variablesCollection", new ArrayList<>())) {
-                if ((boolean) variable.getOrDefault("bureau", false))
-                    variablesNumeric.add(variable);
-            }
-            model.addAttribute("variables", variablesNumeric);
-        }
-        return "indicator_ratios/indicator_ratios-setting";
-    }
-
-    /*@RequestMapping(value = "/indicators/ratios", method = GET)
-    public String indicatorsRatios(HttpSession session, Model model, Principal principal) {
-        model.addAttribute("title", "Risk Ratios");
-        model.addAttribute("description", "Configuración de Risk Ratios");
-        model.addAttribute("module", "indicators");
-        return "indicator_ratios/indicator_ratios";
-    }*/
-
-    /*@RequestMapping(value = "/indicators/ratios/setting", method = GET)
-    public String indicatorsRatiosSetting(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Risk Ratios");
-        model.addAttribute("description", "Configuración de Risk Ratios");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        getDataIntegration.put("variables", getDataIntegration.get("_childNode"));
-        return "indicator_ratios/indicator_ratios-setting";
-    }*/
-
-    @RequestMapping(value = "/indicators/tree", method = GET)
-    public String indicatorsTree(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Business Tree");
-        model.addAttribute("description", "Configuración de Business Tree");
-        model.addAttribute("module", "indicators");
-        Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getTree = businessTreeActivatorService.invokeGetTree(idOrganization);
-            if (getTree.get("status").toString().equalsIgnoreCase("200")) {
-                model.addAttribute("tree", getTree.get("current_response"));
-            }
-        }
-        return "indicator_tree/indicator_tree";
-    }
-
-    @RequestMapping(value = "/indicators/tree/setting", method = GET)
-    public String indicatorsTreeSetting(HttpSession session, Model model, Principal principal) throws Exception {
-        model.addAttribute("title", "Business Tree");
-        model.addAttribute("description", "Configuración de Business Tree");
-        model.addAttribute("module", "indicators");
-       /* Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
-        if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
-            model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getTree = treeActivatorService.invokeGetTree(idOrganization);
-            if (getTree.get("status").toString().equalsIgnoreCase("200")) {
-                model.addAttribute("tree", getTree.get("current_response"));
-            }
-        }*/
-        return "indicator_tree/indicator_tree-setting";
     }
 
     @RequestMapping(value = "/users/create", method = GET)
@@ -248,12 +111,8 @@ public class AfroditaController {
         model.addAttribute("title", "Crear usuario");
         model.addAttribute("description", "Crear usuario");
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
+        model.addAttribute("organization", idOrganization);
         model.addAttribute("module", "user");
-//        List<Role> roles = afroditaActivatorService.getRoles();
-//        for (int i = 0; i < roles.size(); i++) {
-//			roles.get(i).setUsers(null);
-//		}
         model.addAttribute("roles", afroditaActivatorService.getRoles());
         return "users/user-create";
     }
@@ -264,13 +123,8 @@ public class AfroditaController {
         model.addAttribute("description", "Editar usuario");
         model.addAttribute("module", "user");
         Long idOrganization = userService.findByUsername(principal.getName()).getOrganization().getIdOrganization();
-        model.addAttribute("id_organization", idOrganization);
-//      List<Role> roles = afroditaActivatorService.getRoles();
-//      for (int i = 0; i < roles.size(); i++) {
-//			roles.get(i).setUsers(null);
-//		}
-      model.addAttribute("roles", afroditaActivatorService.getRoles());
-//        model.addAttribute("user", userService.findByUsername(principal.getName()));
+        model.addAttribute("organization", idOrganization);
+        model.addAttribute("roles", afroditaActivatorService.getRoles());
         return "users/user-edit";
     }
 
