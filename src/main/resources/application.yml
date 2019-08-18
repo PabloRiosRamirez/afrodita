@@ -7,7 +7,6 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
 server:
-  port: 8090
   application:
     name: afrodita
   datasource:
@@ -19,6 +18,7 @@ server:
       max-active: 2
     dbcp2:
       max-idle: 2
+#    port: 8090
 #logging:
 #  level:
 #    org:
