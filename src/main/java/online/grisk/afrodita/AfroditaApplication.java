@@ -1,12 +1,11 @@
 package online.grisk.afrodita;
 
-import online.grisk.afrodita.domain.entity.Microservice;
+import online.grisk.afrodita.domain.pojo.Microservice;
 import online.grisk.afrodita.domain.entity.Role;
-import online.grisk.afrodita.domain.entity.TypeVariable;
-import online.grisk.afrodita.domain.entity.Variable;
+import online.grisk.afrodita.domain.pojo.TypeVariable;
 import online.grisk.afrodita.domain.service.RoleService;
-import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.client.RestTemplateBuilder;
@@ -44,10 +43,11 @@ public class AfroditaApplication {
     @LoadBalanced
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder
-                .setConnectTimeout(Duration.ofHours(1))
-                .setReadTimeout(Duration.ofHours(1))
-                .build();
+        /*RestTemplate restTemplate = new RestTemplate(new BufferingClientHttpRequestFactory(new SimpleClientHttpRequestFactory()));
+        List<ClientHttpRequestInterceptor> interceptors = new ArrayList<>();
+        interceptors.add(new LoggingRequestInterceptor());
+        restTemplate.setInterceptors(interceptors);*/
+        return new RestTemplate();
     }
 
     @Bean
@@ -79,9 +79,15 @@ public class AfroditaApplication {
         return messageSource;
     }
 
+    @Value("ARTEMISA_USER")
+    String artemisaUser;
+
+    @Value("ARTEMISA_PASS")
+    String artemisaPass;
+
     @Bean
     Microservice serviceActivatorArtemisa() {
-        return new Microservice("artemisa", HttpMethod.POST, "/api/artemisa", "artemisa", "GRisk.2019", new HashMap<>());
+        return new Microservice("artemisa", HttpMethod.POST, "/api/artemisa", artemisaUser, artemisaPass, new HashMap<>());
     }
 
     @Bean
@@ -99,7 +105,6 @@ public class AfroditaApplication {
         List<TypeVariable> types = new ArrayList<>();
         types.add(new TypeVariable(1L, "Número entero", "NE"));
         types.add(new TypeVariable(2L, "Número decimal", "ND"));
-        types.add(new TypeVariable(3L, "Palabra", "PA"));
         return types;
     }
 }

@@ -38,10 +38,10 @@ var KTWizard3 = function () {
                     $('#content_operation_ratio3').html($('#ratio3_expression').val().trim());
                     $('#content_operation_ratio4').html($('#ratio4_expression').val().trim());
                     setInterval(function () {
-                        $('#content_result_ratio1').html((Math.floor(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio1_fix').val().trim());
-                        $('#content_result_ratio2').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio2_fix').val().trim());
-                        $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio3_fix').val().trim());
-                        $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + ' ' + $('#ratio4_fix').val().trim());
+                        $('#content_result_ratio1').html((Math.floor(Math.random() * 100000.234) + 1000) + ($('#ratio1_postresult').val().trim().length > 0 ? (' ' + $('#ratio1_postresult').val().trim()) : ''));
+                        $('#content_result_ratio2').html((Math.round(Math.random() * 100000.234) + 1000) + ($('#ratio2_postresult').val().trim().length > 0 ? (' ' + $('#ratio2_postresult').val().trim()) : ''));
+                        $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + ($('#ratio3_postresult').val().trim().length > 0 ? (' ' + $('#ratio3_postresult').val().trim()) : ''));
+                        $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + ($('#ratio4_postresult').val().trim().length > 0 ? (' ' + $('#ratio4_postresult').val().trim()) : ''));
                     }, 2000);
 
                 }
@@ -79,8 +79,7 @@ var KTWizard3 = function () {
                 ratio1_titule: {
                     required: true
                 },
-                ratio1_fix: {
-                    required: true
+                ratio1_postresult: {
                 },
                 ratio1_color: {
                     required: true
@@ -92,8 +91,7 @@ var KTWizard3 = function () {
                 ratio2_titule: {
                     required: true
                 },
-                ratio2_fix: {
-                    required: true
+                ratio2_postresult: {
                 },
                 ratio2_color: {
                     required: true
@@ -105,8 +103,7 @@ var KTWizard3 = function () {
                 ratio3_titule: {
                     required: true
                 },
-                ratio3_fix: {
-                    required: true
+                ratio3_postresult: {
                 },
                 ratio3_color: {
                     required: true
@@ -118,8 +115,7 @@ var KTWizard3 = function () {
                 ratio4_titule: {
                     required: true
                 },
-                ratio4_fix: {
-                    required: true
+                ratio4_postresult: {
                 },
                 ratio4_color: {
                     required: true
@@ -171,7 +167,7 @@ var KTWizard3 = function () {
                                     var ratio = {};
                                     ratio["color"] = $('#ratio' + i + '_color').val().trim()
                                     ratio["titule"] = $('#ratio' + i + '_titule').val().trim()
-                                    ratio["fix"] = $('#ratio' + i + '_fix').val().trim()
+                                    ratio["postResult"] = $('#ratio' + i + '_postresult').val().trim()
                                     ratio["expression"] = $('#ratio' + i + '_expression').val().trim()
                                     ratios.push(ratio);
                                 }

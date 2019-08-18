@@ -3,12 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package online.grisk.afrodita.domain.entity;
+package online.grisk.afrodita.domain.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import online.grisk.afrodita.domain.pojo.TypeVariable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,50 +25,40 @@ import java.io.Serializable;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "variable", schema = "public")
 public class Variable implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "id_variable", nullable = false)
     private Long idVariable;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "name", nullable = false, length = 100)
     private String name;
 
-    @Column(name = "code", length = 50)
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 50)
     private String code;
 
-    @Column(name = "coordinate", length = 50)
     private String coordinate;
 
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 100)
-    @Column(name = "default_value", nullable = false, length = 100)
     private String defaultValue;
 
-    @JoinColumn(name = "type_variable", referencedColumnName = "id_type_variable", nullable = false)
-    @ManyToOne(optional = false)
     private TypeVariable typeVariable;
 
     @Basic(optional = false)
     @NotNull
-    @Column(name = "bureau", nullable = false)
     private boolean bureau;
 
     public Variable(Long idVariable) {
         this.idVariable = idVariable;
     }
 
-    public Variable(String name, String code, String coordinate, String defaultValue, boolean bureau) {
+    public Variable(Long idVariable, String name, String code, String coordinate, String defaultValue, boolean bureau) {
         this.idVariable = idVariable;
         this.name = name;
         this.code = code;

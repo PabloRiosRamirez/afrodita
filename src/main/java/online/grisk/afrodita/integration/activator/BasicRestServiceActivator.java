@@ -3,7 +3,7 @@ package online.grisk.afrodita.integration.activator;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
-import online.grisk.afrodita.domain.entity.Microservice;
+import online.grisk.afrodita.domain.pojo.Microservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.messaging.handler.annotation.Headers;

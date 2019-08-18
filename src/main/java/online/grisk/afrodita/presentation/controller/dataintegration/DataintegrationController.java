@@ -1,7 +1,6 @@
 package online.grisk.afrodita.presentation.controller.dataintegration;
 
-import online.grisk.afrodita.domain.entity.TypeVariable;
-import online.grisk.afrodita.domain.entity.Variable;
+import online.grisk.afrodita.domain.pojo.TypeVariable;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
 import online.grisk.afrodita.integration.activator.impl.EmailActivatorService;

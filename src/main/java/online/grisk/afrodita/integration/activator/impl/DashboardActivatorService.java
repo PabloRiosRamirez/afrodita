@@ -1,20 +1,15 @@
 package online.grisk.afrodita.integration.activator.impl;
 
 import online.grisk.afrodita.domain.dto.FileDataIntegrationDTO;
-import online.grisk.afrodita.domain.entity.Microservice;
+import online.grisk.afrodita.domain.pojo.Microservice;
 import online.grisk.afrodita.integration.activator.BasicRestServiceActivator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.messaging.handler.annotation.Headers;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Service;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
 @Service

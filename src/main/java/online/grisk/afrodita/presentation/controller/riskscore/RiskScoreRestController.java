@@ -1,7 +1,6 @@
-package online.grisk.afrodita.presentation.controller.score;
+package online.grisk.afrodita.presentation.controller.riskscore;
 
-import online.grisk.afrodita.integration.activator.impl.DataintegrationActivatorService;
-import online.grisk.afrodita.integration.activator.impl.ScoreActivatorService;
+import online.grisk.afrodita.integration.activator.impl.RiskScoreActivatorService;
 import online.grisk.afrodita.presentation.controller.BasicRestController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +13,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-public class ScoreRestController extends BasicRestController {
+public class RiskScoreRestController extends BasicRestController {
 
     @Autowired
-    ScoreActivatorService scoreActivatorService;
+    RiskScoreActivatorService riskScoreActivatorService;
 
     @PostMapping(value = "/v1/rest/score")
     public ResponseEntity<?> registerRiskScore(@Valid @RequestBody Map payload, Errors errors) throws Exception {
@@ -25,7 +24,7 @@ public class ScoreRestController extends BasicRestController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         this.verifyParameters(payload);
-        Map response = scoreActivatorService.invokeRegisterScore(payload, new HashMap());
+        Map response = riskScoreActivatorService.invokeRegisterScore(payload, new HashMap());
         return new ResponseEntity<>(response, HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
     }
 

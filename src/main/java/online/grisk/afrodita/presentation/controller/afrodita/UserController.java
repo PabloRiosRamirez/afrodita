@@ -124,14 +124,11 @@ public class UserController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		try {
-			
-			//validate if role is admin and is last supperuser, can't disable it
 			User user = userService.findByIdUser(id);
 			
 			List<User> usersAdmins = userService.findAdminsByOrganizationId(user.getOrganization().getIdOrganization());
 			
 			if(usersAdmins.size() <= 1) {
-				//return 409 confict
 				return new ResponseEntity<String>("You are last admin of organization, impossible disable you!!!", HttpStatus.CONFLICT);
 			}
 			

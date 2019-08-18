@@ -1,4 +1,4 @@
-package online.grisk.afrodita.domain.entity;
+package online.grisk.afrodita.domain.pojo;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;

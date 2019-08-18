@@ -1,7 +1,6 @@
 package online.grisk.afrodita.presentation.controller.afrodita;
 
-import online.grisk.afrodita.domain.entity.Role;
-import online.grisk.afrodita.domain.entity.TypeVariable;
+import online.grisk.afrodita.domain.pojo.TypeVariable;
 import online.grisk.afrodita.domain.service.RoleService;
 import online.grisk.afrodita.domain.service.UserService;
 import online.grisk.afrodita.integration.activator.impl.*;
@@ -36,13 +35,13 @@ public class AfroditaController {
     DataintegrationActivatorService dataintegrationActivatorService;
 
     @Autowired
-    ScoreActivatorService scoreActivatorService;
+    RiskScoreActivatorService riskScoreActivatorService;
 
     @Autowired
-    RatioActivatorService ratioActivatorService;
+    RiskRatioActivatorService riskRatioActivatorService;
 
     @Autowired
-    TreeActivatorService treeActivatorService;
+    BusinessTreeActivatorService businessTreeActivatorService;
 
     @Autowired
     AfroditaActivatorService afroditaActivatorService;
@@ -100,15 +99,15 @@ public class AfroditaController {
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
         }
-        Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
+        Map<String, Object> getScore = riskScoreActivatorService.invokeGetScore(idOrganization);
         if (getScore.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("score", getScore.get("current_response"));
         }
-        Map<String, Object> getRatio = ratioActivatorService.invokeGetRatio(idOrganization);
+        Map<String, Object> getRatio = riskRatioActivatorService.invokeGetRatio(idOrganization);
         if (getRatio.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("ratios", getRatio.get("current_response"));
         }
-        Map<String, Object> getTree = treeActivatorService.invokeGetTree(idOrganization);
+        Map<String, Object> getTree = businessTreeActivatorService.invokeGetTree(idOrganization);
         if (getTree.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("tree", getTree.get("current_response"));
         }
@@ -125,7 +124,7 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getScore = scoreActivatorService.invokeGetScore(idOrganization);
+            Map<String, Object> getScore = riskScoreActivatorService.invokeGetScore(idOrganization);
             if (getScore.get("status").toString().equalsIgnoreCase("200")) {
             	model.addAttribute("score", getScore.get("current_response"));
             }
@@ -161,7 +160,7 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getRatios = ratioActivatorService.invokeGetRatio(idOrganization);
+            Map<String, Object> getRatios = riskRatioActivatorService.invokeGetRatio(idOrganization);
             if (getRatios.get("status").toString().equalsIgnoreCase("200")) {
             	model.addAttribute("ratios", getRatios.get("current_response"));
             }
@@ -219,7 +218,7 @@ public class AfroditaController {
         Map<String, Object> getDataIntegration = dataintegrationActivatorService.invokeGetDataIntegration(idOrganization);
         if (getDataIntegration.get("status").toString().equalsIgnoreCase("200")) {
             model.addAttribute("dataintegration", getDataIntegration.get("current_response"));
-            Map<String, Object> getTree = treeActivatorService.invokeGetTree(idOrganization);
+            Map<String, Object> getTree = businessTreeActivatorService.invokeGetTree(idOrganization);
             if (getTree.get("status").toString().equalsIgnoreCase("200")) {
                 model.addAttribute("tree", getTree.get("current_response"));
             }

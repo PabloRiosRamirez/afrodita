@@ -6,7 +6,7 @@ import online.grisk.afrodita.domain.dto.ResetPassDTO;
 import online.grisk.afrodita.domain.dto.UserDTO;
 import online.grisk.afrodita.domain.dto.UserRegistrationAdminDTO;
 import online.grisk.afrodita.domain.dto.UserUpdateAdminDTO;
-import online.grisk.afrodita.domain.entity.Microservice;
+import online.grisk.afrodita.domain.pojo.Microservice;
 import online.grisk.afrodita.domain.entity.User;
 import online.grisk.afrodita.domain.service.ArtemisaService;
 import online.grisk.afrodita.domain.service.OrganizationService;

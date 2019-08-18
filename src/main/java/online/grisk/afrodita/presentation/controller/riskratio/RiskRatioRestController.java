@@ -1,4 +1,4 @@
-package online.grisk.afrodita.presentation.controller.ratio;
+package online.grisk.afrodita.presentation.controller.riskratio;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import online.grisk.afrodita.integration.activator.impl.RatioActivatorService;
+import online.grisk.afrodita.integration.activator.impl.RiskRatioActivatorService;
 import online.grisk.afrodita.presentation.controller.BasicRestController;
 
 @RestController
-public class RatioRestController extends BasicRestController {
+public class RiskRatioRestController extends BasicRestController {
 
 	@Autowired
-	private RatioActivatorService ratioActivatorService;
+	private RiskRatioActivatorService riskRatioActivatorService;
 
 	@PostMapping(value = "/v1/rest/ratios")
 	public ResponseEntity<?> registerRiskRatio(@Valid @RequestBody Map payload, Errors errors) throws Exception {
@@ -28,7 +28,7 @@ public class RatioRestController extends BasicRestController {
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		}
 		this.verifyParameters(payload);
-		Map response = ratioActivatorService.invokeRegisterRatio(payload, new HashMap());
+		Map response = riskRatioActivatorService.invokeRegisterRatio(payload, new HashMap());
 
 		return new ResponseEntity<>(response,
 				HttpStatus.valueOf(Integer.parseInt(response.getOrDefault("status", "500").toString())));
