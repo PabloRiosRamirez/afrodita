@@ -100,7 +100,12 @@ var KTLoginGeneral = function () {
 
             var btn = $(this);
             var form = $(this).closest('form');
-
+            $.validator.addMethod('validateRut', function (value, element, param) {
+                return $.validateRut(value);
+            }, 'Rut invalido');
+            $.validator.addMethod('forcePassword', function (value, element, param) {
+                return value.match(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/);
+            }, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.');
             form.validate({
                 rules: {
                     username: {
@@ -111,16 +116,18 @@ var KTLoginGeneral = function () {
                         email: true
                     },
                     password: {
-                        required: true
+                        required: true,
+                        forcePassword: true
                     },
                     rpassword: {
                         required: true,
                         equalTo: "#kt-login__signup-rpassword"
                     },
-                    rut_empresa: {
-                        required: true
+                    rut_organization: {
+                        required: true,
+                        validateRut: true
                     },
-                    nombre_empresa: {
+                    name_organization: {
                         required: true
                     },
                     agree: {
@@ -189,6 +196,12 @@ var KTLoginGeneral = function () {
         });
     }
 
+    var initValidateRut = function () {
+        $('#kt-login__signup-rut_organization').on('keyup', function (e) {
+            e.preventDefault();
+            $('#kt-login__signup-rut_organization').val($.formatRut($('#kt-login__signup-rut_organization').val()));
+        });
+    }
     var handleForgotFormSubmit = function () {
         $('#kt_login_forgot_submit').click(function (e) {
             e.preventDefault();
@@ -251,6 +264,7 @@ var KTLoginGeneral = function () {
             handleSignInFormSubmit();
             handleSignUpFormSubmit();
             handleForgotFormSubmit();
+            initValidateRut();
         }
     };
 }();
