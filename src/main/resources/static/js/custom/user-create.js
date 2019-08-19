@@ -6,9 +6,9 @@ var KTWizard3 = function () {
     var validator;
 
     var initValidation = function () {
-        $.validator.addMethod('validateUsername', function (value, element, param) {
-            return value.match(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])$/);
-        }, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.');
+        // $.validator.addMethod('validateUsername', function (value, element, param) {
+        //     return value.match(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])$/);
+        // }, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.');
         validator = form.validate({
             ignore: ":hidden",
             rules: {

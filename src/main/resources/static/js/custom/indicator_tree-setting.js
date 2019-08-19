@@ -199,7 +199,7 @@ var initValidation = function () {
             tree_variable: {
                 required: true
             },
-            tree_operation: {
+            tree_comparator: {
                 required: true
             },
             tree_value_comparator: {
@@ -238,7 +238,7 @@ $('#create_node').click(function (e) {
         top: Math.round((Math.random() * 210) + 1),
         left: Math.round((Math.random() * (document.getElementById("tree").clientWidth - 200)) + 1),
         properties: {
-            title: '{' + $('#tree_variable').val().trim() + '} ' + $('#tree_operation').val().trim() + ' ' + $('#tree_value_comparator').val().trim(),
+            title: '{' + $('#tree_variable').val().trim() + '} ' + $('#tree_comparator').val().trim() + ' ' + $('#tree_value_comparator').val().trim(),
             outputs: {
                 output_1: {
                     label: 'Afirmación',
@@ -254,7 +254,7 @@ $('#create_node').click(function (e) {
         top: Math.round((Math.random() * 210) + 1),
         left: Math.round((Math.random() * (document.getElementById("tree").clientWidth - 200)) + 1),
         properties: {
-            title: '{' + $('#tree_variable').val().trim() + '} ' + $('#tree_operation').val().trim() + ' ' + $('#tree_value_comparator').val().trim(),
+            title: '{' + $('#tree_variable').val().trim() + '} ' + $('#tree_comparator').val().trim() + ' ' + $('#tree_value_comparator').val().trim(),
             inputs: {
                 input_1: {
                     label: 'Entrada',
@@ -283,7 +283,7 @@ $('#create_node').click(function (e) {
         $('.flowchart-operator-inputs-outputs').attr('style', 'margin-top: 0px; margin-bottom: 0px;');
         $('#modal_add_node').modal('hide');
         $('#tree_variable').val($('#tree_variable').children().get(0).value);
-        $('#tree_operation').val($('#tree_operation').children().get(0).value);
+        $('#tree_comparator').val($('#tree_comparator').children().get(0).value);
         $('#tree_value_comparator').val('');
         idOperator++;
     }else{
