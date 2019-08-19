@@ -357,7 +357,7 @@ function processDataTree() {
     }
     var arrayNodes = [];
     getNode(arrayNodes, objectNode, getNameMainNode());
-    arrayNodes[arrayNodes.length].main = true;
+    arrayNodes[arrayNodes.length-1].main = true;
     return arrayNodes;
 }
 
