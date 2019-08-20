@@ -1,5 +1,46 @@
 "use strict";
 
+function addTemplate(titule, expression, sufijo, color) {
+    return "                                                                        <div class=\"form-group row\">\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <label>Titulo:</label>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <strong class=\"text-info\">\n" +
+    titule +
+    "</strong>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <label>Expresión\n" +
+    "                                                                                    matemática:</label>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <strong class=\"text-info\">\n" +
+    expression +
+    "</strong>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <label>Sufijo\n" +
+    "                                                                                    (Opcional):</label>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <strong class=\"text-info\">\n" +
+    sufijo +
+    "</strong>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <label>Color:</label>\n" +
+    "                                                                            </div>\n" +
+    "                                                                            <div class=\"col-3\">\n" +
+    "                                                                                <input class=\"form-control\"\n" +
+    "                                                                                       disabled=\"\"\n" +
+    "                                                                                       type=\"color\" value=\"" +
+    color +
+    "\">\n" +
+    "                                                                            </div>\n" +
+    "                                                                        </div>\n";
+}
+
 // Class definition
 var KTWizard3 = function () {
     // Base elements
@@ -7,6 +48,7 @@ var KTWizard3 = function () {
     var formEl;
     var validator;
     var wizard;
+
 
     // Private functions
     var initWizard = function () {
@@ -43,6 +85,13 @@ var KTWizard3 = function () {
                         $('#content_result_ratio3').html((Math.round(Math.random() * 100000.234) + 1000) + ($('#ratio3_postresult').val().trim().length > 0 ? (' ' + $('#ratio3_postresult').val().trim()) : ''));
                         $('#content_result_ratio4').html((Math.round(Math.random() * 100000.234) + 1000) + ($('#ratio4_postresult').val().trim().length > 0 ? (' ' + $('#ratio4_postresult').val().trim()) : ''));
                     }, 2000);
+                    var template = addTemplate($('#ratio1_titule').val().trim(), $('#ratio1_expression').val().trim(), $('#ratio1_postresult').val().length > 0 ? '' : $('#ratio1_postresult').val().trim(), $('#ratio1_color').val().trim());
+                    template += addTemplate($('#ratio2_titule').val().trim(), $('#ratio2_expression').val().trim(), $('#ratio2_postresult').val().length > 0 ? '' : $('#ratio2_postresult').val().trim(), $('#ratio2_color').val().trim());
+                    template += addTemplate($('#ratio3_titule').val().trim(), $('#ratio3_expression').val().trim(), $('#ratio3_postresult').val().length > 0 ? '' : $('#ratio3_postresult').val().trim(), $('#ratio3_color').val().trim());
+                    template += addTemplate($('#ratio4_titule').val().trim(), $('#ratio4_expression').val().trim(), $('#ratio4_postresult').val().length > 0 ? '' : $('#ratio4_postresult').val().trim(), $('#ratio4_color').val().trim());
+
+                    $('#content_template').html(template);
+
 
                 }
             }
@@ -79,8 +128,7 @@ var KTWizard3 = function () {
                 ratio1_titule: {
                     required: true
                 },
-                ratio1_postresult: {
-                },
+                ratio1_postresult: {},
                 ratio1_color: {
                     required: true
                 },
@@ -91,8 +139,7 @@ var KTWizard3 = function () {
                 ratio2_titule: {
                     required: true
                 },
-                ratio2_postresult: {
-                },
+                ratio2_postresult: {},
                 ratio2_color: {
                     required: true
                 },
@@ -103,8 +150,7 @@ var KTWizard3 = function () {
                 ratio3_titule: {
                     required: true
                 },
-                ratio3_postresult: {
-                },
+                ratio3_postresult: {},
                 ratio3_color: {
                     required: true
                 },
@@ -115,8 +161,7 @@ var KTWizard3 = function () {
                 ratio4_titule: {
                     required: true
                 },
-                ratio4_postresult: {
-                },
+                ratio4_postresult: {},
                 ratio4_color: {
                     required: true
                 },

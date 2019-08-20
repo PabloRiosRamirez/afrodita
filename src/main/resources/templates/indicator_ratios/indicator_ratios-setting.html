@@ -104,7 +104,8 @@
 
                                             <!--end: Form Wizard Nav -->
                                         </div>
-                                        <input id="organization" type="text" hidden th:value="${dataintegration.organization}">
+                                        <input id="organization" type="text" hidden
+                                               th:value="${dataintegration.organization}">
                                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                                             <!--begin: Form Wizard Form-->
@@ -132,7 +133,8 @@
                                                                 <div class="col-md-6 col-lg-5">
                                                                     <div class="form-group">
                                                                         <label>Sufijo (Opcional):</label>
-                                                                        <input class="form-control" id="ratio1_postresult"
+                                                                        <input class="form-control"
+                                                                               id="ratio1_postresult"
                                                                                name="ratio1_postresult"
                                                                                placeholder="Sufijo del ratio"
                                                                                type="text">
@@ -188,7 +190,8 @@
                                                                 <div class="col-md-6 col-lg-5">
                                                                     <div class="form-group">
                                                                         <label>Sufijo:</label>
-                                                                        <input class="form-control" id="ratio2_postresult"
+                                                                        <input class="form-control"
+                                                                               id="ratio2_postresult"
                                                                                name="ratio2_postresult"
                                                                                placeholder="Sufijo del ratio"
                                                                                type="text">
@@ -244,7 +247,8 @@
                                                                 <div class="col-md-6 col-lg-5">
                                                                     <div class="form-group">
                                                                         <label>Sufijo:</label>
-                                                                        <input class="form-control" id="ratio3_postresult"
+                                                                        <input class="form-control"
+                                                                               id="ratio3_postresult"
                                                                                name="ratio3_postresult"
                                                                                placeholder="Sufijo del ratio"
                                                                                type="text">
@@ -298,7 +302,8 @@
                                                                 <div class="col-md-6 col-lg-5">
                                                                     <div class="form-group">
                                                                         <label>Sufijo:</label>
-                                                                        <input class="form-control" id="ratio4_postresult"
+                                                                        <input class="form-control"
+                                                                               id="ratio4_postresult"
                                                                                name="ratio4_postresult"
                                                                                placeholder="Sufijo del ratio"
                                                                                type="text">
@@ -340,109 +345,119 @@
                                                     </div>
                                                     <div class="kt-form__section kt-form__section--first">
                                                         <div class="kt-wizard-v3__review">
+
                                                             <div class="kt-wizard-v3__review-item">
-                                                                <div class="kt-wizard-v3__review-title">
-                                                                    Ratio #1
-                                                                </div>
-                                                                <div class="kt-wizard-v3__review-content">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
-                                                                             id="content_background_ratio1">
-                                                                            <div class="kt-portlet__head">
-                                                                                <div class="kt-portlet__head-label">
-                                                                                    <span class="kt-portlet__head-icon">
-                                                                                        <i class="flaticon-star"></i>
-                                                                                    </span>
-                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                                                                                        id="content_titule_ratio1">
-                                                                                    </h1>
-                                                                                </div>
-                                                                            </div>
-                                                                            <div class="kt-portlet__body">
-                                                                                <h1 class="text-right" id="content_result_ratio1" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                                                    --</h1>
-                                                                                <small id="content_operation_ratio1">--</small>
-                                                                            </div>
-                                                                        </div>
+                                                                <div class="form-group">
+                                                                    <div class="form-group">
+                                                                        <label>Detalles
+                                                                            de los ratios
+                                                                            configurados:</label>
+                                                                    </div>
+                                                                    <div id="content_template">
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                             <div class="kt-wizard-v3__review-item">
                                                                 <div class="kt-wizard-v3__review-title">
-                                                                    Ratio #2
+                                                                    <div class="form-group row">
+                                                                        Representación al momento de realizar el
+                                                                        análisis
+                                                                    </div>
                                                                 </div>
                                                                 <div class="kt-wizard-v3__review-content">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
-                                                                             id="content_background_ratio2">
-                                                                            <div class="kt-portlet__head">
-                                                                                <div class="kt-portlet__head-label">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                                 id="content_background_ratio1">
+                                                                                <div class="kt-portlet__head">
+                                                                                    <div class="kt-portlet__head-label">
                                                                                     <span class="kt-portlet__head-icon">
                                                                                         <i class="flaticon-star"></i>
                                                                                     </span>
-                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                                                                                        id="content_titule_ratio2">
-                                                                                    </h1>
+                                                                                        <h1 class="kt-portlet__head-title"
+                                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                            id="content_titule_ratio1">
+                                                                                        </h1>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="kt-portlet__body">
+                                                                                    <h1 class="text-right"
+                                                                                        id="content_result_ratio1"
+                                                                                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                        --</h1>
+                                                                                    <small id="content_operation_ratio1">--</small>
                                                                                 </div>
                                                                             </div>
-                                                                            <div class="kt-portlet__body">
-                                                                                <h1 class="text-right" id="content_result_ratio2" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                                                    --</h1>
-                                                                                <small id="content_operation_ratio2">--</small>
+                                                                        </div>
+                                                                        <div class="col-lg-6">
+                                                                            <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                                 id="content_background_ratio2">
+                                                                                <div class="kt-portlet__head">
+                                                                                    <div class="kt-portlet__head-label">
+                                                                                    <span class="kt-portlet__head-icon">
+                                                                                        <i class="flaticon-star"></i>
+                                                                                    </span>
+                                                                                        <h1 class="kt-portlet__head-title"
+                                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                            id="content_titule_ratio2">
+                                                                                        </h1>
+                                                                                    </div>
+                                                                                </div>
+                                                                                <div class="kt-portlet__body">
+                                                                                    <h1 class="text-right"
+                                                                                        id="content_result_ratio2"
+                                                                                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                        --</h1>
+                                                                                    <small id="content_operation_ratio2">--</small>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-wizard-v3__review-item">
-                                                                <div class="kt-wizard-v3__review-title">
-                                                                    Ratio #3
-                                                                </div>
-                                                                <div class="kt-wizard-v3__review-content">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
-                                                                             id="content_background_ratio3">
-                                                                            <div class="kt-portlet__head">
-                                                                                <div class="kt-portlet__head-label">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                                 id="content_background_ratio3">
+                                                                                <div class="kt-portlet__head">
+                                                                                    <div class="kt-portlet__head-label">
                                                                                     <span class="kt-portlet__head-icon">
                                                                                         <i class="flaticon-star"></i>
                                                                                     </span>
-                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                                                                                        id="content_titule_ratio3">
-                                                                                    </h1>
+                                                                                        <h1 class="kt-portlet__head-title"
+                                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                            id="content_titule_ratio3">
+                                                                                        </h1>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="kt-portlet__body">
-                                                                                <h1 class="text-right" id="content_result_ratio3" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                                                    --</h1>
-                                                                                <small id="content_operation_ratio3">--</small>
+                                                                                <div class="kt-portlet__body">
+                                                                                    <h1 class="text-right"
+                                                                                        id="content_result_ratio3"
+                                                                                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                        --</h1>
+                                                                                    <small id="content_operation_ratio3">--</small>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="kt-wizard-v3__review-item">
-                                                                <div class="kt-wizard-v3__review-title">
-                                                                    Ratio #4
-                                                                </div>
-                                                                <div class="kt-wizard-v3__review-content">
-                                                                    <div class="col-lg-12">
-                                                                        <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
-                                                                             id="content_background_ratio4">
-                                                                            <div class="kt-portlet__head">
-                                                                                <div class="kt-portlet__head-label">
+                                                                        <div class="col-lg-6">
+                                                                            <div class="kt-portlet kt-portlet--skin-solid kt-portlet--"
+                                                                                 id="content_background_ratio4">
+                                                                                <div class="kt-portlet__head">
+                                                                                    <div class="kt-portlet__head-label">
                                                                                     <span class="kt-portlet__head-icon">
                                                                                         <i class="flaticon-star"></i>
                                                                                     </span>
-                                                                                    <h1 class="kt-portlet__head-title" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                                                                                        id="content_titule_ratio4">
-                                                                                    </h1>
+                                                                                        <h1 class="kt-portlet__head-title"
+                                                                                            style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                                                                                            id="content_titule_ratio4">
+                                                                                        </h1>
+                                                                                    </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="kt-portlet__body">
-                                                                                <h1 class="text-right" id="content_result_ratio4" style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
-                                                                                    --</h1>
-                                                                                <small id="content_operation_ratio4">--</small>
+                                                                                <div class="kt-portlet__body">
+                                                                                    <h1 class="text-right"
+                                                                                        id="content_result_ratio4"
+                                                                                        style="white-space: nowrap;overflow: hidden;text-overflow: ellipsis;">
+                                                                                        --</h1>
+                                                                                    <small id="content_operation_ratio4">--</small>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>

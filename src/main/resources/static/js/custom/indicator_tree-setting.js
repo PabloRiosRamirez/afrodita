@@ -334,7 +334,7 @@ function processDataTree() {
         node['output'] = operator.properties['outputs'] == undefined;
         if (operator.properties['outputs'] == undefined) {
             node['label'] = operator.properties['title'];
-            node['color'] = $('.'+operator.properties["class"].replace("operator-output ", ""))[0].style['background-color'];
+            node['color'] = rgb2hex($('.' + operator.properties["class"].replace("operator-output ", ""))[0].style['background-color']);
         } else {
             node['expression'] = operator.properties['title'];
             node['childrenNegation'] = getBrotherNode(node['id'], true, undefined);
@@ -346,7 +346,60 @@ function processDataTree() {
     var arrayNodes = [];
     getNode(arrayNodes, objectNode, getNameMainNode());
     arrayNodes[arrayNodes.length - 1].main = true;
+
+    var templateNodes = "";
+    var templateOutput = "";
+    for (var i = 0; i < arrayNodes.length; i++) {
+        if(!arrayNodes[i].output){
+            templateNodes += addNodes(arrayNodes[i].expression);
+        }else{
+            templateOutput += addOutput(arrayNodes[i].labelOutput, arrayNodes[i].color);
+        }
+    }
+    $('#content_nodes').html(templateNodes);
+    $('#content_output').html(templateOutput);
     return arrayNodes;
+}
+
+function addNodes(expression) {
+    return
+    "<div class=\"col-3\">\n" +
+    "   <label>Expresión:</label>\n" +
+    "</div>\n" +
+    "<div class=\"col-6\">\n" +
+    "    <strong class=\"text-info\"\n" +
+    "            text=\"" + expression + "\"></strong>\n" +
+    "</div>";
+}
+
+function addOutput(label, color) {
+    return
+    "<div class=\"col-4\">\n" +
+    "    <label>Texto de\n" +
+    "        salida:</label>\n" +
+    "</div>\n" +
+    "<div class=\"col-3\">\n" +
+    "    <strong class=\"text-info\"\n" +
+    "            text=\""+label +"\"></strong>\n" +
+    "</div>\n" +
+    "<div class=\"col-3\">\n" +
+    "    <label>Color:</label>\n" +
+    "</div>\n" +
+    "<div class=\"col-2\">\n" +
+    "    <input class=\"form-control\"\n" +
+    "           disabled=\"\"\n" +
+    "           type=\"color\"\n" +
+    "           value=\""+color +"\">\n" +
+    "</div>";
+}
+
+
+function rgb2hex(rgb) {
+    rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
+    return (rgb && rgb.length === 4) ? "#" +
+        ("0" + parseInt(rgb[1], 10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[2], 10).toString(16)).slice(-2) +
+        ("0" + parseInt(rgb[3], 10).toString(16)).slice(-2) : '';
 }
 
 function getBrotherNode(fatherNode, isfirst, brotherNode) {
