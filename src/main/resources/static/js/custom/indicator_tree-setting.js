@@ -334,7 +334,7 @@ function processDataTree() {
         node['output'] = operator.properties['outputs'] == undefined;
         if (operator.properties['outputs'] == undefined) {
             node['label'] = operator.properties['title'];
-            node['color'] = operator.properties['title'];
+            node['color'] = $('.'+operator.properties["class"].replace("operator-output ", ""))[0].style['background-color'];
         } else {
             node['expression'] = operator.properties['title'];
             node['childrenNegation'] = getBrotherNode(node['id'], true, undefined);
