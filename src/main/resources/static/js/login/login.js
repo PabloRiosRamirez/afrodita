@@ -93,7 +93,7 @@ var KTLoginGeneral = function () {
             form.submit();
         });
     }
-
+    
     var handleSignUpFormSubmit = function () {
         $('#kt_login_signup_submit').click(function (e) {
             e.preventDefault();
@@ -111,16 +111,19 @@ var KTLoginGeneral = function () {
                         email: true
                     },
                     password: {
-                        required: true
+                        required: true,
+                        minlength: 6,
+                        maxlength: 25
                     },
                     rpassword: {
                         required: true,
                         equalTo: "#kt-login__signup-rpassword"
                     },
-                    rut_empresa: {
-                        required: true
+                    rut_organization: {
+                        required: true,
+                        maxlength: 10
                     },
-                    nombre_empresa: {
+                    name_organization: {
                         required: true
                     },
                     agree: {
@@ -128,7 +131,8 @@ var KTLoginGeneral = function () {
                     }
                 }
             });
-
+            
+            
             if (!form.valid()) {
                 return;
             }

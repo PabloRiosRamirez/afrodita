@@ -63,12 +63,12 @@
                         </div>
                         <form id="login_signin" class="kt-form" th:action="@{/check_login}" method="POST">
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Usuario o correo electrónico"
+                                <input class="form-control" type="text" id="userName" maxlength="49" onfocusout="validateUserName" placeholder="Usuario o correo electrónico"                   
                                        name="username"
                                        autocomplete="off">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" type="password" placeholder="Contraseña" name="password">
+                                <input class="form-control" type="password" maxlength="49" placeholder="Contraseña" name="password">
                             </div>
                             <div class="row kt-login__extra">
                                 <div class="col">
@@ -128,13 +128,30 @@
                                     <div class="input-group col-lg-6">
                                         <input class="form-control" type="text" placeholder="Rut comercial"
                                                id="kt-login__signup-rut_organization" name="rut_organization"
-                                               autocomplete="off"
+                                               autocomplete="off" maxlength="10" onkeypress="return isNumberKey(event)" onblur="formatoRut(this);"
                                                style="margin-left: 10px;margin-right: 10px;">
+                                               <script>	
+                                               function formatoRut(obj) {
+		                                       		    var numbers = obj.value.replace(/\D/g, ''),
+		                                		        char = {8:'-'};
+		                                		    obj.value = '';
+		                                		    for (var i = 0; i < numbers.length; i++) {
+		                                		        obj.value += (char[i]||'') + numbers[i];
+		                                		    }
+		                                		}</script>
+		                                		<script>
+		                                		function isNumberKey(evt){
+		                                		    var charCode = (evt.which) ? evt.which : evt.keyCode;
+		                                		    if (charCode > 31 && (charCode < 48 || charCode > 57))
+		                                		        return false;
+		                                		    return true;
+		                                		}
+		                                		</script>
                                     </div>
                                     <div class="input-group col-lg-6">
                                         <input class="form-control" type="text" placeholder="Nombre de tu empresa"
                                                id="kt-login__signup-name_organization" name="name_organization"
-                                               autocomplete="off"
+                                               autocomplete="off" 
                                                style="margin-left: 10px;margin-right: 10px;">
                                     </div>
                                     <div class="row kt-login__extra col-lg-12" style="margin-top: 30px">
