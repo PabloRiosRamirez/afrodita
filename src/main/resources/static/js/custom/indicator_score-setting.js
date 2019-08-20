@@ -210,7 +210,7 @@ var KTWizard3 = function () {
                             if (validator.form()) {
                                 KTApp.progress(btn);
                                 var score = {};
-                                score['titulo'] = $('#score_titule').val();
+                                score['titule'] = $('#score_titule').val();
                                 score['variable'] = $('#score_variable').val();
                                 score['organization'] = $('#organization').val();
                                 var cant = $('[name*="[lowerLimit]"]').length;
