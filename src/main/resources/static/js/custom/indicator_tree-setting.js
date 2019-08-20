@@ -92,64 +92,52 @@ var KTWizard3 = function () {
     var initSubmit = function () {
         var btn = formEl.find('[data-ktwizard-type="action-submit"]');
         btn.on('click', function (e) {
-            /*            Swal.fire({
-                            title: '¿Está seguro de guardar esta configuración?',
-                            text: "Si guarda esto, si es que existe una configuración anterior de Risk Ratios está se borrará para siempre.",
-                            type: 'warning',
-                            showCancelButton: true,
-                            cancelButtonText: "Atrás",
-                            confirmButtonText: 'Si, deseo guardar esto!'
-                        })
-                            .then(function (result) {
-                                    if (result.value) {
-                                        if (validator.form()) {
-                                            KTApp.progress(btn);
-                                            var riskRatio = {};
-                                            riskRatio['organization'] = $('#organization').val();
-                                            var ratios = [];
-                                            for (var i = 1; i < 5; i++) {
-                                                var ratio = {};
-                                                ratio["color"] = $('#ratio' + i + '_color').val().trim()
-                                                ratio["titule"] = $('#ratio' + i + '_titule').val().trim()
-                                                ratio["fix"] = $('#ratio' + i + '_fix').val().trim()
-                                                ratio["expression"] = $('#ratio' + i + '_expression').val().trim()
-                                                ratios.push(ratio);
-                                            }
-                                            riskRatio['ratios'] = ratios;
-                                            $.ajax({
-                                                type: "POST",
-                                                contentType: "application/json",
-                                                url: "/v1/rest/ratios",
-                                                data: JSON.stringify(riskRatio),
-                                                dataType: 'json',
-                                                cache: false,
-                                                timeout: 60000,
-                                                success: function (data, textStatus, jqXHR) {
-                                                    Swal.fire({
-                                                        title: "",
-                                                        text: "La configuración de Risk Ratios ha sido guardado correctamente!",
-                                                        type: "success",
-                                                        onClose: function () {
-                                                            window.location = "/ratios"
-                                                        }
-                                                    });
-                                                },
-                                                error: function (jqXHR, textStatus, errorThrown) {
-                                                    KTApp.unprogress(btn);
-                                                    swal.fire({
-                                                        "title": "",
-                                                        "text": "Ha ocurrido un error inesperado, por favor intente nuevamente!",
-                                                        "type": "error",
-                                                        "confirmButtonClass": "btn btn-secondary"
-                                                    });
-
-                                                }
-                                            });
-
+            Swal.fire({
+                title: '¿Está seguro de guardar esta configuración?',
+                text: "Si guarda esto, si es que existe una configuración anterior de Business Tree está se borrará para siempre.",
+                type: 'warning',
+                showCancelButton: true,
+                cancelButtonText: "Atrás",
+                confirmButtonText: 'Si, deseo guardar esto!'
+            })
+                .then(function (result) {
+                        if (result.value) {
+                            KTApp.progress(btn);
+                            var businesstree = {};
+                            businesstree['organization'] = $('#organization').val();
+                            var arrayNode = processDataTree();
+                            businesstree['nodes'] = arrayNode;
+                            $.ajax({
+                                type: "POST",
+                                contentType: "application/json",
+                                url: "/v1/rest/tree",
+                                data: JSON.stringify(businesstree),
+                                dataType: 'json',
+                                cache: false,
+                                timeout: 60000,
+                                success: function (data, textStatus, jqXHR) {
+                                    Swal.fire({
+                                        title: "",
+                                        text: "La configuración de Business Tree ha sido guardado correctamente!",
+                                        type: "success",
+                                        onClose: function () {
+                                            window.location = "/indicators/businesstree"
                                         }
-                                    }
+                                    });
+                                },
+                                error: function (jqXHR, textStatus, errorThrown) {
+                                    KTApp.unprogress(btn);
+                                    swal.fire({
+                                        "title": "",
+                                        "text": "Ha ocurrido un error inesperado, por favor intente nuevamente!",
+                                        "type": "error",
+                                        "confirmButtonClass": "btn btn-secondary"
+                                    });
                                 }
-                            );*/
+                            });
+                        }
+                    }
+                );
         });
     }
 
@@ -286,7 +274,7 @@ $('#create_node').click(function (e) {
         $('#tree_comparator').val($('#tree_comparator').children().get(0).value);
         $('#tree_value_comparator').val('');
         idOperator++;
-    }else{
+    } else {
         $('#modal_add_node').modal('show');
     }
 });
@@ -326,7 +314,7 @@ $('#create_output').click(function (e) {
         $('#tree_label_output').val('');
         $('#tree_color_output').val('#ac1dcd');
         idOutput++;
-    }else{
+    } else {
         $('#modal_add_output').modal('show');
     }
 });
@@ -357,7 +345,7 @@ function processDataTree() {
     }
     var arrayNodes = [];
     getNode(arrayNodes, objectNode, getNameMainNode());
-    arrayNodes[arrayNodes.length-1].main = true;
+    arrayNodes[arrayNodes.length - 1].main = true;
     return arrayNodes;
 }
 
@@ -399,5 +387,4 @@ function getNode(arrayNode, objectNode, nameNode) {
     if (objectNode[nameNode].childrenAffirmation != undefined)
         getNode(arrayNode, objectNode, objectNode[nameNode].childrenAffirmation);
     arrayNode.push(objectNode[nameNode]);
-
 }

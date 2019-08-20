@@ -106,7 +106,8 @@
 
                                             <!--end: Form Wizard Nav -->
                                         </div>
-                                        <!--                                        <input id="organization" type="text" hidden th:value="${dataintegration.organization}">-->
+                                        <input id="organization" type="text" hidden
+                                               th:value="${dataintegration.organization}">
                                         <div class="kt-grid__item kt-grid__item--fluid kt-wizard-v3__wrapper">
 
                                             <!--begin: Form Wizard Form-->
@@ -123,7 +124,9 @@
                                                     <div class="kt-form__section kt-form__section--first">
                                                         <div class="kt-wizard-v3__form">
                                                             <div class="row">
-                                                                <label>Debe ingresar los nodos necesarios, como mínimo debe existir un nodo inicial con dos salidas del flujo:</label>
+                                                                <label>Debe ingresar los nodos necesarios, como mínimo
+                                                                    debe existir un nodo inicial con dos salidas del
+                                                                    flujo:</label>
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="container-flowchart"
@@ -243,11 +246,9 @@
                                 <label>Variable:</label>
                                 <select class="form-control" id="tree_variable"
                                         name="tree_variable">
-                                    <!--<option th:each="variable : ${dataintegration.variableCollection}"
+                                    <option th:each="variable : ${dataintegration.variableCollection}"
                                             th:text="${variable.name}"
                                             th:value="${variable.code}">
-                                    </option>-->
-                                    <option value="EDAD">EDAD
                                     </option>
                                 </select>
                             </div>
@@ -291,10 +292,10 @@
 <div class="modal fade" id="modal_add_output" tabindex="-1" role="dialog" aria-labelledby="modal_add_output"
      aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
-        <form  id="form_add_output" class="col-12">
+        <form id="form_add_output" class="col-12">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Agregar salida al árbol decisional</h5>
+                    <h5 class="modal-title">Agregar salida de flujo al árbol decisional</h5>
                 </div>
                 <div class="modal-body">
                     <div class="row">

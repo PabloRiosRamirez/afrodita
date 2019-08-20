@@ -186,7 +186,7 @@ var KTWizard3 = function () {
                                             text: "La configuración de Risk Ratios ha sido guardado correctamente!",
                                             type: "success",
                                             onClose: function () {
-                                                window.location = "/ratios"
+                                                window.location = "/indicators/ratios"
                                             }
                                         });
                                     },
