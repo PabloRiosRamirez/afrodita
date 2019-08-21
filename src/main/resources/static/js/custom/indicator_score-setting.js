@@ -397,3 +397,39 @@ jQuery(document).ready(function () {
     KTWizard3.init();
     resumen();
 });
+
+// Class definition
+var KTFormRepeater = function () {
+
+    // Private functions
+    var repeaterScore = function () {
+        $('#kt_repeater_score').repeater({
+            initEmpty: false,
+
+            defaultValues: {
+                'text-input': 'foo'
+            },
+
+            show: function () {
+                $(this).slideDown();
+            },
+
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
+        });
+    }
+    return {
+        // public functions
+        init: function () {
+            repeaterScore();
+        }
+    };
+}();
+
+jQuery(document).ready(function () {
+    KTFormRepeater.init();
+});
+
+
+

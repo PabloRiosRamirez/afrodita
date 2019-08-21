@@ -242,6 +242,7 @@
 
 <div th:replace="common :: footer"></div>
 <!--/*/ <th:block th:include="common :: scripts"></th:block> /*/-->
+
 <script th:src="@{/vendors/custom/highcharts/highcharts.js}" type="text/javascript"
         th:if="${dataintegration != null and riskscore != null}"></script>
 <script th:src="@{/vendors/custom/highcharts/highcharts-more.js}" type="text/javascript"

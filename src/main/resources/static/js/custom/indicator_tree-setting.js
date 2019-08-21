@@ -43,19 +43,45 @@ var KTWizard3 = function () {
                         "confirmButtonClass": "btn btn-secondary"
                     });
                     wizardObj.stop();
-                }else{
+                } else {
                     var arrayNodes = processDataTree();
                     var templateNodes = "";
                     var templateOutput = "";
                     for (var i = 0; i < arrayNodes.length; i++) {
-                        if(!arrayNodes[i].output){
+                        if (!arrayNodes[i].output) {
                             templateNodes += addNodes(arrayNodes[i].expression);
-                        }else{
+                        } else {
                             templateOutput += addOutput(arrayNodes[i].label, arrayNodes[i].color);
                         }
                     }
                     $('#content_nodes').html(templateNodes);
                     $('#content_output').html(templateOutput);
+
+
+                    var template = "";
+                    for (var i = 0; i < arrayNodes.length; i++) {
+                        if (arrayNodes[i].output && $('div_' + arrayNodes[i].label).length == 0) {
+                            template +=
+                                "<div class=\"col-lg-6\">" +
+                                "   <div id=\"div_" + arrayNodes[i].label + "\" class=\"offset-lg-1 col-lg-10\">\n" +
+                                "       <div class=\"kt-portlet\">\n" +
+                                "           <div class=\"kt-portlet__body\">\n" +
+                                "                 <h1 class=\"text-center kt-font-bolder\"\n" +
+                                "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + arrayNodes[i].labelOutput + "\"></h1>\n" +
+                                "            </div>\n" +
+                                "        </div>\n" +
+                                "    </div>\n" +
+                                "</div>";
+                        }
+                    }
+                    $('#content_outputs').html(template);
+                    for (var i = 0; i < arrayNodes.length; i++) {
+                        if (businessTreeNodeCollection[i].output && $('div_' + arrayNodes[i].labelOutput).length == 0) {
+                            handlePulsate(arrayNodes[i].labelOutput, arrayNodes[i].color);
+                        }
+                    }
+
+
                 }
             }
         });
@@ -365,33 +391,35 @@ function processDataTree() {
 }
 
 function addNodes(expression) {
-    return "<div class=\"col-3\">\n" +
-    "   <label>Expresión:</label>\n" +
-    "</div>\n" +
-    "<div class=\"col-6\">\n" +
-    "    <strong class=\"text-info\"\n" +
-    "            text=\"" + expression + "\"></strong>\n" +
-    "</div>";
+    return "<div class=\"form-group row\">\n" +
+        "<div class=\"col-3\">\n" +
+        "   <label>Expresión:</label>\n" +
+        "</div>\n" +
+        "<div class=\"col-6\">\n" +
+        "    <strong class=\"text-info\">" + expression + "</strong>" +
+        "</div>" +
+        "</div>";
 }
 
 function addOutput(label, color) {
-    return "<div class=\"col-4\">\n" +
-    "    <label>Texto de\n" +
-    "        salida:</label>\n" +
-    "</div>\n" +
-    "<div class=\"col-3\">\n" +
-    "    <strong class=\"text-info\"\n" +
-    "            text=\""+label +"\"></strong>\n" +
-    "</div>\n" +
-    "<div class=\"col-3\">\n" +
-    "    <label>Color:</label>\n" +
-    "</div>\n" +
-    "<div class=\"col-2\">\n" +
-    "    <input class=\"form-control\"\n" +
-    "           disabled=\"\"\n" +
-    "           type=\"color\"\n" +
-    "           value=\""+color +"\">\n" +
-    "</div>";
+    return "<div class=\"form-group row\">\n" +
+        "<div class=\"col-4\">\n" +
+        "    <label>Texto de\n" +
+        "        salida:</label>\n" +
+        "</div>\n" +
+        "<div class=\"col-3\">\n" +
+        "    <strong class=\"text-info\">" + label + "</strong>" +
+        "</div>\n" +
+        "<div class=\"col-3\">\n" +
+        "    <label>Color:</label>\n" +
+        "</div>\n" +
+        "<div class=\"col-2\">\n" +
+        "    <input class=\"form-control\"\n" +
+        "           disabled=\"\"\n" +
+        "           type=\"color\"\n" +
+        "           value=\"" + color + "\">\n" +
+        "</div>" +
+        "</div>";
 }
 
 
@@ -442,3 +470,28 @@ function getNode(arrayNode, objectNode, nameNode) {
         getNode(arrayNode, objectNode, objectNode[nameNode].childrenAffirmation);
     arrayNode.push(objectNode[nameNode]);
 }
+
+
+/*<![CDATA[*/
+var businesstree = /*[[${businesstree}]]*/ undefined;
+
+/*]]>*/
+
+// Class initialization on page load
+jQuery(document).ready(function () {
+
+});
+
+function handlePulsate(titule, color) {
+    if (!jQuery().pulsate) {
+        return;
+    }
+    $('#label_' + titule).html(titule);
+    $('#label_' + titule).attr('style', 'color: ' + color);
+    if (jQuery().pulsate) {
+        $('#div_' + titule).pulsate({
+            color: color,
+            speed: 600
+        });
+    }
+};
