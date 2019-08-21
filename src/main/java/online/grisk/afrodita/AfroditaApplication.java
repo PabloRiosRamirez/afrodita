@@ -55,21 +55,7 @@ public class AfroditaApplication {
         return UUID.randomUUID();
     }
 
-    @Bean
-    public String token() {
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            byte[] messageDigest = md.digest(getUUID().toString().getBytes());
-            BigInteger no = new BigInteger(1, messageDigest);
-            String hashtext = no.toString(16);
-            while (hashtext.length() < 32) {
-                hashtext = "0" + hashtext;
-            }
-            return hashtext;
-        } catch (NoSuchAlgorithmException e) {
-            return getUUID().toString();
-        }
-    }
+
 
     @Bean
     public MessageSource messageSource() {
