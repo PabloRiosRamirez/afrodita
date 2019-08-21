@@ -43,6 +43,19 @@ var KTWizard3 = function () {
                         "confirmButtonClass": "btn btn-secondary"
                     });
                     wizardObj.stop();
+                }else{
+                    var arrayNodes = processDataTree();
+                    var templateNodes = "";
+                    var templateOutput = "";
+                    for (var i = 0; i < arrayNodes.length; i++) {
+                        if(!arrayNodes[i].output){
+                            templateNodes += addNodes(arrayNodes[i].expression);
+                        }else{
+                            templateOutput += addOutput(arrayNodes[i].label, arrayNodes[i].color);
+                        }
+                    }
+                    $('#content_nodes').html(templateNodes);
+                    $('#content_output').html(templateOutput);
                 }
             }
         });
@@ -347,23 +360,12 @@ function processDataTree() {
     getNode(arrayNodes, objectNode, getNameMainNode());
     arrayNodes[arrayNodes.length - 1].main = true;
 
-    var templateNodes = "";
-    var templateOutput = "";
-    for (var i = 0; i < arrayNodes.length; i++) {
-        if(!arrayNodes[i].output){
-            templateNodes += addNodes(arrayNodes[i].expression);
-        }else{
-            templateOutput += addOutput(arrayNodes[i].labelOutput, arrayNodes[i].color);
-        }
-    }
-    $('#content_nodes').html(templateNodes);
-    $('#content_output').html(templateOutput);
+
     return arrayNodes;
 }
 
 function addNodes(expression) {
-    return
-    "<div class=\"col-3\">\n" +
+    return "<div class=\"col-3\">\n" +
     "   <label>Expresión:</label>\n" +
     "</div>\n" +
     "<div class=\"col-6\">\n" +
@@ -373,8 +375,7 @@ function addNodes(expression) {
 }
 
 function addOutput(label, color) {
-    return
-    "<div class=\"col-4\">\n" +
+    return "<div class=\"col-4\">\n" +
     "    <label>Texto de\n" +
     "        salida:</label>\n" +
     "</div>\n" +

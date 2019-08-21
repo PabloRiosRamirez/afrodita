@@ -34,6 +34,7 @@ public class RiskScoreActivatorService extends BasicRestServiceActivator {
         RiskScoreDTO riskScoreDTO = new RiskScoreDTO();
         riskScoreDTO.setVariable(payload.get("variable").toString());
         riskScoreDTO.setOrganization(Long.parseLong(payload.get("organization").toString()));
+        riskScoreDTO.setTitule(payload.get("titule").toString());
         riskScoreDTO.setRanges(riskScoreRangeDtoList);
         ResponseEntity<Map<String, Object>> responseEntity = consumerRestServiceActivator("/api/artemisa/score", HttpMethod.POST, riskScoreDTO.toMap(), createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
         return addServiceResponseToResponseMap(payload, responseEntity.getBody().get("current_response"), responseEntity.getStatusCode(), microserviceArtemisa.getServiceId());
