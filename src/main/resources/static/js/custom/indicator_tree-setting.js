@@ -44,44 +44,7 @@ var KTWizard3 = function () {
                     });
                     wizardObj.stop();
                 } else {
-                    var arrayNodes = processDataTree();
-                    var templateNodes = "";
-                    var templateOutput = "";
-                    for (var i = 0; i < arrayNodes.length; i++) {
-                        if (!arrayNodes[i].output) {
-                            templateNodes += addNodes(arrayNodes[i].expression);
-                        } else {
-                            templateOutput += addOutput(arrayNodes[i].label, arrayNodes[i].color);
-                        }
-                    }
-                    $('#content_nodes').html(templateNodes);
-                    $('#content_output').html(templateOutput);
-
-
-                    var template = "";
-                    for (var i = 0; i < arrayNodes.length; i++) {
-                        if (arrayNodes[i].output && $('div_' + arrayNodes[i].label).length == 0) {
-                            template +=
-                                "<div class=\"col-lg-6\">" +
-                                "   <div id=\"div_" + arrayNodes[i].label + "\" class=\"offset-lg-1 col-lg-10\">\n" +
-                                "       <div class=\"kt-portlet\">\n" +
-                                "           <div class=\"kt-portlet__body\">\n" +
-                                "                 <h1 class=\"text-center kt-font-bolder\"\n" +
-                                "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + arrayNodes[i].labelOutput + "\"></h1>\n" +
-                                "            </div>\n" +
-                                "        </div>\n" +
-                                "    </div>\n" +
-                                "</div>";
-                        }
-                    }
-                    $('#content_outputs').html(template);
-                    for (var i = 0; i < arrayNodes.length; i++) {
-                        if (businessTreeNodeCollection[i].output && $('div_' + arrayNodes[i].labelOutput).length == 0) {
-                            handlePulsate(arrayNodes[i].labelOutput, arrayNodes[i].color);
-                        }
-                    }
-
-
+                    processDataResumen();
                 }
             }
         });
@@ -89,6 +52,7 @@ var KTWizard3 = function () {
             KTUtil.scrollTop();
         });
     }
+
 
     var initValidation = function () {
         // $.validator.addMethod('sintaxisMath', function (value, element, param) {
@@ -201,7 +165,46 @@ var KTWizard3 = function () {
         }
     };
 }();
+function processDataResumen() {
+    var arrayNodes = processDataTree();
+    var templateNodes = "";
+    var templateOutput = "";
+    for (var i = 0; i < arrayNodes.length; i++) {
+        if (!arrayNodes[i].output) {
+            templateNodes += addNodes(arrayNodes[i].expression);
+        } else {
+            templateOutput += addOutput(arrayNodes[i].label, arrayNodes[i].color);
+        }
+    }
+    $('#content_nodes').html(templateNodes);
+    $('#content_output').html(templateOutput);
 
+    $('#content_outputs').html('');
+    var template = "";
+    for (var i = 0; i < arrayNodes.length; i++) {
+        if (arrayNodes[i].output && $('#div_' + arrayNodes[i].label + arrayNodes[i].color.replace('#','')).length == 0) {
+            template +=
+                "<div class=\"col-lg-12\" style='margin-top: 40px;'>" +
+                "   <div id=\"div_" + arrayNodes[i].label + arrayNodes[i].color.replace('#','') + "\" class=\"offset-lg-1 col-lg-10\">\n" +
+                "       <div class=\"kt-portlet\">\n" +
+                "           <div class=\"kt-portlet__body\">\n" +
+                "                 <h1 class=\"text-center kt-font-bolder\"\n" +
+                "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + arrayNodes[i].label + arrayNodes[i].color.replace('#','') + "\">" + arrayNodes[i].label + "</h1>\n" +
+                "            </div>\n" +
+                "        </div>\n" +
+                "    </div>\n" +
+                "</div>";
+            $('#content_outputs').html('');
+            $('#content_outputs').html(template);
+        }
+    }
+    $('#content_outputs').html(template);
+    for (var i = 0; i < arrayNodes.length; i++) {
+        if (arrayNodes[i].output) {
+            handlePulsate(arrayNodes[i].label, arrayNodes[i].color);
+        }
+    }
+}
 jQuery(document).ready(function () {
     KTWizard3.init();
 });
@@ -486,10 +489,10 @@ function handlePulsate(titule, color) {
     if (!jQuery().pulsate) {
         return;
     }
-    $('#label_' + titule).html(titule);
-    $('#label_' + titule).attr('style', 'color: ' + color);
+    $('#label_' + titule + color.replace('#','')).html(titule);
+    $('#label_' + titule + color.replace('#','')).attr('style', 'color: ' + color);
     if (jQuery().pulsate) {
-        $('#div_' + titule).pulsate({
+        $('#div_' + titule + color.replace('#','')).pulsate({
             color: color,
             speed: 600
         });
