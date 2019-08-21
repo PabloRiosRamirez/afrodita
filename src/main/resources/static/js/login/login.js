@@ -104,7 +104,7 @@ var KTLoginGeneral = function () {
                 return $.validateRut(value);
             }, 'Rut invalido');
             $.validator.addMethod('forcePassword', function (value, element, param) {
-                return value.match(/^(?=.*\d)(?=.*[\u0021-\u002b\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/);
+                return value.match(/^(?=.*\d)(?=.*[\u0021-\u002b\u002d-\u002e\u003c-\u0040])(?=.*[A-Z])(?=.*[a-z])\S{8,16}$/);
             }, 'La contraseña debe tener al entre 8 y 16 caracteres, al menos un dígito, al menos una minúscula, al menos una mayúscula y al menos un caracter no alfanumérico.');
             form.validate({
                 rules: {
@@ -121,7 +121,7 @@ var KTLoginGeneral = function () {
                     },
                     rpassword: {
                         required: true,
-                        equalTo: "#kt-login__signup-rpassword"
+                        equalTo: "#kt-login__signup-password"
                     },
                     rut_organization: {
                         required: true,
