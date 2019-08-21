@@ -41,15 +41,15 @@ public class ArtemisaService {
 	private BCryptPasswordEncoder encoderPassword;
 
 	public boolean isUserValidForRegister(@Valid UserDTO userDTO) throws Exception {
-		return userService.findByUsernameOrEmail(userDTO.getUsername(), userDTO.getEmail()) == null;
+		return userService.findByUsernameOrEmail(userDTO.getUsername().toUpperCase(), userDTO.getEmail().toLowerCase()) == null;
 	}
 
 	public boolean isUsernameValidForRegister(@Valid UserDTO userDTO) throws Exception {
-		return userService.findByUsername(userDTO.getUsername()) == null;
+		return userService.findByUsername(userDTO.getUsername().toUpperCase()) == null;
 	}
 
 	public boolean isEmailValidForRegister(@Valid UserDTO userDTO) throws Exception {
-		return userService.findByEmail(userDTO.getEmail()) == null;
+		return userService.findByEmail(userDTO.getEmail().toLowerCase()) == null;
 	}
 
 	public boolean isOrganizationValidForRegister(@Valid UserDTO userDTO) {
@@ -57,18 +57,18 @@ public class ArtemisaService {
 	}
 
 	public User isUserValidForPostResetPass(@Valid ResetPassDTO resetPassDTO) throws Exception {
-		return userService.findByUsernameOrEmail(resetPassDTO.getToken(), resetPassDTO.getEmail());
+		return userService.findByUsernameOrEmail(resetPassDTO.getToken(), resetPassDTO.getEmail().toLowerCase());
 	}
 
 	public User registerUserAndOrganization(@Valid UserDTO userDTO) throws Exception {
-		return userService.save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail().toUpperCase(),
+		return userService.save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail().toLowerCase(),
 				organizationService.save(
 						new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())),
 				encryte(userDTO.getPass()), null, token, false, true, new Date(), new Date(), roleWithCodeAdmin));
 	}
 
 	public User registerUserAdmin(@Valid UserRegistrationAdminDTO userRegistrationAdminDTO) throws Exception {
-		return userService.save(new User(userRegistrationAdminDTO.getUsername().toUpperCase(), userRegistrationAdminDTO.getEmail().toUpperCase(),
+		return userService.save(new User(userRegistrationAdminDTO.getUsername().toUpperCase(), userRegistrationAdminDTO.getEmail().toLowerCase(),
 				organizationService.findOne(userRegistrationAdminDTO.getOrganizationId()),
 				encryte(userRegistrationAdminDTO.getPass()), null, token, false, true, new Date(), new Date(), roleService.findOne(userRegistrationAdminDTO.getRoleId())));
 	}
@@ -76,7 +76,7 @@ public class ArtemisaService {
 	public User updateUserAdmin(UserUpdateAdminDTO userUpdateAdminDTO) throws Exception {
 		User usr = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
 		usr.setUsername(userUpdateAdminDTO.getUsername().toUpperCase());
-		usr.setEmail(userUpdateAdminDTO.getEmail().toUpperCase());
+		usr.setEmail(userUpdateAdminDTO.getEmail().toLowerCase());
 		return userService.save(usr);
 	}
 
@@ -98,7 +98,7 @@ public class ArtemisaService {
 	public User isUserValidForResetPass(@NotEmpty Map mapEmail) throws Exception {
 		String email = mapEmail.getOrDefault("email", "").toString();
 		if (!email.equals("")) {
-			return userService.findByEmail(email);
+			return userService.findByEmail(email.toLowerCase());
 		}
 		return null;
 	}

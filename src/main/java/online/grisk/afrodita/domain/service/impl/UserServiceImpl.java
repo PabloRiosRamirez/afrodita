@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
 
 	public User findByUsername(String username) throws Exception {
 		try {
-			return userRepository.findByUsername(username);
+			return userRepository.findByUsername(username.toUpperCase());
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	public User findByEmail(String email) throws Exception {
 		try {
-			return userRepository.findByEmail(email);
+			return userRepository.findByEmail(email.toLowerCase());
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService {
 			if(username != null) {
 				username = username.toUpperCase();
 			}
-			return userRepository.findByUsernameOrEmail(username, email);
+			return userRepository.findByUsernameOrEmail(username, email.toLowerCase());
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -52,7 +52,7 @@ public class UserServiceImpl implements UserService {
 
 	public User findByEmailAndTokenRestart(String email, String tokenRestart) throws Exception {
 		try {
-			return userRepository.findByEmailAndTokenRestart(email, tokenRestart);
+			return userRepository.findByEmailAndTokenRestart(email.toLowerCase(), tokenRestart);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			User usr =  userRepository.findById(user.getIdUser()).get();
 			usr.setCreateAt(user.getCreateAt());
-			usr.setEmail(user.getEmail().toUpperCase());
+			usr.setEmail(user.getEmail().toLowerCase());
 			usr.setEnabled(user.isEnabled());
 			usr.setIdUser(user.getIdUser());
 			usr.setNonLocked(user.isNonLocked());
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User findByUsernameOrEmailAndOrganizationId(String username, String email, long organizationId) throws Exception {
 		try {
-			return userRepository.findByUsernameOrEmailAndOrganizationId(username.toUpperCase(), email, organizationId);
+			return userRepository.findByUsernameOrEmailAndOrganizationId(username.toUpperCase(), email.toLowerCase(), organizationId);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
 		}
