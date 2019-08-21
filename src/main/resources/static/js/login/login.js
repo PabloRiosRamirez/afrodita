@@ -184,10 +184,12 @@ var KTLoginGeneral = function () {
                     signInForm.clearForm();
                     signInForm.validate().resetForm();
 
-                    if (jqXHR.responseJSON != undefined || jqXHR.responseJSON.error != undefined || jqXHR.responseJSON.error == 'Registered organization') {
+                    if (jqXHR.responseJSON != undefined && jqXHR.responseJSON.error != undefined && jqXHR.responseJSON.error == 'Organization Already Exist') {
                         showErrorMsg(signInForm, 'danger', 'El rut comercial de la empresa ya está registrado en el sistema.');
-                    } else if (jqXHR.responseJSON != undefined || jqXHR.responseJSON.error != undefined || jqXHR.responseJSON.error == 'Registered user') {
-                        showErrorMsg(signInForm, 'danger', 'El nombre de usuario o correo electrónico ya está registrado en el sistema.');
+                    } else if (jqXHR.responseJSON != undefined && jqXHR.responseJSON.error != undefined && jqXHR.responseJSON.error == 'Username Already Exist') {
+                        showErrorMsg(signInForm, 'danger', 'El nombre de usuario ya está registrado en el sistema.');
+                    } else if (jqXHR.responseJSON != undefined && jqXHR.responseJSON.error != undefined && jqXHR.responseJSON.error == 'Email Already Exist') {
+                        showErrorMsg(signInForm, 'danger', 'El correo electrónico ya está registrado en el sistema.');
                     } else {
                         showErrorMsg(signInForm, 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente mas tarde. Si el problema persiste comuníquese con el administrador del sistema.');
                     }
@@ -246,7 +248,7 @@ var KTLoginGeneral = function () {
                     showErrorMsg(login.find('.kt-login__signin form'), 'success', 'Genial! Las instrucciones de recuperación de contraseña han sido enviado a tu correo.');
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    if (jqXHR.responseJSON != undefined || jqXHR.responseJSON.error != undefined || jqXHR.responseJSON.error == 'Unregistered user') {
+                    if (jqXHR.responseJSON != undefined && jqXHR.responseJSON.error != undefined && jqXHR.responseJSON.error == 'Unregistered user') {
                         showErrorMsg(signInForm, 'danger', 'El correo electrónico ingresado no está registrado en el sistema.');
                     } else {
                         showErrorMsg(signInForm, 'danger', 'Ha ocurrido un problema al realizar el registro, por favor intente nuevamente mas tarde. Si el problema persiste comuníquese con el administrador del sistema.');
