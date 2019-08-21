@@ -61,14 +61,14 @@ public class ArtemisaService {
 	}
 
 	public User registerUserAndOrganization(@Valid UserDTO userDTO) throws Exception {
-		return userService.save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail(),
+		return userService.save(new User(userDTO.getUsername().toUpperCase(), userDTO.getEmail().toUpperCase(),
 				organizationService.save(
 						new Organization(userDTO.getOrganization().getName(), userDTO.getOrganization().getRut())),
 				encryte(userDTO.getPass()), null, token, false, true, new Date(), new Date(), roleWithCodeAdmin));
 	}
 
 	public User registerUserAdmin(@Valid UserRegistrationAdminDTO userRegistrationAdminDTO) throws Exception {
-		return userService.save(new User(userRegistrationAdminDTO.getUsername().toUpperCase(), userRegistrationAdminDTO.getEmail(),
+		return userService.save(new User(userRegistrationAdminDTO.getUsername().toUpperCase(), userRegistrationAdminDTO.getEmail().toUpperCase(),
 				organizationService.findOne(userRegistrationAdminDTO.getOrganizationId()),
 				encryte(userRegistrationAdminDTO.getPass()), null, token, false, true, new Date(), new Date(), roleService.findOne(userRegistrationAdminDTO.getRoleId())));
 	}
@@ -76,7 +76,7 @@ public class ArtemisaService {
 	public User updateUserAdmin(UserUpdateAdminDTO userUpdateAdminDTO) throws Exception {
 		User usr = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
 		usr.setUsername(userUpdateAdminDTO.getUsername().toUpperCase());
-		usr.setEmail(userUpdateAdminDTO.getEmail());
+		usr.setEmail(userUpdateAdminDTO.getEmail().toUpperCase());
 		return userService.save(usr);
 	}
 

@@ -63,7 +63,7 @@ public class EmailRestController extends BasicRestController {
         this.verifyParameters(payload);
         User byIdUser = userService.findByIdUser(idUser);
         byIdUser.setUsername(payload.get("username").toString().toUpperCase());
-        byIdUser.setEmail(payload.get("email").toString());
+        byIdUser.setEmail(payload.get("email").toString().toUpperCase());
         userService.save(byIdUser);
         Map response = new HashMap();
         if ("true".equalsIgnoreCase(payload.get("reset").toString())) {

@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			User usr =  userRepository.findById(user.getIdUser()).get();
 			usr.setCreateAt(user.getCreateAt());
-			usr.setEmail(user.getEmail());
+			usr.setEmail(user.getEmail().toUpperCase());
 			usr.setEnabled(user.isEnabled());
 			usr.setIdUser(user.getIdUser());
 			usr.setNonLocked(user.isNonLocked());
@@ -97,7 +97,7 @@ public class UserServiceImpl implements UserService {
 			usr.setTokenConfirm(user.getTokenConfirm());
 			usr.setTokenRestart(user.getTokenRestart());
 			usr.setUpdateAt(user.getUpdateAt());
-			usr.setUsername(user.getUsername());
+			usr.setUsername(user.getUsername().toUpperCase());
 			return userRepository.save(usr);
 		} catch (Exception e) {
 			throw new Exception(e.getMessage());
