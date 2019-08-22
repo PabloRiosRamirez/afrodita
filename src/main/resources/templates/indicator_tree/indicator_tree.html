@@ -218,14 +218,14 @@
         var template = "";
         var businessTreeNodeCollection = businesstree.businessTreeNodeCollection;
         for (var i = 0; i < businessTreeNodeCollection.length; i++) {
-            if (businessTreeNodeCollection[i].output && $('#div_' + businessTreeNodeCollection[i].labelOutput + businessTreeNodeCollection[i].color.replace('#','')).length == 0) {
+            if (businessTreeNodeCollection[i].output && $('#div_' + businessTreeNodeCollection[i].labelOutput.replace(/\s/g,'') + businessTreeNodeCollection[i].color.replace('#','')).length == 0) {
                 template +=
                     "<div class=\"col-lg-12\" style='margin-top: 40px;'>" +
-                    "   <div id=\"div_" + businessTreeNodeCollection[i].labelOutput + businessTreeNodeCollection[i].color.replace('#','') + "\" class=\"offset-lg-1 col-lg-10\">\n" +
+                    "   <div id=\"div_" + businessTreeNodeCollection[i].labelOutput.replace(/\s/g,'') + businessTreeNodeCollection[i].color.replace('#','') + "\" class=\"offset-lg-1 col-lg-10\">\n" +
                     "       <div class=\"kt-portlet\">\n" +
                     "           <div class=\"kt-portlet__body\">\n" +
                     "                 <h1 class=\"text-center kt-font-bolder\"\n" +
-                    "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + businessTreeNodeCollection[i].labelOutput + businessTreeNodeCollection[i].color.replace('#','') + "\">" + businessTreeNodeCollection[i].labelOutput + "</h1>\n" +
+                    "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + businessTreeNodeCollection[i].labelOutput.replace(/\s/g,'') + businessTreeNodeCollection[i].color.replace('#','') + "\">" + businessTreeNodeCollection[i].labelOutput + "</h1>\n" +
                     "            </div>\n" +
                     "        </div>\n" +
                     "    </div>\n" +
@@ -246,10 +246,10 @@
         if (!jQuery().pulsate) {
             return;
         }
-        $('#label_' + titule + color.replace('#','')).html(titule);
-        $('#label_' + titule + color.replace('#','')).attr('style', 'color: ' + color);
+        $('#label_' + titule.replace(/\s/g,'') + color.replace('#','')).html(titule);
+        $('#label_' + titule.replace(/\s/g,'') + color.replace('#','')).attr('style', 'color: ' + color);
         if (jQuery().pulsate) {
-            $('#div_' + titule + color.replace('#','')).pulsate({
+            $('#div_' + titule.replace(/\s/g,'') + color.replace('#','')).pulsate({
                 color: color,
                 speed: 600
             });

@@ -182,14 +182,14 @@ function processDataResumen() {
     $('#content_outputs').html('');
     var template = "";
     for (var i = 0; i < arrayNodes.length; i++) {
-        if (arrayNodes[i].output && $('#div_' + arrayNodes[i].label + arrayNodes[i].color.replace('#','')).length == 0) {
+        if (arrayNodes[i].output && $('#div_' + arrayNodes[i].label.replace(/\s/g,'') + arrayNodes[i].color.replace('#','')).length == 0) {
             template +=
                 "<div class=\"col-lg-12\" style='margin-top: 40px;'>" +
-                "   <div id=\"div_" + arrayNodes[i].label + arrayNodes[i].color.replace('#','') + "\" class=\"offset-lg-1 col-lg-10\">\n" +
+                "   <div id=\"div_" + arrayNodes[i].label.replace(/\s/g,'') + arrayNodes[i].color.replace('#','') + "\" class=\"offset-lg-1 col-lg-10\">\n" +
                 "       <div class=\"kt-portlet\">\n" +
                 "           <div class=\"kt-portlet__body\">\n" +
                 "                 <h1 class=\"text-center kt-font-bolder\"\n" +
-                "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + arrayNodes[i].label + arrayNodes[i].color.replace('#','') + "\">" + arrayNodes[i].label + "</h1>\n" +
+                "                    style=\"white-space: nowrap;overflow: hidden;text-overflow: ellipsis;\" id=\"label_" + arrayNodes[i].label.replace(/\s/g,'') + arrayNodes[i].color.replace('#','') + "\">" + arrayNodes[i].label + "</h1>\n" +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
@@ -489,10 +489,10 @@ function handlePulsate(titule, color) {
     if (!jQuery().pulsate) {
         return;
     }
-    $('#label_' + titule + color.replace('#','')).html(titule);
-    $('#label_' + titule + color.replace('#','')).attr('style', 'color: ' + color);
+    $('#label_' + titule.replace(/\s/g,'') + color.replace('#','')).html(titule);
+    $('#label_' + titule.replace(/\s/g,'') + color.replace('#','')).attr('style', 'color: ' + color);
     if (jQuery().pulsate) {
-        $('#div_' + titule + color.replace('#','')).pulsate({
+        $('#div_' + titule.replace(/\s/g,'') + color.replace('#','')).pulsate({
             color: color,
             speed: 600
         });
