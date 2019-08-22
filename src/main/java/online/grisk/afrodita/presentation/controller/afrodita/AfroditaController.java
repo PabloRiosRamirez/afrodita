@@ -50,7 +50,7 @@ public class AfroditaController {
     @RequestMapping(value = "/error-403", method = GET)
     public String error403(Model model) {
         model.addAttribute("title", "Acceso Restringido");
-        return "/errors/error-403";
+        return "errors/error-403";
     }
 
     @RequestMapping(value = "/login/confirm/{token}", method = GET)
