@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import javax.validation.constraints.NotBlank;
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -50,7 +49,7 @@ public class AfroditaController {
 
     @RequestMapping(value = "/error-403", method = GET)
     public String error403(Model model) {
-        model.addAttribute("title", "Login");
+        model.addAttribute("title", "Acceso Restringido");
         return "/errors/error-403";
     }
 
