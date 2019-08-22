@@ -48,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/login", "/images/**", "/css/**", "/js/**", "/vendors/**", "/v1/rest/**", "/login/**").permitAll();
         http.authorizeRequests().antMatchers("/", "/logout").authenticated();
         http.authorizeRequests().antMatchers("/users/**", "/dataintegration/**", "/indicators/**").access("hasAnyRole('ROLE_ADMIN')");
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/error-403");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/errors/error-403");
         http.authorizeRequests().antMatchers("/**").authenticated();
         http.authorizeRequests()
                 .and()

@@ -46,9 +46,21 @@ function changeRanges() {
         // if ($($("input[name*='[upperLimit]']")[i]).attr('name') != $(this).attr('name')) {
         //     $($("input[name*='[upperLimit]']")[i]).val('');
         // }
+        if ($(this).attr('name').includes('lower') && i > 0) {
+            $("input[name*='[lowerLimit]']")[i].value = $("input[name*='[upperLimit]']")[i - 1].value
+        }
         resetRanges(++i, $("input[name*='[lowerLimit]']").length);
         errorInRange(--i);
     });
+}
+
+function changeRangesInner(e) {
+    var limites = $('.lim_score');
+    var i = e.attr('name').replace('][lowerLimit]', '').replace('][upperLimit]', '').replace('[', '');
+    if (e.attr('name').includes('lower') && i > 0) {
+        $("input[name*='[lowerLimit]']")[i].value = parseInt($("input[name*='[upperLimit]']")[i - 1].value) + 1;
+        $("input[name*='[lowerLimit]']")[i].disabled = true;
+    }
 }
 
 function disabledDownRange() {
@@ -290,6 +302,7 @@ function resumen() {
 }
 
 var interval;
+
 function resumenGraphic() {
     var titulo = $('#score_titule').val();
     var cant = $('[name*="[lowerLimit]"]').length;
@@ -317,8 +330,7 @@ function handleScore(title, min, max, ranges) {
         {
             chart: {
                 type: 'solidgauge',
-                alignTicks: false,
-                height: '300px'
+                alignTicks: false
             },
             title: {
                 text: '',
@@ -336,19 +348,16 @@ function handleScore(title, min, max, ranges) {
                     shape: 'arc'
                 }
             },
-
             tooltip: {
                 enabled: false
             },
-
-            // the value axis
             yAxis: {
                 stops: ranges,
                 lineWidth: 0,
                 minorTickInterval: null,
                 tickAmount: 5,
                 title: {
-                    y: 30
+                    y: -80
                 },
                 labels: {
                     y: 16
