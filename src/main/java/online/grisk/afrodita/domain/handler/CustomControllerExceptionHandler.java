@@ -10,7 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-@Order(2)
+@Order(3)
 public class CustomControllerExceptionHandler implements ErrorController {
 
     @RequestMapping("/error")

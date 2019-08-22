@@ -48,11 +48,11 @@ public class AfroditaController {
         return "login";
     }
 
-   /* @RequestMapping(value = "/error-403", method = GET)
+    @RequestMapping(value = "/error-403", method = GET)
     public String error403(Model model) {
         model.addAttribute("title", "Login");
         return "/errors/error-403";
-    }*/
+    }
 
     @RequestMapping(value = "/login/confirm/{token}", method = GET)
     public String confirmUserByLogin(@NotBlank @PathVariable("token") String presentedToken, Model model) {

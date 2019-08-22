@@ -2,6 +2,7 @@ package online.grisk.afrodita;
 
 import online.grisk.afrodita.domain.pojo.Microservice;
 import online.grisk.afrodita.domain.entity.Role;
+import online.grisk.afrodita.domain.handler.CustomAccessDeniedHandler;
 import online.grisk.afrodita.domain.pojo.TypeVariable;
 import online.grisk.afrodita.domain.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigInteger;
