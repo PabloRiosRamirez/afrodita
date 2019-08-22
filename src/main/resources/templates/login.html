@@ -63,12 +63,12 @@
                         </div>
                         <form class="kt-form" id="login_signin" method="POST" th:action="@{/check_login}">
                             <div class="input-group">
-                                <input autocomplete="off" class="form-control" name="username"
+                                <input maxlength="49" autocomplete="off" class="form-control" name="username"
                                        placeholder="Usuario o correo electrónico"
                                        type="text">
                             </div>
                             <div class="input-group">
-                                <input class="form-control" name="password" placeholder="Contraseña" type="password">
+                                <input maxlength="16" class="form-control" name="password" placeholder="Contraseña" type="password">
                             </div>
                             <div class="row kt-login__extra">
                                 <div class="col">
@@ -103,24 +103,24 @@
                                         administrador
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input maxlength="50" autocomplete="off" class="form-control"
+                                        <input maxlength="49" autocomplete="off" class="form-control"
                                                id="kt-login__signup-username"
                                                name="username" placeholder="Usuario"
                                                style="margin-left: 10px;margin-right: 10px;" type="text">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input autocomplete="off" class="form-control" id="kt-login__signup-email"
+                                        <input maxlength="49" autocomplete="off" class="form-control" id="kt-login__signup-email"
                                                name="email" placeholder="Correo electrónico"
                                                style="margin-left: 10px;margin-right: 10px;" type="text">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input maxlength="50" autocomplete="off" class="form-control"
+                                        <input maxlength="16" autocomplete="off" class="form-control"
                                                id="kt-login__signup-password"
                                                name="password" placeholder="Contraseña"
                                                style="margin-left: 10px;margin-right: 10px;" type="password">
                                     </div>
                                     <div class="input-group col-lg-6">
-                                        <input maxlength="50" autocomplete="off" class="form-control"
+                                        <input maxlength="16" autocomplete="off" class="form-control"
                                                id="kt-login__signup-rpassword"
                                                name="rpassword" placeholder="Confirma contraseña"
                                                style="margin-left: 10px;margin-right: 10px;"
@@ -174,7 +174,7 @@
                         </div>
                         <form action="" class="kt-form">
                             <div class="input-group">
-                                <input maxlength="50" autocomplete="off" class="form-control"
+                                <input maxlength="49" autocomplete="off" class="form-control"
                                        id="kt-login__forgot-email" name="email"
                                        placeholder="Correo electrónico"
                                        type="text">
@@ -213,7 +213,7 @@
                         </div>
                         <form action="" class="kt-form">
                             <div class="input-group">
-                                <input maxlength="50" autocomplete="off" class="form-control" hidden
+                                <input autocomplete="off" class="form-control" hidden
                                        id="kt-login__postforgot-email"
                                        name="postforgotemail"
                                        placeholder="Email" style="margin-left: 10px;margin-right: 10px;"
@@ -227,13 +227,13 @@
                                        type="text">
                             </div>
                             <div class="input-group">
-                                <input maxlength="50" autocomplete="off" class="form-control"
+                                <input maxlength="16" autocomplete="off" class="form-control"
                                        id="kt-login__postforgot-password"
                                        name="postforgotpassword" placeholder="Nueva contraseña"
                                        style="margin-left: 10px;margin-right: 10px;" type="password">
                             </div>
                             <div class="input-group">
-                                <input maxlength="50" autocomplete="off" class="form-control"
+                                <input maxlength="16" autocomplete="off" class="form-control"
                                        id="kt-login__postforgot-rpassword"
                                        name="rpostforgotpassword" placeholder="Confirmar contraseña"
                                        style="margin-left: 10px;margin-right: 10px;"
