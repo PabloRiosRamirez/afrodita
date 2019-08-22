@@ -86,10 +86,10 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 		if (organizationService.findOne(userRegistrationAdminDTO.getOrganizationId()) != null) {
 			if (roleService.findOne(userRegistrationAdminDTO.getRoleId()) != null) {
 				if (userService.findByUsername(userRegistrationAdminDTO.getUsername().toUpperCase()) == null) {
-					if (userService.findByEmail(userRegistrationAdminDTO.getEmail()) == null) {
+					if (userService.findByEmail(userRegistrationAdminDTO.getEmail().toLowerCase()) == null) {
 						User user = artemisaService.registerUserAdmin(userRegistrationAdminDTO);
 						ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email",
-								HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail(), user.getTokenConfirm()),
+								HttpMethod.POST, buildRequestHermesByArtemisa(user.getEmail().toLowerCase(), user.getTokenConfirm()),
 								createHeadersWithAction(headers.getOrDefault("action", "").toString()),
 								microserviceArtemisa);
 						return addServiceResponseToResponseMap(payload, responseEntity.getBody(),
@@ -122,7 +122,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 				User usrValid = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
 				
 				String messageUsernameValidation = null;
-				if(!usrValid.getUsername().toUpperCase().equals(userUpdateAdminDTO.getUsername().toUpperCase())) {
+				if(!usrValid.getUsername().toUpperCase().equalsIgnoreCase(userUpdateAdminDTO.getUsername().toUpperCase())) {
 					if(userService.findByUsername(userUpdateAdminDTO.getUsername().toUpperCase()) != null) {
 						messageUsernameValidation = "Username Already Exist";
 					}
@@ -131,8 +131,8 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 				if (messageUsernameValidation == null) {
 					
 					String messageEmailValidation = null;
-					if(!usrValid.getEmail().equals(userUpdateAdminDTO.getEmail())) {
-						if(userService.findByUsername(userUpdateAdminDTO.getUsername().toUpperCase()) != null) {
+					if(!usrValid.getEmail().equalsIgnoreCase(userUpdateAdminDTO.getEmail())) {
+						if(userService.findByEmail(userUpdateAdminDTO.getEmail().toLowerCase()) != null) {
 							messageEmailValidation = "Email Already Exist";
 						}
 					}
@@ -172,7 +172,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 			User userReseted = artemisaService.registerTokenForPostReset(userValidForResetPass);
 			ResponseEntity<JsonNode> responseEntity = consumerRestServiceActivator("/api/artemisa/email",
 					HttpMethod.POST,
-					buildRequestHermesByArtemisa(userValidForResetPass.getEmail(), userReseted.getTokenRestart()),
+					buildRequestHermesByArtemisa(userValidForResetPass.getEmail().toLowerCase(), userReseted.getTokenRestart()),
 					createHeadersWithAction(headers.getOrDefault("action", "").toString()), microserviceArtemisa);
 			if (userReseted != null)
 				return addServiceResponseToResponseMap(payload, responseEntity.getBody(),
@@ -189,7 +189,7 @@ public class EmailActivatorService extends BasicRestServiceActivator {
 	// Action for 'postResetPassword'
 	public Map<String, Object> invokePostResetPassByLogin(@NotNull @Payload Map<String, Object> payload,
 			@NotNull @Headers Map<String, Object> headers) throws Exception {
-		ResetPassDTO resetPassDto = new ResetPassDTO(payload.get("email").toString(), payload.get("token").toString(),
+		ResetPassDTO resetPassDto = new ResetPassDTO(payload.get("email").toString().toLowerCase(), payload.get("token").toString(),
 				payload.get("pass").toString());
 		User user = artemisaService.isUserValidForPostResetPass(resetPassDto);
 		if (user != null) {
