@@ -88,7 +88,7 @@ var AnalysisDashboard = function () {
                 handleRatios(2, ratio2["titule"], ratio2["expression"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
                 handleRatios(3, ratio3["titule"], ratio3["expression"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
                 handleRatios(4, ratio4["titule"], ratio4["expression"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
-                // handleNeuro(listNode);
+                handleNeuro(listNode);
                 var form = btn.closest('form');
                 form.clearForm();
                 var ranges = [];
@@ -138,7 +138,7 @@ var AnalysisDashboard = function () {
                 handleRatios(2, ratio2["titule"], ratio2["expression"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
                 handleRatios(3, ratio3["titule"], ratio3["expression"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
                 handleRatios(4, ratio4["titule"], ratio4["expression"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
-                // handleNeuro(listNode);
+                handleNeuro(listNode);
                 var ranges = [];
                 for (var i = 0; i < score.ranges.length; i++) {
                     var range = score.ranges[i];
