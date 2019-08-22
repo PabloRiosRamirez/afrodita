@@ -3,7 +3,9 @@
 // Class definition
 var AnalysisDashboard = function () {
     var validatorExcel;
+    var validatorBureau;
     var formElExcel;
+    var formElBureau;
     var initAnalysis = function () {
         $("#btn_back_analysis").on('click', function () {
             $("#row_dashboard_analysis").attr('hidden', 'hidden');
@@ -36,9 +38,33 @@ var AnalysisDashboard = function () {
 
     }
     var initAnalysisBureau = function () {
+        $.validator.addMethod('validateRut', function (value, element, param) {
+            return $.validateRut(value);
+        }, 'Rut invalido');
+        validatorBureau = formElBureau.validate({
+                // Validate only visible fields
+                ignore: ":hidden",
+
+                // Validation rules
+                rules: {
+                    //= Step 1
+                    bureau_rut: {
+                        required: true,
+                        validateRut: true
+                    }
+                }
+            }
+        );
+        $('#bureau_rut').on('keyup', function (e) {
+            e.preventDefault();
+            $('#bureau_rut').val($.formatRut($('#bureau_rut').val()));
+        });
+
         $("#btn_submit_analysis_bureau").on('click', function () {
-            KTApp.progress($("#btn_submit_analysis_bureau"));
-            sendByBureau($("#analysis_file").val(), $("#btn_submit_analysis_bureau"));
+            if (validatorBureau.form()) {
+                KTApp.progress($("#btn_submit_analysis_bureau"));
+                sendByBureau($("#analysis_file").val(), $("#btn_submit_analysis_bureau"));
+            }
         });
     }
     var sendByExcel = function (file, btn) {
@@ -58,11 +84,11 @@ var AnalysisDashboard = function () {
                 var ratio4 = response.artemisa_response.riskRatios.values[3];
                 var score = response.artemisa_response.riskScore.values;
                 handlePulsate(node["label"], node["color"]);
-                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
-                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
-                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
-                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
-                handleNeuro(listNode);
+                handleRatios(1, ratio1["titule"], ratio1["expression"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
+                handleRatios(2, ratio2["titule"], ratio2["expression"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
+                handleRatios(3, ratio3["titule"], ratio3["expression"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
+                handleRatios(4, ratio4["titule"], ratio4["expression"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
+                // handleNeuro(listNode);
                 var form = btn.closest('form');
                 form.clearForm();
                 var ranges = [];
@@ -101,16 +127,18 @@ var AnalysisDashboard = function () {
                 KTApp.unprogress(btn);
                 var response = JSON.parse(jqXHR.responseText);
                 var node = response.artemisa_response.businessTree.values[0];
+                var listNode = response.artemisa_response.businessTree.listNames;
                 var ratio1 = response.artemisa_response.riskRatios.values[0];
                 var ratio2 = response.artemisa_response.riskRatios.values[1];
                 var ratio3 = response.artemisa_response.riskRatios.values[2];
                 var ratio4 = response.artemisa_response.riskRatios.values[3];
+                var score = response.artemisa_response.riskScore.values;
                 handlePulsate(node["label"], node["color"]);
-                handleRatios(1, ratio1["titule"], ratio1["operation"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
-                handleRatios(2, ratio2["titule"], ratio2["operation"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
-                handleRatios(3, ratio3["titule"], ratio3["operation"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
-                handleRatios(4, ratio4["titule"], ratio4["operation"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
-                handleNeuro(listNode);
+                handleRatios(1, ratio1["titule"], ratio1["expression"], ratio1["result"], ratio1["postResult"], ratio1["color"]);
+                handleRatios(2, ratio2["titule"], ratio2["expression"], ratio2["result"], ratio2["postResult"], ratio2["color"]);
+                handleRatios(3, ratio3["titule"], ratio3["expression"], ratio3["result"], ratio3["postResult"], ratio3["color"]);
+                handleRatios(4, ratio4["titule"], ratio4["expression"], ratio4["result"], ratio4["postResult"], ratio4["color"]);
+                // handleNeuro(listNode);
                 var ranges = [];
                 for (var i = 0; i < score.ranges.length; i++) {
                     var range = score.ranges[i];
@@ -138,6 +166,7 @@ var AnalysisDashboard = function () {
         // Init demos
         init: function () {
             formElExcel = $('#kt_form_excel');
+            formElBureau = $('#kt_form_bureau');
             initAnalysis();
             initAnalysisExcel();
             initAnalysisBureau();
@@ -169,12 +198,8 @@ function handlePulsate(titule, color) {
 };
 
 function handleScore(value, ranges, min, max, title) {
-
-
-// The speed gauge
     var chartSpeed = Highcharts.chart('content_score_graphic', Highcharts.merge(
         {
-
             chart: {
                 type: 'solidgauge',
                 alignTicks: false,
@@ -196,12 +221,9 @@ function handleScore(value, ranges, min, max, title) {
                     shape: 'arc'
                 }
             },
-
             tooltip: {
                 enabled: false
             },
-
-            // the value axis
             yAxis: {
                 stops: ranges,
                 lineWidth: 0,
@@ -214,7 +236,6 @@ function handleScore(value, ranges, min, max, title) {
                     y: 16
                 }
             },
-
             plotOptions: {
                 solidgauge: {
                     dataLabels: {
@@ -233,11 +254,9 @@ function handleScore(value, ranges, min, max, title) {
                     text: title
                 }
             },
-
             credits: {
                 enabled: false
             },
-
             series: [{
                 name: 'Score',
                 data: [value],
@@ -250,7 +269,6 @@ function handleScore(value, ranges, min, max, title) {
                     enabled: false
                 }
             }]
-
         }));
 }
 
@@ -275,7 +293,7 @@ function handleNeuro(list) {
                         },
                         color: colors[7]
                     };
-                    i=20;
+                    i = 20;
                 }
                 if (!flag) {
                     flag = true;
@@ -295,8 +313,8 @@ function handleNeuro(list) {
                         },
                         color: colors[9]
                     };
-                    if(i>10){
-                        i=i-5;
+                    if (i > 10) {
+                        i = i - 5;
                     }
                 }
 
