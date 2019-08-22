@@ -77,6 +77,8 @@
                                                                             realizar el análisis:</label>
                                                                     </div>
                                                                     <div class="col-12">
+
+                                                                        <!--<a href="http://localhost:8088/api/artemisa/dataintegration/26/downloadFile">Descargar archivo</a>-->
                                                                         <div class="custom-file">
                                                                             <input class="custom-file-input"
                                                                                    id="analysis_file"
@@ -88,7 +90,7 @@
                                                                     </div>
                                                                     <div class="col-12" style="margin-top: 5px;">
                                                                         <a class="text-info text-sm float-right"
-                                                                           th:href="@{/}">
+                                                                           th:href="${'https://artemisa-qa.herokuapp.com/api/artemisa/dataintegration/downloadFile/'+dataintegration.idDataintegration}">
                                                                             ¿Desea descargar el archivo de plantilla?
                                                                         </a>
                                                                     </div>
@@ -129,7 +131,8 @@
                                                                 <div class="col-12">
                                                                     <input maxlength="13" class="form-control"
                                                                            placeholder="Rut del consultado"
-                                                                           type="text" id="bureau_rut" name="bureau_rut">
+                                                                           type="text" id="bureau_rut"
+                                                                           name="bureau_rut">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -227,8 +230,10 @@
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Risk Score</strong>. Por favor comuníquese con el
-                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
+                                                                        Risk Score</strong>. Por favor comuníquese con
+                                                                        el
+                                                                        <strong style="color: #ffffff;">Usuario
+                                                                            Administrador</strong> de su empresa.
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -239,8 +244,10 @@
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Risk Ratios</strong>. Por favor comuníquese con el
-                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
+                                                                        Risk Ratios</strong>. Por favor comuníquese con
+                                                                        el
+                                                                        <strong style="color: #ffffff;">Usuario
+                                                                            Administrador</strong> de su empresa.
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -251,8 +258,10 @@
                                                                     <label>
                                                                         <strong style="margin-right: 8px;">Cuidado!</strong>
                                                                         Actualmente no está configurado el <strong>indicador
-                                                                        Business Tree</strong>. Por favor comuníquese con el
-                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
+                                                                        Business Tree</strong>. Por favor comuníquese
+                                                                        con el
+                                                                        <strong style="color: #ffffff;">Usuario
+                                                                            Administrador</strong> de su empresa.
                                                                     </label>
                                                                 </div>
                                                             </div>
@@ -265,8 +274,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row" id="row_dashboard_analysis" >
-<!--                            <div class="row" id="row_dashboard_analysis" hidden>-->
+                            <div class="row" id="row_dashboard_analysis">
+                                <!--                            <div class="row" id="row_dashboard_analysis" hidden>-->
                                 <div class="col-xl-12">
                                     <div class="kt-portlet">
                                         <div class="kt-portlet__head">
@@ -435,7 +444,6 @@
         </div>
     </div>
 </div>
-<!--<a href="http://localhost:8088/api/artemisa/dataintegration/26/downloadFile">Descargar archivo</a>-->
 <div th:replace="common :: footer"></div>
 
 <!--/*/ <th:block th:include="common :: scripts"></th:block> /*/-->
