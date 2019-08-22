@@ -78,6 +78,7 @@ public class ArtemisaService {
         User usr = userService.findByIdUser(userUpdateAdminDTO.getIdUser());
         usr.setUsername(userUpdateAdminDTO.getUsername().toUpperCase());
         usr.setEmail(userUpdateAdminDTO.getEmail().toLowerCase());
+        usr.setRole(roleService.findOne(userUpdateAdminDTO.getRoleId()));
         return userService.save(usr);
     }
 
