@@ -273,14 +273,14 @@ function handleScore(value, ranges, min, max, title) {
 }
 
 function handleNeuro(list) {
-    var firstname = list[0][0];
+    var firstname = list[list.length-1][0];
 
     Highcharts.addEvent(
         Highcharts.seriesTypes.networkgraph,
         'afterSetOptions',
         function (e) {
             var colors = Highcharts.getOptions().colors,
-                i = 25,
+                i = 18,
                 flag = false,
                 nodes = {};
             e.options.data.forEach(function (link) {
@@ -289,11 +289,10 @@ function handleNeuro(list) {
                     nodes[firstname] = {
                         id: firstname,
                         marker: {
-                            radius: i
+                            radius: 25
                         },
                         color: colors[7]
                     };
-                    i = 20;
                 }
                 if (!flag) {
                     flag = true;
@@ -314,7 +313,7 @@ function handleNeuro(list) {
                         color: colors[9]
                     };
                     if (i > 10) {
-                        i = i - 5;
+                        i = i - 6;
                     }
                 }
 
