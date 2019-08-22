@@ -54,7 +54,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.authorizeRequests().antMatchers("/login", "/images/**", "/css/**", "/js/**", "/vendors/**", "/v1/rest/**", "/login/**")
 				.permitAll();
 		http.authorizeRequests().antMatchers("/", "/logout").authenticated();
-		http.authorizeRequests().antMatchers("/users/**", "/dataintegration/**", "/indicators/**").hasAnyRole("ROLE_ADMIN").and().exceptionHandling().accessDeniedHandler(accessDeniedHandler())/*.accessDeniedPage("/errors/error-403")*/;
+		http.authorizeRequests().antMatchers("/users", "/users/setting", "/dataintegration/**", "/indicators/**").hasAnyRole("ADMIN").and().exceptionHandling().accessDeniedHandler(accessDeniedHandler())/*.accessDeniedPage("/errors/error-403")*/;
 		http.authorizeRequests().antMatchers("/**").authenticated();
 		http.authorizeRequests().and().formLogin()// Submit URL of login page.
 				.loginProcessingUrl("/check_login") // Submit URL
