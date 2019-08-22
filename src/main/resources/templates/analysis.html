@@ -169,7 +169,7 @@
                                                                 </h4></div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and riskscore == null}">
+                                                                 th:if="${dataintegration != null and riskscore == null and #authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
@@ -186,7 +186,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and riskratio == null}">
+                                                                 th:if="${dataintegration != null and riskratio == null and #authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
@@ -203,7 +203,7 @@
                                                                 </div>
                                                             </div>
                                                             <div class="col-12"
-                                                                 th:if="${dataintegration != null and businesstree == null}">
+                                                                 th:if="${dataintegration != null and businesstree == null and #authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                                                                 <div class="form-group col-12 alert alert-danger"
                                                                      role="alert">
                                                                     <label>
@@ -216,6 +216,43 @@
                                                                                th:href="@{/indicators/businesstree/setting}">Nueva
                                                                                 configuración</a>
                                                                         </strong>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="col-12"
+                                                                 th:if="${dataintegration != null and riskscore == null and #authorization.expression('hasRole(''ROLE_BASIC'')')}">
+                                                                <div class="form-group col-12 alert alert-danger"
+                                                                     role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Risk Score</strong>. Por favor comuníquese con el
+                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12"
+                                                                 th:if="${dataintegration != null and riskratio == null and #authorization.expression('hasRole(''ROLE_BASIC'')')}">
+                                                                <div class="form-group col-12 alert alert-danger"
+                                                                     role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Risk Ratios</strong>. Por favor comuníquese con el
+                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12"
+                                                                 th:if="${dataintegration != null and businesstree == null and #authorization.expression('hasRole(''ROLE_BASIC'')')}">
+                                                                <div class="form-group col-12 alert alert-danger"
+                                                                     role="alert">
+                                                                    <label>
+                                                                        <strong style="margin-right: 8px;">Cuidado!</strong>
+                                                                        Actualmente no está configurado el <strong>indicador
+                                                                        Business Tree</strong>. Por favor comuníquese con el
+                                                                        <strong style="color: #ffffff;">Usuario Administrador</strong> de su empresa.
                                                                     </label>
                                                                 </div>
                                                             </div>

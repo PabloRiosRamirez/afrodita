@@ -65,7 +65,7 @@
             </div>
 
             <!--end: User bar -->
-            <button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler">
+            <button class="kt-header-mobile__toolbar-toggler" id="kt_header_mobile_toggler" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                 <span></span>
             </button>
 
@@ -83,10 +83,10 @@
             </div>
             <!-- end:: Brand -->
             <!-- begin: Header Menu -->
-            <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn">
+            <button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">
                 <i class="flaticon2-close-cross"></i>
             </button>
-            <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid"
+            <div class="kt-header-menu-wrapper kt-grid__item kt-grid__item--fluid" th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}"
                  id="kt_header_menu_wrapper">
                 <div class="kt-header-menu kt-header-menu-mobile " id="kt_header_menu">
                     <ul class="kt-menu__nav ">
